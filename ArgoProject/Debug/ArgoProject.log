@@ -1,2 +1,12 @@
 ﻿  Game.cpp
-  ArgoProject.vcxproj -> C:\Users\Brian\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+  GameStateMachine.cpp
+  main.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+  MenuButton.cpp
+  MenuState.cpp
+  PlayState.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+  TextureManager.cpp
+  Generating Code...
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+  ArgoProject.vcxproj -> C:\Users\gameuser\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
