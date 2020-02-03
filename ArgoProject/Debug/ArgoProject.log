@@ -1,2 +1,5 @@
 ﻿  Game.cpp
-C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp : fatal error C1033: cannot open program database 'C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\Debug\vc142.pdb'
+C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp(62,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp(62,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ArgoProject.vcxproj -> C:\Users\Brandon\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe

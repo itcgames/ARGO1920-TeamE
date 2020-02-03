@@ -52,6 +52,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	m_playerRect = new SDL_Rect();
 	m_playerRect->x = 200; m_playerRect->y = 78;
 	m_playerRect->w = 200; m_playerRect->h = 138;
+	m_rs = new RenderSystem();
 
 	SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
 	m_ecsTexture = SDL_CreateTextureFromSurface(renderer, ecsSurface);
@@ -101,7 +102,7 @@ void Game::render()
 	////Draw here
 	m_gameStateMachine->render();
 
-	//m_rs->render(renderer);
+	m_rs->render(renderer);
 
 	//Presents the new Images
 	SDL_RenderPresent(renderer);
