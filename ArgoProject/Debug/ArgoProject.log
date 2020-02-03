@@ -1,12 +1,2 @@
 ﻿  Game.cpp
-  GameStateMachine.cpp
-  main.cpp
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  MenuButton.cpp
-  MenuState.cpp
-  PlayState.cpp
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  TextureManager.cpp
-  Generating Code...
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  ArgoProject.vcxproj -> C:\Users\gameuser\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp : fatal error C1033: cannot open program database 'C:\Users\Brandon\Desktop\ARGO1920-TeamE\ArgoProject\Debug\vc142.pdb'

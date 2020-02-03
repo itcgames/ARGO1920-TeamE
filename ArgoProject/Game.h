@@ -37,6 +37,7 @@ private:
 	bool isRunning = false;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	SDL_Texture* m_ecsTexture;
 
 	bool m_exitGame; // control exiting game
 
@@ -58,6 +59,8 @@ private:
 	SpriteComponent* m_sc;
 	//
 	RenderSystem* m_rs;
+	//
+	SDL_Rect* m_playerRect;
 };
 
 #endif // !GAME_H
