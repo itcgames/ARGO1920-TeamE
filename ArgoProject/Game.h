@@ -8,7 +8,6 @@
 
 #include <iostream>
 
-#include "TextureManager.h"
 #include "GameStateMachine.h"
 #include "MenuState.h"
 #include "PlayState.h"

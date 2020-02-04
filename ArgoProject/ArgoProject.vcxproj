@@ -141,7 +141,6 @@
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
@@ -161,7 +160,6 @@
     <ClInclude Include="StaminaComponent.h" />
     <ClInclude Include="StatsComponent.h" />
     <ClInclude Include="System.h" />
-    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

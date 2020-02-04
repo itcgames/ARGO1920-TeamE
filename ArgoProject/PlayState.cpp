@@ -10,12 +10,10 @@ void PlayState::update()
 
 void PlayState::render()
 {
-	MyTextureManager::Instance()->Draw("animate", 0, 0, 80, 140);
 }
 
 bool PlayState::onEnter()
 {
-	MyTextureManager::Instance()->Load("Assets/char.png", "animate");
 	std::cout << "Entering Play State\n";
 	return true;
 }
