@@ -12,6 +12,10 @@ void MenuState::render()
 {
 }
 
+void MenuState::processEvents(bool isRunning)
+{
+}
+
 bool MenuState::onEnter()
 {
 

@@ -27,24 +27,24 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	m_gameStateMachine->changeState(new PlayState());
 
 
-	//
-	m_playerRect = new SDL_Rect();
-	m_playerRect->x = 200; m_playerRect->y = 200;
-	m_playerRect->w = 78; m_playerRect->h = 138;
-	m_rs = new RenderSystem();
+	////
+	//m_playerRect = new SDL_Rect();
+	//m_playerRect->x = 200; m_playerRect->y = 200;
+	//m_playerRect->w = 78; m_playerRect->h = 138;
+	//m_rs = new RenderSystem();
 
-	SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
-	m_ecsTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface);
+	//SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
+	//m_ecsTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface);
 
-	m_entity = new Entity();
+	//m_entity = new Entity();
 
-	m_pc = new PositionComponent(Vector2(m_playerRect->x, m_playerRect->y), 1);
-	m_sc = new SpriteComponent(m_ecsTexture, m_playerRect, 2);
+	//m_pc = new PositionComponent(Vector2(m_playerRect->x, m_playerRect->y), 1);
+	//m_sc = new SpriteComponent(m_ecsTexture, m_playerRect, 2);
 
-	m_entity->addComponent<PositionComponent>(m_pc, 1);
-	m_entity->addComponent<SpriteComponent>(m_sc, 2);
+	//m_entity->addComponent<PositionComponent>(m_pc, 1);
+	//m_entity->addComponent<SpriteComponent>(m_sc, 2);
 
-	m_rs->addEntity(m_entity);
+	//m_rs->addEntity(m_entity);
 
 
 	// To get position of entity within a system type m_entities[i]->getComponent<PositionComponent>(1)->getPosition();
@@ -58,25 +58,15 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 /// handle user and system events/ input
 void Game::processEvents()
 {
-	//Handles all the inputs
-	SDL_Event event;
-	if (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			isRunning = false;
-			break;
-		default:
-			break;
-		}
-	}
+	m_gameStateMachine->processEvents(isRunning);
+
 }
 
 
 /// Update the game world
 void Game::update()
 {
+	m_gameStateMachine->update();
 
 }
 
@@ -89,7 +79,7 @@ void Game::render()
 	////Draw here
 	m_gameStateMachine->render();
 
-	m_rs->render(Render::Instance()->getRenderer());
+	//m_rs->render(Render::Instance()->getRenderer());
 
 	//Presents the new Images
 	SDL_RenderPresent(Render::Instance()->getRenderer());

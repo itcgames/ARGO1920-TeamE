@@ -8,6 +8,7 @@ class MenuState : public GameState
 public:
 	virtual void update();
 	virtual void render();
+	virtual void processEvents(bool isRunning);
 
 	virtual bool onEnter();
 	virtual bool onExit();

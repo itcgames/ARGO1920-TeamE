@@ -1,5 +1,11 @@
-﻿  Game.cpp
-C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp(41,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp(41,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-  ArgoProject.vcxproj -> C:\Users\Brian\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+﻿  PlayState.cpp
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(11,65): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(11,48): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(17,35): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(18,35): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(47,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(48,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(86,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(86,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+  ArgoProject.vcxproj -> C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
