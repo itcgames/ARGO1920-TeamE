@@ -29,6 +29,7 @@ public:
 	{
 		for (int i = 0; i < m_entities.size(); i++)
 		{
+			
 			if (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w < 0)
 			{
 				m_entities[i] = nullptr;
