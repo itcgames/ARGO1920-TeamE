@@ -3,31 +3,34 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <map>
+#include "Renderer.h"
 
 
 class TextureManager
 {
 public:
-		static TextureManager* Instance()
+	static TextureManager* Instance()
+	{
+		if (m_Instance == 0)
 		{
-			if (m_Instance == 0)
-			{
-				m_Instance = new TextureManager();
-				return m_Instance;
-			}
-
+			m_Instance = new TextureManager();
 			return m_Instance;
 		}
 
-		bool Load(std::string fileName, std::string id, SDL_Renderer* t_renderer);
+		return m_Instance;
+	}
 
-		// Used to draw Static Image
-		void Draw(std::string id, int x, int y, int width, int height, SDL_Renderer* t_renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	bool Load(std::string fileName, std::string id);
 
-		//Used to draw animated sprites
-		void DrawFrame(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_Renderer* t_renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	// Used to draw Static Image
+	void Draw(std::string id, int x, int y, int width, int height, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-		std::map<std::string, SDL_Texture*> getTextureMap() { return m_textureMap; }
+	//Used to draw animated sprites
+	void DrawFrame(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+	SDL_Texture* getTexture(std::string id);
+
+	std::map<std::string, SDL_Texture*> getTextureMap() { return m_textureMap; }
 
 private:
 	TextureManager();

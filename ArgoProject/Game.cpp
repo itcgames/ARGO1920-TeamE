@@ -12,30 +12,10 @@ Game::~Game()
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
-	int flags = 0;
+	Render::Instance()->setUpRenderer(title, xPos, yPos, width, height, fullscreen);
 
-	if (fullscreen == true)
+	if (Render::Instance()->allOk())
 	{
-		flags = SDL_WINDOW_FULLSCREEN;
-	}
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
-	{
-		std::cout << " Subsystem initialised!!" << std::endl;
-		window = SDL_CreateWindow(title, xPos, yPos, width, height, flags);
-
-		if (window)
-		{
-			std::cout << "Window Created" << std::endl;
-		}
-
-		renderer = SDL_CreateRenderer(window, -1, 0 | SDL_RENDERER_PRESENTVSYNC);
-		if (renderer)
-		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-			std::cout << "Renderer Created" << std::endl;
-
-		}
-
 		isRunning = true;
 
 	}
@@ -43,9 +23,8 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-
 	m_gameStateMachine = new GameStateMachine();
-	m_gameStateMachine->changeState(new PlayState(),renderer);
+	m_gameStateMachine->changeState(new PlayState());
 
 
 	//
@@ -55,7 +34,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	m_rs = new RenderSystem();
 
 	SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
-	m_ecsTexture = SDL_CreateTextureFromSurface(renderer, ecsSurface);
+	m_ecsTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface);
 
 	m_entity = new Entity();
 
@@ -105,21 +84,21 @@ void Game::update()
 void Game::render()
 {
 	//Clears image after every frame
-	SDL_RenderClear(renderer);
+	SDL_RenderClear(Render::Instance()->getRenderer());
 
 	////Draw here
 	m_gameStateMachine->render();
 
-	m_rs->render(renderer);
+	m_rs->render(Render::Instance()->getRenderer());
 
 	//Presents the new Images
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(Render::Instance()->getRenderer());
 }
 
 void Game::cleanUp()
 {
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
+	Render::Instance()->renderToNull();
+	Render::Instance()->windowToNull();
 
 	window = nullptr;
 	renderer = nullptr;

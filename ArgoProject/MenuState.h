@@ -10,7 +10,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	virtual bool onEnter(SDL_Renderer* t_renderer);
+	virtual bool onEnter();
 	virtual bool onExit();
 
 	virtual std::string getStateID() const { return m_menuID; };
@@ -21,6 +21,5 @@ private:
 
 	static const std::string  m_menuID;
 
-	SDL_Renderer* menuRender;
 };
 

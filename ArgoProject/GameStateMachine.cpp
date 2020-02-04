@@ -1,14 +1,14 @@
 #include "GameStateMachine.h"
 
 //Add new state without removing previous state
-void GameStateMachine::pushState(GameState *t_state,SDL_Renderer* t_renderer)
+void GameStateMachine::pushState(GameState* t_state)
 {
 	m_gameStateSystem.push_back(t_state);
-	m_gameStateSystem.back()->onEnter(t_renderer);
+	m_gameStateSystem.back()->onEnter();
 }
 
 //remove previous before adding a new state
-void GameStateMachine::changeState(GameState *t_state, SDL_Renderer *t_renderer)
+void GameStateMachine::changeState(GameState* t_state)
 {
 	if (!m_gameStateSystem.empty())
 	{
@@ -24,7 +24,7 @@ void GameStateMachine::changeState(GameState *t_state, SDL_Renderer *t_renderer)
 
 
 	//init it
-	t_state->onEnter(t_renderer);
+	t_state->onEnter();
 
 	//push back new state
 	m_gameStateSystem.push_back(t_state);

@@ -6,8 +6,8 @@
 class GameStateMachine
 {
 public:
-	void pushState(GameState* t_state, SDL_Renderer* t_renderer);
-	void changeState(GameState* t_state,SDL_Renderer* t_renderer);
+	void pushState(GameState* t_state);
+	void changeState(GameState* t_state);
 	void popState();
 
 	void update();

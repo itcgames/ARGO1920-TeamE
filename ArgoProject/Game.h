@@ -16,6 +16,7 @@
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
 #include "RenderSystem.h"
+#include "Renderer.h"
 
 class Game
 {

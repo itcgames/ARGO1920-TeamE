@@ -10,22 +10,18 @@ void PlayState::update()
 
 void PlayState::render()
 {
-	MyTextureManager::Instance()->Draw("animate", 0, 0, 80, 140, playRender);
+	MyTextureManager::Instance()->Draw("animate", 0, 0, 80, 140);
 }
 
-bool PlayState::onEnter(SDL_Renderer* t_renderer)
+bool PlayState::onEnter()
 {
-	playRender = t_renderer;
-	MyTextureManager::Instance()->Load("Assets/char.png", "animate", playRender);
-
+	MyTextureManager::Instance()->Load("Assets/char.png", "animate");
 	std::cout << "Entering Play State\n";
 	return true;
 }
 
 bool PlayState::onExit()
 {
-	playRender = nullptr;
-
 	std::cout << "Exiting Play State\n";
 	return true;
 }

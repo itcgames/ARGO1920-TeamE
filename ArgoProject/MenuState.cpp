@@ -10,13 +10,12 @@ void MenuState::update()
 
 void MenuState::render()
 {
-	MyTextureManager::Instance()->DrawFrame("animate", 100, 100, 80, 140, 3, m_currentFrame, menuRender);
+	MyTextureManager::Instance()->DrawFrame("animate", 100, 100, 80, 140, 3, m_currentFrame);
 }
 
-bool MenuState::onEnter(SDL_Renderer *t_renderer)
+bool MenuState::onEnter()
 {
-	menuRender = t_renderer;
-	MyTextureManager::Instance()->Load("Assets/char.png", "animate", menuRender);
+	MyTextureManager::Instance()->Load("Assets/char.png", "animate");
 
 	std::cout << "Entering Menu State\n";
 	return true;
@@ -24,7 +23,6 @@ bool MenuState::onEnter(SDL_Renderer *t_renderer)
 
 bool MenuState::onExit()
 {
-	menuRender = nullptr;
 
 	std::cout << "Exiting Menu State\n";
 	return true;
