@@ -42,6 +42,7 @@ public:
 		m_texture = texture;
 	}
 
+private:
 	bool m_isActive;
 	SDL_Texture* m_texture;
 	SDL_Rect* m_rect;
