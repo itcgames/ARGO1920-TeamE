@@ -1,11 +1,21 @@
-#pragma once
+
+
+#ifndef GAME_H
+#define GAME_H
+
 #include <SDL.h>
 #include <SDL_image.h>
+
 #include <iostream>
+
 #include "TextureManager.h"
 #include "GameStateMachine.h"
 #include "MenuState.h"
 #include "PlayState.h"
+#include "Entity.h"
+#include "PositionComponent.h"
+#include "SpriteComponent.h"
+#include "RenderSystem.h"
 
 class Game
 {
@@ -27,6 +37,7 @@ private:
 	bool isRunning = false;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	SDL_Texture* m_ecsTexture;
 
 	bool m_exitGame; // control exiting game
 
@@ -40,5 +51,16 @@ private:
 
 	GameStateMachine* m_gameStateMachine;
 	int timer = 0;
+
+	//
+	Entity* m_entity;
+	//
+	PositionComponent* m_pc;
+	SpriteComponent* m_sc;
+	//
+	RenderSystem* m_rs;
+	//
+	SDL_Rect* m_playerRect;
 };
 
+#endif // !GAME_H

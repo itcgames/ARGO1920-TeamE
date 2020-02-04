@@ -1,7 +1,9 @@
 #pragma once
+
 #include "GameState.h"
 #include "TextureManager.h"
 #include "SDL.h"
+
 #include <iostream>
 
 class PlayState : public GameState

@@ -1,2 +1,5 @@
 ﻿  Game.cpp
-  ArgoProject.vcxproj -> C:\Users\Brian\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp(62,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Game.cpp(62,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+  ArgoProject.vcxproj -> C:\Users\gameuser\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
