@@ -140,17 +140,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="Ai.h" />
-=======
-    <ClInclude Include="BehaviourComponent.h" />
-    <ClInclude Include="BehaviourSystem.h" />
->>>>>>> 5d08310d226791b074561675216462481b0f601d
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
@@ -160,7 +154,6 @@
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="Renderer.h" />

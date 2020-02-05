@@ -2,8 +2,11 @@
 
 #include "GameState.h"
 #include "SDL.h"
+#include "Entity.h"
+#include "PositionComponent.h"
+#include "SpriteComponent.h"
+#include "RenderSystem.h"
 #include "Renderer.h"
-#include "Player.h"
 #include <iostream>
 #include "Ai.h"
 class PlayState : public GameState
@@ -19,9 +22,8 @@ public:
 	virtual std::string getStateID() const { return m_playID; };
 
 private:
-	static const std::string m_playID;
+	static const std::string  m_playID;
 
-<<<<<<< HEAD
 	//
 	Entity* m_player;
 	Entity* m_mouse;
@@ -54,9 +56,5 @@ private:
 
 	Vector2 Normalize(Vector2& t_vector);
 
-=======
-	RenderSystem* m_rs;
-	Player m_player;
->>>>>>> 5d08310d226791b074561675216462481b0f601d
 };
 

@@ -63,11 +63,7 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Ai.cpp">
-=======
-    <ClCompile Include="Player.cpp">
->>>>>>> 5d08310d226791b074561675216462481b0f601d
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,20 +122,8 @@
     <ClInclude Include="Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Ai.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BehaviourComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="BehaviourSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
->>>>>>> 5d08310d226791b074561675216462481b0f601d
   </ItemGroup>
 </Project>

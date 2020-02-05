@@ -10,6 +10,7 @@
 #define ENTITY_H
 
 #include "Component.h"
+
 #include <iostream>
 #include <string>
 #include <vector>

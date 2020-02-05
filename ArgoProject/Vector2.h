@@ -81,6 +81,7 @@ public:
 		return *this;
 	}
 
+
 	float x, y;
 };
 
