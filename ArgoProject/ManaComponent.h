@@ -12,6 +12,8 @@
 
 #include "Component.h"
 
+// ManaComponent class deriving from the BaseComponent class,
+// since BaseComponent is a template class deriving must be done as shown below
 class ManaComponent : public BaseComponent<ManaComponent>
 {
 public:

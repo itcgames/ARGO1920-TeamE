@@ -16,15 +16,16 @@
 #include "SDL_image.h"
 #include "Vector2.h"
 
-//
+// Component class
 class Component
 {
 public:
-	//
+	// Virtual used for getting the type, or ID, of the Component type
 	virtual int getType() const = 0;
 };
 
-//
+// Template class for BaseComponent that derives from the Component,
+// acts as template class the allow creation of new Components with easy enough as to
 template <class T>
 class BaseComponent : public Component
 {
@@ -34,8 +35,9 @@ public:
 
 	}
 
-	//the entity this component is attached to
+	// The entity that this component is attached to through this variable
 	int m_entityID;
+	// Used for the different type of Component
 	static int type;
 	int getType() const { return T::type; }
 };

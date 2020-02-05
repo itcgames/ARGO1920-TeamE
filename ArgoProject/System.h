@@ -15,10 +15,11 @@
 #include <SDL_image.h>
 #include "Vector2.h"
 
-//
+// Base System class
 class System
 {
 public:
+	// Method used to add new entities into vector of entities used in all systems
 	void addEntity(Entity* entity)
 	{
 		m_entities.push_back(entity);
@@ -26,6 +27,7 @@ public:
 
 
 protected:
+	// Vector of entities that will be used in all systems that derive from the base system
 	std::vector<Entity*> m_entities;
 };
 

@@ -148,7 +148,9 @@
     <ClInclude Include="Ai.h" />
     <ClInclude Include="BehaviourComponent.h" />
     <ClInclude Include="BehaviourSystem.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />

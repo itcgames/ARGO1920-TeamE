@@ -16,24 +16,27 @@
 #include <vector>
 #include <unordered_map>
 
-//
+// Game Entity class
 class Entity
 {
 public:
-	//
+	// Default constructor used for pointers
 	Entity()
 	{
 
 	}
 
-	//
+	// Template class used to get specfic components; derived from the base Component; of  the game 
+	// entities, i.e. getComponent<PositionComponent>() accesses the PositionComponent of the entity
+	// and aquire it's data
 	template <class T>
 	T* getComponent(int type)
 	{
 		return static_cast<T*>(m_component[type]);
 	};
 
-	//
+	// Template class used to add new components to the entities; provided that these components
+	// derive from the base Component
 	template <class T>
 	void addComponent(Component* component, int type)
 	{

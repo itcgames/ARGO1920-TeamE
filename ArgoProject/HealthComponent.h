@@ -11,7 +11,8 @@
 
 #include "Component.h"
 
-//
+// HealthComponent class deriving from the BaseComponent class,
+// since BaseComponent is a template class deriving must be done as shown below
 class HealthComponent : public BaseComponent<HealthComponent>
 {
 public:
