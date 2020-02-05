@@ -1,11 +1,10 @@
-﻿  PlayState.cpp
+﻿  Player.cpp
 C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(11,65): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(11,48): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(17,35): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(18,35): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(47,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(48,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(86,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(86,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(35,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(36,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(58,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
+C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(59,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
   ArgoProject.vcxproj -> C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
