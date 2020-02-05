@@ -15,7 +15,7 @@ public:
 	void init(RenderSystem* t_rs);
 	void update();
 	void processEvents(bool isRunning);
-
+	Vector2 getPosition() { return m_pc->getPosition(); }
 
 	Entity* m_player;
 	PositionComponent* m_pc;

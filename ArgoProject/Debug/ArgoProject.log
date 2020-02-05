@@ -1,11 +1,8 @@
-﻿  Game.cpp
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  PlayState.cpp
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  main.cpp
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  Generating Code...
-C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-  ArgoProject.vcxproj -> C:\Users\Aoife Powders\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+﻿  Ai.cpp
+C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(18,56): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(18,45): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(37,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(38,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+  ArgoProject.vcxproj -> C:\Users\Alex\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe

@@ -6,6 +6,7 @@ const std::string PlayState::m_playID = "PLAY";
 void PlayState::update()
 {
 	m_player.update();
+	m_enemy.update(m_player.getPosition());
 }
 
 void PlayState::render()
