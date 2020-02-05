@@ -9,8 +9,8 @@ void PlayState::update()
 	if (m_playerRect->x != mousePosition.x && m_playerRect->y != mousePosition.y)
 	{
 		Vector2 playerPosition = Vector2(m_playerRect->x, m_playerRect->y);
-		m_velocity = mousePosition - playerPosition;
-		Vector2 normalizedVelo = Normalize(m_velocity);
+		m_playerVelocity = mousePosition - playerPosition;
+		Vector2 normalizedVelo = Normalize(m_playerVelocity);
 		playerPosition.x += normalizedVelo.x * maxSpeed;
 		playerPosition.y += normalizedVelo.y * maxSpeed;
 
@@ -90,6 +90,9 @@ bool PlayState::onEnter()
 	m_player->addComponent<SpriteComponent>(m_sc, 2);
 
 	m_rs->addEntity(m_player);
+
+	//creates the enemy and adds it to the render system
+	m_enemy.initialize(m_rs);
 
 	//draws a rectangle on the mouse when you click and drag 
 	//m_mouseRect = new SDL_Rect();

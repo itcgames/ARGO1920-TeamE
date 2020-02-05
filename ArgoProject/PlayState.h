@@ -8,7 +8,7 @@
 #include "RenderSystem.h"
 #include "Renderer.h"
 #include <iostream>
-
+#include "Ai.h"
 class PlayState : public GameState
 {
 public:
@@ -31,6 +31,9 @@ private:
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
 
+	//Enemy
+	Ai m_enemy;
+
 	PositionComponent* m_mousepc;
 	SpriteComponent* m_mousesc;
 	//
@@ -49,7 +52,7 @@ private:
 
 	Vector2 mousePosition = Vector2(100, 100);
 
-	Vector2 m_velocity = Vector2(0, 0);
+	Vector2 m_playerVelocity = Vector2(0, 0);
 
 	Vector2 Normalize(Vector2& t_vector);
 
