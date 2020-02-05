@@ -21,6 +21,9 @@ public:
 
 	virtual std::string getStateID() const { return m_playID; };
 
+	Vector2 GetPosition();
+	virtual SDL_Rect* GetViewRect();
+
 private:
 	static const std::string  m_playID;
 
@@ -42,6 +45,7 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect* m_mouseRect;
 	SDL_Texture* mouseTexture;
+	SDL_Rect* m_viewRect;
 
 	bool move = false;
 

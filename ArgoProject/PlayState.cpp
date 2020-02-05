@@ -18,11 +18,22 @@ void PlayState::update()
 		m_playerRect->y = playerPosition.y;
 	}
 
+	m_viewRect = new SDL_Rect();
+	m_viewRect->x = GetPosition().x - 400;
+	m_viewRect->y = GetPosition().y - 300;
+	std::cout << "ViewPort Position: " << m_viewRect->x << " " << m_viewRect->y << "Player Position: " << GetPosition().x << " " << GetPosition().y << std::endl;
+	m_viewRect->w = 800;
+	m_viewRect->h = 600;
+
 }
 
 void PlayState::render()
 {
+	/* Creating the surface. */
+
 	m_rs->render(Render::Instance()->getRenderer());
+	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
+	
 }
 
 /// handle user and system events/ input
@@ -123,4 +134,14 @@ Vector2 PlayState::Normalize(Vector2& t_vector)
 	Vector2 normalizedVector{ 0,0 };
 	normalizedVector = t_vector / (sqrt((t_vector.x * t_vector.x) + (t_vector.y * t_vector.y)));
 	return normalizedVector;
+}
+
+Vector2 PlayState::GetPosition()
+{
+	return Vector2(m_playerRect->x + m_playerRect->w / 2, m_playerRect->y + m_playerRect->h / 2);
+}
+
+SDL_Rect* PlayState::GetViewRect()
+{
+	return m_viewRect;
 }

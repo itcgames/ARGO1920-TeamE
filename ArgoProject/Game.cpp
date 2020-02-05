@@ -80,8 +80,9 @@ void Game::render()
 	m_gameStateMachine->render();
 
 	//m_rs->render(Render::Instance()->getRenderer());
-
+	//apply_
 	//Presents the new Images
+	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_gameStateMachine->GetViewRect());
 	SDL_RenderPresent(Render::Instance()->getRenderer());
 }
 
