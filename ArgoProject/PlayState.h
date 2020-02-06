@@ -24,6 +24,6 @@ private:
 
 	RenderSystem* m_rs;
 	Player m_player;
-	Ai m_enemy;
+	Ai* m_enemy = new Ai;
 };
 

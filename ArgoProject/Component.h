@@ -29,10 +29,12 @@ template <class T>
 class BaseComponent : public Component
 {
 public:
+
 	BaseComponent(int id = -1) : m_entityID(id)
 	{
 
 	}
+
 
 	//the entity this component is attached to
 	int m_entityID;

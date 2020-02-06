@@ -1,5 +1,6 @@
 #include "Ai.h"
 
+
 void Ai::initialize(RenderSystem* t_rs)
 {
 	//draws a rectangle for the enemy
@@ -27,7 +28,6 @@ void Ai::initialize(RenderSystem* t_rs)
 	m_bs->addEntity(m_enemy);
 
 	t_rs->addEntity(m_enemy);
-
 	std::cout << "Enemy Initialized" << std::endl;
 }
 

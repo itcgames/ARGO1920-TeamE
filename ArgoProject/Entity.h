@@ -26,6 +26,11 @@ public:
 
 	}
 
+	~Entity()
+	{
+		delete this;
+	}
+
 	//
 	template <class T>
 	T* getComponent(int type)
@@ -40,6 +45,14 @@ public:
 		m_component[type] = component;
 	};
 
+	int getID() { return m_ID; }
+
+	template <class T>
+	void removeComponent(int type)
+	{
+		m_component.erase(type);
+	};
+	
 private:
 	std::unordered_map<int, Component*> m_component;
 	int m_ID;

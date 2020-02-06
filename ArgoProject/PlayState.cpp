@@ -6,7 +6,7 @@ const std::string PlayState::m_playID = "PLAY";
 void PlayState::update()
 {
 	m_player.update();
-	m_enemy.update(m_player.getPosition());
+	m_enemy->update(m_player.getPosition());
 }
 
 void PlayState::render()
@@ -25,7 +25,7 @@ bool PlayState::onEnter()
 	std::cout << "Entering Play State\n";
 	m_rs = new RenderSystem();
 	m_player.init(m_rs);
-	m_enemy.initialize(m_rs);
+	m_enemy->initialize(m_rs);
 	return true;
 }
 
