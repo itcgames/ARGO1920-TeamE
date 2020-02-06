@@ -12,7 +12,7 @@
 class Player
 {
 public:
-	void init(RenderSystem* t_rs);
+	void init(RenderSystem* t_rs, SDL_Rect* camera);
 	void update();
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
@@ -26,6 +26,7 @@ public:
 
 	SDL_Rect* m_playerRect;
 	SDL_Texture* texture;
+	SDL_Rect* m_camera;
 
 	bool move = false;
 

@@ -1,31 +1,42 @@
-﻿  Ai.cpp
+﻿  Game.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(29,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(49,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+  PlayState.cpp
 C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(18,56): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(18,45): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(37,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-  Game.cpp
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(38,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  GameStateMachine.cpp
-  main.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(29,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(49,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  MenuButton.cpp
-  MenuState.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(11,44): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
   Player.cpp
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\PlayState.cpp(12,44): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(29,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(49,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(35,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(36,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(58,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-  PlayState.cpp
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(59,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-  Renderer.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(37,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(38,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(60,38): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(61,38): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(29,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(49,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,36): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4838:  conversion from 'float' to 'int' requires a narrowing conversion
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(52,47): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
   Generating Code...
 C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
   ArgoProject.vcxproj -> C:\Users\gameuser\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe

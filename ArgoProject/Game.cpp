@@ -74,6 +74,7 @@ void Game::update()
 void Game::render()
 {
 	//Clears image after every frame
+	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(Render::Instance()->getRenderer());
 
 	////Draw here

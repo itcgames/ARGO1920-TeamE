@@ -21,7 +21,6 @@ public:
 	//
 	RenderSystem()
 	{
-
 	}
 
 	//
@@ -45,6 +44,14 @@ public:
 		}
 	}
 
+	void renderPlayState(SDL_Renderer* renderer,SDL_Rect* camera, Vector2 positon)
+	{
+		for (int i = 0; i < m_entities.size(); i++)
+		{
+		}
+		SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
+		SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
+	}
 	//
 	void renderImage(SDL_Renderer* renderer, SpriteComponent* spriteComponent)
 	{

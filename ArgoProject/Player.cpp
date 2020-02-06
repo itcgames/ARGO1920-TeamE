@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::init(RenderSystem* t_rs)
+void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera)
 {
 	//draws a rectangle for the player
 	m_playerRect = new SDL_Rect();
@@ -24,6 +24,8 @@ void Player::init(RenderSystem* t_rs)
 	m_bs->addEntity(m_player);
 	t_rs->addEntity(m_player);
 
+
+	m_camera = t_camera;
 }
 
 void Player::update()
@@ -55,8 +57,8 @@ void Player::processEvents(bool isRunning)
 			}
 			else if (event.button.button == SDL_BUTTON_RIGHT)
 			{
-				mousePosition.x = event.button.x;
-				mousePosition.y = event.button.y;
+				mousePosition.x = event.button.x + m_camera->x;
+				mousePosition.y = event.button.y + m_camera->y;
 				move = true;
 			}
 			break;
