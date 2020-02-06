@@ -56,6 +56,20 @@ public:
 		}
 	}
 
+	void wallCollisionResponse(Entity* m_a, Entity* m_b)
+	{
+		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
+			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
+		{
+			//player velocity *= -1
+			Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
+			velocity.x *= -1;
+			velocity.y *= -1;
+
+			m_a->getComponent<BehaviourComponent>(3)->setNormalizeVel(velocity);
+		}
+	}
+
 	// Separating Axis Theorem Collision
 	/*void getAxis()
 	{
