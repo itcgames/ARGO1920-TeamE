@@ -15,6 +15,7 @@ public:
 	void initialize(RenderSystem* t_rs);
 	void update(Vector2 t_position);
 	void render();
+	void destroy() { delete this; }
 private:
 	Entity* m_enemy;
 	SDL_Rect* m_rect;

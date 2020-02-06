@@ -27,8 +27,7 @@ void PlayState::update()
 	{
 		camera->y = 2000 - camera->h;
 	}
-
-	m_enemy.update(m_player.getPosition());
+	m_enemy->update(m_player.getPosition());
 }
 
 void PlayState::render()
@@ -72,7 +71,7 @@ bool PlayState::onEnter()
 	level->y = 0;
 
 	m_player.init(m_rs, camera);
-	m_enemy.initialize(m_rs);
+	m_enemy->initialize(m_rs);
 	return true;
 }
 

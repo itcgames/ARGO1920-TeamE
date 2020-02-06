@@ -25,9 +25,9 @@ private:
 
 	RenderSystem* m_rs;
 	Player m_player;
-	Ai m_enemy;
 
 	SDL_Rect* camera;
 	SDL_Rect* level;
+	Ai* m_enemy = new Ai;
 };
 

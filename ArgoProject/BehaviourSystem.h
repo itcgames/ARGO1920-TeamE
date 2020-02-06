@@ -34,6 +34,27 @@ public:
 		}
 	}
 
+	//This function flees away from a target if the target gets too close
+	void flee(Vector2 t_targetPosition)
+	{
+		for (int i = 0; i < m_entities.size(); i++)
+		{
+			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
+			Vector2 direction = t_targetPosition - position;
+			float distance = sqrt((direction.x * direction.x) + (direction.y * direction.y));
+			std::cout << std::to_string(distance) << std::endl;
+			if (distance < 350)
+			{
+				m_velocity = position - t_targetPosition;
+				Vector2 normalizedVelo = Normalize(m_velocity);
+				int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
+				position.x += normalizedVelo.x * m_maxSpeed;
+				position.y += normalizedVelo.y * m_maxSpeed;
+				m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
+			}
+		}
+
+	}
 	Vector2 Normalize(Vector2& t_vector)
 	{
 		Vector2 normalizedVector{ 0,0 };
