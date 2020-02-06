@@ -46,11 +46,16 @@ public:
 
 	void renderPlayState(SDL_Renderer* renderer,SDL_Rect* camera, Vector2 positon)
 	{
-		for (int i = 0; i < m_entities.size(); i++)
-		{
-		}
 		SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
 		SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
+
+		for (int i = 1; i < m_entities.size(); i++)
+		{
+			int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
+			int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
+			viewableArea = { posX, posY, 100,100 };
+			SDL_RenderCopy(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
+		}
 	}
 	//
 	void renderImage(SDL_Renderer* renderer, SpriteComponent* spriteComponent)
