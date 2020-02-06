@@ -17,6 +17,9 @@ public:
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
 
+	Entity* getEntity() { return m_player; };
+
+
 	Entity* m_player;
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;

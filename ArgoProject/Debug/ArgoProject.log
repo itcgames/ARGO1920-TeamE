@@ -1,1 +1,11 @@
-﻿  ArgoProject.vcxproj -> C:\Users\Brandon\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+﻿  Game.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+  PlayState.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+  main.cpp
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\gameuser\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+  ArgoProject.vcxproj -> C:\Users\gameuser\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
