@@ -15,7 +15,7 @@ void Player::init(RenderSystem* t_rs)
 
 	m_pc = new PositionComponent(Vector2(m_playerRect->x, m_playerRect->y), 1);
 	m_sc = new SpriteComponent(texture, m_playerRect, 2);
-	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 3);
+	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
 
 	m_player->addComponent<PositionComponent>(m_pc, 1);
 	m_player->addComponent<SpriteComponent>(m_sc, 2);
@@ -49,11 +49,11 @@ void Player::processEvents(bool isRunning)
 			isRunning = false;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button == SDL_BUTTON_LEFT)
+			if (event.button.button == SDL_BUTTON_RIGHT)
 			{
-				std::cout << "left mouse button" << std::endl;
+				std::cout << "right mouse button" << std::endl;
 			}
-			else if (event.button.button == SDL_BUTTON_RIGHT)
+			else if (event.button.button == SDL_BUTTON_LEFT)
 			{
 				mousePosition.x = event.button.x;
 				mousePosition.y = event.button.y;

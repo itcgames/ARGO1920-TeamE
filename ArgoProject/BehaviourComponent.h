@@ -7,9 +7,10 @@
 class BehaviourComponent : public BaseComponent<BehaviourComponent>
 {
 public:
-	BehaviourComponent(Vector2 t_velocity, int t_maxSpeed, int entityID) :
+	BehaviourComponent(Vector2 t_velocity, int t_maxSpeed, float t_angle, int entityID) :
 		m_velocity(t_velocity),
 		m_maxSpeed(t_maxSpeed),
+		m_angle(t_angle),
 		BaseComponent<BehaviourComponent>(entityID)
 	{
 
@@ -45,9 +46,20 @@ public:
 		m_normalizedVel = velocity;
 	}
 
+	int getRotationAngle()
+	{
+		return m_angle;
+	}
+
+	void setRotationAngle(int t_angle)
+	{
+		m_angle = t_angle;
+	}
+
 private:
 	Vector2 m_velocity, m_normalizedVel;
 	int m_maxSpeed;
+	float m_angle;
 };
 
 #endif // !BEHAVIOURCOMPONENT_H
