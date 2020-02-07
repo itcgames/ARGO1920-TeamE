@@ -1,6 +1,6 @@
 #include "Room.h"
 
-Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs)
+Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs, CollisionSystem* t_cs)
 {
 	m_roomPos = pos;
 
@@ -15,13 +15,13 @@ Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs)
 			// Checks for the edges of the room
 			if(i == 0 || i == roomSizeX -1 || z == 0 || z == roomSizeY -1)
 			{ 
-				Tile* temp = new Tile(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, "Assets/tileTwo.png", "Wall",t_rs);
+				Tile* temp = new Tile(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, "Assets/tileTwo.png", "Wall",t_rs,t_cs);
 				tileList.push_back(temp);
 				wallCount++;
 			}
 			else
 			{
-				Tile* temp = new Tile(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, "Assets/tile.png", "Floor", t_rs);
+				Tile* temp = new Tile(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, "Assets/tile.png", "Floor", t_rs,t_cs);
 				tileList.push_back(temp);
 				floorCount++;
 			}
@@ -49,7 +49,7 @@ void Room::update()
 {
 }
 
-void Room::checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs)
+void Room::checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs, CollisionSystem* t_cs)
 {
 	// T is the other room you are hitting ( its rendered above you )
 	for (int i = 0; i < tileList.size(); i++)
@@ -63,7 +63,7 @@ void Room::checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs)
 					if (tileList.at(i)->getTag() != t.at(y)->getTag()) // checks that the tags are the same 
 					{
 						tileList.at(i)->covered = true; // set a bool that deletes them if its true
-						t.at(y) = new Tile(t.at(y)->getPos(), m_tileSize, m_tileSize, "Assets/tile.png", "Floor", t_rs); // replaces the tile
+						t.at(y) = new Tile(t.at(y)->getPos(), m_tileSize, m_tileSize, "Assets/tile.png", "Floor", t_rs,t_cs); // replaces the tile
 						collided = true; // checks that this room has collided with another
 					}
 				}

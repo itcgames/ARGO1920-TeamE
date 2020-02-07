@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag, RenderSystem* t_rs)
+Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag, RenderSystem* t_rs, CollisionSystem* t_cs)
 {
 	endRect = new SDL_Rect();
 	tag = tileTag;
@@ -29,6 +29,11 @@ Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag
 	m_tile->addComponent<SpriteComponent>(m_sc, 2);
 
 	t_rs->addEntity(m_tile);
+
+	if (tag == "Wall")
+	{
+		t_cs->addEntity(m_tile);
+	}
 
 }
 

@@ -11,12 +11,12 @@
 class Room
 {
 public:
-	Room(int sizeX, int sizeY, Vector2 pos,RenderSystem* t_rs);
+	Room(int sizeX, int sizeY, Vector2 pos,RenderSystem* t_rs, CollisionSystem* t_cs);
 	~Room();
 	void render();
 	void update();
 
-	void checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs);
+	void checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
 
 
 	Vector2 getCenterPos();

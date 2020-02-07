@@ -7,6 +7,8 @@
 #include <SDL_image.h>
 
 #include <iostream>
+#include <time.h>
+
 
 #include "GameStateMachine.h"
 #include "MenuState.h"

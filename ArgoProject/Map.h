@@ -11,10 +11,10 @@ class Map
 {
 public:
 
-	Map(RenderSystem* t_rs);
+	Map(RenderSystem* t_rs, CollisionSystem* t_cs);
 	~Map();
 
-	void CreateMap(RenderSystem* t_rs);
+	void CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs);
 	void render();
 	void update();
 

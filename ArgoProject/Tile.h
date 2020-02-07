@@ -7,11 +7,12 @@
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
 #include "RenderSystem.h"
+#include "CollisionSystem.h"
 #include <iostream>
 class Tile
 {
 public:
-	Tile(Vector2 pos, int width, int height, std::string path,std::string tileTag, RenderSystem* t_rs);
+	Tile(Vector2 pos, int width, int height, std::string path,std::string tileTag, RenderSystem* t_rs, CollisionSystem* t_cs);
 	~Tile();
 
 	void render();
@@ -19,6 +20,8 @@ public:
 	int getHeight();
 	int getWidth();
 	std::string getTag();
+	Entity* getEntity() { return m_tile; };
+
 
 	bool covered = false;
 
