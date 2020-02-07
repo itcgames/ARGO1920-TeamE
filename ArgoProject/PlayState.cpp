@@ -24,8 +24,11 @@ bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
 	m_rs = new RenderSystem();
+	myMap = new Map(m_rs);
+	myMap->CreateMap(m_rs);
 	m_player.init(m_rs);
 	m_enemy->initialize(m_rs);
+
 	return true;
 }
 

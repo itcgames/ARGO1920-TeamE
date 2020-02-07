@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Ai.h"
 #include <iostream>
+#include "Map.h"
 
 class PlayState : public GameState
 {
@@ -25,5 +26,6 @@ private:
 	RenderSystem* m_rs;
 	Player m_player;
 	Ai* m_enemy = new Ai;
+	Map* myMap;
 };
 

@@ -1,32 +1,7 @@
-﻿  Ai.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(19,56): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(19,45): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(37,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-  Game.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(38,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-  PlayState.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-  Player.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(35,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(36,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(58,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-  main.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(59,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-  Generating Code...
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-  ArgoProject.vcxproj -> C:\Users\Alex\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+﻿  Tile.cpp
+C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\Tile.cpp(17,28): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\Tile.cpp(18,28): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\Tile.cpp(25,58): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Brian\Desktop\ARGO1920-TeamE\ArgoProject\Tile.cpp(25,46): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+  ArgoProject.vcxproj -> C:\Users\Brian\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe

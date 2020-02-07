@@ -5,7 +5,7 @@ void Player::init(RenderSystem* t_rs)
 	//draws a rectangle for the player
 	m_playerRect = new SDL_Rect();
 	m_playerRect->x = 100; m_playerRect->y = 100;
-	m_playerRect->w = 100; m_playerRect->h = 100;
+	m_playerRect->w = 50; m_playerRect->h = 50;
 
 	SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
 	texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface);
@@ -15,7 +15,7 @@ void Player::init(RenderSystem* t_rs)
 
 	m_pc = new PositionComponent(Vector2(m_playerRect->x, m_playerRect->y), 1);
 	m_sc = new SpriteComponent(texture, m_playerRect, 2);
-	m_bc = new BehaviourComponent(Vector2(0, 0), 2, 3);
+	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 3);
 
 	m_player->addComponent<PositionComponent>(m_pc, 1);
 	m_player->addComponent<SpriteComponent>(m_sc, 2);
