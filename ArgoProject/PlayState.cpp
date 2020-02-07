@@ -40,7 +40,7 @@ bool PlayState::onEnter()
 	m_cs = new CollisionSystem();
 	myMap = new Map(m_rs,m_cs);
 	myMap->CreateMap(m_rs,m_cs);
-	m_player.init(m_rs);
+	m_player.init(m_rs, myMap->map.at(0).getCenterPos());
 	m_enemy->initialize(m_rs);
 
 	return true;

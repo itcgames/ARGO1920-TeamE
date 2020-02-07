@@ -12,7 +12,7 @@
 class Player
 {
 public:
-	void init(RenderSystem* t_rs);
+	void init(RenderSystem* t_rs, Vector2 startPos);
 	void update();
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
@@ -32,7 +32,7 @@ public:
 
 	int maxSpeed = 4;
 
-	Vector2 mousePosition = Vector2(100, 100);
+	Vector2 mousePosition = Vector2(0, 0);
 
 	Vector2 m_velocity = Vector2(0, 0);
 };

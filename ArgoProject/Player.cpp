@@ -1,11 +1,12 @@
 #include "Player.h"
 
-void Player::init(RenderSystem* t_rs)
+void Player::init(RenderSystem* t_rs,Vector2 startPos)
 {
 	//draws a rectangle for the player
 	m_playerRect = new SDL_Rect();
-	m_playerRect->x = 100; m_playerRect->y = 100;
+	m_playerRect->x = startPos.x; m_playerRect->y = startPos.y;
 	m_playerRect->w = 50; m_playerRect->h = 50;
+	mousePosition = startPos;
 
 	SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
 	texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface);

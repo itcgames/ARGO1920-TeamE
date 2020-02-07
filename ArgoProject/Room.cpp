@@ -36,13 +36,7 @@ Room::~Room()
 
 void Room::render()
 {
-	//for (int i = 0; i < tileList.size(); i++)
-	//{
-	//	if (tileList.at(i) != nullptr)
-	//	{
-	//		tileList.at(i)->render();
-	//	}
-	//}
+
 }
 
 void Room::update()
