@@ -33,7 +33,7 @@ void Ai::initialize(RenderSystem* t_rs)
 
 void Ai::update(Vector2 t_position)
 {
-	m_bs->seek(t_position);
+	m_bs->flee(t_position);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 }

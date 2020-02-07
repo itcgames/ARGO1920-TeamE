@@ -6,6 +6,7 @@
 
 #include "System.h"
 #include "Entity.h"
+#include <time.h>
 
 class BehaviourSystem : public System
 {
@@ -13,7 +14,6 @@ public:
 	//
 	BehaviourSystem()
 	{
-
 	}
 	void seek(Vector2 t_targetPosition)
 	{
@@ -52,9 +52,28 @@ public:
 				position.y += normalizedVelo.y * m_maxSpeed;
 				m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
 			}
+			else
+			{
+				wander(position);
+			}
 		}
-
 	}
+
+	void wander(Vector2 t_targetPosition)
+	{
+		for (int i = 0; i < m_entities.size(); i++)
+		{
+			srand(time(NULL));
+			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
+			m_velocity = position - t_targetPosition * (rand() % 3) + 1;
+			Vector2 normalizedVelo = Normalize(m_velocity);
+			int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
+			position.x += normalizedVelo.x * m_maxSpeed;
+			position.y += normalizedVelo.y * m_maxSpeed;
+			m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
+		}
+	}
+
 	Vector2 Normalize(Vector2& t_vector)
 	{
 		Vector2 normalizedVector{ 0,0 };
