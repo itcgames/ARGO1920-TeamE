@@ -30,7 +30,7 @@ public:
 			position.y += normalizedVelo.y * m_maxSpeed;
 
 			m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
-			
+			m_entities[i]->getComponent<BehaviourComponent>(3)->setNormalizeVel(normalizedVelo);
 		}
 	}
 

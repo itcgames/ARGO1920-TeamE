@@ -35,8 +35,18 @@ public:
 		m_maxSpeed = t_maxSpeed;
 	}
 
+	Vector2 getNormalizeVel()
+	{
+		return m_normalizedVel;
+	}
+
+	void setNormalizeVel(Vector2 velocity)
+	{
+		m_normalizedVel = velocity;
+	}
+
 private:
-	Vector2 m_velocity;
+	Vector2 m_velocity, m_normalizedVel;
 	int m_maxSpeed;
 };
 

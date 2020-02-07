@@ -1,47 +1,51 @@
 ﻿  Ai.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(88,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(90,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(92,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(19,56): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(19,45): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(37,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(64,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(66,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(68,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Ai.cpp(19,56): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Ai.cpp(19,45): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Ai.cpp(37,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
   Game.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Ai.cpp(38,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(88,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(90,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  PlayState.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(92,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(88,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(90,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Player.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(92,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(88,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(90,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(92,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(16,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(35,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(36,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(58,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Ai.cpp(38,33): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(64,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(66,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  GameStateMachine.cpp
   main.cpp
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\Player.cpp(59,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(88,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(90,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(68,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(64,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(66,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  MenuButton.cpp
+  MenuState.cpp
+  Player.cpp
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(68,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(64,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(66,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(68,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Player.cpp(16,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Player.cpp(16,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Player.cpp(35,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Player.cpp(36,40): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Player.cpp(58,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
+  PlayState.cpp
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\Player.cpp(59,35): warning C4244:  '=': conversion from 'Sint32' to 'float', possible loss of data
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\RenderSystem.h(30,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(20,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(40,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(64,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(66,14): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Renderer.cpp
   Generating Code...
-C:\Users\Alex\Desktop\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(92,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
-  ArgoProject.vcxproj -> C:\Users\Alex\Desktop\ARGO1920-TeamE\Debug\ArgoProject.exe
+C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\ArgoProject\BehaviourSystem.h(68,55): warning C4244:  'argument': conversion from 'int' to 'const float', possible loss of data
+  ArgoProject.vcxproj -> C:\Users\gameuser\Desktop\New folder (2)\ARGO1920-TeamE\Debug\ArgoProject.exe
