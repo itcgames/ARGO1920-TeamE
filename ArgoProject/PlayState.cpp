@@ -35,9 +35,9 @@ void PlayState::render()
 	/* Creating the surface. */
 
 	//m_rs->render(Render::Instance()->getRenderer());
-	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0, 255, 0, 255);
+//	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0, 255, 0, 255);
 
-	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
+//	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
 
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(), 
