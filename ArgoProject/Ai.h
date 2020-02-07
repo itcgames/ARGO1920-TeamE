@@ -16,6 +16,7 @@ public:
 	void update(Vector2 t_position);
 	void render();
 	void destroy() { delete this; }
+	Entity* getEntity() { return m_enemy; };
 private:
 	Entity* m_enemy;
 	SDL_Rect* m_rect;

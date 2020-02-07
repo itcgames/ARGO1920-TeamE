@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Player.h"
 #include "Ai.h"
+#include "CollisionSystem.h"
 #include <iostream>
 
 class PlayState : public GameState
@@ -24,6 +25,7 @@ private:
 	static const std::string m_playID;
 
 	RenderSystem* m_rs;
+	CollisionSystem* m_cs;
 	Player m_player;
 
 	SDL_Rect* camera;

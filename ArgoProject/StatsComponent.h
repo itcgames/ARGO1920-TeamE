@@ -12,7 +12,7 @@
 #include "Component.h"
 
 //
-class StatsComponent : BaseComponent<StatsComponent>
+class StatsComponent : public BaseComponent<StatsComponent>
 {
 public:
 	StatsComponent(std::string _class, int strength, int intelligence, 

@@ -6,7 +6,7 @@ const std::string PlayState::m_playID = "PLAY";
 void PlayState::update()
 {
 	m_player.update();
-	std::cout << "Player Position: " << m_player.getPosition().x << " " << m_player.getPosition().y << "Camera Position: " << camera->x << " " << camera->y << std::endl;
+	//std::cout << "Player Position: " << m_player.getPosition().x << " " << m_player.getPosition().y << "Camera Position: " << camera->x << " " << camera->y << std::endl;
 
 	camera->x = m_player.getPosition().x + 50 - 500;
 	camera->y = m_player.getPosition().y + 50 - 500;
@@ -28,6 +28,8 @@ void PlayState::update()
 		camera->y = 2000 - camera->h;
 	}
 	m_enemy->update(m_player.getPosition());
+
+	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
 }
 
 void PlayState::render()
@@ -71,6 +73,7 @@ bool PlayState::onEnter()
 	level->y = 0;
 
 	m_player.init(m_rs, camera);
+	m_cs = new CollisionSystem();
 	m_enemy->initialize(m_rs);
 	return true;
 }
