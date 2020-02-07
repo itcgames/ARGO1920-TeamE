@@ -12,6 +12,8 @@ Game::~Game()
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
+	srand(time(NULL));
+
 	Render::Instance()->setUpRenderer(title, xPos, yPos, width, height, fullscreen);
 
 	if (Render::Instance()->allOk())

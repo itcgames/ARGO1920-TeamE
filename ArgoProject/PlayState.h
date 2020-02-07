@@ -7,6 +7,7 @@
 #include "Ai.h"
 #include "CollisionSystem.h"
 #include <iostream>
+#include "Map.h"
 
 class PlayState : public GameState
 {
@@ -27,5 +28,6 @@ private:
 	CollisionSystem* m_cs;
 	Player m_player;
 	Ai* m_enemy = new Ai;
+	Map* myMap;
 };
 

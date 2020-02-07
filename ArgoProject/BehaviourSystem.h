@@ -6,7 +6,6 @@
 
 #include "System.h"
 #include "Entity.h"
-#include <time.h>
 
 class BehaviourSystem : public System
 {
@@ -42,7 +41,6 @@ public:
 			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
 			Vector2 direction = t_targetPosition - position;
 			float distance = sqrt((direction.x * direction.x) + (direction.y * direction.y));
-			std::cout << std::to_string(distance) << std::endl;
 			if (distance < 350)
 			{
 				m_velocity = position - t_targetPosition;
@@ -63,7 +61,6 @@ public:
 	{
 		for (int i = 0; i < m_entities.size(); i++)
 		{
-			srand(time(NULL));
 			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
 			m_velocity = position - t_targetPosition * (rand() % 3) + 1;
 			Vector2 normalizedVelo = Normalize(m_velocity);
