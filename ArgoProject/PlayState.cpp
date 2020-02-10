@@ -20,18 +20,19 @@ void PlayState::update()
 	{
 		camera->x = 0;
 	}
-	else if (camera->x > 2500 - camera->w)
+	else if (camera->x > level->w - camera->w)
 	{
-		camera->x = 2500 - camera->w;
+		camera->x = level->w - camera->w;
 	}
 	if (camera->y < 0)
 	{
 		camera->y = 0;
 	}
-	else if (camera->y > 2000 - camera->h)
+	else if (camera->y > level->h - camera->h)
 	{
-		camera->y = 2000 - camera->h;
+		camera->y = level->h - camera->h;
 	}
+
 	m_enemy->update(m_player.getPosition());
 
 	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
@@ -50,6 +51,7 @@ void PlayState::update()
 
 void PlayState::render()
 {
+	//m_rs->render(Render::Instance()->getRenderer());
 	/* Creating the surface. */
 
 	//m_rs->render(Render::Instance()->getRenderer());
@@ -58,11 +60,10 @@ void PlayState::render()
 //	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
 
 	m_rs->renderPlayState(
-		Render::Instance()->getRenderer(), 
+		Render::Instance()->getRenderer(),
 		camera,
 		Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
-	
 }
 
 /// handle user and system events/ input
@@ -84,15 +85,14 @@ bool PlayState::onEnter()
 	camera->y = 0;
 
 	level = new SDL_Rect();
-	level->w = 2500;
-	level->h = 2000;
+	level->w = 4000;
+	level->h = 4000;
 	level->x = 0;
 	level->y = 0;
 
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);
 	m_player.init(m_rs, camera,myMap->map.at(0).getCenterPos());
-
 	m_enemy->initialize(m_rs);
 
 	return true;

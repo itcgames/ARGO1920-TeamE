@@ -22,6 +22,7 @@ public:
 	//
 	RenderSystem()
 	{
+
 	}
 
 	//
@@ -52,19 +53,30 @@ public:
 		}
 	}
 
-	void renderPlayState(SDL_Renderer* renderer,SDL_Rect* camera, Vector2 positon)
+	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, Vector2 positon)
 	{
 		SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
-		SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
+		//SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
 
-		for (int i = 1; i < m_entities.size(); i++)
+		for (int i = 0; i < m_entities.size(); i++)
 		{
 			int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
 			int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
-			viewableArea = { posX, posY, 100,100 };
-			SDL_RenderCopy(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
+			viewableArea = { posX, posY, m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w,m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h };
+
+			if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
+			{
+				angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
+			}
+			else
+			{
+				angle = 0;
+			}
+
+			SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 		}
 	}
+
 	//
 	void renderImage(SDL_Renderer* renderer, SpriteComponent* spriteComponent)
 	{

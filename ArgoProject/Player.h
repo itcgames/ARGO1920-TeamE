@@ -33,6 +33,7 @@ public:
 
 	int maxSpeed = 4;
 
+	Vector2 mouseRelativePosition = Vector2(0, 0);
 	Vector2 mousePosition = Vector2(0, 0);
 
 	Vector2 m_velocity = Vector2(0, 0);
