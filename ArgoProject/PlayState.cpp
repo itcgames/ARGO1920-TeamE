@@ -37,16 +37,16 @@ void PlayState::update()
 
 	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
 
-	for (int i = 0; i < myMap->map.size(); i++)
-	{
-		for (int z = 0; z < myMap->map.at(i).tileList.size(); z++)
-		{
-			if (myMap->map.at(i).tileList.at(z)->getTag() == "Wall")
-			{
-				m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
-			}
-		}
-	}
+	//for (int i = 0; i < myMap->map.size(); i++)
+	//{
+	//	for (int z = 0; z < myMap->map.at(i)->tileList.size(); z++)
+	//	{
+	//		if (myMap->map.at(i)->tileList.at(z)->getTag() == "Wall")
+	//		{
+	//			m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i)->tileList.at(z)->getEntity());
+	//		}
+	//	}
+	//}
 }
 
 void PlayState::render()
@@ -92,7 +92,7 @@ bool PlayState::onEnter()
 
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);
-	m_player.init(m_rs, camera,myMap->map.at(0).getCenterPos());
+	m_player.init(m_rs, camera,myMap->map.at(0)->getCenterPos());
 	m_enemy->initialize(m_rs);
 
 	return true;

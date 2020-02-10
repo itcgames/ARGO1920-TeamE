@@ -41,7 +41,13 @@ void Player::update()
 			mousePosition.y = mouseRelativePosition.y + m_camera->y;
 		}
 
-		m_bs->seek(mousePosition);
+		//This is to stop the jittering in the movement.
+		float mag = sqrt((m_pc->getPosition().x - mousePosition.x) * (m_pc->getPosition().x - mousePosition.x) + (m_pc->getPosition().y - mousePosition.y) * (m_pc->getPosition().y - mousePosition.y));
+		if (mag > 40)
+		{
+			m_bs->seek(mousePosition);
+		}
+
 		m_playerRect->x = m_pc->getPosition().x;
 		m_playerRect->y = m_pc->getPosition().y;
 	}

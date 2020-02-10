@@ -16,7 +16,7 @@ public:
 	void render();
 	void update();
 
-	void checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
+	void checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
 
 
 	Vector2 getCenterPos();
@@ -35,7 +35,7 @@ public:
 
 	Vector2 m_roomPos;
 
-	std::vector<Tile*> tileList;
+	std::vector<std::unique_ptr<Tile>> tileList;
 
 	bool collided = false;
 	bool roomChecked = false;
