@@ -1,0 +1,162 @@
+Highscores:
+  - name: ""
+    score: 82636
+  - name: ""
+    score: 25605
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+Level1:
+  Ground:
+    - position:
+        x: 210
+        y: 580
+    - position:
+        x: 410
+        y: 580
+    - position:
+        x: 610
+        y: 580
+    - position:
+        x: 880
+        y: 440
+    - position:
+        x: 760
+        y: 290
+    - position:
+        x: 450
+        y: 160
+    - position:
+        x: 1400
+        y: 80
+    - position:
+        x: 1600
+        y: 80
+    - position:
+        x: 1800
+        y: 80
+    - position:
+        x: 220
+        y: 10
+    - position:
+        x: 620
+        y: -100
+    - position:
+        x: 2200
+        y: -20
+    - position:
+        x: 3400
+        y: -60
+    - position:
+        x: 3600
+        y: -60
+    - position:
+        x: 3800
+        y: -60
+Level2:
+  Ground:
+    - position:
+        x: 410
+        y: 580
+    - position:
+        x: 610
+        y: 580
+    - position:
+        x: 810
+        y: 580
+    - position:
+        x: 1100
+        y: 440
+    - position:
+        x: 1400
+        y: 290
+    - position:
+        x: 1800
+        y: 200
+    - position:
+        x: 2200
+        y: 110
+    - position:
+        x: 2800
+        y: 60
+    - position:
+        x: 2400
+        y: -90
+    - position:
+        x: 2000
+        y: -180
+    - position:
+        x: 1800
+        y: -180
+    - position:
+        x: 1000
+        y: -280
+    - position:
+        x: 800
+        y: -280
+    - position:
+        x: 1400
+        y: -470
+    - position:
+        x: 1600
+        y: -470
+Level3:
+  Ground:
+    - position:
+        x: 410
+        y: 580
+    - position:
+        x: 810
+        y: 580
+    - position:
+        x: 1100
+        y: 440
+    - position:
+        x: 810
+        y: 290
+    - position:
+        x: 390
+        y: 160
+    - position:
+        x: 820
+        y: 80
+    - position:
+        x: 1020
+        y: 80
+    - position:
+        x: 1420
+        y: -20
+    - position:
+        x: 1820
+        y: -100
+    - position:
+        x: 3020
+        y: -100
+    - position:
+        x: 3220
+        y: -100
+    - position:
+        x: 3620
+        y: -180
+    - position:
+        x: 3350
+        y: -330
+    - position:
+        x: 2150
+        y: -330
+    - position:
+        x: 1950
+        y: -330
