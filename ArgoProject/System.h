@@ -22,7 +22,6 @@ public:
 	void addEntity(Entity* entity)
 	{
 		m_entities.push_back(entity);
-		std::cout << "111" << std::endl;
 	}
 
 

@@ -2,22 +2,27 @@
 
 const std::string PlayState::m_playID = "PLAY";
 
+PlayState::PlayState(Vector2 t_screenDimensions)
+{
+	m_cameraDimensions = t_screenDimensions;
+}
+
 
 void PlayState::update()
 {
 	m_player.update();
 	//std::cout << "Player Position: " << m_player.getPosition().x << " " << m_player.getPosition().y << "Camera Position: " << camera->x << " " << camera->y << std::endl;
 
-	camera->x = m_player.getPosition().x + 50 - 500;
-	camera->y = m_player.getPosition().y + 50 - 500;
+	camera->x = m_player.getPosition().x + 50 - camera->w / 2;
+	camera->y = m_player.getPosition().y + 50 - camera->h / 2;
 
 	if (camera->x < 0)
 	{
 		camera->x = 0;
 	}
-	else if (camera->x > 2000 - camera->w)
+	else if (camera->x > 2500 - camera->w)
 	{
-		camera->x = 2000 - camera->w;
+		camera->x = 2500 - camera->w;
 	}
 	if (camera->y < 0)
 	{
@@ -52,10 +57,10 @@ void PlayState::render()
 
 //	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
 
-	/*m_rs->renderPlayState(
+	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(), 
 		camera,
-		Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));*/
+		Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
 	
 }
@@ -73,14 +78,14 @@ bool PlayState::onEnter()
 	m_cs = new CollisionSystem();
 
 	camera = new SDL_Rect();
-	camera->w = 1000;
-	camera->h = 1000;
+	camera->w = m_cameraDimensions.x;
+	camera->h = m_cameraDimensions.y;
 	camera->x = 0;
 	camera->y = 0;
 
 	level = new SDL_Rect();
-	level->w = 800;
-	level->h = 600;
+	level->w = 2500;
+	level->h = 2000;
 	level->x = 0;
 	level->y = 0;
 
