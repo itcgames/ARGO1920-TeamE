@@ -14,7 +14,7 @@ public:
 	void render();
 	void processEvents(bool isRunning);
 	std::vector<GameState*>& getGameStates() { return m_gameStateSystem; }
-
+	SDL_Rect* GetViewRect();
 
 private:
 	std::vector<GameState*> m_gameStateSystem;
