@@ -18,7 +18,7 @@ void Ai::initialize(RenderSystem* t_rs)
 	//creates position and sprite components for the enemy
 	m_pc = new PositionComponent(Vector2(m_rect->x, m_rect->y), 1);
 	m_sc = new SpriteComponent(m_texture, m_rect, 2);
-	m_bc = new BehaviourComponent(Vector2(0, 0), 1, 3);
+	m_bc = new BehaviourComponent(Vector2(0, 0), 1, 0, 3);
 
 	//adds the new components to the enenmy
 	m_enemy->addComponent<PositionComponent>(m_pc, 1);

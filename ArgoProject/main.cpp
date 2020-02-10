@@ -1,6 +1,15 @@
+#ifdef _DEBUG 
+#pragma comment(lib,"libyaml-cppmdd.lib")
+#else 
+#pragma comment(lib,"libyaml-cppmd.lib")
+
+
+#endif 
+
 #include <iostream>
 #include <SDL_image.h>
 #include <SDL.h>
+#include "yaml-cpp\yaml.h"
 
 #include "Game.h"
 
@@ -21,8 +30,8 @@ int main(int argc, char* argv[])
 	Uint32 framestart;
 	int frameTime;
 
+	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 2500, 2000, false);
 
-	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 1000, false);
 
 	while (game->running() == true)
 	{

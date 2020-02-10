@@ -34,7 +34,7 @@ public:
 			m_a->y + m_a->h >= m_b->y &&
 			m_b->y + m_b->h >= m_a->y)
 		{
-			std::cout << "AABB collision detected" << std::endl;
+			//std::cout << "AABB collision detected" << std::endl;
 			return true;
 		}
 
@@ -46,6 +46,8 @@ public:
 		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
 			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
+			std::cout << "Enemy collision detected" << std::endl;
+
 			//player velocity *= -1
 			Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
 
@@ -61,6 +63,8 @@ public:
 		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
 			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
+			std::cout << "Wall collision detected" << std::endl;
+
 			//player velocity *= -1
 			Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
 			velocity.x *= -1;

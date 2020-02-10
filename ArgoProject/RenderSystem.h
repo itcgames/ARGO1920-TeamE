@@ -13,6 +13,7 @@
 
 #include "System.h"
 #include "Entity.h"
+#include "BehaviourComponent.h"
 //#include "ECS.h"
 
 class RenderSystem : public System
@@ -38,8 +39,15 @@ public:
 			else
 			{
 				SpriteComponent* sprite = m_entities[i]->getComponent<SpriteComponent>(2);
-
-				SDL_RenderCopy(renderer, sprite->getTexture(), NULL, sprite->getRect());
+				if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
+				{
+					angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
+				}
+				else
+				{
+					angle = 0;
+				}
+				SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, sprite->getRect(), angle, NULL, SDL_FLIP_HORIZONTAL);
 			}
 		}
 	}
@@ -60,7 +68,7 @@ public:
 	//
 	void renderImage(SDL_Renderer* renderer, SpriteComponent* spriteComponent)
 	{
-		SDL_RenderCopy(renderer, spriteComponent->getTexture(), NULL, spriteComponent->getRect());
+		SDL_RenderCopyEx(renderer, spriteComponent->getTexture(), NULL, spriteComponent->getRect(), 0, NULL, SDL_FLIP_NONE);
 	}
 
 private:
@@ -70,6 +78,7 @@ private:
 	//
 	int m_width, m_height;
 	int m_x, m_y;
+	float angle;
 };
 
 #endif // !RENDERSYSTEM_H

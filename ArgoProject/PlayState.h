@@ -7,6 +7,7 @@
 #include "Ai.h"
 #include "CollisionSystem.h"
 #include <iostream>
+#include "Map.h"
 
 class PlayState : public GameState
 {
@@ -31,5 +32,6 @@ private:
 	SDL_Rect* camera;
 	SDL_Rect* level;
 	Ai* m_enemy = new Ai;
+	Map* myMap;
 };
 

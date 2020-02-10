@@ -6,7 +6,6 @@
 
 #include "System.h"
 #include "Entity.h"
-#include <time.h>
 
 class BehaviourSystem : public System
 {
@@ -20,15 +19,18 @@ public:
 		for (int i = 0; i < m_entities.size(); i++)
 		{
 			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
-			m_velocity = t_targetPosition - position;
+			//change this!!!!!!! move to the center
+			m_velocity = (t_targetPosition - Vector2(25, 25)) - position;
+			m_orientation = getOrientation(m_velocity);
 
-			Vector2 normalizedVelo = Normalize(m_velocity);// = Vector2(m_entities[i]->getComponent<BehaviourComponent>(3)->getVelocity());
-			
+			Vector2 normalizedVelo = Normalize(m_velocity);
+
 
 			int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
 			position.x += normalizedVelo.x * m_maxSpeed;
 			position.y += normalizedVelo.y * m_maxSpeed;
 
+			m_entities[i]->getComponent<BehaviourComponent>(3)->setRotationAngle(m_orientation * (180 / 3.14159));
 			m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
 			m_entities[i]->getComponent<BehaviourComponent>(3)->setNormalizeVel(normalizedVelo);
 		}
@@ -41,11 +43,12 @@ public:
 		{
 			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
 			Vector2 direction = t_targetPosition - position;
-			float distance = sqrt((direction.x * direction.x) + (direction.y * direction.y));
-			std::cout << std::to_string(distance) << std::endl;
+			float distance = sqrt((direction.x * direction.x) + (direction.y * direction.y));			
 			if (distance < 350)
 			{
 				m_velocity = position - t_targetPosition;
+				m_orientation = getOrientation(m_velocity);
+				m_entities[i]->getComponent<BehaviourComponent>(3)->setRotationAngle(m_orientation * (180 / 3.14159));
 				Vector2 normalizedVelo = Normalize(m_velocity);
 				int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
 				position.x += normalizedVelo.x * m_maxSpeed;
@@ -63,9 +66,10 @@ public:
 	{
 		for (int i = 0; i < m_entities.size(); i++)
 		{
-			srand(time(NULL));
 			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
 			m_velocity = position - t_targetPosition * (rand() % 3) + 1;
+			m_orientation = getOrientation(m_velocity);
+			m_entities[i]->getComponent<BehaviourComponent>(3)->setRotationAngle(m_orientation * (180 / 3.14159));
 			Vector2 normalizedVelo = Normalize(m_velocity);
 			int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
 			position.x += normalizedVelo.x * m_maxSpeed;
@@ -81,8 +85,14 @@ public:
 		return normalizedVector;
 	}
 
+	float getOrientation(Vector2& t_vector)
+	{
+		return atan2(t_vector.y, t_vector.x);
+	}
+
 private:
 	Vector2 m_velocity;
+	float m_orientation;
 };
 
 #endif // !BEHAVIOURSYSTEM_H
