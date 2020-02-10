@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::init(RenderSystem* t_rs,Vector2 startPos)
+void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 {
 	//draws a rectangle for the player
 	m_playerRect = new SDL_Rect();
@@ -25,6 +25,7 @@ void Player::init(RenderSystem* t_rs,Vector2 startPos)
 	m_bs->addEntity(m_player);
 	t_rs->addEntity(m_player);
 
+	m_camera = t_camera;
 }
 
 void Player::update()
@@ -32,6 +33,14 @@ void Player::update()
 	//the player seeks the mouse position
 	if (m_pc->getPosition().x != mousePosition.x && m_pc->getPosition().y != mousePosition.y)
 	{
+		if (move == true 
+			&&
+			mousePosition.x != mouseRelativePosition.x + m_camera->x)
+		{
+			mousePosition.x = mouseRelativePosition.x + m_camera->x;
+			mousePosition.y = mouseRelativePosition.y + m_camera->y;
+		}
+
 		m_bs->seek(mousePosition);
 		m_playerRect->x = m_pc->getPosition().x;
 		m_playerRect->y = m_pc->getPosition().y;
@@ -42,6 +51,7 @@ void Player::processEvents(bool isRunning)
 {
 	//Handles all the inputs
 	SDL_Event event;
+
 	if (SDL_PollEvent(&event))
 	{
 		switch (event.type)
@@ -56,16 +66,26 @@ void Player::processEvents(bool isRunning)
 			}
 			else if (event.button.button == SDL_BUTTON_LEFT)
 			{
-				mousePosition.x = event.button.x;
-				mousePosition.y = event.button.y;
+				mouseRelativePosition.x = event.button.x;
+				mouseRelativePosition.y = event.button.y;
+
+				mousePosition.x = event.button.x + m_camera->x;
+				mousePosition.y = event.button.y + m_camera->y;
 				move = true;
 			}
 			break;
 		case SDL_MOUSEMOTION:
 			if (move)
 			{
-				mousePosition.x += event.motion.xrel;
-				mousePosition.y += event.motion.yrel;
+				std::cout << event.motion.xrel << " " << event.motion.yrel << std::endl;
+
+				/*mousePosition.x += event.motion.xrel;
+				mousePosition.y += event.motion.yrel;*/
+				mouseRelativePosition.x = event.button.x;
+				mouseRelativePosition.y = event.button.y;
+
+				mousePosition.x = event.button.x + m_camera->x;
+				mousePosition.y = event.button.y + m_camera->y;
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
