@@ -1,0 +1,51 @@
+Highscores:
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+Level1:
+  Ground:
+    - position: {x: 410, y: 580}
+    - position: {x: 610, y: 580}
+    - position: {x: 810, y: 580}
+    - position: {x: 1200, y: 370}
+    - position: {x: 1500, y: 270}
+    - position: {x: 1800, y: 170}
+    - position: {x: 3600, y: 100}
+    - position: {x: 3800, y: 100}
+    - position: {x: 2800, y: -120}
+    - position: {x: 2000, y: -180}
+    - position: {x: 1800, y: -180}
+    - position: {x: 1000, y: -280}
+    - position: {x: 800, y: -280}
+    - position: {x: 600, y: -280}
+    - position: {x: 2000, y: -480}
+Assets:
+  - name: menuLogo
+    file: ./ASSETS/SPRITES/Logo.png
+  - name: menuMusic
+    file: ./ASSETS/SOUND/menuBackgroundMusic.wav
+  - name: platform
+    file: ./ASSETS/SPRITES/platformSprite.png
+  - name: groundSprite
+    file: ./ASSETS/SPRITES/ground.png
+  - name: player
+    file: ./ASSETS/SPRITES/test2.png
+  - name: swingTrap
+    file: ./ASSETS/SPRITES/pendulum.png

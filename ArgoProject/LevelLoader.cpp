@@ -130,7 +130,7 @@ void LevelLoader::write(std::string t_playerName[], int t_playerScore[])
 	
 	//m_baseNode["Highscores"]["name"] = "Jim";// edit one of the nodes 
 	//auto name = m_baseNode["Highscores"]["name"].as<std::string>();
-	std::string file = ".\\ASSETS\\YAML\\level1.yaml";
+	std::string file = ".\\Assets\\YAML\\level1.yaml";
 	std::ofstream fout(file); // This is the path to the YAML file
 	//fout << m_baseNode; // dump it back into the file
 

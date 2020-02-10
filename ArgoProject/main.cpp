@@ -10,8 +10,9 @@
 #include <SDL_image.h>
 #include <SDL.h>
 #include "yaml-cpp\yaml.h"
-
+#include "SDL_net.h"
 #include "Game.h"
+#include "Server.h"
 
 using namespace std;
 
@@ -22,7 +23,7 @@ int main(int argc, char* argv[])
 {
 	DEBUG_MSG("Game Object Created");
 	Game* game = new Game();
-
+	Server* server = new Server();
 	//FrameRate Capping 
 	const int Fps = 60;
 	const int frameDelay = 1000 / Fps;
@@ -50,5 +51,6 @@ int main(int argc, char* argv[])
 
 
 	game->cleanUp();
+	//server->cleanUp();
 	return 0;
 }
