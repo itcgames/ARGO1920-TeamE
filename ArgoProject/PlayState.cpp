@@ -52,10 +52,10 @@ void PlayState::render()
 
 //	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
 
-	m_rs->renderPlayState(
+	/*m_rs->renderPlayState(
 		Render::Instance()->getRenderer(), 
 		camera,
-		Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
+		Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));*/
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
 	
 }
@@ -70,6 +70,7 @@ bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
 	m_rs = new RenderSystem();
+	m_cs = new CollisionSystem();
 
 	camera = new SDL_Rect();
 	camera->w = 1000;
@@ -87,7 +88,6 @@ bool PlayState::onEnter()
 	myMap->CreateMap(m_rs, m_cs);
 	m_player.init(m_rs, camera,myMap->map.at(0).getCenterPos());
 
-	m_cs = new CollisionSystem();
 	m_enemy->initialize(m_rs);
 
 	return true;
