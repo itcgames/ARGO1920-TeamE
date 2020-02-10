@@ -76,16 +76,14 @@ void Game::update()
 void Game::render()
 {
 	//Clears image after every frame
-	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(Render::Instance()->getRenderer());
 
 	////Draw here
 	m_gameStateMachine->render();
 
 	//m_rs->render(Render::Instance()->getRenderer());
-	//apply_
+
 	//Presents the new Images
-	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_gameStateMachine->GetViewRect());
 	SDL_RenderPresent(Render::Instance()->getRenderer());
 }
 

@@ -66,9 +66,3 @@ void GameStateMachine::processEvents(bool isRunning)
 		m_gameStateSystem.back()->processEvents(isRunning);
 	}
 }
-
-SDL_Rect* GameStateMachine::GetViewRect()
-{
-	SDL_Rect* emptyRect = new SDL_Rect();
-	return emptyRect;
-}
