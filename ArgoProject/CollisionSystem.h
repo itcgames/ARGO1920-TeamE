@@ -67,10 +67,16 @@ public:
 
 			//player velocity *= -1
 			Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
+			Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
+			//
 			velocity.x *= -1;
 			velocity.y *= -1;
+			//
+			position.x += velocity.x * 9;
+			position.y += velocity.y * 9;
 
-			m_a->getComponent<BehaviourComponent>(3)->setNormalizeVel(velocity);
+			m_a->getComponent<PositionComponent>(1)->setPosition(position);
+			//m_a->getComponent<BehaviourComponent>(3)->setNormalizeVel(velocity);
 		}
 	}
 
