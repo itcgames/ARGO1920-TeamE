@@ -1,6 +1,15 @@
+#ifdef _DEBUG 
+#pragma comment(lib,"libyaml-cppmdd.lib")
+#else 
+#pragma comment(lib,"libyaml-cppmd.lib")
+
+
+#endif 
+
 #include <iostream>
 #include <SDL_image.h>
 #include <SDL.h>
+#include "yaml-cpp\yaml.h"
 
 #include "Game.h"
 

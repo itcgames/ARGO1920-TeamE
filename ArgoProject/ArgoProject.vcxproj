@@ -137,6 +137,7 @@
     <ClCompile Include="Ai.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuButton.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuButton.h" />
