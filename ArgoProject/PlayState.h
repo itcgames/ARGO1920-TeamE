@@ -21,16 +21,12 @@ public:
 
 	virtual std::string getStateID() const { return m_playID; };
 
-
 private:
 	static const std::string m_playID;
 
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	Player m_player;
-
-	SDL_Rect* camera;
-	SDL_Rect* level;
 	Ai* m_enemy = new Ai;
 	Map* myMap;
 };
