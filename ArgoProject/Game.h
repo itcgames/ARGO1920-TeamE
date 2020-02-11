@@ -18,11 +18,13 @@
 #include "SpriteComponent.h"
 #include "RenderSystem.h"
 #include "Renderer.h"
+#include "Data.h"
+#include "LevelLoader.h"
 
 class Game
 {
 public:
-	Game();
+	Game(GameData& t_data);
 	~Game();
 
 	void init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen);
@@ -40,6 +42,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* m_ecsTexture;
+	GameData m_data;
 
 	bool m_exitGame; // control exiting game
 
@@ -63,6 +66,8 @@ private:
 	RenderSystem* m_rs;
 	//
 	SDL_Rect* m_playerRect;
+
+	static const int M_MAX_STAT_PRESETS = 2;
 };
 
 #endif // !GAME_H

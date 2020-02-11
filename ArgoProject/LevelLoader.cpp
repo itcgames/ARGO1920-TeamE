@@ -13,19 +13,36 @@ void operator >> (const YAML::Node & t_scoreDataNode, HighScoreData & t_score)
 	t_score.m_score = t_scoreDataNode["score"].as<int>();
 }
 
-void operator >> (const YAML::Node & t_groundDataNode, GroundData & t_ground)
+void operator >> (const YAML::Node & t_statsDataNode, StatsData & t_value)
 {
-	t_ground.m_position = Vector2(t_groundDataNode["position"]["x"].as<float>(), t_groundDataNode["position"]["y"].as<float>());
+	t_value.m_class = t_statsDataNode["class"].as<std::string>();
+	t_value.m_health = t_statsDataNode["health"].as<int>();
+	t_value.m_strength = t_statsDataNode["strength"].as<int>();
+	t_value.m_speed = t_statsDataNode["speed"].as<int>();
+	t_value.m_gold = t_statsDataNode["gold"].as<int>();
+	t_value.m_killCount = t_statsDataNode["killcount"].as<int>();
+}
+
+void operator >> (const YAML::Node& t_playerStatsDataNode, PlayerStatsData& t_value)
+{
+	t_value.m_class = t_playerStatsDataNode["class"].as<std::string>();
+	t_value.m_health = t_playerStatsDataNode["health"].as<int>();
+	t_value.m_strength = t_playerStatsDataNode["strength"].as<int>();
+	t_value.m_speed = t_playerStatsDataNode["speed"].as<int>();
+	t_value.m_gold = t_playerStatsDataNode["gold"].as<int>();
+	t_value.m_killCount = t_playerStatsDataNode["killcount"].as<int>();
 }
 
 void operator >> (const YAML::Node & t_levelDataNode, LevelData & t_level)
 {
-	const YAML::Node& groundNode = t_levelDataNode["Ground"].as<YAML::Node>();
-	for (unsigned i = 0; i < groundNode.size(); i++)
+	const YAML::Node& statsNode = t_levelDataNode["Stats"].as<YAML::Node>();
+	//loop through all of the nodes in the scoresNode and load all of the data
+	auto size = statsNode.size();
+	for (unsigned i = 0; i < statsNode.size(); i++)
 	{
-		GroundData groundPoints;
-		groundNode[i] >> groundPoints;
-		t_level.m_groundPoints.push_back(groundPoints);
+		StatsData stats;
+		statsNode[i] >> stats;
+		t_level.m_stats.push_back(stats);
 
 		//platform.m_base.setSize(sf::Vector2f(100, 20));
 		//platform.m_position.x = groundPoints.m_position.x;
@@ -39,13 +56,14 @@ void operator >> (const YAML::Node & t_levelDataNode, LevelData & t_level)
 	}
 }
 
+
 void operator >> (const YAML::Node & t_levelNode, GameData & t_level)
 {
-	//make a new node pointing at the base nodes highscores node
+	////make a new node pointing at the base nodes highscores node
 	 const YAML::Node& scoresNode = t_levelNode["Highscores"].as<YAML::Node>();
 
-	//loop through all of the nodes in the scoresNode and load all of the data
-	 auto size = scoresNode.size();
+	////loop through all of the nodes in the scoresNode and load all of the data
+	 auto ssize = scoresNode.size();
 	for (unsigned i = 0; i < scoresNode.size(); ++i)
 	{
 		HighScoreData scores;
@@ -53,7 +71,18 @@ void operator >> (const YAML::Node & t_levelNode, GameData & t_level)
 		t_level.m_scores.push_back(scores);
 	}
 
-	t_levelNode["Level1"] >> t_level.m_level1;
+	const YAML::Node& playerStatsNode = t_levelNode["Player"].as<YAML::Node>();
+
+	//loop through all of the nodes in the scoresNode and load all of the data
+	auto psize = playerStatsNode.size();
+	for (unsigned i = 0; i < playerStatsNode.size(); ++i)
+	{
+		PlayerStatsData stats;
+		playerStatsNode[i] >> stats;
+		t_level.m_playerStats.push_back(stats);
+	}
+
+	t_levelNode["Presets"] >> t_level.m_presets;
 	t_levelNode["Level2"] >> t_level.m_level2;
 	t_levelNode["Level3"] >> t_level.m_level3;
 }
@@ -128,6 +157,45 @@ void LevelLoader::write(std::string t_playerName[], int t_playerScore[])
 		scoresNode[i]["score"] = t_playerScore[i];
 	}
 	
+	//m_baseNode["Highscores"]["name"] = "Jim";// edit one of the nodes 
+	//auto name = m_baseNode["Highscores"]["name"].as<std::string>();
+	std::string file = ".\\Assets\\YAML\\level1.yaml";
+	std::ofstream fout(file); // This is the path to the YAML file
+	//fout << m_baseNode; // dump it back into the file
+
+
+	YAML::Emitter emitter;
+	writeNode(m_baseNode, emitter);
+	fout << emitter.c_str() << std::endl;
+	//std::cout << emitter.c_str() << std::endl;
+	fout.close();
+}
+
+void LevelLoader::writeToPlayer(std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount)
+{
+	YAML::Node playerStatsNode = m_baseNode["Player"].as<YAML::Node>();
+	for (int i = 0; i < 1; i++)
+	{
+		playerStatsNode[i]["class"] = t_class;
+		playerStatsNode[i]["health"] = t_health;
+		playerStatsNode[i]["strength"] = t_strength;
+		playerStatsNode[i]["speed"] = t_speed;
+		playerStatsNode[i]["gold"] = t_gold;
+		playerStatsNode[i]["killcount"] = t_killCount;
+	}
+	//m_baseNode["Player"]["class"] = t_class;
+	//auto name = m_baseNode["Player"]["class"].as<std::string>();
+	//m_baseNode["Player"]["health"] = t_health;
+	//auto health = m_baseNode["Player"]["health"].as<int>();
+	//m_baseNode["Player"]["strength"] = t_strength;
+	//auto strength = m_baseNode["Player"]["strength"].as<int>();
+	//m_baseNode["Player"]["speed"] = t_speed;
+	//auto speed = m_baseNode["Player"]["speed"].as<int>();
+	//m_baseNode["Player"]["gold"] = t_gold;
+	//auto gold = m_baseNode["Player"]["gold"].as<int>();
+	//m_baseNode["Player"]["killcount"] = t_killCount;
+	//auto killcount = m_baseNode["Player"]["killcount"].as<int>();
+
 	//m_baseNode["Highscores"]["name"] = "Jim";// edit one of the nodes 
 	//auto name = m_baseNode["Highscores"]["name"].as<std::string>();
 	std::string file = ".\\Assets\\YAML\\level1.yaml";

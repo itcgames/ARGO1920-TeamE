@@ -15,6 +15,7 @@
 class StatsComponent : public BaseComponent<StatsComponent>
 {
 public:
+
 	StatsComponent(std::string t_class, int t_health, int t_strength,
 		int t_speed, int t_gold, int t_killCount, int entityID,
 		           bool isPlayer, bool isEnemy) :
@@ -43,10 +44,6 @@ public:
 		return m_health;
 	}
 
-	int getStrength()
-	{
-		return m_strength;
-	}
 
 	int getSpeed()
 	{
@@ -71,7 +68,8 @@ public:
 	bool getIsEnemy()
 	{
 		return m_isEnemy;
-	}
+  }
+
 	//
 
 	// Set Methods
@@ -104,6 +102,7 @@ public:
 	void setKillCount(int t_killCount)
 	{
 		m_killCount = t_killCount;
+
 	}
 
 	void setIsPlayer(bool isPlayer)
@@ -125,7 +124,6 @@ private:
 	int m_speed; // Critical rate
 	int m_gold; // HP and defense
 	int m_killCount; // Speed
-
 	bool m_isPlayer;
 	bool m_isEnemy;
 };

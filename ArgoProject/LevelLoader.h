@@ -16,14 +16,29 @@ struct HighScoreData
 	float m_score;
 };
 
-struct GroundData
+struct StatsData
 {
-	Vector2 m_position;
+	std::string m_class;
+	int m_health;
+	int m_strength;
+	int m_speed;
+	int m_gold;
+	int m_killCount;
+};
+
+struct PlayerStatsData
+{
+	std::string m_class;
+	int m_health;
+	int m_strength;
+	int m_speed;
+	int m_gold;
+	int m_killCount;
 };
 
 struct LevelData
 {
-	std::vector<GroundData> m_groundPoints;
+	std::vector<StatsData> m_stats;
 };
 
 /// <summary>
@@ -31,9 +46,9 @@ struct LevelData
 /// </summary>
 struct GameData 
 {
-	std::vector<HighScoreData> m_scores;//done
-
-	LevelData m_level1;
+	std::vector<HighScoreData> m_scores; //done
+	std::vector <PlayerStatsData> m_playerStats;
+	LevelData m_presets;
 	LevelData m_level2;
 	LevelData m_level3;
 };
@@ -53,7 +68,7 @@ public:
 	static bool load(std::string t_fileName,GameData & t_level);
 
 	static void write(std::string t_playerName[], int t_playerScore[]);
-
+	static void writeToPlayer(std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount);
 	static void writeNode(const YAML::Node& node, YAML::Emitter& emitter);
 	
 };

@@ -1,6 +1,7 @@
 #include "Game.h"
 
-Game::Game()
+Game::Game(GameData& t_data) :
+	m_data(t_data)
 {
 	exit = false;
 }
@@ -15,7 +16,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	srand(time(NULL));
 
 	Render::Instance()->setUpRenderer(title, xPos, yPos, width, height, fullscreen);
-
+	data::Instance()->setUpData(m_data);
 	if (Render::Instance()->allOk())
 	{
 		isRunning = true;
@@ -30,7 +31,28 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	Vector2 screenDimensions = Vector2(width, height);
 
 	m_gameStateMachine->changeState(new PlayState( screenDimensions));
+	//LevelLoader::writeToPlayer("test", 0, 0, 0, 0, 50);
+	//When reading player data index is ALWAYS 0, ie - m_data.m_playerStats.at(0).
+	//std::cout << "PLAYER" << std::endl;
+	//std::cout << "-----------------------------------------------------------------------------------------" << std::endl;
+	//std::cout << "Class " + std::to_string(0) + " : " + m_data.m_playerStats.at(0).m_class << std::endl;
+	//std::cout << "Health " + std::to_string(0) + " : " + std::to_string(m_data.m_playerStats.at(0).m_health) << std::endl;
+	//std::cout << "Strength " + std::to_string(0) + " : " + std::to_string(m_data.m_playerStats.at(0).m_strength) << std::endl;
+	//std::cout << "Speed " + std::to_string(0) + " : " + std::to_string(m_data.m_playerStats.at(0).m_speed) << std::endl;
+	//std::cout << "Gold " + std::to_string(0) + " : " + std::to_string(m_data.m_playerStats.at(0).m_gold) << std::endl;
+	//std::cout << "KillCount " + std::to_string(0) + " : " + std::to_string(m_data.m_playerStats.at(0).m_killCount) << std::endl;
+	//std::cout << "-----------------------------------------------------------------------------------------" << std::endl;
 
+	//for (int i = 0; i < M_MAX_STAT_PRESETS; i++)
+	//{
+	//	std::cout << "Class " + std::to_string(i) + " : " + m_data.m_presets.m_stats.at(i).m_class << std::endl;
+	//	std::cout << "Health " + std::to_string(i) + " : " + std::to_string(m_data.m_presets.m_stats.at(i).m_health) << std::endl;
+	//	std::cout << "Strength " + std::to_string(i) + " : " + std::to_string(m_data.m_presets.m_stats.at(i).m_strength) << std::endl;
+	//	std::cout << "Speed " + std::to_string(i) + " : " + std::to_string(m_data.m_presets.m_stats.at(i).m_speed) << std::endl;
+	//	std::cout << "Gold " + std::to_string(i) + " : " + std::to_string(m_data.m_presets.m_stats.at(i).m_gold) << std::endl;
+	//	std::cout << "KillCount " + std::to_string(i) + " : " + std::to_string(m_data.m_presets.m_stats.at(i).m_killCount) << std::endl;
+	//	std::cout << std::endl;
+	//}
 
 	////
 	//m_playerRect = new SDL_Rect();
