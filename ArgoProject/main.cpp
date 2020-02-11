@@ -13,6 +13,7 @@
 #include "SDL_net.h"
 #include "Game.h"
 #include "Server.h"
+#include "LevelLoader.h"
 
 using namespace std;
 
@@ -22,7 +23,9 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	DEBUG_MSG("Game Object Created");
-	Game* game = new Game();
+	GameData data;
+	LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", data);
+	Game* game = new Game(data);
 	Server* server = new Server();
 	//FrameRate Capping 
 	const int Fps = 60;
