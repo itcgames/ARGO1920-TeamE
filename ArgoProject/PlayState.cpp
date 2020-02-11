@@ -45,7 +45,7 @@ void PlayState::update()
 		{
 			if (myMap->map.at(i).tileList.at(z)->getTag() == "Wall")
 			{
-				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
+				m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
 			}
 		}
 	}
