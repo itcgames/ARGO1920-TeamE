@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "SDL.h"
+#include "LevelLoader.h"
 
 class GameState
 {

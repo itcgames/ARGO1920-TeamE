@@ -18,6 +18,7 @@
 #include "SpriteComponent.h"
 #include "RenderSystem.h"
 #include "Renderer.h"
+#include "Data.h"
 #include "LevelLoader.h"
 
 class Game

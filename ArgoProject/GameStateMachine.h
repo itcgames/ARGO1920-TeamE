@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include <vector>
 #include <iostream>
+#include "LevelLoader.h"
 class GameStateMachine
 {
 public:
@@ -17,6 +18,7 @@ public:
 
 
 private:
+	GameData m_data;
 	std::vector<GameState*> m_gameStateSystem;
 };
 
