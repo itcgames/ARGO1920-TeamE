@@ -152,9 +152,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BehaviourComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BehaviourSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
@@ -179,8 +176,17 @@
     <ClInclude Include="Server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ItemComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviourComponent.h">
+      <Filter>Header Files\Components</Filter>
     <ClInclude Include="Data.h">
       <Filter>Header Files</Filter>
+
     </ClInclude>
   </ItemGroup>
 </Project>

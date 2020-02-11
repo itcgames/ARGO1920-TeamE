@@ -164,6 +164,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="ItemComponent.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="Map.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StaminaComponent.h" />
     <ClInclude Include="StatsComponent.h" />
