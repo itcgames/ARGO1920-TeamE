@@ -3,10 +3,12 @@
 #include "Entity.h"
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
+#include "StatsComponent.h"
 #include "RenderSystem.h"
 #include "BehaviourComponent.h"
 #include "BehaviourSystem.h"
 #include "Renderer.h"
+#include "Data.h"
 #include <iostream>
 
 class Player
@@ -21,6 +23,7 @@ public:
 	Entity* m_player;
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
+	StatsComponent* m_statc;
 	BehaviourComponent* m_bc;
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
