@@ -55,9 +55,9 @@ public:
 		}
 	}
 
-	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture, Vector2 positon)
+	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture)//, Vector2 positon)
 	{
-		SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
+		//SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
 		//SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
 		//SDL_RenderSetViewport(renderer, camera);
 		for (int i = 0; i < m_entities.size(); i++)
@@ -113,7 +113,6 @@ public:
 			SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 		}
 		m_minimapList.clear();
-		//SDL_RenderSetViewport(renderer, miniMap);
 	}
 
 	//
@@ -125,7 +124,7 @@ public:
 private:
 	//
 	
-
+	SDL_Rect viewableArea = { 0, 0, 100,100 };
 	SDL_Rect* m_position;
 	SDL_Texture* m_texture;
 	//

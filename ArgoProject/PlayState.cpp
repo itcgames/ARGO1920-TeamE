@@ -2,7 +2,7 @@
 
 const std::string PlayState::m_playID = "PLAY";
 
-PlayState::PlayState(Vector2 t_screenDimensions)
+PlayState::PlayState(Vector2 &t_screenDimensions)
 {
 	m_cameraDimensions = t_screenDimensions;
 }
@@ -65,13 +65,13 @@ void PlayState::render()
 		Render::Instance()->getRenderer(),
 		camera,
 		m_miniMap,
-		m_miniMapTexture,
-		Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
+		m_miniMapTexture);
+		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
 }
 
 /// handle user and system events/ input
-void PlayState::processEvents(bool isRunning)
+void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
 }

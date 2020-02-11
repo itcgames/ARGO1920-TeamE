@@ -81,7 +81,7 @@ void Player::processEvents(bool isRunning)
 		case SDL_MOUSEMOTION:
 			if (move)
 			{
-				std::cout << event.motion.xrel << " " << event.motion.yrel << std::endl;
+				//std::cout << event.motion.xrel << " " << event.motion.yrel << std::endl;
 
 				/*mousePosition.x += event.motion.xrel;
 				mousePosition.y += event.motion.yrel;*/

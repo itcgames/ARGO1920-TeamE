@@ -13,7 +13,7 @@ public:
 
 	void update();
 	void render();
-	void processEvents(bool isRunning);
+	void processEvents(bool &isRunning);
 	std::vector<GameState*>& getGameStates() { return m_gameStateSystem; }
 
 

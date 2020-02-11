@@ -59,7 +59,7 @@ void GameStateMachine::render()
 	}
 }
 
-void GameStateMachine::processEvents(bool isRunning)
+void GameStateMachine::processEvents(bool &isRunning)
 {
 	if (!m_gameStateSystem.empty())
 	{

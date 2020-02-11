@@ -30,7 +30,8 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	Vector2 screenDimensions = Vector2(width, height);
 
-	m_gameStateMachine->changeState(new PlayState( screenDimensions));
+	m_gameStateMachine->changeState(new MenuState( screenDimensions,m_gameStateMachine));
+	//m_gameStateMachine->changeState(new PlayState(screenDimensions));
 	//LevelLoader::writeToPlayer("test", 0, 0, 0, 0, 50);
 	//When reading player data index is ALWAYS 0, ie - m_data.m_playerStats.at(0).
 	//std::cout << "PLAYER" << std::endl;
@@ -86,7 +87,6 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 void Game::processEvents()
 {
 	m_gameStateMachine->processEvents(isRunning);
-
 }
 
 
