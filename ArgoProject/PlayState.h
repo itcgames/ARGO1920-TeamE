@@ -31,7 +31,10 @@ private:
 	Player m_player;
 
 	SDL_Rect* camera;
+	SDL_Rect* m_miniMap;
 	SDL_Rect* level;
+	SDL_Texture* m_miniMapTexture;
+
 	Ai* m_enemy = new Ai;
 	Map* myMap;
 
