@@ -55,7 +55,7 @@ public:
 		}
 	}
 
-	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture, Vector2 positon)
+	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture)//, Vector2 positon)
 	{
 		//SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
 		//SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);

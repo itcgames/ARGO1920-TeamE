@@ -11,7 +11,7 @@
 class MenuState : public GameState
 {
 public:
-	MenuState(Vector2 t_dimensions, GameStateMachine* t_stateMachine);
+	MenuState(Vector2 &t_dimensions, GameStateMachine* t_stateMachine);
 
 	virtual void update();
 	virtual void render();

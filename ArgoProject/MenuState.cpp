@@ -2,7 +2,7 @@
 
 const std::string MenuState::m_menuID = "MENU";
 
-MenuState::MenuState(Vector2 t_dimensions, GameStateMachine* t_stateMachine)
+MenuState::MenuState(Vector2 &t_dimensions, GameStateMachine* t_stateMachine)
 {
 	m_buttonDimensions = t_dimensions;
 	m_stateMachine = t_stateMachine;

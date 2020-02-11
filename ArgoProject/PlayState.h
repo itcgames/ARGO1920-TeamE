@@ -13,7 +13,7 @@
 class PlayState : public GameState
 {
 public:
-	PlayState(Vector2 t_screenDimensions);
+	PlayState(Vector2 &t_screenDimensions);
 	virtual void update();
 	virtual void render();
 	virtual void processEvents(bool &isRunning);
