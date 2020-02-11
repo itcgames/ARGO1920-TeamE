@@ -29,8 +29,8 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	Vector2 screenDimensions = Vector2(width, height);
 
-	m_gameStateMachine->changeState(new PlayState( screenDimensions));
-
+	m_gameStateMachine->changeState(new MenuState( screenDimensions,m_gameStateMachine));
+	//m_gameStateMachine->changeState(new PlayState(screenDimensions));
 
 	////
 	//m_playerRect = new SDL_Rect();
@@ -64,7 +64,6 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 void Game::processEvents()
 {
 	m_gameStateMachine->processEvents(isRunning);
-
 }
 
 

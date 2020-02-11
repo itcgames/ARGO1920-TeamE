@@ -71,7 +71,7 @@ void PlayState::render()
 }
 
 /// handle user and system events/ input
-void PlayState::processEvents(bool isRunning)
+void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
 }
