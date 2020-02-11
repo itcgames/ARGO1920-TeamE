@@ -46,8 +46,6 @@ public:
 		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
 			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			std::cout << "Enemy collision detected" << std::endl;
-
 			//player velocity *= -1
 			Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
 
@@ -63,8 +61,6 @@ public:
 		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
 			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			std::cout << "Wall collision detected" << std::endl;
-
 			//player velocity *= -1
 			Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
 			Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();

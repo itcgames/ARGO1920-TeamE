@@ -16,12 +16,12 @@ public:
 
 	void CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs);
 
-	void CreatePath(Vector2 start, Vector2 end);
+	void CreatePath(Vector2 start, Vector2 end,std::string tag,RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	std::vector<std::unique_ptr<Room>> map;
 	std::vector<Tile*> path;
 
-	int roomsNum = 2;
+	int roomsNum = 15;
 
 };
 
