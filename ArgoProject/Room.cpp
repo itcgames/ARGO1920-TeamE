@@ -70,7 +70,7 @@ void Room::checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* 
 				floorCount--;
 			}
 
-			delete tileList[i].release();
+			//delete tileList[i].release();
 			tileList[i] = nullptr;
 			tileList.erase(tileList.begin() + i);
 		}
