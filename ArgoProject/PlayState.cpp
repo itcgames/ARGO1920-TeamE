@@ -36,6 +36,7 @@ void PlayState::update()
 	//m_miniMap->y = camera->y + camera->h - m_miniMap->h;
 
 	m_enemy->update(m_player.getPosition());
+	m_pickUp->update();
 
 	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
 
@@ -45,10 +46,12 @@ void PlayState::update()
 		{
 			if (myMap->map.at(i).tileList.at(z)->getTag() == "Wall")
 			{
-				m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
+				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
 			}
 		}
 	}
+
+	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 }
 
 void PlayState::render()
@@ -104,6 +107,7 @@ bool PlayState::onEnter()
 	myMap->CreateMap(m_rs, m_cs);
 	m_player.init(m_rs, camera,myMap->map.at(0).getCenterPos());
 	m_enemy->initialize(m_rs);
+	m_pickUp->initialize(m_rs, "Health", true, false, false);
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);

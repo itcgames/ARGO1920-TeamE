@@ -66,12 +66,26 @@ public:
 		return m_value;
 	}
 
+	bool getIsSmall()
+	{
+		return m_isSmall;
+	}
+
+	bool getIsMedium()
+	{
+		return m_isMedium;
+	}
+
+	bool getIsLarge()
+	{
+		return m_isLarge;
+	}
+
 	//
 	void setType(std::string type)
 	{
 		m_type = type;
 	}
-
 
 
 private:

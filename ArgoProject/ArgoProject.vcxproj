@@ -144,6 +144,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="CommandSystem.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PositionComponent.h" />
