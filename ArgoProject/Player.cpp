@@ -102,6 +102,13 @@ void Player::update()
 	{
 		spriteSheetY = 113;
 		finiteStateMachine->walking();
+
+		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y)
+			&&
+			m_ih->updateMouse)
+		{
+			m_ih->mousePosition = m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y);
+		}
 	}
 
 

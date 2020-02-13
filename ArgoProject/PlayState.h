@@ -9,6 +9,9 @@
 #include "Pickup.h"
 #include "CollisionSystem.h"
 #include "Map.h"
+#include "Server.h"
+#include <vector>
+#include "Client.h"
 
 class PlayState : public GameState
 {
@@ -35,13 +38,17 @@ private:
 	SDL_Rect* level;
 	SDL_Texture* m_miniMapTexture;
 
-	Ai* m_enemy = new Ai;
+	//Ai* m_enemy = new Ai;
+	std::vector<Ai*> m_enemies;
 	PickUp* m_pickUp = new PickUp;
 	Map* myMap;
 
 	Vector2 m_cameraDimensions;
 
 	GameStateMachine* m_stateMachine;
+
+	Server m_server{ 1111, true };
+	Client m_client{ data::Instance()->IPADDRESS, 1111 };
 };
 
 #endif
