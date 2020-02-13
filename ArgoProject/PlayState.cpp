@@ -32,8 +32,8 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
-	//m_miniMap->x = camera->x + camera->w - m_miniMap->w;
-	//m_miniMap->y = camera->y + camera->h - m_miniMap->h;
+	m_miniMap->x = camera->x + camera->w - m_miniMap->w;
+	m_miniMap->y = camera->y + camera->h - m_miniMap->h;
 
 	m_enemy->update(m_player.getPosition());
 	m_pickUp->update();
@@ -56,7 +56,6 @@ void PlayState::update()
 
 void PlayState::render()
 {
-	//m_rs->render(Render::Instance()->getRenderer());
 	/* Creating the surface. */
 
 	//m_rs->render(Render::Instance()->getRenderer());
@@ -69,8 +68,11 @@ void PlayState::render()
 		camera,
 		m_miniMap,
 		m_miniMapTexture);
+	//m_rs->render(Render::Instance()->getRenderer());
 		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
+
+	//m_player.render();
 }
 
 /// handle user and system events/ input
@@ -104,10 +106,12 @@ bool PlayState::onEnter()
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 
 	myMap = new Map(m_rs, m_cs);
-	myMap->CreateMap(m_rs, m_cs);
-	m_player.init(m_rs, camera,myMap->map.at(0).getCenterPos());
+	myMap->CreateMap(m_rs, m_cs);	
 	m_enemy->initialize(m_rs);
+
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
+	m_player.init(m_rs, camera, myMap->map.at(0).getCenterPos());
+
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
