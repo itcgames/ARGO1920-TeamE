@@ -49,9 +49,18 @@
     <ClCompile Include="PlayState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="FSM.cpp" />
-    <ClCompile Include="Idle.cpp" />
-    <ClCompile Include="Walking.cpp" />
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Idle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Walking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ai.h">
@@ -150,10 +159,24 @@
     <ClInclude Include="PlayState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="FSM.h" />
-    <ClInclude Include="Idle.h" />
-    <ClInclude Include="FiniteState.h" />
-    <ClInclude Include="Walking.h" />
+    <ClInclude Include="ECS.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FSM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Idle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FiniteState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Walking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
