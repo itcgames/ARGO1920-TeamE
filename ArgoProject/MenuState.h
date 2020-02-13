@@ -1,12 +1,12 @@
-#pragma once
+#ifndef MENUSTATE
+#define MENUSTATE
 #include "GameState.h"
-#include "PlayState.h"
+//#include "PlayState.h"
+#include "CharacterSelectState.h"
+#include "OptionsState.h"
 #include "SDL.h"
-#include "Renderer.h"
-#include "Vector2.h"
-#include "GameStateMachine.h"
+#include "CreditsState.h"
 #include <iostream>
-#include <vector>
 
 class MenuState : public GameState
 {
@@ -33,9 +33,16 @@ private:
 	SDL_Rect* m_playButton;
 	SDL_Texture* m_playButtonTexture;
 
+	SDL_Rect* m_optionsButton;
+	SDL_Texture* m_optionsButtonTexture;
+
+	SDL_Rect* m_creditsButton;
+	SDL_Texture* m_creditsButtonTexture;
+
 	SDL_Rect* m_exitButton;
 	SDL_Texture* m_exitButtonTexture;
 
 	GameStateMachine* m_stateMachine;
 };
 
+#endif

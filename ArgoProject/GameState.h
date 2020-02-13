@@ -1,8 +1,13 @@
-#pragma once
+#ifndef GAMESTATE
+#define GAMESTATE
 #include <string>
+#include "Renderer.h"
 #include "SDL.h"
+#include <SDL_ttf.h>
 #include "LevelLoader.h"
-
+#include "GameStateMachine.h"
+#include "Vector2.h"
+#include <iostream>
 class GameState
 {
 public:
@@ -14,3 +19,5 @@ public:
 
 	virtual std::string getStateID() const = 0;
 };
+
+#endif

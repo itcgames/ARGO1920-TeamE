@@ -2,9 +2,10 @@
 
 const std::string PlayState::m_playID = "PLAY";
 
-PlayState::PlayState(Vector2 &t_screenDimensions)
+PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachine)
 {
 	m_cameraDimensions = t_screenDimensions;
+	m_stateMachine = t_stateMachine;
 }
 
 
@@ -74,6 +75,17 @@ void PlayState::render()
 void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
+
+	SDL_Event event;
+
+	if (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_KEYDOWN:
+			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+		}
+	}
 }
 
 bool PlayState::onEnter()
