@@ -50,6 +50,13 @@ void PlayState::update()
 		}
 	}
 
+	// Testing deleteEntity
+	if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
+	{
+		m_player.getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+		m_rs->deleteEntity(m_player.getEntity());
+	}
+
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 }
 
@@ -94,6 +101,20 @@ void PlayState::processEvents(bool &isRunning)
 bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		if (data::Instance()->HOST)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				m_server.ListenForNewConnection();
+			}
+		}
+		else
+		{
+			m_client.Connect();
+		}
+	}
 	m_rs = new RenderSystem();
 	m_cs = new CollisionSystem();
 

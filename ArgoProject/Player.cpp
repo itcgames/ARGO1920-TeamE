@@ -16,8 +16,8 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//set both rectangles to the size of one frame from the sprite sheet
 	frameWidth = textureWidth / 8;
 	frameHeight = textureHeight;
-	m_playerRect->w = frameWidth; m_playerRect->h = frameHeight;
-	playerPos->w = frameWidth; playerPos->h = frameHeight;
+	m_playerRect->w = frameWidth /2; m_playerRect->h = frameHeight /2;
+	playerPos->w = frameWidth /2; playerPos->h = frameHeight /2;
 
 	m_player = new Entity();
 	m_bs = new BehaviourSystem;
@@ -30,12 +30,14 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
 		data::Instance()->getData().m_playerStats.at(0).m_strength, data::Instance()->getData().m_playerStats.at(0).m_speed,
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
+	m_ac = new ActiveComponent(true);
 
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);
 	m_player->addComponent<SpriteComponent>(m_sc, 2);
 	m_player->addComponent<BehaviourComponent>(m_bc, 3);
 	m_player->addComponent<StatsComponent>(m_statc, 4);
+	m_player->addComponent<ActiveComponent>(m_ac, 6);
 	
 	m_rs = t_rs;
 	m_bs->addEntity(m_player);
@@ -104,7 +106,7 @@ void Player::animate()
 {
 	Uint32 ticks = SDL_GetTicks();
 	Uint32 sprite = (ticks / 100) % 8;
-	playerPos->x = sprite * frameWidth;
+	playerPos->x = sprite * (frameWidth /2);
 
 	m_sc->setRect(playerPos);
 	m_sc->setDstRect(m_playerRect);

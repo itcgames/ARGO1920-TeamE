@@ -9,6 +9,8 @@
 #include "Pickup.h"
 #include "CollisionSystem.h"
 #include "Map.h"
+#include "Server.h"
+#include "Client.h"
 
 class PlayState : public GameState
 {
@@ -42,6 +44,9 @@ private:
 	Vector2 m_cameraDimensions;
 
 	GameStateMachine* m_stateMachine;
+
+	Server m_server{ 1111, true };
+	Client m_client{ "149.153.106.174", 1111 };
 };
 
 #endif

@@ -25,6 +25,7 @@ public:
 	void destroy();
 
 	Entity* getEntity();
+	SDL_Rect* getRect();
 
 private:
 	Entity* m_item;

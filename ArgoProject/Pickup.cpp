@@ -97,6 +97,8 @@ void PickUp::update()
 //
 void PickUp::destroy()
 {
+
+	
 	delete this;
 }
 
@@ -104,4 +106,10 @@ void PickUp::destroy()
 Entity* PickUp::getEntity()
 {
 	return m_item;
+}
+
+//
+SDL_Rect* PickUp::getRect()
+{
+	return m_rect;
 }

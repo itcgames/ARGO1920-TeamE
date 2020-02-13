@@ -9,6 +9,7 @@
 #ifndef BASESYSTEM_H
 #define BASESYSTEM_H
 
+#include "ECS.h"
 #include "Entity.h"
 
 #include <SDL.h>
@@ -22,6 +23,26 @@ public:
 	void addEntity(Entity* entity)
 	{
 		m_entities.push_back(entity);
+	}
+
+	void deleteEntity(Entity* entity)
+	{
+		//Checks through all elements of vector
+		for (int i = 0; i < m_entities.size(); i++)
+		{
+			// If vector equals to entity you want to delete...
+			if (m_entities[i] == entity)
+			{
+				// ...and that entity's ActiveComponent iAlive is false..
+				if (m_entities[i]->getComponent<ActiveComponent>(6)->getIsActive() == false)
+				{
+					
+					// ...that entity is erased
+					m_entities.erase(m_entities.begin() + i);
+					break;
+				}
+			}
+		}
 	}
 
 
