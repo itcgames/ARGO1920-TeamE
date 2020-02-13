@@ -30,28 +30,24 @@ public:
 	//
 	void render(SDL_Renderer* renderer)
 	{
-		for (int i = 0; i < m_entities.size(); i++)
+
+
+		if (m_entities.back()->getComponent<PositionComponent>(1)->getPosition().x + m_entities.back()->getComponent<SpriteComponent>(2)->getRect()->w < 0)
 		{
-			
-			if (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w < 0)
+
+		}
+		else
+		{
+			SpriteComponent* sprite = m_entities.back()->getComponent<SpriteComponent>(2);
+			if (m_entities.back()->getComponent<BehaviourComponent>(3) != NULL)
 			{
-				m_entities[i] = nullptr;
-				m_entities.erase(m_entities.begin() + i);
-				i--;
+				angle = m_entities.back()->getComponent<BehaviourComponent>(3)->getRotationAngle();
 			}
 			else
 			{
-				SpriteComponent* sprite = m_entities[i]->getComponent<SpriteComponent>(2);
-				if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
-				{
-					angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
-				}
-				else
-				{
-					angle = 0;
-				}
-				SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, sprite->getRect(), angle, NULL, SDL_FLIP_HORIZONTAL);
+				angle = 0;
 			}
+			SDL_RenderCopyEx(renderer, sprite->getTexture(), sprite->getDstRect(), sprite->getRect(), angle, NULL, SDL_FLIP_NONE);
 		}
 	}
 
@@ -60,38 +56,46 @@ public:
 		//SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
 		//SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
 		//SDL_RenderSetViewport(renderer, camera);
+
 		for (int i = 0; i < m_entities.size(); i++)
 		{
-			if ((m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w < camera->x 
-				||
-				(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x > camera->x + camera->w))
-				||
-				(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h < camera->y
+			
+				if ((m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w < camera->x
 					||
-				(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y > camera->y + camera->h)))
-			{
-				
-			}
-			else
-			{
-				m_minimapList.push_back(m_entities[i]);
-
-				int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
-				int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
-				viewableArea = { posX, posY, m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w,m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h };
-
-				if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
+					(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x > camera->x + camera->w))
+					||
+					(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h < camera->y
+						||
+						(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y > camera->y + camera->h)))
 				{
-					angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
+
 				}
 				else
 				{
-					angle = 0;
+					m_minimapList.push_back(m_entities[i]);
+
+					int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
+					int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
+					viewableArea = { posX, posY, m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w,m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h };
+
+					if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
+					{
+						angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
+					}
+					else
+					{
+						angle = 0;
+					}
+
+
+					SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+
 				}
 
-				SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
-			}
 		}
+		 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		 //Draws the minimap
+
 		viewableArea = { miniMap->x - 100, miniMap->y - 100, miniMap->w * 2,miniMap->h * 2 };
 		SDL_RenderCopy(renderer, t_miniMapTexture,NULL,&viewableArea);
 		for (int i = 0; i < m_minimapList.size(); i++)

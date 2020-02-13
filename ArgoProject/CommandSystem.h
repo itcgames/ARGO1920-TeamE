@@ -1,7 +1,7 @@
 #include <map>
 #include <vector>
 #include <SDL.h>
-
+#include "FSM.h"
 #include "System.h"
 #include "Entity.h"
 
@@ -28,40 +28,81 @@ enum inputState
 class Command
 {
 public:
+public:
 	virtual ~Command() {}
-	virtual void execute() = 0;
+	virtual void execute(FSM* fsm) = 0;
 	virtual InputType type() = 0;
+};
+
+//classes to call the function body
+//execution of states changing
+
+class Walk : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->walking(); }
+	InputType type() { return STATE; }
 };
 
 class InputHandler : public System
 {
-private:
+public:
+	// Pointers to all commands
+	Command* pressWalk;
+
+	std::map <int, Command*> commands;
+
+	std::map <int, inputState> state_map;
+	std::map <int, Action> action_map;
+
+
+	//Vector2 mouseRelativePosition = Vector2(0, 0);
+	Vector2 mousePosition = Vector2(0, 0);
+	bool move = false;
+
+	Walk walk;
+	FSM* fsm;
+
 	InputHandler()
 	{
-		//creates pointers to all the commands eg. Walking = new Walk();
-		//commands[SDLK_1] = Walking;
-		//commands[SDLK_w] = 
+		//Creates pointers to all the commands
+		//pressWalk = new Walk();
+
+		//commands[SDLK_w] = pressWalk;
+
 	}
 
 	~InputHandler()
 	{
-		//Delete all command pointers
+		// Delete all command pointers    
 		std::map<int, Command*>::iterator iter;
 		for (iter = commands.begin(); iter != commands.end(); iter++)
 			delete iter->second;
 	}
 
-	//pointers to commands eg. Command* Walking;
+	bool generateInputs(std::vector<Command*>& command_queue, SDL_Rect* t_camera)
+	{
+		bool exit = inputToAction(t_camera);    // converts raw input datum to an action and/or state
+
+		if (exit)
+		{
+			return true;
+		}
+		else
+		{
+			fillCommands(command_queue);  // fills command queue
+			action_map.clear();         // clears key presses
+			return false;
+		}
+	}
+
+	void bindings(int key, Command* command)
+	{
+		commands[key] = command; // key pressed is pointed to the command
+	}
 
 
-
-	std::map<int, Command*> commands;
-
-	std::map<int, inputState> state_map;
-	std::map<int, Action> action_map;
-
-	// converts the input into an action
-	bool inputToAction()
+	bool inputToAction(SDL_Rect* t_camera)
 	{
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -81,11 +122,41 @@ private:
 			{
 				keyup(event);
 			}
+			else if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (event.button.button == SDL_BUTTON_RIGHT)
+				{
 
+				}
+				else if (event.button.button == SDL_BUTTON_LEFT)
+				{
+/*
+					mouseRelativePosition.x = event.button.x;
+					mouseRelativePosition.y = event.button.y;*/
+
+					mousePosition.x = event.button.x + t_camera->x;
+					mousePosition.y = event.button.y + t_camera->y;
+					move = true;
+				}
+			}
+			else if (event.type == SDL_MOUSEMOTION)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					if (move)
+					{/*
+						mouseRelativePosition.x = event.button.x;
+						mouseRelativePosition.y = event.button.y;
+*/
+						mousePosition.x = event.button.x + t_camera->x;
+						mousePosition.y = event.button.y + t_camera->y;
+					}
+					break;
+				}
+			}
 		return false;
 	}
 
-	// fills the commands queue
 	void fillCommands(std::vector<Command*>& command_queue)
 	{
 		std::map<int, Command*>::iterator iter; // creates the iterator for the commands list
@@ -102,7 +173,6 @@ private:
 		}
 	}
 
-	// checks to see if the key is pressed
 	void keydown(SDL_Event& event)
 	{
 		if (state_map[event.key.keysym.sym] == RELEASED)
@@ -112,57 +182,19 @@ private:
 		}
 	}
 
-	//checks to see if key is released
 	void keyup(SDL_Event& event)
 	{
 		state_map[event.key.keysym.sym] = RELEASED; // if the key has been released
 	}
 
-	bool was_pressed(int key)
-	{
-		return action_map[key]; //returns last key pressed
-	}
-
-	//creates the input commands
-	bool generateInputs(std::vector<Command*>& command_queue)
-	{
-		bool exit = inputToAction();    // converts raw input datum to an action and/or state
-
-		if (exit)
-		{
-			return true;
-		}
-		else
-		{
-			fillCommands(command_queue);  // fills command queue
-			action_map.clear();         // clears key presses
-			return false;
-		}
-	}
-
-	//binds the keys to a command
-	void bindings(int key, Command* command)
-	{
-		commands[key] = command; // key pressed is pointed to the command
-	}
-
-	//if button is being held
 	bool is_held(int key)
 	{
 		return state_map[key]; // returns the current button pressed
 	}
 
-
-
-
-	//classes to call the function body
-	//execution of states changing
-
-	//eg.
-	//class Walk : public Command
-	//{
-	//public:
-	//void execute() {walking();}
-	//InputType type() {return STATE;}
-	//};
+	bool was_pressed(int key)
+	{
+		return action_map[key];
+	}
 };
+

@@ -23,7 +23,7 @@ public:
 	std::vector<Room> map;
 	std::vector<Tile*> path;
 
-	int roomsNum = 25;
+	int roomsNum = 15;
 
 };
 
