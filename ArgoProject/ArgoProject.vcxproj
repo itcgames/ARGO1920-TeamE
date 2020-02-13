@@ -83,11 +83,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\devtools\SDL\SDL2-2.0.10\include;C:\devtools\SDL\SDL2_net-2.0.1\include;.\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\devtools\SDL\SDL2-2.0.10\include;C:\devtools\SDL\SDL2_net-2.0.1\include;.\lib;C:\devtools\SDL\SDL2_ttf-2.0.15\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\devtools\SDL\SDL2-2.0.10\lib\x86;C:\devtools\SDL\SDL2_net-2.0.1\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\devtools\SDL\SDL2-2.0.10\lib\x86;C:\devtools\SDL\SDL2_net-2.0.1\lib\x86;.\lib;C:\devtools\SDL\SDL2_ttf-2.0.15\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_net.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

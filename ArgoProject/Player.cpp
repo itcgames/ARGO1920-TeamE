@@ -16,8 +16,8 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//set both rectangles to the size of one frame from the sprite sheet
 	frameWidth = textureWidth / 8;
 	frameHeight = textureHeight;
-	m_playerRect->w = frameWidth; m_playerRect->h = frameHeight;
-	playerPos->w = frameWidth; playerPos->h = frameHeight;
+	m_playerRect->w = frameWidth /2; m_playerRect->h = frameHeight /2;
+	playerPos->w = frameWidth /2; playerPos->h = frameHeight /2;
 
 	m_player = new Entity();
 	m_bs = new BehaviourSystem;
@@ -100,7 +100,7 @@ void Player::animate()
 {
 	Uint32 ticks = SDL_GetTicks();
 	Uint32 sprite = (ticks / 100) % 8;
-	playerPos->x = sprite * frameWidth;
+	playerPos->x = sprite * (frameWidth /2);
 
 	m_sc->setRect(playerPos);
 	m_sc->setDstRect(m_playerRect);
