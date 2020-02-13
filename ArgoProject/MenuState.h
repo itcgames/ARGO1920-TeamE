@@ -6,6 +6,7 @@
 #include "OptionsState.h"
 #include "SDL.h"
 #include "CreditsState.h"
+#include "HostSearchState.h"
 #include <iostream>
 
 class MenuState : public GameState
@@ -30,8 +31,11 @@ private:
 
 	Vector2 m_buttonDimensions;
 
-	SDL_Rect* m_playButton;
-	SDL_Texture* m_playButtonTexture;
+	SDL_Rect* m_singlePlayerButton;
+	SDL_Texture* m_singlePlayerButtonTexture;
+
+	SDL_Rect* m_multiPlayerButton;
+	SDL_Texture* m_multiPlayerButtonTexture;
 
 	SDL_Rect* m_optionsButton;
 	SDL_Texture* m_optionsButtonTexture;

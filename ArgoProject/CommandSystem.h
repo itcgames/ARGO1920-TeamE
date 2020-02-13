@@ -58,7 +58,10 @@ public:
 
 	//Vector2 mouseRelativePosition = Vector2(0, 0);
 	Vector2 mousePosition = Vector2(0, 0);
+	Vector2 mouseRelativePosition = Vector2(0, 0);
+
 	bool move = false;
+	bool updateMouse = false;
 
 	Walk walk;
 	FSM* fsm;
@@ -130,13 +133,14 @@ public:
 				}
 				else if (event.button.button == SDL_BUTTON_LEFT)
 				{
-/*
+
 					mouseRelativePosition.x = event.button.x;
-					mouseRelativePosition.y = event.button.y;*/
+					mouseRelativePosition.y = event.button.y;
 
 					mousePosition.x = event.button.x + t_camera->x;
 					mousePosition.y = event.button.y + t_camera->y;
 					move = true;
+					updateMouse = true;
 				}
 			}
 			else if (event.type == SDL_MOUSEMOTION)
@@ -144,13 +148,21 @@ public:
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
 					if (move)
-					{/*
+					{
 						mouseRelativePosition.x = event.button.x;
 						mouseRelativePosition.y = event.button.y;
-*/
+
 						mousePosition.x = event.button.x + t_camera->x;
 						mousePosition.y = event.button.y + t_camera->y;
 					}
+					break;
+				}
+			}
+			else if (event.type == SDL_MOUSEBUTTONUP)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					updateMouse = false;
 					break;
 				}
 			}
