@@ -6,7 +6,7 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_playerRect = new SDL_Rect();
 	playerPos = new SDL_Rect();
 	m_playerRect->x = startPos.x; m_playerRect->y = startPos.y;
-	playerPos->x = startPos.x; playerPos->y = startPos.y;
+	playerPos->x = 0; playerPos->y = 0;
 
 	//load in the player texture
 	SDL_Surface* playerSurface = IMG_Load("Assets/placeholderanim.png");
@@ -66,9 +66,10 @@ void Player::update()
 			}
 			m_playerRect->x = m_pc->getPosition().x;
 			m_playerRect->y = m_pc->getPosition().y;
-			//animate();
 		}
 	}
+
+	animate();
 
 	if (m_ih->move)
 	{
@@ -99,7 +100,7 @@ void Player::animate()
 	Uint32 sprite = (ticks / 100) % 8;
 	playerPos->x = sprite * frameWidth;
 
-	m_sc->setRect(m_playerRect);
-	m_sc->setDstRect(playerPos);
+	m_sc->setRect(playerPos);
+	m_sc->setDstRect(m_playerRect);
 }
 

@@ -47,7 +47,7 @@ public:
 			{
 				angle = 0;
 			}
-			SDL_RenderCopyEx(renderer, sprite->getTexture(), sprite->getDstRect(), sprite->getRect(), angle, NULL, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(renderer, sprite->getTexture(), sprite->getRect(), sprite->getDstRect(), angle, NULL, SDL_FLIP_NONE);
 		}
 	}
 
@@ -87,8 +87,10 @@ public:
 						angle = 0;
 					}
 
-
-					SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+					if (m_entities[i]->getID() != 1)
+					{
+						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+					}
 
 				}
 

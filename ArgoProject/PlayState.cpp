@@ -68,7 +68,7 @@ void PlayState::render()
 		camera,
 		m_miniMap,
 		m_miniMapTexture);
-	//m_rs->render(Render::Instance()->getRenderer());
+	m_rs->render(Render::Instance()->getRenderer());
 		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
 
