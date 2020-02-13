@@ -2,9 +2,10 @@
 
 const std::string PlayState::m_playID = "PLAY";
 
-PlayState::PlayState(Vector2 &t_screenDimensions)
+PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachine)
 {
 	m_cameraDimensions = t_screenDimensions;
+	m_stateMachine = t_stateMachine;
 }
 
 
@@ -32,8 +33,6 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
-	m_miniMap->x = camera->x + camera->w - m_miniMap->w;
-	m_miniMap->y = camera->y + camera->h - m_miniMap->h;
 
 	m_enemy->update(m_player.getPosition());
 	m_pickUp->update();
@@ -68,7 +67,7 @@ void PlayState::render()
 		camera,
 		m_miniMap,
 		m_miniMapTexture);
-	m_rs->render(Render::Instance()->getRenderer());
+	//m_rs->render(Render::Instance()->getRenderer());
 		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
 	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
 
@@ -79,6 +78,17 @@ void PlayState::render()
 void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
+
+	SDL_Event event;
+
+	if (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_KEYDOWN:
+			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+		}
+	}
 }
 
 bool PlayState::onEnter()

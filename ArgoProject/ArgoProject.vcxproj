@@ -88,7 +88,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\devtools\SDL\SDL2-2.0.10\lib\x86;C:\devtools\SDL\SDL2_net-2.0.1\lib\x86;.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_net.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -135,10 +135,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ai.cpp" />
+    <ClCompile Include="CharacterSelectState.cpp" />
+    <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="EndState.cpp" />
     <ClCompile Include="FSM.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Idle.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -146,6 +148,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="OptionsState.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -159,10 +162,13 @@
     <ClInclude Include="Ai.h" />
     <ClInclude Include="BehaviourComponent.h" />
     <ClInclude Include="BehaviourSystem.h" />
+    <ClInclude Include="CharacterSelectState.h" />
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="CommandSystem.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CreditsState.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="EndState.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FiniteState.h" />
@@ -178,6 +184,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="OptionsState.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
@@ -186,7 +193,6 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
-    <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StaminaComponent.h" />
     <ClInclude Include="StatsComponent.h" />

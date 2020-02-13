@@ -1,20 +1,19 @@
-#pragma once
-
+#ifndef PLAYSTATE
+#define PLAYSTATE
 #include "GameState.h"
+#include "EndState.h"
 #include "SDL.h"
-#include "Renderer.h"
 #include "Data.h"
 #include "Player.h"
 #include "Ai.h"
 #include "Pickup.h"
 #include "CollisionSystem.h"
-#include <iostream>
 #include "Map.h"
 
 class PlayState : public GameState
 {
 public:
-	PlayState(Vector2 &t_screenDimensions);
+	PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachine);
 	virtual void update();
 	virtual void render();
 	virtual void processEvents(bool &isRunning);
@@ -41,5 +40,8 @@ private:
 	Map* myMap;
 
 	Vector2 m_cameraDimensions;
+
+	GameStateMachine* m_stateMachine;
 };
 
+#endif

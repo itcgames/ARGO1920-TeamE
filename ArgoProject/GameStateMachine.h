@@ -1,9 +1,11 @@
-#pragma once
+#ifndef GAMESTATEMACHINE
+#define GAMESTATEMACHINE
 #include "GameState.h"
 #include "SDL.h"
 #include <vector>
 #include <iostream>
 #include "LevelLoader.h"
+class GameState;
 class GameStateMachine
 {
 public:
@@ -22,3 +24,4 @@ private:
 	std::vector<GameState*> m_gameStateSystem;
 };
 
+#endif

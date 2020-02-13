@@ -56,7 +56,7 @@ public:
 		//SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
 		//SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
 		//SDL_RenderSetViewport(renderer, camera);
-
+		int playerID = 0;
 		for (int i = 0; i < m_entities.size(); i++)
 		{
 			
@@ -91,6 +91,11 @@ public:
 					{
 						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 					}
+					else
+					{
+						playerID = i;
+						SDL_RenderCopyEx(renderer, m_entities[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+					}
 
 				}
 
@@ -116,7 +121,16 @@ public:
 				angle = 0;
 			}
 
-			SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+			//SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+			if (m_minimapList[i]->getID() != 1)
+			{
+				SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+			}
+			else
+			{
+				playerID = i;
+				SDL_RenderCopyEx(renderer, m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+			}
 		}
 		m_minimapList.clear();
 	}
