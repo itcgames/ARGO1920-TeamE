@@ -33,12 +33,14 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
+	for (int i = 0; i < 2; i++)
+	{
+		m_enemies[i]->update(m_player.getPosition());
+		
+		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+	}
 
-	m_enemy->update(m_player.getPosition());
 	m_pickUp->update();
-
-	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
-
 	for (int i = 0; i < myMap->map.size(); i++)
 	{
 		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
@@ -138,7 +140,15 @@ bool PlayState::onEnter()
 
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);	
-	m_enemy->initialize(m_rs);
+	Vector2 temp = { 400, 400 };
+	for (int i = 0; i < 2; i++)
+	{
+		m_enemies.push_back(new Ai);
+		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
+			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
+			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
+		temp = {600, 800};
+	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	m_player.init(m_rs, camera, myMap->map.at(0)->getCenterPos());
