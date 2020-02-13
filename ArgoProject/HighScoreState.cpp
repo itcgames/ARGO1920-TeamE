@@ -80,7 +80,7 @@ bool HighScoreState::onEnter()
 		m_nameRects[i]->y = m_cameraDimensions.y * (i * 0.1) + 0.05;
 		m_nameRects[i]->w = m_cameraDimensions.x * 0.6;
 		m_nameRects[i]->h = m_cameraDimensions.y * 0.1;
-		//
+		
 		m_slotRect[i] = new SDL_Rect();
 
 		m_slotRect[i]->x = m_cameraDimensions.x * 0.2;
