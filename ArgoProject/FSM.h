@@ -22,6 +22,9 @@ public:
 
 	void idle();
 	void walking();
-	void attacking();
+	void skillone();
+	void skilltwo();
+	void skillthree();
+	void skillfour();
 };
 
