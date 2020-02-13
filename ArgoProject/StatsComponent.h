@@ -15,14 +15,15 @@
 class StatsComponent : public BaseComponent<StatsComponent>
 {
 public:
-	StatsComponent(std::string _class, int strength, int intelligence, 
-				   int dexterity, int constitution, int agility, int entityID) :
-		m_class(_class),
-		m_strength(strength),
-		m_intelligence(intelligence),
-		m_dexterity(dexterity),
-		m_constitution(constitution),
-		m_agility(agility),
+
+	StatsComponent(std::string t_class, int t_health, int t_strength,
+		int t_speed, int t_gold, int t_killCount, int entityID) :
+		m_class(t_class),
+		m_health(t_health),
+		m_strength(t_strength),
+		m_speed(t_speed),
+		m_gold(t_gold),
+		m_killCount(t_killCount),
 		BaseComponent<StatsComponent>(entityID)
 	{
 
@@ -35,73 +36,70 @@ public:
 		return m_class;
 	}
 
-	int getStrength()
+	int getHealth()
 	{
-		return m_strength;
+		return m_health;
 	}
 
-	int getIntelligence()
+
+	int getSpeed()
 	{
-		return m_intelligence;
+		return m_speed;
 	}
 
-	int getDexterity()
+	int getGold()
 	{
-		return m_dexterity;
+		return m_gold;
 	}
 
-	int getConstitution()
+	int getkillCount()
 	{
-		return m_constitution;
-	}
-
-	int getAgility()
-	{
-		return m_agility;
+		return m_killCount;
 	}
 	//
 
 	// Set Methods
 	//
-	void setClass(std::string _class)
+	void setClass(std::string t_class)
 	{
-		m_class = _class;
+		m_class = t_class;
 	}
 
-	void setStrength(int strength)
+	void setHealth(int t_health)
 	{
-		m_strength = strength;
+		m_health = t_health;
 	}
 
-	void setIntelligence(int intelligence)
+	void setStrength(int t_strength)
 	{
-		m_intelligence = intelligence;
+		m_strength = t_strength;
 	}
 
-	void setDexterity(int dexterity)
+	void setSpeed(int t_speed)
 	{
-		m_dexterity = dexterity;
+		m_speed = t_speed;
 	}
 
-	void setConstitution(int constitution)
+	void setGold(int t_gold)
 	{
-		m_constitution = constitution;
+		m_gold = t_gold;
 	}
 
-	void setAgility(int agility)
+	void setKillCount(int t_killCount)
 	{
-		m_agility = agility;
+		m_killCount = t_killCount;
+
 	}
 	//
 
 private:
 	std::string m_class;
 
-	int m_strength; // Physical power
-	int m_intelligence; // Magic power
-	int m_dexterity; // Critical rate
-	int m_constitution; // HP and defense
-	int m_agility; // Speed
+	int m_health; // Physical power
+	int m_strength; // Magic power
+	int m_speed; // Critical rate
+	int m_gold; // HP and defense
+	int m_killCount; // Speed
 };
 
 #endif // !STATSCOMPONENT_H

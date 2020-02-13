@@ -16,5 +16,6 @@
 #include "StaminaComponent.h"
 #include "StatsComponent.h"
 #include "BehaviourComponent.h"
+#include "ItemComponent.h"
 
 #endif // !ECS_H

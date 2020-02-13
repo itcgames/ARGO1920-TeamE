@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include <vector>
 #include <iostream>
+#include "LevelLoader.h"
 class GameStateMachine
 {
 public:
@@ -12,11 +13,12 @@ public:
 
 	void update();
 	void render();
-	void processEvents(bool isRunning);
+	void processEvents(bool &isRunning);
 	std::vector<GameState*>& getGameStates() { return m_gameStateSystem; }
 
 
 private:
+	GameData m_data;
 	std::vector<GameState*> m_gameStateSystem;
 };
 

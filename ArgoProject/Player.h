@@ -3,10 +3,14 @@
 #include "Entity.h"
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
+#include "StatsComponent.h"
 #include "RenderSystem.h"
 #include "BehaviourComponent.h"
 #include "BehaviourSystem.h"
+#include "CommandSystem.h"
 #include "Renderer.h"
+#include "Data.h"
+#include "FiniteState.h"
 #include <iostream>
 
 class Player
@@ -14,6 +18,7 @@ class Player
 public:
 	void init(RenderSystem* t_rs, SDL_Rect* camera, Vector2 startPos);
 	void update();
+	void animate();
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; };
@@ -21,21 +26,25 @@ public:
 	Entity* m_player;
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
+	StatsComponent* m_statc;
 	BehaviourComponent* m_bc;
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
+	InputHandler* m_ih;
 
 	SDL_Rect* m_playerRect;
-	SDL_Texture* texture;
+	SDL_Texture* m_playerTexture;
+	SDL_Rect* playerPos;
+
 	SDL_Rect* m_camera;
 
-	bool move = false;
+	FSM* finiteStateMachine;
+	FiniteState* state;
 
-	int maxSpeed = 4;
+	//Creates the Command Queue
+	std::vector<Command*> commandQueue;
 
-	Vector2 mouseRelativePosition = Vector2(0, 0);
-	Vector2 mousePosition = Vector2(0, 0);
-
-	Vector2 m_velocity = Vector2(0, 0);
+	int frameWidth, frameHeight;
+	int textureWidth, textureHeight;
 };
 

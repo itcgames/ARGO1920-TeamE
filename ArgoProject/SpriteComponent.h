@@ -42,10 +42,21 @@ public:
 		m_texture = texture;
 	}
 
+	void setDstRect(SDL_Rect* dstRect)
+	{
+		m_dstrect = dstRect;
+	}
+
+	SDL_Rect* getDstRect()
+	{
+		return m_dstrect;
+	}
+
 private:
 	bool m_isActive;
 	SDL_Texture* m_texture;
 	SDL_Rect* m_rect;
+	SDL_Rect* m_dstrect;
 
 };
 

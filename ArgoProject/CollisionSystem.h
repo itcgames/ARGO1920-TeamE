@@ -76,6 +76,111 @@ public:
 		}
 	}
 
+	void pickupCollisionResponse(Entity* m_a, Entity* m_b)
+	{
+		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
+			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
+		{
+			
+			// If type is set to "Health" or "health"...
+			if (m_b->getComponent<ItemComponent>(5)->getType() == "Health" || 
+				m_b->getComponent<ItemComponent>(5)->getType() == "health")
+			{
+				//
+				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
+				{
+					//Insert Player logic
+					std::cout << "Small Health collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
+				{
+					//Insert Player logic
+					std::cout << "Medium Health collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
+				{
+					//Insert Player logic
+					std::cout << "Large Health collision" << std::endl;
+				}
+			}
+			
+			// If type is set to "Mana" or "mana"...
+			else if (m_b->getComponent<ItemComponent>(5)->getType() == "Mana" ||
+					 m_b->getComponent<ItemComponent>(5)->getType() == "mana")
+			{
+				//
+				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
+				{
+					//Insert Player logic
+					std::cout << "Small Mana collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
+				{
+					//Insert Player logic
+					std::cout << "Medium Mana collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
+				{
+					//Insert Player logic
+					std::cout << "Large Mana collision" << std::endl;
+				}
+			}
+
+			// If type is set to "Stamina" or "stamina"... 
+			else if (m_b->getComponent<ItemComponent>(5)->getType() == "Stamina" || 
+					 m_b->getComponent<ItemComponent>(5)->getType() == "stamina")
+			{
+				//
+				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
+				{
+					//Insert Player logic
+					std::cout << "Small Stamina collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
+				{
+					//Insert Player logic
+					std::cout << "Medium Stamina collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
+				{
+					//Insert Player logic
+					std::cout << "Large Stamina collision" << std::endl;
+				}
+			}
+
+			//  If type is set to "Gold" or "gold"...
+			else if (m_b->getComponent<ItemComponent>(5)->getType() == "Gold" || 
+				     m_b->getComponent<ItemComponent>(5)->getType() == "gold")
+			{
+				//
+				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
+				{
+					//Insert Player logic
+					std::cout << "Small Gold collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
+				{
+					//Insert Player logic
+					std::cout << "Medium Gold collision" << std::endl;
+				}
+				//
+				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
+				{
+					//Insert Player logic
+					std::cout << "Large Gold collision" << std::endl;
+				}
+			}
+
+		}// End if
+	}
+
 	// Separating Axis Theorem Collision
 	/*void getAxis()
 	{

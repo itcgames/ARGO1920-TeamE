@@ -47,6 +47,8 @@ public:
 
 	int getID() { return m_ID; }
 
+	void setID(int t_ID) { m_ID = t_ID; }
+
 	template <class T>
 	void removeComponent(int type)
 	{

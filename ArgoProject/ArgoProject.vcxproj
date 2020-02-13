@@ -135,19 +135,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ai.cpp" />
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="FSM.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="Idle.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Walking.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ai.h" />
@@ -156,16 +162,23 @@
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="CommandSystem.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FiniteState.h" />
+    <ClInclude Include="FSM.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="Idle.h" />
+    <ClInclude Include="ItemComponent.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PositionComponent.h" />
@@ -173,12 +186,14 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="SkillComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StaminaComponent.h" />
     <ClInclude Include="StatsComponent.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Walking.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
