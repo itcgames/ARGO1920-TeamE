@@ -17,5 +17,6 @@
 #include "StatsComponent.h"
 #include "BehaviourComponent.h"
 #include "ItemComponent.h"
+#include "ActiveComponent.h"
 
 #endif // !ECS_H

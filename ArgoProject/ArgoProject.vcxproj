@@ -156,6 +156,7 @@
     <ClCompile Include="Walking.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveComponent.h" />
     <ClInclude Include="Ai.h" />
     <ClInclude Include="BehaviourComponent.h" />
     <ClInclude Include="BehaviourSystem.h" />
