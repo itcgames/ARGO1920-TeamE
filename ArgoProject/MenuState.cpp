@@ -62,7 +62,7 @@ void MenuState::processEvents(bool &isRunning)
 				event.button.y > m_creditsButton->y && event.button.y < m_creditsButton->y + m_creditsButton->h)
 			{
 				//std::cout << "Options Button" << std::endl;
-				m_stateMachine->changeState(new CreditsState(m_buttonDimensions, m_stateMachine));
+				m_stateMachine->changeState(new HighScoreState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_exitButton->x && event.button.x < m_exitButton->x + m_exitButton->w
 				&&

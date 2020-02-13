@@ -123,6 +123,9 @@
     <ClCompile Include="Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HighScoreState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -259,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HighScoreState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

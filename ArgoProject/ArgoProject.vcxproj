@@ -144,6 +144,7 @@
     <ClCompile Include="FSM.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="HighScoreState.cpp" />
     <ClCompile Include="HostSearchState.cpp" />
     <ClCompile Include="Idle.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="HighScoreState.h" />
     <ClInclude Include="HostSearchState.h" />
     <ClInclude Include="Idle.h" />
     <ClInclude Include="ItemComponent.h" />

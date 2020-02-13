@@ -2,6 +2,7 @@
 #define MENUSTATE
 #include "GameState.h"
 //#include "PlayState.h"
+#include "HighScoreState.h"
 #include "CharacterSelectState.h"
 #include "OptionsState.h"
 #include "SDL.h"
