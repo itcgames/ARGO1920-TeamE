@@ -233,6 +233,9 @@
     <ClInclude Include="Walking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ActiveComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

@@ -50,6 +50,13 @@ void PlayState::update()
 		}
 	}
 
+	// Testing deleteEntity
+	if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
+	{
+		m_player.getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+		m_rs->deleteEntity(m_player.getEntity());
+	}
+
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 }
 

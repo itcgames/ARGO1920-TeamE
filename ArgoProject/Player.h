@@ -1,11 +1,8 @@
 
 #include "SDL.h"
 #include "Entity.h"
-#include "PositionComponent.h"
-#include "SpriteComponent.h"
-#include "StatsComponent.h"
+#include "ECS.h"
 #include "RenderSystem.h"
-#include "BehaviourComponent.h"
 #include "BehaviourSystem.h"
 #include "CommandSystem.h"
 #include "Renderer.h"
@@ -28,6 +25,7 @@ public:
 	SpriteComponent* m_sc;
 	StatsComponent* m_statc;
 	BehaviourComponent* m_bc;
+	ActiveComponent* m_ac;
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
