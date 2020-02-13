@@ -101,6 +101,20 @@ void PlayState::processEvents(bool &isRunning)
 bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		if (data::Instance()->HOST)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				m_server.ListenForNewConnection();
+			}
+		}
+		else
+		{
+			m_client.Connect();
+		}
+	}
 	m_rs = new RenderSystem();
 	m_cs = new CollisionSystem();
 

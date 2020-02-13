@@ -136,6 +136,8 @@
   <ItemGroup>
     <ClCompile Include="Ai.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientGetterMethods.cpp" />
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="EndState.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="SendGetMethods.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Walking.cpp" />
@@ -164,6 +167,7 @@
     <ClInclude Include="BehaviourComponent.h" />
     <ClInclude Include="BehaviourSystem.h" />
     <ClInclude Include="CharacterSelectState.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="CommandSystem.h" />
     <ClInclude Include="Component.h" />
