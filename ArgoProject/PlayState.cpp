@@ -110,7 +110,7 @@ bool PlayState::onEnter()
 	m_enemy->initialize(m_rs);
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player.init(m_rs, camera, myMap->map.at(0).getCenterPos());
+	m_player.init(m_rs, camera, myMap->map.at(0)->getCenterPos());
 
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
