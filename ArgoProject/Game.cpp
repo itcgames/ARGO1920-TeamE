@@ -106,8 +106,6 @@ void Game::render()
 	////Draw here
 	m_gameStateMachine->render();
 
-	//m_rs->render(Render::Instance()->getRenderer());
-
 	//Presents the new Images
 	SDL_RenderPresent(Render::Instance()->getRenderer());
 }

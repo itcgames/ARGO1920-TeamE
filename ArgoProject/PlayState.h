@@ -6,6 +6,7 @@
 #include "Data.h"
 #include "Player.h"
 #include "Ai.h"
+#include "Pickup.h"
 #include "CollisionSystem.h"
 #include "Map.h"
 
@@ -35,6 +36,7 @@ private:
 	SDL_Texture* m_miniMapTexture;
 
 	Ai* m_enemy = new Ai;
+	PickUp* m_pickUp = new PickUp;
 	Map* myMap;
 
 	Vector2 m_cameraDimensions;

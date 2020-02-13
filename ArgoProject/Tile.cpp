@@ -12,10 +12,8 @@ Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag
 
 	SDL_FreeSurface(tempSurface);
 
-	//SDL_QueryTexture(img, NULL, NULL, endRect.w, endRect.h);
-
-	endRect->x = m_position.x + width /2;
-	endRect->y = m_position.y - height/2;
+	endRect->x = m_position.x;
+	endRect->y = m_position.y;
 
 	endRect->w  = width;
 	endRect->h  = height;

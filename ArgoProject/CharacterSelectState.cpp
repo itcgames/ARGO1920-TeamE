@@ -77,7 +77,7 @@ bool CharacterSelectState::onEnter()
 	m_dpsOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_dpsOption->h = m_cameraDimensions.y;
 
-	SDL_Surface* m_dpsOptionSurface = IMG_Load("Assets/tile.png");
+	SDL_Surface* m_dpsOptionSurface = IMG_Load("Assets/Health.png");
 	m_dpsOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_dpsOptionSurface);
 
 	m_mageOption = new SDL_Rect();
@@ -86,7 +86,7 @@ bool CharacterSelectState::onEnter()
 	m_mageOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_mageOption->h = m_cameraDimensions.y;
 
-	SDL_Surface* m_mageOptionSurface = IMG_Load("Assets/tileTwo.png");
+	SDL_Surface* m_mageOptionSurface = IMG_Load("Assets/Mana.png");
 	m_mageOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_mageOptionSurface);
 
 	return true;

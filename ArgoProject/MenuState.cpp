@@ -94,7 +94,7 @@ bool MenuState::onEnter()
 	m_optionsButton->w = m_buttonDimensions.x * 0.4;
 	m_optionsButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_optionsButtonSurface = IMG_Load("Assets/path.png");
+	SDL_Surface* m_optionsButtonSurface = IMG_Load("Assets/Health.png");
 	m_optionsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(),m_optionsButtonSurface);
 
 	m_creditsButton = new SDL_Rect();
@@ -103,7 +103,7 @@ bool MenuState::onEnter()
 	m_creditsButton->w = m_buttonDimensions.x * 0.4;
 	m_creditsButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_creditsButtonSurface = IMG_Load("Assets/tileTwo.png");
+	SDL_Surface* m_creditsButtonSurface = IMG_Load("Assets/Mana.png");
 	m_creditsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_creditsButtonSurface);
 
 	m_exitButton = new SDL_Rect();
@@ -112,7 +112,7 @@ bool MenuState::onEnter()
 	m_exitButton->w = m_buttonDimensions.x * 0.4;
 	m_exitButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/tile.png");
+	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/Stamina.png");
 	m_exitButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitButtonSurface);
 
 	return true;

@@ -13,18 +13,16 @@ class Room
 public:
 	Room(int sizeX, int sizeY, Vector2 pos,RenderSystem* t_rs, CollisionSystem* t_cs);
 	~Room();
-	void render();
-	void update();
 
-	void checkForOverlap(std::vector<Tile*>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
-
+	void checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
+	void pathOverlaping(RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	Vector2 getCenterPos();
 	Vector2 getSize();
 	int getWallsCount();
 	int getFloorCount();
 
-	int m_tileSize = 50;
+	int m_tileSize = 100;
 
 	int roomSizeX;
 	int roomSizeY;
@@ -35,7 +33,7 @@ public:
 
 	Vector2 m_roomPos;
 
-	std::vector<Tile*> tileList;
+	std::vector<std::unique_ptr<Tile>> tileList;
 
 	bool collided = false;
 	bool roomChecked = false;

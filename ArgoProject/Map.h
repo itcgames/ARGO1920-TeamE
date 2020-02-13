@@ -15,15 +15,13 @@ public:
 	~Map();
 
 	void CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs);
-	void render();
-	void update();
 
-	void CreatePath(Vector2 start, Vector2 end);
+	void CreatePath(Vector2 start, Vector2 end,std::string tag,RenderSystem* t_rs, CollisionSystem* t_cs);
 
-	std::vector<Room> map;
+	std::vector<std::unique_ptr<Room>> map;
 	std::vector<Tile*> path;
 
-	int roomsNum = 25;
+	int roomsNum = 15;
 
 };
 
