@@ -37,10 +37,31 @@ public:
 //classes to call the function body
 //execution of states changing
 
-class Walk : public Command
+class AttackOne : public Command
 {
 public:
-	void execute(FSM* fsm) { fsm->walking(); }
+	void execute(FSM* fsm) { fsm->skillone(); }
+	InputType type() { return STATE; }
+};
+
+class AttackTwo : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->skilltwo(); }
+	InputType type() { return STATE; }
+};
+
+class AttackThree : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->skillthree(); }
+	InputType type() { return STATE; }
+};
+
+class AttackFour : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->skillfour(); }
 	InputType type() { return STATE; }
 };
 
@@ -48,7 +69,10 @@ class InputHandler : public System
 {
 public:
 	// Pointers to all commands
-	Command* pressWalk;
+	Command* pressAttackOne;
+	Command* pressAttackTwo;
+	Command* pressAttackThree;
+	Command* pressAttackFour;
 
 	std::map <int, Command*> commands;
 
@@ -60,15 +84,18 @@ public:
 	Vector2 mousePosition = Vector2(0, 0);
 	bool move = false;
 
-	Walk walk;
-	FSM* fsm;
-
 	InputHandler()
 	{
 		//Creates pointers to all the commands
-		//pressWalk = new Walk();
+		pressAttackOne = new AttackOne();
+		pressAttackTwo = new AttackTwo();
+		pressAttackThree = new AttackThree();
+		pressAttackFour = new AttackFour();
 
-		//commands[SDLK_w] = pressWalk;
+		commands[SDLK_q] = pressAttackOne;
+		commands[SDLK_w] = pressAttackTwo;
+		commands[SDLK_e] = pressAttackThree;
+		commands[SDLK_r] = pressAttackFour;
 
 	}
 

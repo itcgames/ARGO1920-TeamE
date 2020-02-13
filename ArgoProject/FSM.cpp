@@ -20,3 +20,24 @@ void FSM::walking()
 {
 	current->walking(this);
 }
+
+void FSM::skillone()
+{
+	current->skillone(this);
+}
+
+void FSM::skilltwo()
+{
+	current->skilltwo(this);
+}
+
+void FSM::skillthree()
+{
+	current->skillthree(this);
+}
+
+void FSM::skillfour()
+{
+	current->skillfour(this);
+}
+

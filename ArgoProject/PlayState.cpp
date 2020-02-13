@@ -58,6 +58,8 @@ void PlayState::update()
 	}
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+
+
 }
 
 void PlayState::render()
@@ -86,7 +88,7 @@ void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
 
-	SDL_Event event;
+	/*SDL_Event event;
 
 	if (SDL_PollEvent(&event))
 	{
@@ -95,7 +97,7 @@ void PlayState::processEvents(bool &isRunning)
 		case SDL_KEYDOWN:
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
-	}
+	}*/
 }
 
 bool PlayState::onEnter()
