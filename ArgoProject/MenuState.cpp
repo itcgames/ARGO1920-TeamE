@@ -17,8 +17,7 @@ void MenuState::update()
 
 void MenuState::render()
 {
-	SDL_RenderCopy(Render::Instance()->getRenderer(), m_singlePlayerButtonTexture, NULL, m_singlePlayerButton);
-	SDL_RenderCopy(Render::Instance()->getRenderer(), m_multiPlayerButtonTexture, NULL, m_multiPlayerButton);
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_playButtonTexture, NULL, m_playButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_optionsButtonTexture, NULL, m_optionsButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_creditsButtonTexture, NULL, m_creditsButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitButtonTexture, NULL, m_exitButton);
@@ -36,19 +35,12 @@ void MenuState::processEvents(bool &isRunning)
 			isRunning = false;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.x > m_singlePlayerButton->x && event.button.x < m_singlePlayerButton->x + m_singlePlayerButton->w
+			if (event.button.x > m_playButton->x && event.button.x < m_playButton->x + m_playButton->w
 				&&
-				event.button.y > m_singlePlayerButton->y && event.button.y < m_singlePlayerButton->y + m_singlePlayerButton->h)
+				event.button.y > m_playButton->y && event.button.y < m_playButton->y + m_playButton->h)
 			{
 				//std::cout << "Play Button" << std::endl;
 				m_stateMachine->changeState(new CharacterSelectState(m_buttonDimensions,m_stateMachine));
-			}
-			else if (event.button.x > m_multiPlayerButton->x && event.button.x < m_multiPlayerButton->x + m_multiPlayerButton->w
-				&&
-				event.button.y > m_multiPlayerButton->y && event.button.y < m_multiPlayerButton->y + m_multiPlayerButton->h)
-			{
-				//std::cout << "Play Button" << std::endl;
-				m_stateMachine->changeState(new HostSearchState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_optionsButton->x && event.button.x < m_optionsButton->x + m_optionsButton->w
 				&&
@@ -62,7 +54,7 @@ void MenuState::processEvents(bool &isRunning)
 				event.button.y > m_creditsButton->y && event.button.y < m_creditsButton->y + m_creditsButton->h)
 			{
 				//std::cout << "Options Button" << std::endl;
-				m_stateMachine->changeState(new HighScoreState(m_buttonDimensions, m_stateMachine));
+				m_stateMachine->changeState(new CreditsState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_exitButton->x && event.button.x < m_exitButton->x + m_exitButton->w
 				&&
@@ -87,23 +79,14 @@ bool MenuState::onEnter()
 {
 	//std::cout << "Entering Menu State\n";
 
-	m_singlePlayerButton = new SDL_Rect();
-	m_singlePlayerButton->x = m_buttonDimensions.x * 0.05;
-	m_singlePlayerButton->y = m_buttonDimensions.y * 0.5;
-	m_singlePlayerButton->w = m_buttonDimensions.x * 0.4;
-	m_singlePlayerButton->h = m_buttonDimensions.y * 0.05;
+	m_playButton = new SDL_Rect();
+	m_playButton->x = m_buttonDimensions.x * 0.05;
+	m_playButton->y = m_buttonDimensions.y * 0.6;
+	m_playButton->w = m_buttonDimensions.x * 0.4;
+	m_playButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_singlePlayerButtonSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
-	m_singlePlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_singlePlayerButtonSurface);
-
-	m_multiPlayerButton = new SDL_Rect();
-	m_multiPlayerButton->x = m_buttonDimensions.x * 0.05;
-	m_multiPlayerButton->y = m_buttonDimensions.y * 0.6;
-	m_multiPlayerButton->w = m_buttonDimensions.x * 0.4;
-	m_multiPlayerButton->h = m_buttonDimensions.y * 0.05;
-
-	SDL_Surface* m_multiPlayerButtonSurface = IMG_Load("Assets/ecs_text2.png");
-	m_multiPlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_multiPlayerButtonSurface);
+	SDL_Surface* m_playButtonSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	m_playButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_playButtonSurface);
 
 	m_optionsButton = new SDL_Rect();
 	m_optionsButton->x = m_buttonDimensions.x * 0.05;
@@ -137,8 +120,8 @@ bool MenuState::onEnter()
 
 bool MenuState::onExit()
 {
-	m_singlePlayerButton = nullptr;
-	m_singlePlayerButtonTexture = nullptr;
+	m_playButton = nullptr;
+	m_playButtonTexture = nullptr;
 
 	m_optionsButton = nullptr;
 	m_optionsButtonTexture = nullptr;
