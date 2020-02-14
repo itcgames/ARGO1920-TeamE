@@ -160,6 +160,10 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="SendGetMethods.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="SkillFour.cpp" />
+    <ClCompile Include="SkillOne.cpp" />
+    <ClCompile Include="SkillThree.cpp" />
+    <ClCompile Include="SkillTwo.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Walking.cpp" />
   </ItemGroup>
@@ -202,6 +206,10 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="SkillFour.h" />
+    <ClInclude Include="SkillOne.h" />
+    <ClInclude Include="SkillThree.h" />
+    <ClInclude Include="SkillTwo.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StaminaComponent.h" />
     <ClInclude Include="StatsComponent.h" />

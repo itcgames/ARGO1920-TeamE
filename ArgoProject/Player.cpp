@@ -9,13 +9,13 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	playerPos->x = 0; playerPos->y = 0;
 
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/placeholderanim.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/idle.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
-
+	SDL_FreeSurface(playerSurface);
 	//set both rectangles to the size of one frame from the sprite sheet
 	frameWidth = textureWidth / 8;
-	frameHeight = textureHeight;
+	frameHeight = textureHeight /6;
 	m_playerRect->w = frameWidth /2; m_playerRect->h = frameHeight /2;
 	playerPos->w = frameWidth /2; playerPos->h = frameHeight /2;
 
@@ -42,7 +42,9 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_rs = t_rs;
 	m_bs->addEntity(m_player);
 	t_rs->addEntity(m_player);
+	//m_player->getComponent<ActiveComponent>(6)->setIsActive(false);
 
+	//t_rs->deleteEntity(m_player);
 	m_camera = t_camera;
 
 	//Input InputHandler
@@ -66,15 +68,39 @@ void Player::update()
 			{            
 				m_bs->seek(m_ih->mousePosition);
 			}
+			else
+			{
+				m_ih->move = false;
+			}
 			m_playerRect->x = m_pc->getPosition().x;
 			m_playerRect->y = m_pc->getPosition().y;
 		}
 	}
 
+	if (finiteStateMachine->getCurrentState() == 2)
+	{
+		spriteSheetY = 226;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		spriteSheetY = 339;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		spriteSheetY = 452;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 5)
+	{
+		spriteSheetY = 565;
+	}
 	animate();
 
 	if (m_ih->move)
 	{
+		spriteSheetY = 113;
 		finiteStateMachine->walking();
 
 		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y)
@@ -85,10 +111,14 @@ void Player::update()
 		}
 	}
 
+
+
 	if (commandQueue.empty() && !m_ih->move)
 	{
+		spriteSheetY = 0;
 		finiteStateMachine->idle();
 	}
+
 	else while (!commandQueue.empty())
 	{
 		commandQueue.back()->execute(finiteStateMachine);
@@ -107,7 +137,8 @@ void Player::animate()
 {
 	Uint32 ticks = SDL_GetTicks();
 	Uint32 sprite = (ticks / 100) % 8;
-	playerPos->x = sprite * (frameWidth /2);
+	playerPos->x = sprite * (frameWidth);
+	playerPos->y = spriteSheetY;
 
 	m_sc->setRect(playerPos);
 	m_sc->setDstRect(m_playerRect);

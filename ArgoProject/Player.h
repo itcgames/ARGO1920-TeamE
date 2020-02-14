@@ -44,5 +44,6 @@ public:
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
+	int spriteSheetY = 0;
 };
 

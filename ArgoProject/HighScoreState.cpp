@@ -16,8 +16,11 @@ void HighScoreState::render()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		SDL_RenderCopy(Render::Instance()->getRenderer(), m_slotTexture, NULL, m_slotRect[i]);
-		SDL_RenderCopy(Render::Instance()->getRenderer(), m_nameTextures[i], NULL, m_nameRects[i]);
+		if(m_score[i] > 0)
+		{ 
+			SDL_RenderCopy(Render::Instance()->getRenderer(), m_slotTexture, NULL, m_slotRect[i]);
+			SDL_RenderCopy(Render::Instance()->getRenderer(), m_nameTextures[i], NULL, m_nameRects[i]);
+		}
 	}
 }
 void HighScoreState::processEvents(bool& isRunning)
@@ -47,20 +50,32 @@ bool HighScoreState::onEnter()
 		// handle error
 	}
 
-	m_names[0] = "Brian O'Neill";
-	m_names[1] = "Alex O'Toole";
-	m_names[2] = "Aoife Powders";
-	m_names[3] = "Brandon Seah-Dempsey";
-	m_names[4] = "Paul Nolan";
-	m_names[5] = "Person 1";
-	m_names[6] = "Person 2";
-	m_names[7] = "Person 3";
-	m_names[8] = "Person 4";
-	m_names[9] = "Person 5";
-
 	for (int i = 0; i < 10; i++)
 	{
-		m_names[i] = std::string(std::to_string(i + 1) + ". " + m_names[i]);
+		m_names[i] = data::Instance()->getData().m_scores.at(i).m_name;
+		m_score[i] = data::Instance()->getData().m_scores.at(i).m_score;
+		m_scoreString[i] = std::to_string(m_score[i]);
+	}
+
+	long int temp = 0;
+	std::string nameTemp = "";
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = i + 1; j < 10; j++)
+		{
+			if (m_scoreString[j] > m_scoreString[i])
+			{
+				temp = m_score[i];
+				nameTemp = m_names[i];
+				m_scoreString[i] = m_scoreString[j];
+				m_score[i] = m_score[j];
+				m_names[i] = m_names[j];
+				m_scoreString[j] = std::to_string(temp);
+				m_score[j] = temp;
+				m_names[j] = nameTemp;
+			}
+		}
+		m_display[i] = std::string(std::to_string(i + 1) + ". " + m_names[i] + " - " + m_scoreString[i]);
 	}
 
 	SDL_Color White = { 255, 255, 255 };
@@ -71,7 +86,7 @@ bool HighScoreState::onEnter()
 
 	for (int i = 0; i < 10; i++)
 	{
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, m_names[i].c_str(), White);
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, m_display[i].c_str(), White);
 		m_nameTextures[i] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
 
 		m_nameRects[i] = new SDL_Rect();
@@ -104,4 +119,47 @@ bool HighScoreState::onExit()
 		m_nameTextures[i] = nullptr;
 	}
 	return true;
+}
+
+void HighScoreState::writeScores()
+{
+	long int temp = 0;
+	std::string nameTemp = "";
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = i + 1; j < 10; j++)
+		{
+			if (m_scoreString[j] > m_scoreString[i])
+			{
+				temp = m_score[i];
+				nameTemp = m_names[i];
+				m_scoreString[i] = m_scoreString[j];
+				m_score[i] = m_score[j];
+				m_names[i] = m_names[j];
+				m_scoreString[j] = std::to_string(temp);
+				m_score[j] = temp;
+				m_names[j] = nameTemp;
+			}
+		}
+		m_names[i] = m_names[i];
+		LevelLoader::write(m_names, m_score);
+	}
+}
+
+void HighScoreState::newScore(int t_newScore, std::string t_newName)
+{
+	int lowest = m_score[0];
+	int lowestIndex = 0;
+	for (int i = 1; i < 10; i++)
+	{
+		if (m_score[i] < lowest)
+		{
+			lowest = m_score[i];
+			lowestIndex = i;
+		}
+	}
+	m_scoreString[lowestIndex] = t_newScore;
+	m_names[lowestIndex] = t_newName;
+
+	writeScores();
 }
