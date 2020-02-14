@@ -19,6 +19,9 @@ public:
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; };
+	bool getSeek();
+
+	void setSeek(bool seek);
 
 	Entity* m_player;
 	PositionComponent* m_pc;
@@ -44,5 +47,7 @@ public:
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
+
+	bool m_seek;
 };
 

@@ -81,6 +81,23 @@ public:
 		return *this;
 	}
 
+	//
+	Vector2 normalize(Vector2 vector)
+	{
+		float length = sqrt((vector.x * vector.x) + (vector.y * vector.y));
+
+		// If calulated length is not equal to 0
+		if (length != 0)
+		{
+			return Vector2(vector.x / length, vector.y / length);
+		}
+
+		else
+		{
+			return vector;
+		}
+	}
+
 
 	float x, y;
 };

@@ -37,7 +37,10 @@ void PlayState::update()
 	m_enemy->update(m_player.getPosition());
 	m_pickUp->update();
 
-	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
+	if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	{
+		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
+	}
 
 	for (int i = 0; i < myMap->map.size(); i++)
 	{
@@ -45,17 +48,22 @@ void PlayState::update()
 		{
 			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
 			{
-				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
+				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+				if (m_cs->aabbCollision(m_player.m_playerRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+					//m_player.setSeek(false);
+				}
 			}
 		}
 	}
 
 	// Testing deleteEntity
-	if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
+	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
 	{
 		m_player.getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 		m_rs->deleteEntity(m_player.getEntity());
-	}
+	}*/
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 }

@@ -88,6 +88,7 @@ public:
 		{
 			return true;
 		}
+
 		else
 		{
 			fillCommands(command_queue);  // fills command queue
@@ -197,4 +198,3 @@ public:
 		return action_map[key];
 	}
 };
-

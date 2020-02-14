@@ -18,6 +18,9 @@ public:
 	void destroy() { delete this; }
 	Entity* getEntity() { return m_enemy; };
 
+	int getAttackTime();
+	void setAttackTime(int attackTime);
+
 private:
 	Entity* m_enemy;
 	SDL_Rect* m_rect;
@@ -27,5 +30,8 @@ private:
 	BehaviourComponent* m_bc;
 	BehaviourSystem* m_bs;
 
+	Vector2 m_normalizedVec;
+
+	int m_attackTime;
 };
 
