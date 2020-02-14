@@ -12,7 +12,6 @@
 #include "yaml-cpp\yaml.h"
 #include "SDL_net.h"
 #include "Game.h"
-#include "Server.h"
 #include "LevelLoader.h"
 
 using namespace std;
@@ -26,7 +25,6 @@ int main(int argc, char* argv[])
 	GameData data;
 	LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", data);
 	Game* game = new Game(data);
-	Server* server = new Server();
 	//FrameRate Capping 
 	const int Fps = 60;
 	const int frameDelay = 1000 / Fps;
@@ -54,6 +52,5 @@ int main(int argc, char* argv[])
 
 
 	game->cleanUp();
-	//server->cleanUp();
 	return 0;
 }

@@ -33,15 +33,22 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
+	for (int i = 0; i < 2; i++)
+	{
+		m_enemies[i]->update(m_player.getPosition());
+		
+		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+	}
 
-	m_enemy->update(m_player.getPosition());
 	m_pickUp->update();
+
 
 	if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 	{
 		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
 		m_enemy->setAttackTime(0);
 	}
+
 
 	for (int i = 0; i < myMap->map.size(); i++)
 	{
@@ -67,6 +74,8 @@ void PlayState::update()
 	}*/
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+
+
 }
 
 void PlayState::render()
@@ -95,7 +104,7 @@ void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
 
-	SDL_Event event;
+	/*SDL_Event event;
 
 	if (SDL_PollEvent(&event))
 	{
@@ -104,12 +113,26 @@ void PlayState::processEvents(bool &isRunning)
 		case SDL_KEYDOWN:
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
-	}
+	}*/
 }
 
 bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		if (data::Instance()->HOST)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				m_server.ListenForNewConnection();
+			}
+		}
+		else
+		{
+			m_client.Connect();
+		}
+	}
 	m_rs = new RenderSystem();
 	m_cs = new CollisionSystem();
 
@@ -133,7 +156,15 @@ bool PlayState::onEnter()
 
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);	
-	m_enemy->initialize(m_rs);
+	Vector2 temp = { 400, 400 };
+	for (int i = 0; i < 2; i++)
+	{
+		m_enemies.push_back(new Ai);
+		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
+			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
+			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
+		temp = {600, 800};
+	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	m_player.init(m_rs, camera, myMap->map.at(0)->getCenterPos());

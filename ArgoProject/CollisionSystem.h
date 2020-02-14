@@ -63,6 +63,13 @@ public:
 		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 30;//3;
 
 		m_a->getComponent<PositionComponent>(1)->setPosition(position);
+
+			if (m_b->getID() == 2)
+			{
+				
+				m_b->getComponent<StatsComponent>(4)->alterHealth(-1);
+			}
+		}
 	}
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)

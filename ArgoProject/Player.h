@@ -49,5 +49,8 @@ public:
 	int textureWidth, textureHeight;
 
 	bool m_seek;
+
+	int spriteSheetY = 0;
+
 };
 

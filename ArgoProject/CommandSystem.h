@@ -37,10 +37,31 @@ public:
 //classes to call the function body
 //execution of states changing
 
-class Walk : public Command
+class AttackOne : public Command
 {
 public:
-	void execute(FSM* fsm) { fsm->walking(); }
+	void execute(FSM* fsm) { fsm->skillone(); }
+	InputType type() { return STATE; }
+};
+
+class AttackTwo : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->skilltwo(); }
+	InputType type() { return STATE; }
+};
+
+class AttackThree : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->skillthree(); }
+	InputType type() { return STATE; }
+};
+
+class AttackFour : public Command
+{
+public:
+	void execute(FSM* fsm) { fsm->skillfour(); }
 	InputType type() { return STATE; }
 };
 
@@ -48,7 +69,10 @@ class InputHandler : public System
 {
 public:
 	// Pointers to all commands
-	Command* pressWalk;
+	Command* pressAttackOne;
+	Command* pressAttackTwo;
+	Command* pressAttackThree;
+	Command* pressAttackFour;
 
 	std::map <int, Command*> commands;
 
@@ -58,17 +82,23 @@ public:
 
 	//Vector2 mouseRelativePosition = Vector2(0, 0);
 	Vector2 mousePosition = Vector2(0, 0);
-	bool move = false;
+	Vector2 mouseRelativePosition = Vector2(0, 0);
 
-	Walk walk;
-	FSM* fsm;
+	bool move = false;
+	bool updateMouse = false;
 
 	InputHandler()
 	{
 		//Creates pointers to all the commands
-		//pressWalk = new Walk();
+		pressAttackOne = new AttackOne();
+		pressAttackTwo = new AttackTwo();
+		pressAttackThree = new AttackThree();
+		pressAttackFour = new AttackFour();
 
-		//commands[SDLK_w] = pressWalk;
+		commands[SDLK_q] = pressAttackOne;
+		commands[SDLK_w] = pressAttackTwo;
+		commands[SDLK_e] = pressAttackThree;
+		commands[SDLK_r] = pressAttackFour;
 
 	}
 
@@ -131,13 +161,14 @@ public:
 				}
 				else if (event.button.button == SDL_BUTTON_LEFT)
 				{
-/*
+
 					mouseRelativePosition.x = event.button.x;
-					mouseRelativePosition.y = event.button.y;*/
+					mouseRelativePosition.y = event.button.y;
 
 					mousePosition.x = event.button.x + t_camera->x;
 					mousePosition.y = event.button.y + t_camera->y;
 					move = true;
+					updateMouse = true;
 				}
 			}
 			else if (event.type == SDL_MOUSEMOTION)
@@ -145,13 +176,21 @@ public:
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
 					if (move)
-					{/*
+					{
 						mouseRelativePosition.x = event.button.x;
 						mouseRelativePosition.y = event.button.y;
-*/
+
 						mousePosition.x = event.button.x + t_camera->x;
 						mousePosition.y = event.button.y + t_camera->y;
 					}
+					break;
+				}
+			}
+			else if (event.type == SDL_MOUSEBUTTONUP)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					updateMouse = false;
 					break;
 				}
 			}
@@ -215,6 +254,6 @@ public:
 			}
 
 			return false;
-		
 	}
 };
+

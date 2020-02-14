@@ -10,21 +10,35 @@
 #define RENDERSYSTEM_H
 
 #include <vector>
-
+#include <SDL_ttf.h>
 #include "System.h"
 #include "Entity.h"
 #include "BehaviourComponent.h"
-//#include "ECS.h"
 
 class RenderSystem : public System
 {
 public:
 	std::vector<Entity*> m_minimapList;
-
+	TTF_Font* font;
+	SDL_Color White;
+	SDL_Surface* enemyHealthSurface;
+	SDL_Texture* enemyHealthText;
 	//
 	RenderSystem()
 	{
+		if (TTF_Init() == -1)
+		{
+			printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+		}
 
+		font = TTF_OpenFont("Assets/Font/Abel.ttf", 100);
+
+		if (!font) {
+			printf("TTF_OpenFont: %s\n", TTF_GetError());
+			// handle error
+		}
+
+		White = { 255, 255, 255 };
 	}
 
 	//
@@ -95,6 +109,16 @@ public:
 					{
 						playerID = i;
 						SDL_RenderCopyEx(renderer, m_entities[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+					}
+
+					if (m_entities[i]->getID() == 2)
+					{
+						std::string m_health = std::to_string(m_entities[i]->getComponent<StatsComponent>(4)->getHealth());
+						enemyHealthSurface = TTF_RenderText_Solid(font, m_health.c_str(), White);
+
+						enemyHealthText = SDL_CreateTextureFromSurface(renderer, enemyHealthSurface);
+
+						SDL_RenderCopyEx(renderer, enemyHealthText, NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
 					}
 
 				}
