@@ -1,7 +1,9 @@
 #pragma once
 #include "GameState.h"
 #include "MenuState.h"
+#include "LevelLoader.h"
 #include <string>
+#include "Data.h"
 
 class HighScoreState :
 	public GameState
@@ -14,16 +16,18 @@ public:
 	virtual void processEvents(bool& isRunning);
 	virtual bool onEnter();
 	virtual bool onExit();
-
+	void writeScores();
+	void newScore(int t_newScore, std::string t_newName);
 	virtual std::string getStateID() const { return m_highScoreID; };
 
 private:
 	Vector2 m_cameraDimensions;
 
 	static const std::string  m_highScoreID;
-
+	int m_score[10];
 	std::string m_names[10];
-
+	std::string m_scoreString[10];
+	std::string m_display[10];
 	SDL_Rect* m_nameRects[10];
 	SDL_Texture* m_nameTextures[10];
 
