@@ -41,3 +41,8 @@ void FSM::skillfour()
 	current->skillfour(this);
 }
 
+void FSM::death()
+{
+	current->death(this);
+}
+

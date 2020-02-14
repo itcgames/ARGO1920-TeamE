@@ -26,5 +26,6 @@ public:
 	void skilltwo();
 	void skillthree();
 	void skillfour();
+	void death();
 };
 
