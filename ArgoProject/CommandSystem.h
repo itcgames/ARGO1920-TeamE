@@ -100,6 +100,7 @@ public:
 		commands[SDLK_e] = pressAttackThree;
 		commands[SDLK_r] = pressAttackFour;
 
+
 	}
 
 	~InputHandler()

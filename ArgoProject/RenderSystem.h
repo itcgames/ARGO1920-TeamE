@@ -46,7 +46,9 @@ public:
 			{
 				angle = 0;
 			}
-			SDL_RenderCopyEx(renderer, sprite->getTexture(), sprite->getRect(), sprite->getDstRect(), angle, NULL, SDL_FLIP_NONE);
+			SDL_Point centre = { m_entities.back()->getComponent<PositionComponent>(1)->getPosition().x + (m_entities.back()->getComponent<SpriteComponent>(2)->getRect()->w / 2),
+								m_entities.back()->getComponent<PositionComponent>(1)->getPosition().y + (m_entities.back()->getComponent<SpriteComponent>(2)->getRect()->h / 2) };
+			SDL_RenderCopyEx(renderer, sprite->getTexture(), sprite->getRect(), sprite->getDstRect(), angle, &centre, SDL_FLIP_NONE);
 		}
 	}
 

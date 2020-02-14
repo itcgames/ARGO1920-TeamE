@@ -20,6 +20,8 @@ public:
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; };
 
+	void hit(Entity* t_enemy);
+
 	Entity* m_player;
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
@@ -45,5 +47,6 @@ public:
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
 	int spriteSheetY = 0;
+	int spriteSheetX = 0;
 };
 

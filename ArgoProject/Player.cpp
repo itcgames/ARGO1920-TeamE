@@ -9,15 +9,15 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	playerPos->x = 0; playerPos->y = 0;
 
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/idle.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/WARRIOR SPRITE SHEEt.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
 	SDL_FreeSurface(playerSurface);
 	//set both rectangles to the size of one frame from the sprite sheet
-	frameWidth = textureWidth / 8;
+	frameWidth = textureWidth / 12;
 	frameHeight = textureHeight /6;
-	m_playerRect->w = frameWidth /2; m_playerRect->h = frameHeight /2;
-	playerPos->w = frameWidth /2; playerPos->h = frameHeight /2;
+	m_playerRect->w = frameWidth; m_playerRect->h = frameHeight;
+	playerPos->w = frameWidth; playerPos->h = frameHeight;
 
 	m_player = new Entity();
 	m_bs = new BehaviourSystem;
@@ -77,30 +77,31 @@ void Player::update()
 		}
 	}
 
-	if (finiteStateMachine->getCurrentState() == 2)
+	if (finiteStateMachine->getCurrentState() == 2) // skill one
 	{
-		spriteSheetY = 226;
+		spriteSheetY = 0;
+
 	}
 
-	if (finiteStateMachine->getCurrentState() == 3)
+	if (finiteStateMachine->getCurrentState() == 3) // skill two
 	{
-		spriteSheetY = 339;
+		spriteSheetY = frameHeight * 3;
 	}
 
-	if (finiteStateMachine->getCurrentState() == 4)
+	if (finiteStateMachine->getCurrentState() == 4) // skill three
 	{
-		spriteSheetY = 452;
+		spriteSheetY = frameHeight * 4;
 	}
 
-	if (finiteStateMachine->getCurrentState() == 5)
+	if (finiteStateMachine->getCurrentState() == 5) // skill four
 	{
-		spriteSheetY = 565;
+		spriteSheetY = frameHeight * 5;
 	}
 	animate();
 
 	if (m_ih->move)
 	{
-		spriteSheetY = 113;
+		spriteSheetY = frameHeight;
 		finiteStateMachine->walking();
 
 		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y)
@@ -111,16 +112,16 @@ void Player::update()
 		}
 	}
 
-
-
-	if (commandQueue.empty() && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && playerPos->x == textureWidth - frameWidth)
 	{
-		spriteSheetY = 0;
+		spriteSheetY = frameHeight * 2;
+		playerPos->x = 0;
 		finiteStateMachine->idle();
 	}
 
 	else while (!commandQueue.empty())
 	{
+		playerPos->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
 		commandQueue.pop_back();
 	}
@@ -132,11 +133,22 @@ void Player::processEvents(bool isRunning)
 	m_ih->generateInputs(commandQueue, m_camera);
 }
 
+void Player::hit(Entity* t_enemy)
+{
+	float mag = sqrt((m_pc->getPosition().x - t_enemy->getComponent<PositionComponent>(1)->getPosition().x) * (m_pc->getPosition().x - t_enemy->getComponent<PositionComponent>(1)->getPosition().x) + 
+					(m_pc->getPosition().y - t_enemy->getComponent<PositionComponent>(1)->getPosition().y) * (m_pc->getPosition().y -  t_enemy->getComponent<PositionComponent>(1)->getPosition().y));
+
+	if (mag < 100 && finiteStateMachine->getCurrentState() == 4)
+	{
+		std::cout << "Player Hit Enemy" << std::endl;
+	}
+}
+
 //animate the player sprite
 void Player::animate()
 {
 	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 8;
+	Uint32 sprite = (ticks / 100) % 12;
 	playerPos->x = sprite * (frameWidth);
 	playerPos->y = spriteSheetY;
 

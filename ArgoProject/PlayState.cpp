@@ -38,19 +38,24 @@ void PlayState::update()
 		m_enemies[i]->update(m_player.getPosition());
 		
 		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+
+		m_player.hit(m_enemies[i]->getEntity());
 	}
 
 	m_pickUp->update();
-	for (int i = 0; i < myMap->map.size(); i++)
-	{
-		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
-		{
-			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
-			{
-				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map.at(i).tileList.at(z)->getEntity());
-			}
-		}
-	}
+	//for (int i = 0; i < myMap->map.size(); i++)
+	//{
+	//	for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+	//	{
+	//			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
+	//			{
+	//				if (m_cs->aabbCollision(m_player.m_playerRect, myMap->map[i]->tileList[z]->endRect) == true)
+	//				{
+	//					//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+	//				}
+	//			}
+	//	}
+	//}
 
 	// Testing deleteEntity
 	if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
