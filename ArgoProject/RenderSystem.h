@@ -14,7 +14,6 @@
 #include "System.h"
 #include "Entity.h"
 #include "BehaviourComponent.h"
-//#include "ECS.h"
 
 class RenderSystem : public System
 {

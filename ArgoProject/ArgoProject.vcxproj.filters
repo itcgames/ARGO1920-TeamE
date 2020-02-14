@@ -40,6 +40,12 @@
     <Filter Include="Header Files\Systems">
       <UniqueIdentifier>{69afb966-304b-4359-849c-e70ac1c973ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PlayerFSM">
+      <UniqueIdentifier>{ee6a6ab7-ad2e-43f9-841d-84597abf566b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PlayerFSM">
+      <UniqueIdentifier>{0329cb77-8757-40e7-b285-1feee26fda73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,15 +105,6 @@
     <ClCompile Include="Pickup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FSM.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Idle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Walking.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HostSearchState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -125,6 +122,27 @@
     </ClCompile>
     <ClCompile Include="HighScoreState.cpp">
       <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Walking.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillTwo.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillThree.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillOne.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillFour.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Idle.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
+    </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +206,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BehaviourComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BehaviourSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
@@ -233,21 +248,6 @@
     <ClInclude Include="Pickup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FSM.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Idle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FiniteState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Walking.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ActiveComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -265,6 +265,36 @@
     </ClInclude>
     <ClInclude Include="HostSearchState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="FSM.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="FiniteState.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Idle.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillFour.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillOne.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillThree.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillTwo.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Walking.h">
+      <Filter>Header Files\PlayerFSM</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviourComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
