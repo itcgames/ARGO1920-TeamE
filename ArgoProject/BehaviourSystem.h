@@ -52,7 +52,9 @@ public:
 			//(position.x + 25 && poistion.y + 25)
 			// ||
 			//(position.x - 25 && position.y - 25)
-			if (attackTime >= 700 )
+			if ((t_targetPosition.x < position.x + 300 && t_targetPosition.x > position.x - 300) &&
+				(t_targetPosition.y < position.y + 300 && t_targetPosition.y > position.y - 300) &&
+				attackTime >= 200 )
 			{
 				int m_maxSpeed = 15;
 				position.x += normalizedVelo.x * m_maxSpeed;

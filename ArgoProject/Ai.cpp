@@ -44,7 +44,7 @@ void Ai::update(Vector2 t_position)
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 
-	if (m_attackTime < 700)
+	if (m_attackTime < 200)
 	{
 		m_attackTime++;
 	}

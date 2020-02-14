@@ -40,6 +40,7 @@ void PlayState::update()
 	if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 	{
 		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
+		m_enemy->setAttackTime(0);
 	}
 
 	for (int i = 0; i < myMap->map.size(); i++)

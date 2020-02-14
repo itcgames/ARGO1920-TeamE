@@ -84,7 +84,6 @@ void Player::update()
 	}
 
 
-
 	if (commandQueue.empty() && !m_ih->move)
 	{
 		finiteStateMachine->idle();
