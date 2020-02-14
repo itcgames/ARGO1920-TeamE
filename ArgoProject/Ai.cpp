@@ -22,6 +22,7 @@ void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class,
 	m_statsC = new StatsComponent(t_class, t_health, t_strength, t_speed, t_gold, t_killCount, 4);
 
 	//adds the new components to the enenmy
+	m_enemy->setID(2);
 	m_enemy->addComponent<PositionComponent>(m_pc, 1);
 	m_enemy->addComponent<SpriteComponent>(m_sc, 2);
 	m_enemy->addComponent<BehaviourComponent>(m_bc, 3);
