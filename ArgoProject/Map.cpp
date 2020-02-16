@@ -112,18 +112,18 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipDown == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(0, 100), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(0, 100), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 					if (skipUp == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(0, -100), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(0, -100), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
 				}
-				Tile* temp3 = new Tile(newStart, 100, 100, "Assets/Tiles/TILE1.png", "Path", t_rs, t_cs);
+				Tile* temp3 = new Tile(newStart, 100, 100, returnTileType("Floor"), "Path", t_rs, t_cs);
 				path.push_back(temp3);
 				temp3 = nullptr;
 
@@ -138,18 +138,18 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipDown == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(0, 100), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(0, 100), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 					if (skipUp == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(0, -100), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(0, -100), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
 				}
-				Tile* temp = new Tile(newStart, 100, 100, "Assets/Tiles/TILE1.png", "Path", t_rs, t_cs);
+				Tile* temp = new Tile(newStart, 100, 100, returnTileType("Floor"), "Path", t_rs, t_cs);
 				path.push_back(temp);
 				temp = nullptr;
 			}
@@ -180,19 +180,19 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipRight == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(100, 0), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(100, 0), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 
 					if (skipLeft == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(-100, 0), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(-100, 0), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
 				}
-				Tile* temp = new Tile(newStart, 100, 100, "Assets/Tiles/TILE1.png", "Path", t_rs, t_cs);
+				Tile* temp = new Tile(newStart, 100, 100, returnTileType("Floor"), "Path", t_rs, t_cs);
 				path.push_back(temp);
 				temp = nullptr;
 			}
@@ -206,19 +206,19 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipRight == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(100, 0), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(100, 0), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 
 					if (skipLeft == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(-100, 0), 100, 100, "Assets/Tiles/tileTwo.png", "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(-100, 0), 100, 100, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
 				}
-				Tile* temp = new Tile(newStart, 100, 100, "Assets/Tiles/TILE1.png", "Path", t_rs, t_cs);
+				Tile* temp = new Tile(newStart, 100, 100, returnTileType("Floor"), "Path", t_rs, t_cs);
 				path.push_back(temp);
 				temp = nullptr;
 			}
@@ -226,5 +226,104 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 		}
 		CreatePath(newStart, newEnd, "Path", t_rs, t_cs);
 	}
+}
+
+std::string Map::returnTileType(std::string type)
+{
+	int tileNum;
+	std::string tileName;
+	if (type == "Wall")
+	{
+		tileNum = rand() % 5;
+		switch (tileNum)
+		{
+		case 0:
+			tileName = "Assets/tiles/WALL1.png";
+			return tileName;
+			break;
+		case 1:
+			tileName = "Assets/tiles/WALL2.png";
+			return tileName;
+			break;
+		case 2:
+			tileName = "Assets/tiles/WALL3.png";
+			return tileName;
+			break;
+		case 3:
+			tileName = "Assets/tiles/WALL4.png";
+			return tileName;
+			break;
+		case 4:
+			tileName = "Assets/tiles/WALL5.png";
+			return tileName;
+			break;
+		default:
+			tileName = "Assets/tiles/WALL5.png";
+			return tileName;
+			break;
+		}
+
+	}
+	
+	if (type == "Floor")
+	{
+		tileNum = rand() % 12 + 1;
+		switch (tileNum)
+		{
+		case 1:
+			tileName = "Assets/tiles/TILE1.png";
+			return tileName;
+			break;
+		case 2:
+			tileName = "Assets/tiles/TILE2.png";
+			return tileName;
+			break;
+		case 3:
+			tileName = "Assets/tiles/TILE3.png";
+			return tileName;
+			break;
+		case 4:
+			tileName = "Assets/tiles/TILE4.png";
+			return tileName;
+			break;
+		case 5:
+			tileName = "Assets/tiles/TILE5.png";
+			return tileName;
+			break;
+		case 6:
+			tileName = "Assets/tiles/TILE6.png";
+			return tileName;
+			break;
+		case 7:
+			tileName = "Assets/tiles/TILE7.png";
+			return tileName;
+			break;
+		case 8:
+			tileName = "Assets/tiles/TILE8.png";
+			return tileName;
+			break;
+		case 9:
+			tileName = "Assets/tiles/TILE9.png";
+			return tileName;
+			break;
+		case 10:
+			tileName = "Assets/tiles/TILE10.png";
+			return tileName;
+			break;
+		case 11:
+			tileName = "Assets/tiles/TILE11.png";
+			return tileName;
+			break;
+		case 12:
+			tileName = "Assets/tiles/TILE12.png";
+			return tileName;
+			break;
+		default:
+			tileName = "Assets/tiles/TILE1.png";
+			return tileName;
+			break;
+		}
+	}
+
 }
 

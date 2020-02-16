@@ -23,6 +23,8 @@ public:
 	int getWallsCount();
 	int getFloorCount();
 
+	std::string returnTileType(std::string type);
+
 	int m_tileSize = 100;
 
 	int roomSizeX;
@@ -38,7 +40,5 @@ public:
 
 	bool collided = false;
 	bool roomChecked = false;
-
-
 };
 

@@ -7,7 +7,6 @@ Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs, CollisionSyste
 	roomSizeX = sizeX;
 	roomSizeY = sizeY;
 
-
 	for (int i = 0; i < roomSizeX; i++)
 	{
 		for (int z = 0; z < roomSizeY; z++)
@@ -15,12 +14,12 @@ Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs, CollisionSyste
 			// Checks for the edges of the room
 			if(i == 0 || i == roomSizeX -1 || z == 0 || z == roomSizeY -1)
 			{ 
-				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, "Assets/tiles/tileTwo.png", "Wall", t_rs, t_cs));
+				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs));
 				wallCount++;
 			}
 			else
 			{
-				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, "Assets/tiles/TILE1.png", "Floor", t_rs, t_cs));
+				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, returnTileType("Floor"), "Floor", t_rs, t_cs));
 				floorCount++;
 
 			}
@@ -124,7 +123,7 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 			//delete tileList[i].release();
 			if (tileList[i]->getTag() == "Floor")
 			{
-				tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/TILE1.png", "Floor", t_rs, t_cs))); // replaces the tile
+				tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
 			}
 			else
 			{
@@ -159,4 +158,99 @@ int Room::getWallsCount()
 int Room::getFloorCount()
 {
 	return floorCount;
+}
+
+std::string Room::returnTileType(std::string type)
+{
+	int tileNum;
+	std::string tileName;
+	if (type == "Wall")
+	{
+		tileNum = rand() % 5 + 1;
+		switch (tileNum)
+		{
+		case 1:
+			tileName = "Assets/tiles/WALL1.png";
+			return tileName;
+			break;
+		case 2:
+			tileName = "Assets/tiles/WALL2.png";
+			return tileName;
+			break;
+		case 3:
+			tileName = "Assets/tiles/WALL3.png";
+			return tileName;
+			break;
+		case 4:
+			tileName = "Assets/tiles/WALL4.png";
+			return tileName;
+			break;
+		case 5:
+			tileName = "Assets/tiles/WALL5.png";
+			return tileName;
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	if (type == "Floor")
+	{
+		tileNum = rand() % 12 + 1;
+		switch (tileNum)
+		{
+		case 1:
+			tileName = "Assets/tiles/TILE1.png";
+			return tileName;
+			break;
+		case 2:
+			tileName = "Assets/tiles/TILE2.png";
+			return tileName;
+			break;
+		case 3:
+			tileName = "Assets/tiles/TILE3.png";
+			return tileName;
+			break;
+		case 4:
+			tileName = "Assets/tiles/TILE4.png";
+			return tileName;
+			break;
+		case 5:
+			tileName = "Assets/tiles/TILE5.png";
+			return tileName;
+			break;
+		case 6:
+			tileName = "Assets/tiles/TILE6.png";
+			return tileName;
+			break;
+		case 7:
+			tileName = "Assets/tiles/TILE7.png";
+			return tileName;
+			break;
+		case 8:
+			tileName = "Assets/tiles/TILE8.png";
+			return tileName;
+			break;
+		case 9:
+			tileName = "Assets/tiles/TILE9.png";
+			return tileName;
+			break;
+		case 10:
+			tileName = "Assets/tiles/TILE10.png";
+			return tileName;
+			break;
+		case 11:
+			tileName = "Assets/tiles/TILE11.png";
+			return tileName;
+			break;
+		case 12:
+			tileName = "Assets/tiles/TILE12.png";
+			return tileName;
+			break;
+		default:
+			break;
+		}
+	}
+
 }
