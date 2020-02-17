@@ -1,4 +1,6 @@
-#pragma once
+#ifndef AI
+#define AI
+//#pragma once
 #include "SDL.h"
 #include "Entity.h"
 #include "PositionComponent.h"
@@ -32,9 +34,12 @@ private:
 	BehaviourComponent* m_bc;
 	BehaviourSystem* m_bs;
 	StatsComponent* m_statsC;
+	HealthComponent* m_hc;
+	ActiveComponent* m_ac;
 
 	Vector2 m_normalizedVec;
 
 	int m_attackTime;
 };
 
+#endif

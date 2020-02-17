@@ -15,8 +15,9 @@
 class ActiveComponent : public BaseComponent<ActiveComponent>
 {
 public:
-	ActiveComponent(bool isActive) :
-		m_isActive(isActive)
+	ActiveComponent(bool isActive, int entityID) :
+		m_isActive(isActive),
+		BaseComponent<ActiveComponent>(entityID)
 	{
 
 	}

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ROOM
+#define ROOM
+//#pragma once
 #include "Tile.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -42,3 +44,4 @@ public:
 	bool roomChecked = false;
 };
 
+#endif

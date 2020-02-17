@@ -57,17 +57,17 @@ public:
 		}*/
 
 		//player velocity *= -1
-		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
+		//Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
 
-		position.x += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().x * 30;//3;
-		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 30;//3;
+		//position.x += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().x * 30;//3;
+		//position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 30;//3;
 
-		m_a->getComponent<PositionComponent>(1)->setPosition(position);
+		//m_a->getComponent<PositionComponent>(1)->setPosition(position);
 
-			if (m_b->getID() == 2)
-			{
-				
-				m_b->getComponent<StatsComponent>(4)->alterHealth(-1);
+			if (m_b->getID() == 2 && m_a->getID() == 1)
+			{	
+				m_b->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
+				m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
 			}
 		}
 	

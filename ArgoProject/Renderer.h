@@ -1,4 +1,6 @@
-#pragma once
+#ifndef RENDERER
+#define RENDERER
+//#pragma once
 #include<iostream>
 #include "SDL.h"
 #include "SDL_image.h"
@@ -34,3 +36,4 @@ private:
 };
 typedef Renderer Render;
 
+#endif
