@@ -45,6 +45,11 @@ public:
 		}
 	}
 
+	int getEntitiesSize()
+	{
+		return m_entities.size();
+	}
+
 
 protected:
 	std::vector<Entity*> m_entities;

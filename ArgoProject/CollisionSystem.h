@@ -70,7 +70,7 @@ public:
 				m_b->getComponent<StatsComponent>(4)->alterHealth(-1);
 			}
 		}
-	}
+	
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
 	{
