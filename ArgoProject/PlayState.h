@@ -33,7 +33,7 @@ private:
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	Player m_player;
-	HUD m_hud;
+	HUD* m_hud;
 
 	SDL_Rect* camera;
 	SDL_Rect* m_miniMap;

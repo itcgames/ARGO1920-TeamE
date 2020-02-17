@@ -1,12 +1,13 @@
 #pragma once
 #include "SDL.h"
+#include "Vector2.h"
 #include "Renderer.h"
 #include <iostream>
 #include "FSM.h"
 class HUD
 {
 public:
-	HUD();
+	HUD(Vector2 t_cameraDimension);
 	~HUD();
 
 	void update();

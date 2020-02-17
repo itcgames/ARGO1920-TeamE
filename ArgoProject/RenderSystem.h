@@ -24,7 +24,6 @@ public:
 	SDL_Color White;
 	SDL_Surface* enemyHealthSurface;
 	SDL_Texture* enemyHealthText;
-	HUD hud;
 	//
 	RenderSystem()
 	{
@@ -67,7 +66,7 @@ public:
 		}
 	}
 
-	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture)//, Vector2 positon)
+	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture, HUD* t_hud)//, Vector2 positon)
 	{
 		//SDL_Rect viewableArea = { positon.x, positon.y, 100,100 };
 		//SDL_RenderCopy(renderer, m_entities[0]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea);
@@ -125,7 +124,8 @@ public:
 			}
 		}
 
-		hud.render();
+		t_hud->render();
+
 		 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 //Draws the minimap
 

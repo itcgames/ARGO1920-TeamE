@@ -6,6 +6,8 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
+
+	m_hud = new HUD(t_screenDimensions);
 }
 
 
@@ -82,7 +84,8 @@ void PlayState::render()
 		Render::Instance()->getRenderer(),
 		camera,
 		m_miniMap,
-		m_miniMapTexture);
+		m_miniMapTexture,
+		m_hud);
 
 }
 
