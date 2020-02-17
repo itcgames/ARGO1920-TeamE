@@ -41,9 +41,10 @@ public:
 		return false;
 	}
 
+
 	void collisionResponse(Entity* m_a, Entity* m_b)
 	{
-		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
+		/*if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
 			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
 			//player velocity *= -1
@@ -53,6 +54,16 @@ public:
 			position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 3;
 
 			m_a->getComponent<PositionComponent>(1)->setPosition(position);
+		}*/
+
+		//player velocity *= -1
+		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
+
+		position.x += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().x * 30;//3;
+		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 30;//3;
+
+		m_a->getComponent<PositionComponent>(1)->setPosition(position);
+
 			if (m_b->getID() == 2)
 			{
 				
@@ -63,7 +74,7 @@ public:
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
 	{
-		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
+		/*if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
 			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
 			//player velocity *= -1
@@ -78,7 +89,17 @@ public:
 
 			m_a->getComponent<PositionComponent>(1)->setPosition(position);
 			//m_a->getComponent<BehaviourComponent>(3)->setNormalizeVel(velocity);
-		}
+		}*/
+		Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
+		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
+		//
+		velocity.x *= -1;
+		velocity.y *= -1;
+		//
+		position.x += velocity.x * 9;
+		position.y += velocity.y * 9;
+
+		m_a->getComponent<PositionComponent>(1)->setPosition(position);
 	}
 
 	void pickupCollisionResponse(Entity* m_a, Entity* m_b)

@@ -47,6 +47,8 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//t_rs->deleteEntity(m_player);
 	m_camera = t_camera;
 
+	m_seek = true;
+
 	//Input InputHandler
 	m_ih = new InputHandler();
 	m_ih->addEntity(m_player);
@@ -65,8 +67,11 @@ void Player::update()
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40) 
-			{            
-				m_bs->seek(m_ih->mousePosition);
+			{         
+				if (m_seek == true)
+				{
+					m_bs->seek(m_ih->mousePosition);
+				}
 			}
 			else
 			{
@@ -111,8 +116,6 @@ void Player::update()
 		}
 	}
 
-
-
 	if (commandQueue.empty() && !m_ih->move)
 	{
 		spriteSheetY = 0;
@@ -144,3 +147,12 @@ void Player::animate()
 	m_sc->setDstRect(m_playerRect);
 }
 
+bool Player::getSeek() 
+{ 
+	return m_seek; 
+}
+
+void Player::setSeek(bool seek) 
+{ 
+	m_seek = seek; 
+}
