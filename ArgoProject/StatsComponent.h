@@ -90,6 +90,12 @@ public:
 		m_killCount = t_killCount;
 
 	}
+
+	void alterHealth(int t_change)
+	{
+		m_health += t_change;
+	}
+
 	//
 
 private:

@@ -22,6 +22,7 @@ void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class,
 	m_statsC = new StatsComponent(t_class, t_health, t_strength, t_speed, t_gold, t_killCount, 4);
 
 	//adds the new components to the enenmy
+	m_enemy->setID(2);
 	m_enemy->addComponent<PositionComponent>(m_pc, 1);
 	m_enemy->addComponent<SpriteComponent>(m_sc, 2);
 	m_enemy->addComponent<BehaviourComponent>(m_bc, 3);
@@ -35,11 +36,33 @@ void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class,
 
 void Ai::update(Vector2 t_position)
 {
-	m_bs->flee(t_position);
+	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
+					  t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
+
+	m_normalizedVec = m_normalizedVec.normalize(newVec);
+
+	//m_bs->flee(t_position);
+	m_bs->seek(t_position);
+	m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
+
+	if (m_attackTime < 200)
+	{
+		m_attackTime++;
+	}
 }
 
 void Ai::render()
 {
+}
+
+int Ai::getAttackTime()
+{
+	return m_attackTime;
+}
+
+void Ai::setAttackTime(int attackTime)
+{
+	m_attackTime = attackTime;
 }

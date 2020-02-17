@@ -119,6 +119,7 @@ public:
 		{
 			return true;
 		}
+
 		else
 		{
 			fillCommands(command_queue);  // fills command queue
@@ -236,4 +237,24 @@ public:
 	{
 		return action_map[key];
 	}
+
+	bool leftKeyPressed()
+	{
+		SDL_Event _event;
+		while (SDL_PollEvent(&_event))
+			if (_event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (_event.button.button == SDL_BUTTON_LEFT)
+				{
+					return true;
+				}
+				else
+				{
+
+				}
+			}
+
+			return false;
+	}
 };
+
