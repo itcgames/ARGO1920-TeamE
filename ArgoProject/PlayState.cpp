@@ -60,8 +60,11 @@ void PlayState::update()
 	}
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+
+	//if its multiplayer
 	if (!data::Instance()->SINGLEPLAYER)
 	{
+		//if you are the host send all positions to the client.
 		if (data::Instance()->HOST)
 		{
 			//Vector2 tempPos = m_player.getEntity()->getComponent<PositionComponent>(1)->getPosition();
@@ -70,6 +73,7 @@ void PlayState::update()
 			//m_server.SendString(1,test);
 			//m_server.SendString(2,test2);
 		}
+		//if you are not the host send your co-ordinates to the server.
 		if (!data::Instance()->HOST)
 		{
 			Vector2 tempPos = m_player2.getEntity()->getComponent<PositionComponent>(1)->getPosition();
