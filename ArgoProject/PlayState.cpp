@@ -35,19 +35,18 @@ void PlayState::update()
 
 	for (int i = 0; i < 2; i++)
 	{
-		m_enemies[i]->update(m_player.getPosition());
-		
-		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+		if (m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+		{
+			m_enemies[i]->update(m_player.getPosition());
+			if (m_cs->aabbCollision(m_player.m_playerRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+			{
+				m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+				m_enemies[i]->setAttackTime(0);
+			}
+		}
 	}
 
 	m_pickUp->update();
-
-
-	if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-	{
-		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
-		m_enemy->setAttackTime(0);
-	}
 
 
 	for (int i = 0; i < myMap->map.size(); i++)
@@ -75,7 +74,10 @@ void PlayState::update()
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 
-
+	if (!m_player.getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+	{
+		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+	}
 }
 
 void PlayState::render()
@@ -133,7 +135,7 @@ bool PlayState::onEnter()
 			m_client.Connect();
 		}
 	}
-	m_rs = new RenderSystem();
+	m_rs = new RenderSystem(Render::Instance()->getRenderer());
 	m_cs = new CollisionSystem();
 
 	camera = new SDL_Rect();

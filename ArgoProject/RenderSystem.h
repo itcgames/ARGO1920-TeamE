@@ -19,26 +19,14 @@ class RenderSystem : public System
 {
 public:
 	std::vector<Entity*> m_minimapList;
-	TTF_Font* font;
-	SDL_Color White;
-	SDL_Surface* enemyHealthSurface;
-	SDL_Texture* enemyHealthText;
+	SDL_Surface* healthSurface;
+	SDL_Texture* healthTexture;
 	//
-	RenderSystem()
+	RenderSystem(SDL_Renderer* renderer)
 	{
-		if (TTF_Init() == -1)
-		{
-			printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
-		}
 
-		font = TTF_OpenFont("Assets/Font/Abel.ttf", 100);
-
-		if (!font) {
-			printf("TTF_OpenFont: %s\n", TTF_GetError());
-			// handle error
-		}
-
-		White = { 255, 255, 255 };
+		healthSurface = IMG_Load("Assets/ecs_text.png");
+		healthTexture = SDL_CreateTextureFromSurface(renderer, healthSurface);
 	}
 
 	//
@@ -101,24 +89,35 @@ public:
 						angle = 0;
 					}
 
-					if (m_entities[i]->getID() != 1)
+					if (m_entities[i]->getID() != 1 && m_entities[i]->getID() != 2)
 					{
 						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 					}
+					else if (m_entities[i]->getID() == 2)
+					{
+						if (m_entities[i]->getComponent<ActiveComponent>(6)->getIsActive())
+						{
+							SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+
+							viewableArea.y -= 20;
+							viewableArea.h = 10;
+							viewableArea.w = (m_entities[i]->getComponent<HealthComponent>(5)->getHealth() / m_entities[i]->getComponent<HealthComponent>(5)->getOriginalHealth()) * viewableArea.w;
+
+							SDL_RenderCopyEx(renderer, healthTexture, NULL, &viewableArea, 0, NULL, SDL_FLIP_NONE);
+						}
+					}
 					else
 					{
-						playerID = i;
-						SDL_RenderCopyEx(renderer, m_entities[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
-					}
+						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[i]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 
-					if (m_entities[i]->getID() == 2)
-					{
-						std::string m_health = std::to_string(m_entities[i]->getComponent<StatsComponent>(4)->getHealth());
-						enemyHealthSurface = TTF_RenderText_Solid(font, m_health.c_str(), White);
+						/*if (m_entities[i]->getComponent<ActiveComponent>(6)->getIsActive())
+						{ 
+							viewableArea.y -= 20;
+							viewableArea.h = 10;
+							viewableArea.w = (m_entities[i]->getComponent<HealthComponent>(5)->getHealth() / m_entities[i]->getComponent<HealthComponent>(5)->getOriginalHealth()) * viewableArea.w;
 
-						enemyHealthText = SDL_CreateTextureFromSurface(renderer, enemyHealthSurface);
-
-						SDL_RenderCopyEx(renderer, enemyHealthText, NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
+							SDL_RenderCopyEx(renderer, healthTexture, NULL, &viewableArea, 0, NULL, SDL_FLIP_NONE);
+						}*/
 					}
 
 				}
@@ -152,8 +151,7 @@ public:
 			}
 			else
 			{
-				playerID = i;
-				SDL_RenderCopyEx(renderer, m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+				SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 			}
 		}
 		m_minimapList.clear();

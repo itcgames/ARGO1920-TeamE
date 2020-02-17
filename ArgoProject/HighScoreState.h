@@ -1,4 +1,6 @@
-#pragma once
+#ifndef HIGHSCORESTATE
+#define HIGHSCORESTATE
+//#pragma once
 #include "GameState.h"
 #include "MenuState.h"
 #include "LevelLoader.h"
@@ -39,3 +41,4 @@ private:
 	GameStateMachine* m_stateMachine;
 };
 
+#endif

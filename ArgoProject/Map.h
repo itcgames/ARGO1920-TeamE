@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAP
+#define MAP
+//#pragma once
 #include "Room.h"
 
 #include "SDL.h"
@@ -25,3 +27,4 @@ public:
 
 };
 
+#endif

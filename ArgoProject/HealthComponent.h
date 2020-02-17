@@ -15,16 +15,22 @@
 class HealthComponent : public BaseComponent<HealthComponent>
 {
 public:
-	HealthComponent(int health, int entityID) :
+	HealthComponent(float health, int entityID) :
 		m_health(health),
+		m_originalHealth(health),
 		BaseComponent<HealthComponent>(entityID)
 	{
 
 	}
 
-	int getHealth()
+	float getHealth()
 	{
 		return m_health;
+	}
+
+	float getOriginalHealth()
+	{
+		return m_originalHealth;
 	}
 
 	void setHealth(int health)
@@ -32,8 +38,14 @@ public:
 		m_health = health;
 	}
 
+	void alterHealth(float t_change)
+	{
+		m_health += t_change;
+	}
+
 private:
-	int m_health;
+	float m_health;
+	float m_originalHealth;
 };
 
 #endif // !HEALTHCOMPONENT_H

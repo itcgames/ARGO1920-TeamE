@@ -20,6 +20,8 @@ void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class,
 	m_sc = new SpriteComponent(m_texture, m_rect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 1, 0, 3);
 	m_statsC = new StatsComponent(t_class, t_health, t_strength, t_speed, t_gold, t_killCount, 4);
+	m_hc = new HealthComponent(t_health, 5);
+	m_ac = new ActiveComponent(true, 6);
 
 	//adds the new components to the enenmy
 	m_enemy->setID(2);
@@ -27,6 +29,8 @@ void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class,
 	m_enemy->addComponent<SpriteComponent>(m_sc, 2);
 	m_enemy->addComponent<BehaviourComponent>(m_bc, 3);
 	m_enemy->addComponent<StatsComponent>(m_statsC, 4);
+	m_enemy->addComponent<HealthComponent>(m_hc, 5);
+	m_enemy->addComponent<ActiveComponent>(m_ac, 6);
 
 	m_bs->addEntity(m_enemy);
 
@@ -43,13 +47,18 @@ void Ai::update(Vector2 t_position)
 
 	//m_bs->flee(t_position);
 	m_bs->seek(t_position);
-	m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
+	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 
 	if (m_attackTime < 200)
 	{
 		m_attackTime++;
+	}
+
+	if (m_enemy->getComponent<HealthComponent>(5)->getHealth() <= 0)
+	{
+		m_enemy->getComponent<ActiveComponent>(6)->setIsActive(false);
 	}
 }
 

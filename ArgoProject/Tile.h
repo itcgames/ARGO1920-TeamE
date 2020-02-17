@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TILE
+#define TILE
+//#pragma once
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Vector2.h"
@@ -43,3 +45,4 @@ public:
 
 };
 
+#endif
