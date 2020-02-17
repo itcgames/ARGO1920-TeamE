@@ -37,17 +37,17 @@ void PlayState::update()
 	{
 		m_enemies[i]->update(m_player.getPosition());
 		
-		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+		//m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
 	}
 
 	m_pickUp->update();
 
 
-	if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-	{
-		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
-		m_enemy->setAttackTime(0);
-	}
+	//if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//{
+	//	m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
+	//	m_enemy->setAttackTime(0);
+	//}
 
 
 	for (int i = 0; i < myMap->map.size(); i++)
@@ -74,29 +74,16 @@ void PlayState::update()
 	}*/
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
-
-
 }
 
 void PlayState::render()
 {
-	/* Creating the surface. */
-
-	//m_rs->render(Render::Instance()->getRenderer());
-//	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0, 255, 0, 255);
-
-//	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
-
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(),
 		camera,
 		m_miniMap,
 		m_miniMapTexture);
-	//m_rs->render(Render::Instance()->getRenderer());
-		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
-	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
 
-	//m_player.render();
 }
 
 /// handle user and system events/ input
@@ -119,20 +106,20 @@ void PlayState::processEvents(bool &isRunning)
 bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
-	if (!data::Instance()->SINGLEPLAYER)
-	{
-		if (data::Instance()->HOST)
-		{
-			for (int i = 0; i < 1; i++)
-			{
-				m_server.ListenForNewConnection();
-			}
-		}
-		else
-		{
-			m_client.Connect();
-		}
-	}
+	//if (!data::Instance()->SINGLEPLAYER)
+	//{
+	//	if (data::Instance()->HOST)
+	//	{
+	//		for (int i = 0; i < 1; i++)
+	//		{
+	//			m_server.ListenForNewConnection();
+	//		}
+	//	}
+	//	else
+	//	{
+	//		m_client.Connect();
+	//	}
+	//}
 	m_rs = new RenderSystem();
 	m_cs = new CollisionSystem();
 

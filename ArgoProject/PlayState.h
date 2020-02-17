@@ -12,6 +12,7 @@
 #include "Server.h"
 #include <vector>
 #include "Client.h"
+#include "HUD.h"
 
 class PlayState : public GameState
 {
@@ -32,6 +33,7 @@ private:
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	Player m_player;
+	HUD m_hud;
 
 	SDL_Rect* camera;
 	SDL_Rect* m_miniMap;

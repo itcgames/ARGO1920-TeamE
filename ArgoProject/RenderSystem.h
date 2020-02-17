@@ -14,6 +14,7 @@
 #include "System.h"
 #include "Entity.h"
 #include "BehaviourComponent.h"
+#include "HUD.h"
 
 class RenderSystem : public System
 {
@@ -23,6 +24,7 @@ public:
 	SDL_Color White;
 	SDL_Surface* enemyHealthSurface;
 	SDL_Texture* enemyHealthText;
+	HUD hud;
 	//
 	RenderSystem()
 	{
@@ -73,67 +75,68 @@ public:
 		int playerID = 0;
 		for (int i = 0; i < m_entities.size(); i++)
 		{
-			
-				if ((m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w < camera->x
-					||
-					(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x > camera->x + camera->w))
-					||
-					(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h < camera->y
-						||
-						(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y > camera->y + camera->h)))
-				{
 
+			if ((m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w < camera->x
+				||
+				(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x > camera->x + camera->w))
+				||
+				(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y + m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h < camera->y
+					||
+					(m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y > camera->y + camera->h)))
+			{
+
+			}
+			else
+			{
+				m_minimapList.push_back(m_entities[i]);
+
+				int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
+				int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
+				viewableArea = { posX, posY, m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w,m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h };
+
+				if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
+				{
+					angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
 				}
 				else
 				{
-					m_minimapList.push_back(m_entities[i]);
-
-					int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
-					int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
-					viewableArea = { posX, posY, m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->w,m_entities[i]->getComponent<SpriteComponent>(2)->getRect()->h };
-
-					if (m_entities[i]->getComponent<BehaviourComponent>(3) != NULL)
-					{
-						angle = m_entities[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
-					}
-					else
-					{
-						angle = 0;
-					}
-
-					if (m_entities[i]->getID() != 1)
-					{
-						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
-					}
-					else
-					{
-						playerID = i;
-						SDL_RenderCopyEx(renderer, m_entities[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
-					}
-
-					if (m_entities[i]->getID() == 2)
-					{
-						std::string m_health = std::to_string(m_entities[i]->getComponent<StatsComponent>(4)->getHealth());
-						enemyHealthSurface = TTF_RenderText_Solid(font, m_health.c_str(), White);
-
-						enemyHealthText = SDL_CreateTextureFromSurface(renderer, enemyHealthSurface);
-
-						SDL_RenderCopyEx(renderer, enemyHealthText, NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
-					}
-
+					angle = 0;
 				}
 
+				if (m_entities[i]->getID() != 1)
+				{
+					SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+				}
+				else
+				{
+					playerID = i;
+					SDL_RenderCopyEx(renderer, m_entities[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+				}
+
+				if (m_entities[i]->getID() == 2)
+				{
+					std::string m_health = std::to_string(m_entities[i]->getComponent<StatsComponent>(4)->getHealth());
+					enemyHealthSurface = TTF_RenderText_Solid(font, m_health.c_str(), White);
+
+					enemyHealthText = SDL_CreateTextureFromSurface(renderer, enemyHealthSurface);
+
+					SDL_RenderCopyEx(renderer, enemyHealthText, NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
+				}
+			}
 		}
+
+		hud.render();
 		 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 //Draws the minimap
 
 		viewableArea = { miniMap->x - 100, miniMap->y - 100, miniMap->w * 2,miniMap->h * 2 };
 		SDL_RenderCopy(renderer, t_miniMapTexture,NULL,&viewableArea);
+
 		for (int i = 0; i < m_minimapList.size(); i++)
 		{
 			int posX = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / 20) + camera->w - miniMap->w * 2;
 			int posY = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / 20) + camera->h - miniMap->h * 2;
-			//std::cout << posX << " " << posY << std::endl;
+		
 			viewableArea = { posX, posY, m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / 20,m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / 20 };
 
 			if (m_minimapList[i]->getComponent<BehaviourComponent>(3) != NULL)
@@ -148,12 +151,12 @@ public:
 			//SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 			if (m_minimapList[i]->getID() != 1)
 			{
-				SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+				SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
 			}
 			else
 			{
 				playerID = i;
-				SDL_RenderCopyEx(renderer, m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+				SDL_RenderCopyEx(renderer, m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_minimapList[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_NONE);
 			}
 		}
 		m_minimapList.clear();

@@ -84,7 +84,7 @@ void Player::update()
 
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
-		spriteSheetY = 226;
+		spriteSheetY = 226; 
 	}
 
 	if (finiteStateMachine->getCurrentState() == 3)

@@ -144,6 +144,9 @@
     <ClCompile Include="FSM.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="ItemComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
