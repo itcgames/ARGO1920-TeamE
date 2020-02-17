@@ -48,22 +48,22 @@ void PlayState::update()
 
 	//m_pickUp->update();
 
-	//for (int i = 0; i < myMap->map.size(); i++)
-	//{
-	//	for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
-	//	{
-	//		if (myMap->map[i]->tileList[z]->getTag() == "Wall")
-	//		{
-	//			//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-	//			if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-	//			{
-	//				m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-	//				std::cout << "Hit" << std::endl;
- //					//m_player.setSeek(false);
-	//			}
-	//		}
-	//	}
-	//}
+	for (int i = 0; i < myMap->map.size(); i++)
+	{
+		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+		{
+			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
+			{
+				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+				if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_cs->wallCollisionResponse(m_player.m_collisionSquare, myMap->map[i]->tileList[z]->getEntity());
+					std::cout << "Hit" << std::endl;
+ 					//m_player.setSeek(false);
+				}
+			}
+		}
+	}
 
 	// Testing deleteEntity
 	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
@@ -90,17 +90,6 @@ void PlayState::render()
 void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
-
-	/*SDL_Event event;
-
-	if (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_KEYDOWN:
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
-		}
-	}*/
 }
 
 bool PlayState::onEnter()
@@ -130,8 +119,8 @@ bool PlayState::onEnter()
 	camera->y = 0;
 
 	level = new SDL_Rect();
-	level->w = 1400000000;
-	level->h = 1400000000;
+	level->w = 12000;
+	level->h = 12000;
 	level->x = 0;
 	level->y = 0;
 

@@ -109,6 +109,8 @@ public:
 					}
 					else
 					{
+						/*SDL_Point centre = { (m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect()->x + m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect()->w /2),
+											(m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect()->y + m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect()->h / 2) };*/
 						playerID = i;
 						SDL_RenderCopyEx(renderer, m_entities[playerID]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[playerID]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 					}

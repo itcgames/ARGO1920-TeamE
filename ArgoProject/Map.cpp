@@ -53,6 +53,8 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 
 void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* t_rs, CollisionSystem* t_cs)
 {
+	//Some Collisions Could be borken due to the path tiles not being added to lists this will cause the wall to not be deleted.
+	// Fix wall Double up Issue?	
 	Vector2 newStart = start;
 	Vector2 newEnd = end;
 
@@ -83,13 +85,7 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 
 					map[i]->tileList[k]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 					t_rs->deleteEntity(map[i]->tileList[k]->getEntity());
-
-					if (map[i]->tileList[k]->getTag() == "Wall")
-					{
-						t_cs->deleteEntity(map[i]->tileList[k]->getEntity());
-					}
-
-
+					t_cs->deleteEntity(map[i]->tileList[k]->getEntity());
 					map[i]->tileList[k] = nullptr;
 					map[i]->tileList.erase(map[i]->tileList.begin() + k);
 				}
