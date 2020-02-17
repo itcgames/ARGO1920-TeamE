@@ -32,6 +32,11 @@ public:
 		m_mana = mana;
 	}
 
+	void addMana(int mana)
+	{
+		m_mana += mana;
+	}
+
 private:
 	int m_mana;
 };

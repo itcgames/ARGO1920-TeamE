@@ -52,7 +52,7 @@ public:
 			//(position.x + 25 && poistion.y + 25)
 			// ||
 			//(position.x - 25 && position.y - 25)
-			if ((t_targetPosition.x < position.x + 300 && t_targetPosition.x > position.x - 300) &&
+			/*if ((t_targetPosition.x < position.x + 300 && t_targetPosition.x > position.x - 300) &&
 				(t_targetPosition.y < position.y + 300 && t_targetPosition.y > position.y - 300) &&
 				attackTime >= 200 )
 			{
@@ -62,16 +62,15 @@ public:
 				//attackTime = 0;
 			}
 			else
-			{
+			{*/
 				int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
 				position.x += normalizedVelo.x * m_maxSpeed;
 				position.y += normalizedVelo.y * m_maxSpeed;
-			}
-			
+			//}
+			m_entities[i]->getComponent<BehaviourComponent>(3)->setNormalizeVel(normalizedVelo);
 
 			m_entities[i]->getComponent<BehaviourComponent>(3)->setRotationAngle(m_orientation * (180 / 3.14159));
 			m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
-			m_entities[i]->getComponent<BehaviourComponent>(3)->setNormalizeVel(normalizedVelo);
 		}
 	}
 

@@ -96,6 +96,11 @@ public:
 		m_health += t_change;
 	}
 
+	void addGold(int gold)
+	{
+		m_gold += gold;
+	}
+
 	//
 
 private:

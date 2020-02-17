@@ -23,14 +23,25 @@ public:
 
 	void setSeek(bool seek);
 
+	SDL_Rect* getRect() { return m_playerRect; }
+
+private:
+
 	Entity* m_player;
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
+
 	StatsComponent* m_statc;
+	HealthComponent* m_hc;
+	ManaComponent* m_mc;
+	StaminaComponent* m_stc;
+
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
+
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
+
 	InputHandler* m_ih;
 
 	SDL_Rect* m_playerRect;

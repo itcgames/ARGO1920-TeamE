@@ -31,6 +31,11 @@ public:
 	{
 		m_health = health;
 	}
+	
+	void addHealth(int health)
+	{
+		m_health += health;
+	}
 
 private:
 	int m_health;

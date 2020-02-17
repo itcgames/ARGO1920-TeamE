@@ -20,7 +20,7 @@ public:
 		BaseComponent<PositionComponent>(entityID),
 		m_position(position)
 	{
-
+		m_previousPos = Vector2(0, 0);
 	}
 
 	//
@@ -34,8 +34,20 @@ public:
 		this->m_position = position;
 	}
 
+	//
+	Vector2 getPreviousPosition()
+	{
+		return m_previousPos;
+	}
+	//
+	void setPreviousPosition(Vector2 previous)
+	{
+		m_previousPos = previous;
+	}
+
 private:
 	Vector2 m_position;
+	Vector2 m_previousPos;
 
 };
 

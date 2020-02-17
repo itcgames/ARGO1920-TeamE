@@ -27,9 +27,15 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_pc = new PositionComponent(Vector2(m_playerRect->x, m_playerRect->y), 1);
 	m_sc = new SpriteComponent(m_playerTexture, m_playerRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
+
+	m_hc = new HealthComponent(1000, 7);
+	m_mc = new ManaComponent(1000, 8);
+	m_stc = new StaminaComponent(1000, 9);
+
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
 		data::Instance()->getData().m_playerStats.at(0).m_strength, data::Instance()->getData().m_playerStats.at(0).m_speed,
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
+	
 	m_ac = new ActiveComponent(true);
 
 	m_player->setID(1);
@@ -38,6 +44,9 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<BehaviourComponent>(m_bc, 3);
 	m_player->addComponent<StatsComponent>(m_statc, 4);
 	m_player->addComponent<ActiveComponent>(m_ac, 6);
+	m_player->addComponent<HealthComponent>(m_hc, 7);
+	m_player->addComponent<ManaComponent>(m_mc, 8);
+	m_player->addComponent<StaminaComponent>(m_stc, 9);
 	
 	m_rs = t_rs;
 	m_bs->addEntity(m_player);
@@ -58,6 +67,11 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Player::update()
 {
+	if (m_ih->leftKeyPressed() == true)
+	{
+		std::cout << "Click" << std::endl;
+	}
+
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
@@ -127,6 +141,8 @@ void Player::update()
 		commandQueue.back()->execute(finiteStateMachine);
 		commandQueue.pop_back();
 	}
+
+
 }
 
 //generates the inputs and places them in the queue
