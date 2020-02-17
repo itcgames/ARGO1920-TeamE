@@ -38,6 +38,7 @@ void HostSearchState::processEvents(bool& isRunning)
 				event.button.y > m_hostRect->y && event.button.y < m_hostRect->y + m_hostRect->h)
 			{
 				//std::cout << "Play Button" << std::endl;
+				data::Instance()->HOST = true;
 				m_stateMachine->changeState(new CharacterSelectState(m_cameraDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_searchRect->x && event.button.x < m_searchRect->x + m_searchRect->w
@@ -45,6 +46,7 @@ void HostSearchState::processEvents(bool& isRunning)
 				event.button.y > m_searchRect->y && event.button.y < m_searchRect->y + m_searchRect->h)
 			{
 				//std::cout << "Play Button" << std::endl;
+				data::Instance()->HOST = false;
 				m_stateMachine->changeState(new CharacterSelectState(m_cameraDimensions, m_stateMachine));
 			}
 			break;

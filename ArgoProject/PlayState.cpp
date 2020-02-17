@@ -60,7 +60,14 @@ void PlayState::update()
 	}
 
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
-
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		if (!data::Instance()->HOST)
+		{
+			std::string test = "test";
+			m_client.SendString(test);
+		}
+	}
 
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "PlayState.h"
+#include "Data.h"
 class HostSearchState :
 	public GameState
 {
