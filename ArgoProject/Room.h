@@ -17,12 +17,15 @@ public:
 	~Room();
 
 	void checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
+	void deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs);
 	void pathOverlaping(RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	Vector2 getCenterPos();
 	Vector2 getSize();
 	int getWallsCount();
 	int getFloorCount();
+
+	std::string returnTileType(std::string type);
 
 	int m_tileSize = 100;
 

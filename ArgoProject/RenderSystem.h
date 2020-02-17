@@ -21,10 +21,11 @@ public:
 	std::vector<Entity*> m_minimapList;
 	SDL_Surface* healthSurface;
 	SDL_Texture* healthTexture;
+	Vector2 m_miniMapRatio;
 	//
-	RenderSystem(SDL_Renderer* renderer)
+	RenderSystem(SDL_Renderer* renderer, Vector2 t_miniMapRatio)
 	{
-
+		m_miniMapRatio = t_miniMapRatio;
 		healthSurface = IMG_Load("Assets/ecs_text.png");
 		healthTexture = SDL_CreateTextureFromSurface(renderer, healthSurface);
 	}
@@ -126,14 +127,14 @@ public:
 		 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 //Draws the minimap
 
-		viewableArea = { miniMap->x - 100, miniMap->y - 100, miniMap->w * 2,miniMap->h * 2 };
+		viewableArea = { miniMap->x, miniMap->y, miniMap->w,miniMap->h };
 		SDL_RenderCopy(renderer, t_miniMapTexture,NULL,&viewableArea);
 		for (int i = 0; i < m_minimapList.size(); i++)
 		{
-			int posX = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / 20) + camera->w - miniMap->w * 2;
-			int posY = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / 20) + camera->h - miniMap->h * 2;
+			int posX = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / m_miniMapRatio.x) + camera->w - miniMap->w;
+			int posY = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / m_miniMapRatio.y) + camera->h - miniMap->h;
 			//std::cout << posX << " " << posY << std::endl;
-			viewableArea = { posX, posY, m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / 20,m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / 20 };
+			viewableArea = { posX, posY, m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / 10,m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / 20 };
 
 			if (m_minimapList[i]->getComponent<BehaviourComponent>(3) != NULL)
 			{
