@@ -62,10 +62,21 @@ void PlayState::update()
 	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 	if (!data::Instance()->SINGLEPLAYER)
 	{
+		if (data::Instance()->HOST)
+		{
+			//Vector2 tempPos = m_player.getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			//std::string test = std::to_string(tempPos.x);
+			//std::string test2 = std::to_string(tempPos.y);
+			//m_server.SendString(1,test);
+			//m_server.SendString(2,test2);
+		}
 		if (!data::Instance()->HOST)
 		{
-			std::string test = "test";
+			Vector2 tempPos = m_player2.getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			std::string test = std::to_string(tempPos.x);
+			std::string test2 = std::to_string(tempPos.y);
 			m_client.SendString(test);
+			m_client.SendString(test2);
 		}
 	}
 
@@ -161,7 +172,10 @@ bool PlayState::onEnter()
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	m_player.init(m_rs, camera, myMap->map.at(0)->getCenterPos());
-
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		m_player2.init(m_rs, camera, myMap->map.at(0)->getCenterPos());
+	}
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);

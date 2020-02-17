@@ -32,7 +32,7 @@ private:
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	Player m_player;
-
+	Player m_player2;
 	SDL_Rect* camera;
 	SDL_Rect* m_miniMap;
 	SDL_Rect* level;
