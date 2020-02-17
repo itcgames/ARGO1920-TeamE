@@ -70,7 +70,7 @@ public:
 				m_b->getComponent<StatsComponent>(4)->alterHealth(-1);
 			}
 		}
-	}
+	
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
 	{
@@ -116,19 +116,19 @@ public:
 				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
 				{
 					//Insert Player logic
-					std::cout << "Small Health collision" << std::endl;
+					//std::cout << "Small Health collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
 				{
 					//Insert Player logic
-					std::cout << "Medium Health collision" << std::endl;
+					//std::cout << "Medium Health collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
 				{
 					//Insert Player logic
-					std::cout << "Large Health collision" << std::endl;
+					//std::cout << "Large Health collision" << std::endl;
 				}
 			}
 			
@@ -140,19 +140,19 @@ public:
 				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
 				{
 					//Insert Player logic
-					std::cout << "Small Mana collision" << std::endl;
+					//std::cout << "Small Mana collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
 				{
 					//Insert Player logic
-					std::cout << "Medium Mana collision" << std::endl;
+					//std::cout << "Medium Mana collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
 				{
 					//Insert Player logic
-					std::cout << "Large Mana collision" << std::endl;
+					//std::cout << "Large Mana collision" << std::endl;
 				}
 			}
 
@@ -164,19 +164,19 @@ public:
 				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
 				{
 					//Insert Player logic
-					std::cout << "Small Stamina collision" << std::endl;
+					//std::cout << "Small Stamina collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
 				{
 					//Insert Player logic
-					std::cout << "Medium Stamina collision" << std::endl;
+					//std::cout << "Medium Stamina collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
 				{
 					//Insert Player logic
-					std::cout << "Large Stamina collision" << std::endl;
+					//std::cout << "Large Stamina collision" << std::endl;
 				}
 			}
 
@@ -188,19 +188,19 @@ public:
 				if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
 				{
 					//Insert Player logic
-					std::cout << "Small Gold collision" << std::endl;
+					//std::cout << "Small Gold collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
 				{
 					//Insert Player logic
-					std::cout << "Medium Gold collision" << std::endl;
+					//std::cout << "Medium Gold collision" << std::endl;
 				}
 				//
 				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
 				{
 					//Insert Player logic
-					std::cout << "Large Gold collision" << std::endl;
+					//std::cout << "Large Gold collision" << std::endl;
 				}
 			}
 

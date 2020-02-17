@@ -37,17 +37,21 @@ void PlayState::update()
 	{
 		m_enemies[i]->update(m_player.getPosition());
 		
-		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+		if (m_cs->aabbCollision(m_player.m_playerRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		{
+			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+			m_enemies[i]->setAttackTime(0);
+		}
 	}
 
 	m_pickUp->update();
 
 
-	if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 	{
 		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
 		m_enemy->setAttackTime(0);
-	}
+	}*/
 
 
 	for (int i = 0; i < myMap->map.size(); i++)
@@ -59,7 +63,7 @@ void PlayState::update()
 				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
 				if (m_cs->aabbCollision(m_player.m_playerRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
-					//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
 					//m_player.setSeek(false);
 				}
 			}
