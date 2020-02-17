@@ -23,6 +23,7 @@ public:
 	std::vector<Tile*> path;
 
 	int roomsNum = 12;
+	int tileSize = 200;
 
 };
 

@@ -10,6 +10,7 @@
 #include "FiniteState.h"
 #include <iostream>
 
+
 class Player
 {
 public:
@@ -50,5 +51,7 @@ public:
 	int textureWidth, textureHeight;
 	int spriteSheetY = 0;
 	int spriteSheetX = 0;
+
+
 };
 

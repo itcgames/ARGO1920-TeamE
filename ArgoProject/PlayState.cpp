@@ -46,24 +46,24 @@ void PlayState::update()
 	//	}
 	//}
 
-	m_pickUp->update();
+	//m_pickUp->update();
 
-	for (int i = 0; i < myMap->map.size(); i++)
-	{
-		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
-		{
-			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
-			{
-				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-				if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					std::cout << "Hit" << std::endl;
- 					//m_player.setSeek(false);
-				}
-			}
-		}
-	}
+	//for (int i = 0; i < myMap->map.size(); i++)
+	//{
+	//	for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+	//	{
+	//		if (myMap->map[i]->tileList[z]->getTag() == "Wall")
+	//		{
+	//			//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+	//			if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//			{
+	//				m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+	//				std::cout << "Hit" << std::endl;
+ //					//m_player.setSeek(false);
+	//			}
+	//		}
+	//	}
+	//}
 
 	// Testing deleteEntity
 	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
@@ -72,30 +72,18 @@ void PlayState::update()
 		m_rs->deleteEntity(m_player.getEntity());
 	}*/
 
-	//m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 
 
 }
 
 void PlayState::render()
 {
-	/* Creating the surface. */
-
-	//m_rs->render(Render::Instance()->getRenderer());
-//	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0, 255, 0, 255);
-
-//	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
-
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(),
 		camera,
 		m_miniMap,
 		m_miniMapTexture);
-	//m_rs->render(Render::Instance()->getRenderer());
-		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
-	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
-
-	//m_player.render();
 }
 
 /// handle user and system events/ input
@@ -142,8 +130,8 @@ bool PlayState::onEnter()
 	camera->y = 0;
 
 	level = new SDL_Rect();
-	level->w = 4000;
-	level->h = 4000;
+	level->w = 1400000000;
+	level->h = 1400000000;
 	level->x = 0;
 	level->y = 0;
 
@@ -166,7 +154,7 @@ bool PlayState::onEnter()
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player.init(m_rs, camera, myMap->map.at(0)->getCenterPos());
+	m_player.init(m_rs, camera, Vector2(150,150));
 
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");

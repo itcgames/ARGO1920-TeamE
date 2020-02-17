@@ -39,60 +39,20 @@ void Room::checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* 
 	{
 		for (int y = 0; y < t.size(); y++)
 		{
-				if (t[y] != nullptr) // checks that its not empty 
+			if (tileList[i]->getPos() == t[y]->getPos()) // checks the positions are the same
+			{
+				if (tileList[i]->getTag() != t[y]->getTag()) // checks that the tags are the same 
 				{
-					if (tileList[i]->getPos() == t[y]->getPos()) // checks the positions are the same
-					{
-						if (tileList[i]->getTag() != t[y]->getTag()) // checks that the tags are the same 
-						{
-							t[y]->covered = true;
-						}
-
-						if (tileList[i]->getTag() == "Floor" && t[y]->getTag()== "Floor") // checks that the tags are the same 
-						{
-							t[y]->covered = true;
-						}
-					}
+					t[y]->covered = true;
 				}
+
+				if (tileList[i]->getTag() == "Floor" && t[y]->getTag()== "Floor") // checks that the tags are the same 
+				{
+					t[y]->covered = true;
+				}
+			}
 		}
 	}
-
-	////For loop for deleting
-	//for (int i = 0; i < tileList.size(); i++)
-	//{
-	//	if (tileList[i]->covered == true)
-	//	{
-	//		if (tileList[i]->getTag() == "Wall")
-	//		{
-	//			wallCount--;
-	//		}
-	//		if (tileList[i]->getTag() == "Floor")
-	//		{
-	//			floorCount--;
-	//		}
-
-	//		tileList[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-	//		t_rs->deleteEntity(tileList[i]->getEntity());
-
-	//		if (tileList[i]->getTag() == "Wall")
-	//		{
-	//			t_cs->deleteEntity(tileList[i]->getEntity());
-	//		}
-
-	//		//delete tileList[i].release();
-	//		if (tileList[i]->getTag() == "Floor")
-	//		{
-	//			tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/TILE1.png", "Floor", t_rs, t_cs))); // replaces the tile
-	//		}
-	//		else
-	//		{
-	//			tileList[i] = nullptr;
-	//			tileList.erase(tileList.begin() + i);
-	//		}
-	//	}
-	//}
-	//std::cout << t_rs->getEntitiesSize() << std::endl;
-
 }
 
 void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)

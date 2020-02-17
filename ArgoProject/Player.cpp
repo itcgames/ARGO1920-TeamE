@@ -22,8 +22,8 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	frameWidth = textureWidth / 12;
 	frameHeight = textureHeight /6;
 	//Players Position Rect Size
-	m_positionRect->w = 0; 
-	m_positionRect->h = 0;
+	m_positionRect->w = frameWidth; 
+	m_positionRect->h = frameHeight;
 	//Players Animation Rect Size
 	m_animationRect->w = frameWidth; 
 	m_animationRect->h = frameHeight;
@@ -129,6 +129,7 @@ void Player::animate()
 	m_sc->setRect(m_animationRect);
 	m_sc->setDstRect(m_positionRect);
 }
+
 
 void Player::setAction()
 {
