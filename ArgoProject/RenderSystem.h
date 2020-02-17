@@ -115,12 +115,12 @@ public:
 
 					if (m_entities[i]->getID() == 2)
 					{
-						std::string m_health = std::to_string(m_entities[i]->getComponent<StatsComponent>(4)->getHealth());
-						enemyHealthSurface = TTF_RenderText_Solid(font, m_health.c_str(), White);
+						//std::string m_health = std::to_string(m_entities[i]->getComponent<StatsComponent>(4)->getHealth());
+						//enemyHealthSurface = TTF_RenderText_Solid(font, m_health.c_str(), White);
 
-						enemyHealthText = SDL_CreateTextureFromSurface(renderer, enemyHealthSurface);
+						//enemyHealthText = SDL_CreateTextureFromSurface(renderer, enemyHealthSurface);
 
-						SDL_RenderCopyEx(renderer, enemyHealthText, NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
+						//SDL_RenderCopyEx(renderer, enemyHealthText, NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
 					}
 
 				}

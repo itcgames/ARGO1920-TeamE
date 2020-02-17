@@ -20,6 +20,8 @@ public:
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; };
 
+	void setAction();
+
 	void hit(Entity* t_enemy);
 
 	Entity* m_player;
@@ -32,9 +34,9 @@ public:
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
 
-	SDL_Rect* m_playerRect;
+	SDL_Rect* m_positionRect;
 	SDL_Texture* m_playerTexture;
-	SDL_Rect* playerPos;
+	SDL_Rect* m_animationRect;
 
 	SDL_Rect* m_camera;
 

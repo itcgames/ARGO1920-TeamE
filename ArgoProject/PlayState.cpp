@@ -33,26 +33,20 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
-	for (int i = 0; i < 2; i++)
-	{
-		m_enemies[i]->update(m_player.getPosition());
-		
-		if (m_cs->aabbCollision(m_player.m_playerRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-		{
-			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
-			m_enemies[i]->setAttackTime(0);
-		}
-	}
+	//Collisions
+
+	//for (int i = 0; i < 2; i++)
+	//{
+	//	m_enemies[i]->update(m_player.getPosition());
+	//	
+	//	if (m_cs->aabbCollision(m_player.m_positionRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//	{
+	//		m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+	//		m_enemies[i]->setAttackTime(0);
+	//	}
+	//}
 
 	m_pickUp->update();
-
-
-	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_enemy->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-	{
-		m_cs->collisionResponse(m_player.getEntity(), m_enemy->getEntity());
-		m_enemy->setAttackTime(0);
-	}*/
-
 
 	for (int i = 0; i < myMap->map.size(); i++)
 	{
@@ -61,10 +55,11 @@ void PlayState::update()
 			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
 			{
 				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-				if (m_cs->aabbCollision(m_player.m_playerRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
 					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					//m_player.setSeek(false);
+					std::cout << "Hit" << std::endl;
+ 					//m_player.setSeek(false);
 				}
 			}
 		}
@@ -77,7 +72,7 @@ void PlayState::update()
 		m_rs->deleteEntity(m_player.getEntity());
 	}*/
 
-	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+	//m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 
 
 }

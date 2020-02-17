@@ -14,14 +14,13 @@ Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs, CollisionSyste
 			// Checks for the edges of the room
 			if(i == 0 || i == roomSizeX -1 || z == 0 || z == roomSizeY -1)
 			{ 
-				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs));
+				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize,/*"Assets/Tiles/tile.png"*/ returnTileType("Wall"), "Wall", t_rs, t_cs));
 				wallCount++;
 			}
 			else
 			{
 				tileList.push_back(std::make_unique<Tile>(Vector2(m_roomPos.x + (i * m_tileSize), m_roomPos.y + (z * m_tileSize)), m_tileSize, m_tileSize, returnTileType("Floor"), "Floor", t_rs, t_cs));
 				floorCount++;
-
 			}
 		}
 	}
@@ -115,6 +114,7 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 			tileList[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 			t_rs->deleteEntity(tileList[i]->getEntity());
 
+
 			if (tileList[i]->getTag() == "Wall")
 			{
 				t_cs->deleteEntity(tileList[i]->getEntity());
@@ -129,6 +129,7 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 			{
 				tileList[i] = nullptr;
 				tileList.erase(tileList.begin() + i);
+				//tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
 			}
 		}
 	}
