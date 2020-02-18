@@ -46,7 +46,7 @@ public:
 	}
 
 
-	void collisionResponse(Entity* m_a, Entity* m_b)//, bool seek)
+	void collisionResponse(Entity* m_a, Entity* m_b, bool seek)
 	{
 
 		//player velocity *= -1
@@ -66,7 +66,9 @@ public:
 		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 3;
 		*///}
 
-		position += velocity * -1 * 12;
+		position += velocity * -1 * 28;
+
+		m_a->getComponent<PositionComponent>(1)->setPosition(position);
 
 		if (m_b->getID() == 2)
 		{
@@ -84,11 +86,7 @@ public:
 		Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
 		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
 		//
-		velocity.x *= -1;
-		velocity.y *= -1;
-		//
-		position.x += velocity.x * 9;
-		position.y += velocity.y * 9;
+		position += velocity * -1 * 24;
 
 		m_a->getComponent<PositionComponent>(1)->setPosition(position);
 	}

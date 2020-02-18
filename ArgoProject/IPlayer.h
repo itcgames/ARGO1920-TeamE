@@ -23,14 +23,14 @@ public:
 	virtual Vector2 getPosition() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
-
+	virtual bool getSeek() = 0;
+	virtual void setSeek(bool seek) = 0;
 
 	//virtual void hit(Entity* t_enemy) = 0;
 
 
 	virtual SDL_Rect* getRect() = 0;
 protected:
-
 	Entity* m_player;
 
 	//Components
@@ -54,6 +54,7 @@ protected:
 	SDL_Texture* m_playerTexture;
 	SDL_Texture* m_collisionTexture;
 
+	bool m_seek;
 
 	SDL_Rect* m_camera;
 
