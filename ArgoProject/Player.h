@@ -28,7 +28,7 @@ public:
 	void hit(Entity* t_enemy);
 
 
-	SDL_Rect* getRect() { return m_playerRect; }
+	SDL_Rect* getRect() { return m_positionRect; }
 
 private:
 
@@ -46,7 +46,6 @@ private:
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
 
-	HealthComponent* m_hc;
 
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;

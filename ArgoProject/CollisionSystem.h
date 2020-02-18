@@ -46,7 +46,7 @@ public:
 	}
 
 
-	void collisionResponse(Entity* m_a, Entity* m_b, bool seek)
+	void collisionResponse(Entity* m_a, Entity* m_b)//, bool seek)
 	{
 
 		//player velocity *= -1
@@ -71,14 +71,13 @@ public:
 		if (m_b->getID() == 2)
 		{
 			if (m_b->getID() == 2 && m_a->getID() == 1)
-			{	
-				m_b->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
-				m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
+			{
+				m_a->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
+				//m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
 			}
-		}
 
+		}
 	}
-	
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
 	{
@@ -124,7 +123,6 @@ public:
 				}*/
 
 				m_a->getComponent<StatsComponent>(4)->alterHealth(m_b->getComponent<ItemComponent>(5)->getValue());
-				m_a->getComponent<HealthComponent>(7)->addHealth(m_b->getComponent<ItemComponent>(5)->getValue());
 			}
 			
 			// If type is set to "Mana" or "mana"...
@@ -151,7 +149,7 @@ public:
 				}
 				*/
 
-				m_a->getComponent<ManaComponent>(8)->addMana(m_b->getComponent<ItemComponent>(5)->getValue());
+				m_a->getComponent<ManaComponent>(7)->alterMana(m_b->getComponent<ItemComponent>(5)->getValue());
 			}
 
 			// If type is set to "Stamina" or "stamina"... 

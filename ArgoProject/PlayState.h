@@ -11,6 +11,7 @@
 #include "Server.h"
 #include <vector>
 #include "Client.h"
+#include "HUD.h"
 #include <memory>
 #include "IEnemy.h"
 #include "FactoryEnemy.h"
@@ -34,6 +35,7 @@ private:
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	Player m_player;
+	HUD* m_hud;
 
 	SDL_Rect* camera;
 	SDL_Rect* m_miniMap;

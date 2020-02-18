@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FSM_H
+#define FSM_H
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -29,3 +30,4 @@ public:
 	void death();
 };
 
+#endif

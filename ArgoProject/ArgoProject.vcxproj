@@ -149,6 +149,7 @@
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="HighScoreState.cpp" />
     <ClCompile Include="HostSearchState.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Idle.cpp" />
     <ClCompile Include="IEnemy.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HighScoreState.h" />
     <ClInclude Include="HostSearchState.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Idle.h" />
     <ClInclude Include="IEnemy.h" />
     <ClInclude Include="ItemComponent.h" />

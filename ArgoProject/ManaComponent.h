@@ -17,6 +17,7 @@ class ManaComponent : public BaseComponent<ManaComponent>
 public:
 	ManaComponent(int mana, int entityID) :
 		m_mana(mana),
+		m_originalMana(mana),
 		BaseComponent<ManaComponent>(entityID)
 	{
 
@@ -27,18 +28,24 @@ public:
 		return m_mana;
 	}
 
+	int getOriginalMana()
+	{
+		return m_originalMana;
+	}
+
 	void setMana(int mana)
 	{
 		m_mana = mana;
 	}
 
-	void addMana(int mana)
+	void alterMana(float t_change)
 	{
-		m_mana += mana;
+		m_mana += t_change;
 	}
 
 private:
-	int m_mana;
+	float m_mana;
+	float m_originalMana;
 };
 
 #endif // !MANACOMPONENT_H

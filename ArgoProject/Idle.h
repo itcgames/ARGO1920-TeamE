@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IDLE
+#define IDLE
 #include "FSM.h"
 #include "FiniteState.h"
 #include "Walking.h"
@@ -19,3 +20,4 @@ public:
 	void skillFour(FSM* fsm);
 };
 
+#endif

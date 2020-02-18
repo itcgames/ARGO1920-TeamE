@@ -40,16 +40,16 @@ void PlayState::update()
 		m_enemies[i]->update(m_player.getPosition());
 		
 
-		if (m_cs->aabbCollision(m_player.m_positionRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		if (m_cs->aabbCollision(m_player.getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			if (m_player.getSeek() == false)
+			/*if (m_player.getSeek() == false)
 			{
 
-			}
+			}*/
 
-			m_player.setSeek(false);
-			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity(), m_player.getSeek());
-			m_enemies[i]->setAttackTime(0);
+			//m_player.setSeek(false);
+			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
+			//m_enemies[i]->setAttackTime(0);
 		}
 
 	}
@@ -71,7 +71,7 @@ void PlayState::update()
 			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
 			{
 				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-				if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				if (m_cs->aabbCollision(m_player.getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
 					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
 					std::cout << "Hit" << std::endl;
@@ -94,6 +94,8 @@ void PlayState::update()
 	{
 		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 	}
+
+	m_hud->update(m_player.getEntity()->getComponent<HealthComponent>(5)->getHealth());
 }
 
 void PlayState::render()
@@ -102,7 +104,8 @@ void PlayState::render()
 		Render::Instance()->getRenderer(),
 		camera,
 		m_miniMap,
-		m_miniMapTexture);
+		m_miniMapTexture,
+		m_hud);
 }
 
 /// handle user and system events/ input
@@ -114,6 +117,7 @@ void PlayState::processEvents(bool &isRunning)
 bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
+
 	if (!data::Instance()->SINGLEPLAYER)
 	{
 		if (data::Instance()->HOST)
@@ -173,6 +177,7 @@ bool PlayState::onEnter()
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	m_player.init(m_rs, camera, Vector2(350,350));
 
+	m_hud = new HUD(m_cameraDimensions, m_player.getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth());
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
