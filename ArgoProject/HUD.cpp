@@ -1,6 +1,6 @@
 #include "HUD.h"
 
-HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth)
+HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana)
 {
 	m_background.w = t_cameraDimension.x * 0.9; m_background.h = t_cameraDimension.y * 0.1;
 	m_background.x = t_cameraDimension.x * -0.1; m_background.y = t_cameraDimension.y * 0.9;
@@ -14,6 +14,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth)
 
 	m_mana.w = t_cameraDimension.x * 0.25; m_mana.h = 20;
 	m_mana.x = t_cameraDimension.x * 0.5; m_mana.y = t_cameraDimension.y * 0.95;
+	m_manaOverflow.w = 0; m_manaOverflow.h = 20;
+	m_manaOverflow.x = t_cameraDimension.x * 0.5; m_manaOverflow.y = t_cameraDimension.y * 0.95;
 	manaFullWidth = m_mana.w;
 
 	SDL_Surface* healthSurface = IMG_Load("Assets/Health.png");
@@ -26,6 +28,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth)
 
 	SDL_Surface* manaSurface = IMG_Load("Assets/Mana.png");
 	m_manatexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), manaSurface);
+	SDL_Surface* manaOverflowSurface = IMG_Load("Assets/Stamina.png");
+	m_manaOverflowTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), manaOverflowSurface);
 	//SDL_FreeSurface(manaSurface);
 
 	SDL_Surface* hudSurface = IMG_Load("Assets/HUD.png");
@@ -34,13 +38,14 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth)
 	//SDL_FreeSurface(hudSurface);
 
 	originalHealth = t_OriginalHealth;
+	originalMana = t_originalMana;
 }
 
 HUD::~HUD()
 {
 }
 
-void HUD::update(float t_currentHealth)
+void HUD::update(float t_currentHealth, float t_currentMana)
 {
 	if (t_currentHealth <= originalHealth)
 	{
@@ -53,6 +58,18 @@ void HUD::update(float t_currentHealth)
 		m_healthOverflow.w = ((t_currentHealth - originalHealth) / originalHealth)
 			* healthFullWidth;
 	}
+
+	if (t_currentMana <= originalMana)
+	{
+		m_mana.w = (t_currentMana / originalMana)
+			* manaFullWidth;
+	}
+	else
+	{
+		m_mana.w = manaFullWidth;
+		m_manaOverflow.w = ((t_currentMana - originalMana) / originalMana)
+			* manaFullWidth;
+	}
 }
 
 void HUD::render()
@@ -63,4 +80,5 @@ void HUD::render()
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthOverflowTexture, NULL, &m_healthOverflow);
 
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_manatexture, NULL, &m_mana);
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_manaOverflowTexture, NULL, &m_manaOverflow);
 }
