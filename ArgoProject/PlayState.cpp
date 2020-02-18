@@ -11,10 +11,10 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 
 void PlayState::update()
 {
-	m_player.update();
+	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
-	camera->x = m_player.getPosition().x + 50 - camera->w / 2;
-	camera->y = m_player.getPosition().y + 50 - camera->h / 2;
+	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
+	camera->y = m_player->getPosition().y + 50 - camera->h / 2;
 
 	if (camera->x < 0)
 	{
@@ -37,10 +37,10 @@ void PlayState::update()
 
 	for (int i = 0; i < 2; i++)
 	{
-		m_enemies[i]->update(m_player.getPosition());
+		m_enemies[i]->update(m_player->getPosition());
 		
 
-		if (m_cs->aabbCollision(m_player.getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
 			/*if (m_player.getSeek() == false)
 			{
@@ -48,7 +48,7 @@ void PlayState::update()
 			}*/
 
 			//m_player.setSeek(false);
-			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
 			//m_enemies[i]->setAttackTime(0);
 		}
 
@@ -59,9 +59,9 @@ void PlayState::update()
 
 	m_pickUp->update();
 
-	if (m_cs->aabbCollision(m_player.getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	if (m_cs->aabbCollision(m_player->getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 	{
-		m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 	}
   
 	for (int i = 0; i < myMap->map.size(); i++)
@@ -71,9 +71,9 @@ void PlayState::update()
 			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
 			{
 				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-				if (m_cs->aabbCollision(m_player.getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
-					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
 					std::cout << "Hit" << std::endl;
  					//m_player.setSeek(false);
 				}
@@ -88,14 +88,14 @@ void PlayState::update()
 		m_rs->deleteEntity(m_player.getEntity());
 	}*/
 
-	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 
-	if (!m_player.getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+	if (!m_player->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
 	{
 		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 	}
 
-	m_hud->update(m_player.getEntity()->getComponent<HealthComponent>(5)->getHealth());
+	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth());
 }
 
 void PlayState::render()
@@ -111,7 +111,7 @@ void PlayState::render()
 /// handle user and system events/ input
 void PlayState::processEvents(bool &isRunning)
 {
-	m_player.processEvents(isRunning);
+	m_player->processEvents(isRunning);
 }
 
 bool PlayState::onEnter()
@@ -175,9 +175,10 @@ bool PlayState::onEnter()
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player.init(m_rs, camera, Vector2(350,350));
+	m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	m_player->init(m_rs, camera, Vector2(350,350));
 
-	m_hud = new HUD(m_cameraDimensions, m_player.getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth());
+	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth());
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);

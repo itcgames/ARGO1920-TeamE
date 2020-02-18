@@ -4,7 +4,6 @@
 #include "EndState.h"
 #include "SDL.h"
 #include "Data.h"
-#include "Player.h"
 #include "Pickup.h"
 #include "CollisionSystem.h"
 #include "Map.h"
@@ -15,6 +14,8 @@
 #include <memory>
 #include "IEnemy.h"
 #include "FactoryEnemy.h"
+#include "IPlayer.h"
+#include "FactoryPlayer.h"
 
 class PlayState : public GameState
 {
@@ -34,7 +35,8 @@ private:
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
-	Player m_player;
+	//Player m_player;
+	std::unique_ptr<IPlayer> m_player;
 	HUD* m_hud;
 
 	SDL_Rect* camera;
