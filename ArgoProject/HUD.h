@@ -9,10 +9,10 @@
 class HUD
 {
 public:
-	HUD(Vector2 t_cameraDimension, float t_originalHealth);
+	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana);
 	~HUD();
 
-	void update(float t_currentHealth);
+	void update(float t_currentHealth, float t_currentMana);
 	void render();
 
 	SDL_Rect m_viewableArea;
@@ -29,6 +29,7 @@ public:
 	SDL_Texture* m_healthTexture;
 	SDL_Texture* m_healthOverflowTexture;
 	SDL_Texture* m_manatexture;
+	SDL_Texture* m_manaOverflowTexture;
 
 	bool q = false;
 	bool w = false;
@@ -38,6 +39,7 @@ public:
 	float originalHealth;
 
 	float manaFullWidth;
+	float originalMana;
 };
 
 #endif
