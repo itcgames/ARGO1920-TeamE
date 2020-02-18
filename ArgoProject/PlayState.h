@@ -12,6 +12,9 @@
 #include "Server.h"
 #include <vector>
 #include "Client.h"
+#include <memory>
+#include "IEnemy.h"
+#include "FactoryEnemy.h"
 
 class PlayState : public GameState
 {
@@ -39,7 +42,8 @@ private:
 	SDL_Texture* m_miniMapTexture;
 
 	//Ai* m_enemy = new Ai;
-	std::vector<Ai*> m_enemies;
+	//std::unique_ptr<IEnemy> enemy = FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD);
+	std::vector<std::unique_ptr<IEnemy>> m_enemies;
 	PickUp* m_pickUp = new PickUp;
 	Map* myMap;
 
