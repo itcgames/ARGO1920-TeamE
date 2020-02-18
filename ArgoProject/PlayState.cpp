@@ -146,8 +146,8 @@ bool PlayState::onEnter()
 	level->y = 0;
 
 	m_miniMap = new SDL_Rect();
-	m_miniMap->w = m_cameraDimensions.x / 10;
-	m_miniMap->h = m_cameraDimensions.y / 10;
+	m_miniMap->w = m_cameraDimensions.x / 5;
+	m_miniMap->h = m_cameraDimensions.y / 5;
 	m_miniMap->x = m_cameraDimensions.x - m_miniMap->w;
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 
