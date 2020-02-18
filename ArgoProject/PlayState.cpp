@@ -46,15 +46,21 @@ void PlayState::update()
 			{
 
 			}*/
+			float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+			
+			m_player->Attack(temp);
+			m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+			std::cout << m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() << std::endl;
 
 			//m_player.setSeek(false);
 			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
 			//m_enemies[i]->setAttackTime(0);
 		}
+		std::cout << m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() << std::endl;
 
 	}
 
-	
+
 
 
 	m_pickUp->update();
@@ -168,7 +174,8 @@ bool PlayState::onEnter()
 		else
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
-		}		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
+		}		
+		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
 		temp = {1750, 1200};

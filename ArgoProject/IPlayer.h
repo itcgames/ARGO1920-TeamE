@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "Data.h"
 #include "FiniteState.h"
+#include "CollisionSystem.h"
 #include <iostream>
 
 class IPlayer
@@ -23,7 +24,8 @@ public:
 	virtual Vector2 getPosition() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
-
+	virtual void Attack(float&m_enemyHealth) = 0;
+	virtual void setDamage(float t_dmg) = 0;
 
 	//virtual void hit(Entity* t_enemy) = 0;
 
@@ -68,6 +70,8 @@ protected:
 	int colTextureWidth, colTextureHeight;
 	int spriteSheetY = 0;
 	int spriteSheetX = 0;
+
+	float dmg = 0.1;
 };
 
 #endif // !IPLAYER

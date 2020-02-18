@@ -112,25 +112,6 @@ void Mage::update()
 
 	}
 
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-		spriteSheetY = 226;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 3)
-	{
-		spriteSheetY = 339;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 4)
-	{
-		spriteSheetY = 452;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 5)
-	{
-		spriteSheetY = 565;
-	}
 	animate();
 
 	if (m_ih->move)
@@ -146,7 +127,7 @@ void Mage::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == textureWidth - frameWidth)
+	if (commandQueue.empty() && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
@@ -220,4 +201,8 @@ void Mage::setAction()
 	default:
 		break;
 	}
+}
+
+void Mage::Attack(float& m_enemyHealth)
+{
 }
