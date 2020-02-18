@@ -42,20 +42,12 @@ void PlayState::update()
 
 		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			/*if (m_player.getSeek() == false)
-			{
-
-			}*/
-
-			//m_player.setSeek(false);
-			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
+			m_player->setSeek(false);
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 			//m_enemies[i]->setAttackTime(0);
 		}
 
 	}
-
-	
-
 
 	m_pickUp->update();
 
@@ -175,7 +167,19 @@ bool PlayState::onEnter()
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	}
+	else if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_KNIGHT")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_KNIGHT);
+	}
+	else
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+	}
+	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_player->init(m_rs, camera, Vector2(350,350));
 
 	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana());

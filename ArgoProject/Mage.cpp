@@ -2,6 +2,7 @@
 
 Mage::Mage()
 {
+	std::cout << "You are a Mage" << std::endl;
 }
 
 Mage::~Mage()
@@ -20,7 +21,7 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_animationRect->y = 0;
 
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/warrior.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/warrior3.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
 	SDL_FreeSurface(playerSurface);
@@ -72,6 +73,9 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<StaminaComponent>(m_stc, 9);
 	m_rs = t_rs;
 
+	m_bc->setMaxSpeed(m_statc->getSpeed());
+	m_hc->setHealth(m_statc->getHealth());
+
 	//Behaviour System
 	m_bs->addEntity(m_player);
 
@@ -79,6 +83,8 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	t_rs->addEntity(m_player);
 
 	m_camera = t_camera;
+
+	m_seek = false;
 
 	//Input InputHandler
 	m_ih = new InputHandler();
@@ -95,12 +101,13 @@ void Mage::update()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
 				//m_bs->seek(m_ih->mousePosition);
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -109,7 +116,10 @@ void Mage::update()
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 		}
-
+		else
+		{
+			m_seek = false;
+		}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 2)
@@ -187,11 +197,12 @@ void Mage::setAction()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -199,6 +210,10 @@ void Mage::setAction()
 			}
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
+		}
+		else
+		{
+			m_seek = false;
 		}
 		break;
 	case 2:

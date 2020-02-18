@@ -46,6 +46,16 @@ public:
 		m_normalizedVel = velocity;
 	}
 
+	Vector2 getSpecialVel()
+	{
+		return m_specialVel;
+	}
+
+	void setSpecialVel(Vector2 velocity)
+	{
+		m_specialVel = velocity;
+	}
+
 	int getRotationAngle()
 	{
 		return m_angle;
@@ -57,7 +67,7 @@ public:
 	}
 
 private:
-	Vector2 m_velocity, m_normalizedVel;
+	Vector2 m_velocity, m_normalizedVel, m_specialVel;
 	int m_maxSpeed;
 	float m_angle;
 };
