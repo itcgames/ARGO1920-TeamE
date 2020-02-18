@@ -42,20 +42,12 @@ void PlayState::update()
 
 		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			/*if (m_player.getSeek() == false)
-			{
-
-			}*/
-
-			//m_player.setSeek(false);
-			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
+			m_player->setSeek(false);
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 			//m_enemies[i]->setAttackTime(0);
 		}
 
 	}
-
-	
-
 
 	m_pickUp->update();
 
