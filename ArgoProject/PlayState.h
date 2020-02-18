@@ -5,7 +5,6 @@
 #include "SDL.h"
 #include "Data.h"
 #include "Player.h"
-#include "Ai.h"
 #include "Pickup.h"
 #include "CollisionSystem.h"
 #include "Map.h"
