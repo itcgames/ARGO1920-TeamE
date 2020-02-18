@@ -7,7 +7,7 @@
 class Particle
 {
 public:
-	Particle(const std::string& currentState,int maxAliveTime, Vector2 pos);
+	Particle(const std::string& currentState,int maxAliveTime, Vector2 pos, Vector2 t_velocity);
 	~Particle();
 
 	void CreateParticle();
@@ -16,6 +16,7 @@ public:
 	void render();
 
 	bool Alive();
+	void setPosition(Vector2 newPos);
 
 private:
 	std::string m_currentState;
@@ -25,7 +26,7 @@ private:
 
 	//Properties
 	Vector2 m_pos;
-	int m_speed = 5;
+	int m_speed = 2;
 	Vector2 m_direction;
 	SDL_Color myCol;
 	int size = 15;
