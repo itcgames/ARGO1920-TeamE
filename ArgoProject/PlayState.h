@@ -1,5 +1,6 @@
 #ifndef PLAYSTATE
 #define PLAYSTATE
+#include "ParticleSystem.h"
 #include "GameState.h"
 #include "EndState.h"
 #include "SDL.h"
@@ -56,6 +57,8 @@ private:
 
 	Server m_server{ 1111, true };
 	Client m_client{ data::Instance()->IPADDRESS, 1111 };
+
+	ParticleSystem* m_pSystem;
 };
 
 #endif

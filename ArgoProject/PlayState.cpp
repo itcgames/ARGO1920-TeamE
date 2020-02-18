@@ -64,22 +64,22 @@ void PlayState::update()
 		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 	}
   
-	for (int i = 0; i < myMap->map.size(); i++)
-	{
-		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
-		{
-			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
-			{
-				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					std::cout << "Hit" << std::endl;
- 					//m_player.setSeek(false);
-				}
-			}
-		}
-	}
+	//for (int i = 0; i < myMap->map.size(); i++)
+	//{
+	//	for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+	//	{
+	//		if (myMap->map[i]->tileList[z]->getTag() == "Wall")
+	//		{
+	//			//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+	//			if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//			{
+	//				m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
+	//				std::cout << "Hit" << std::endl;
+ //					//m_player.setSeek(false);
+	//			}
+	//		}
+	//	}
+	//}
 
 	// Testing deleteEntity
 	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
@@ -96,6 +96,8 @@ void PlayState::update()
 	}
 
 	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth());
+
+	m_pSystem->update();
 }
 
 void PlayState::render()
@@ -106,6 +108,8 @@ void PlayState::render()
 		m_miniMap,
 		m_miniMapTexture,
 		m_hud);
+
+	m_pSystem->render();
 }
 
 /// handle user and system events/ input
@@ -155,9 +159,9 @@ bool PlayState::onEnter()
 
 	m_rs = new RenderSystem(Render::Instance()->getRenderer(), miniMapRatio);
 	m_cs = new CollisionSystem();
-
+/*
 	myMap = new Map(m_rs, m_cs);
-	myMap->CreateMap(m_rs, m_cs);	
+	myMap->CreateMap(m_rs, m_cs);*/	
 	Vector2 temp = { 1500, 1500 };
 	for (int i = 0; i < 2; i++)
 	{
@@ -182,6 +186,9 @@ bool PlayState::onEnter()
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
+
+
+	m_pSystem =new ParticleSystem(m_playID);
 
 	return true;
 }
