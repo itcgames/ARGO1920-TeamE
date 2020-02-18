@@ -1,6 +1,7 @@
-#ifndef AI
-#define AI
-//#pragma once
+#ifndef IENEMY
+#define IENEMY
+#include <iostream>
+#include "Vector2.h"
 #include "SDL.h"
 #include "Entity.h"
 #include "PositionComponent.h"
@@ -13,19 +14,18 @@
 #include <iostream>
 #include "Data.h"
 
-class Ai
+class IEnemy
 {
 public:
-	void initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount);
-	void update(Vector2 t_position);
-	void render();
-	void destroy() { delete this; }
-	Entity* getEntity() { return m_enemy; };
+	virtual ~IEnemy()  {}
+	virtual void initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount) = 0;
+	virtual void update(Vector2 t_position) = 0;;
+	virtual void destroy() = 0;
+	virtual Entity* getEntity() = 0;
 
-	int getAttackTime();
-	void setAttackTime(int attackTime);
-
-private:
+	virtual int getAttackTime() = 0;
+	virtual void setAttackTime(int attackTime) = 0;
+protected:
 	Entity* m_enemy;
 	SDL_Rect* m_rect;
 	SDL_Texture* m_texture;
@@ -42,4 +42,4 @@ private:
 	int m_attackTime;
 };
 
-#endif
+#endif // !IENEMY

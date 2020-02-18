@@ -1,7 +1,14 @@
-#include "Ai.h"
+#include "EnemyEasy.h"
 
+EnemyEasy::EnemyEasy()
+{
+}
 
-void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount)
+EnemyEasy::~EnemyEasy()
+{
+}
+
+void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount)
 {
 	//draws a rectangle for the enemy
 	m_rect = new SDL_Rect();
@@ -38,10 +45,10 @@ void Ai::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class,
 	std::cout << "Enemy Initialized" << std::endl;
 }
 
-void Ai::update(Vector2 t_position)
+void EnemyEasy::update(Vector2 t_position)
 {
 	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
-					  t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
+		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
 
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
 
@@ -62,16 +69,12 @@ void Ai::update(Vector2 t_position)
 	}
 }
 
-void Ai::render()
-{
-}
-
-int Ai::getAttackTime()
+int EnemyEasy::getAttackTime()
 {
 	return m_attackTime;
 }
 
-void Ai::setAttackTime(int attackTime)
+void EnemyEasy::setAttackTime(int attackTime)
 {
 	m_attackTime = attackTime;
 }
