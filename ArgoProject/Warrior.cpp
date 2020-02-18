@@ -84,6 +84,8 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	m_camera = t_camera;
 
+	m_seek = false;
+
 	//Input InputHandler
 	m_ih = new InputHandler();
 	m_ih->addEntity(m_player);
@@ -96,6 +98,7 @@ void Warrior::update()
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
+		m_seek = true;
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
@@ -104,7 +107,7 @@ void Warrior::update()
 			if (mag > 40)
 			{
 				//m_bs->seek(m_ih->mousePosition);
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -190,12 +193,13 @@ void Warrior::setAction()
 	case 1:
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
-		{
+		{ 
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -203,6 +207,10 @@ void Warrior::setAction()
 			}
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
+		}
+		else
+		{
+			m_seek = true;
 		}
 		break;
 	case 2:

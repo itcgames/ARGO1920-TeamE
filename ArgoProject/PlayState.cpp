@@ -42,20 +42,12 @@ void PlayState::update()
 
 		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			/*if (m_player.getSeek() == false)
-			{
-
-			}*/
-
-			//m_player.setSeek(false);
-			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
+			m_player->setSeek(false);
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 			//m_enemies[i]->setAttackTime(0);
 		}
 
 	}
-
-	
-
 
 	m_pickUp->update();
 
@@ -146,8 +138,8 @@ bool PlayState::onEnter()
 	level->y = 0;
 
 	m_miniMap = new SDL_Rect();
-	m_miniMap->w = m_cameraDimensions.x / 10;
-	m_miniMap->h = m_cameraDimensions.y / 10;
+	m_miniMap->w = m_cameraDimensions.x / 5;
+	m_miniMap->h = m_cameraDimensions.y / 5;
 	m_miniMap->x = m_cameraDimensions.x - m_miniMap->w;
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 

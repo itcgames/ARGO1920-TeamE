@@ -41,6 +41,15 @@ public:
 	void alterHealth(float t_change)
 	{
 		m_health += t_change;
+
+		if (m_health < 0)
+		{
+			m_health = 0;
+		}
+		else if (m_health > m_originalHealth * 2)
+		{
+			m_health = m_originalHealth * 2;
+		}
 	}
 
 private:

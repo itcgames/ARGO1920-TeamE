@@ -84,6 +84,8 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	m_camera = t_camera;
 
+	m_seek = false;
+
 	//Input InputHandler
 	m_ih = new InputHandler();
 	m_ih->addEntity(m_player);
@@ -99,12 +101,13 @@ void Mage::update()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
 				//m_bs->seek(m_ih->mousePosition);
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -113,7 +116,10 @@ void Mage::update()
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 		}
-
+		else
+		{
+			m_seek = false;
+		}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 2)
@@ -191,11 +197,12 @@ void Mage::setAction()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -203,6 +210,10 @@ void Mage::setAction()
 			}
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
+		}
+		else
+		{
+			m_seek = false;
 		}
 		break;
 	case 2:
