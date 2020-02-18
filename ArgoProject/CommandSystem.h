@@ -1,3 +1,6 @@
+#ifndef COMMANDSYSTEM
+#define COMMANDSYSTEM
+
 #include <map>
 #include <vector>
 #include <SDL.h>
@@ -258,3 +261,4 @@ public:
 	}
 };
 
+#endif

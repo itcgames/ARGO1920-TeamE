@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DATA
+#define DATA
+//#pragma once
 #include<iostream>
 #include "LevelLoader.h"
 class Data
@@ -27,3 +29,5 @@ private:
 };
 
 typedef Data data;
+
+#endif
