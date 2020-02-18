@@ -175,7 +175,19 @@ bool PlayState::onEnter()
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	}
+	else if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_KNIGHT")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_KNIGHT);
+	}
+	else
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+	}
+	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_player->init(m_rs, camera, Vector2(350,350));
 
 	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth());

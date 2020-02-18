@@ -2,6 +2,8 @@
 #define CHARACTERSELECTSTATE
 #include "GameState.h"
 #include "PlayState.h"
+#include "Data.h"
+#include "LevelLoader.h"
 class CharacterSelectState :
 	public GameState
 {
@@ -31,6 +33,7 @@ private:
 	SDL_Texture* m_mageOptionTexture;
 
 	GameStateMachine* m_stateMachine;
+	GameData m_data;
 };
 
 #endif
