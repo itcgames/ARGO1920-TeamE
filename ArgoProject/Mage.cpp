@@ -1,4 +1,4 @@
-#include "Mage.h"
+ #include "Mage.h"
 
 Mage::Mage()
 {

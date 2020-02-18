@@ -181,17 +181,17 @@ void Warrior::setAction()
 		}
 		break;
 	case 2:
-		setDamage(1.5);
+		setDamage(3);
 		m_animationRect->x = 0;
 		spriteSheetY = 0;
 		break;
 	case 3:
-		setDamage(5);
+		setDamage(10);
 		m_animationRect->x = 0;
 		spriteSheetY = frameHeight * 3;
 		break;
 	case 4:
-		setDamage(3);
+		setDamage(6);
 		m_animationRect->x = 0;
 		spriteSheetY = frameHeight * 4;
 		break;

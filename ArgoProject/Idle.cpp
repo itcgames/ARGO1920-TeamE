@@ -37,9 +37,3 @@ void Idle::skillThree(FSM* fsm)
 	delete this;
 }
 
-void Idle::skillFour(FSM* fsm)
-{
-	//std::cout << "idle to attack" << std::endl;
-	fsm->setCurrent(new SkillFour());
-	delete this;
-}

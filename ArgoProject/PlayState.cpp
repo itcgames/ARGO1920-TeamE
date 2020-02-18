@@ -39,25 +39,23 @@ void PlayState::update()
 	{
 		m_enemies[i]->update(m_player->getPosition());
 		
-
+		//collision with enemy and player
 		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			/*if (m_player.getSeek() == false)
-			{
-
-			}*/
+			//player attacking enemy function
 			float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
 			
 			m_player->Attack(temp);
 			m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
-			std::cout << m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() << std::endl;
-
-			//m_player.setSeek(false);
-			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
-			//m_enemies[i]->setAttackTime(0);
+			//update kill count when enemy dead
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			{
+				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+			}
+			
+			//collision reposnse
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());
 		}
-		std::cout << m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() << std::endl;
-
 	}
 
 
