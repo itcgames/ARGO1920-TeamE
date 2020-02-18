@@ -69,12 +69,6 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ai.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,20 +141,35 @@
     <ClCompile Include="HUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IEnemy.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
-    <ClCompile Include="FactoryEnemy.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyMedium.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
+    <ClCompile Include="EnemyEasy.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyHard.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyEasy.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
+    <ClCompile Include="EnemyMedium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Warrior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,12 +222,6 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ai.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BehaviourSystem.h">
@@ -314,22 +317,37 @@
     <ClInclude Include="HUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IEnemy.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="FactoryEnemy.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyMedium.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyHard.h">
-      <Filter>Header Files\FactoryPattern</Filter>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnemyEasy.h">
-      <Filter>Header Files\FactoryPattern</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem.h">
+    <ClInclude Include="EnemyHard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMedium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

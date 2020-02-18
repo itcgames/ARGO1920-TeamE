@@ -1,5 +1,5 @@
-#ifndef PLAYER
-#define PLAYER
+#ifndef IPLAYER
+#define IPLAYER
 
 #include "SDL.h"
 #include "Entity.h"
@@ -12,47 +12,41 @@
 #include "FiniteState.h"
 #include <iostream>
 
-
-class Player
+class IPlayer
 {
 public:
-	void init(RenderSystem* t_rs, SDL_Rect* camera, Vector2 startPos);
-	void update();
-	void animate();
-	void processEvents(bool isRunning);
-	Vector2 getPosition() { return m_pc->getPosition(); }
-	Entity* getEntity() { return m_player; };
-	void setAction();
+	virtual ~IPlayer() {}
+	virtual void init(RenderSystem* t_rs, SDL_Rect* camera, Vector2 startPos) = 0;
+	virtual void update() = 0;
+	virtual void animate() = 0;
+	virtual void processEvents(bool isRunning) = 0;
+	virtual Vector2 getPosition() = 0;
+	virtual Entity* getEntity() = 0;
+	virtual void setAction() = 0;
 
 
-	void hit(Entity* t_enemy);
+	//virtual void hit(Entity* t_enemy) = 0;
 
 
-	SDL_Rect* getRect() { return m_positionRect; }
-
-private:
-
+	virtual SDL_Rect* getRect() = 0;
+protected:
 
 	Entity* m_player;
 
+	//Components
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
-
 	StatsComponent* m_statc;
 	HealthComponent* m_hc;
 	ManaComponent* m_mc;
 	StaminaComponent* m_stc;
-
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
 
-
+	//systems
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
-
 	InputHandler* m_ih;
-
-
 
 	//Player animated sprite
 	SDL_Rect* m_positionRect;
@@ -76,4 +70,4 @@ private:
 	int spriteSheetX = 0;
 };
 
-#endif
+#endif // !IPLAYER

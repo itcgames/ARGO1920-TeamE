@@ -1,6 +1,14 @@
-#include "Player.h"
+#include "Knight.h"
 
-void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
+Knight::Knight()
+{
+}
+
+Knight::~Knight()
+{
+}
+
+void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 {
 	//creates a source and size rectangle for the player animation
 	m_positionRect = new SDL_Rect();
@@ -8,7 +16,7 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_positionRect->y = startPos.y;
 
 	m_animationRect = new SDL_Rect();
-	m_animationRect->x = 0; 
+	m_animationRect->x = 0;
 	m_animationRect->y = 0;
 
 	//load in the player texture
@@ -19,12 +27,12 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	//set both rectangles to the size of one frame from the sprite sheet
 	frameWidth = textureWidth / 11;
-	frameHeight = textureHeight /5;
+	frameHeight = textureHeight / 5;
 	//Players Position Rect Size
-	m_positionRect->w = frameWidth; 
+	m_positionRect->w = frameWidth;
 	m_positionRect->h = frameHeight;
 	//Players Animation Rect Size
-	m_animationRect->w = frameWidth; 
+	m_animationRect->w = frameWidth;
 	m_animationRect->h = frameHeight;
 
 
@@ -50,7 +58,7 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
 
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
-	m_ac = new ActiveComponent(true,6);
+	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
 
 	m_player->setID(1);
@@ -79,7 +87,7 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ih->mousePosition = startPos;
 }
 
-void Player::update()
+void Knight::update()
 {
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
@@ -89,8 +97,8 @@ void Player::update()
 		{
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40) 
-			{         
+			if (mag > 40)
+			{
 				//m_bs->seek(m_ih->mousePosition);
 				m_bs->seek(m_ih->mousePosition);
 			}
@@ -106,7 +114,7 @@ void Player::update()
 
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
-		spriteSheetY = 226; 
+		spriteSheetY = 226;
 	}
 
 	if (finiteStateMachine->getCurrentState() == 3)
@@ -155,15 +163,7 @@ void Player::update()
 	animate();
 }
 
-
-//generates the inputs and places them in the queue
-void Player::processEvents(bool isRunning)
-{
-	m_ih->generateInputs(commandQueue, m_camera);
-}
-
-//animate the player sprite
-void Player::animate()
+void Knight::animate()
 {
 	Uint32 ticks = SDL_GetTicks();
 	Uint32 sprite = (ticks / 100) % 11;
@@ -174,8 +174,12 @@ void Player::animate()
 	m_sc->setDstRect(m_positionRect);
 }
 
+void Knight::processEvents(bool isRunning)
+{
+	m_ih->generateInputs(commandQueue, m_camera);
+}
 
-void Player::setAction()
+void Knight::setAction()
 {
 	switch (finiteStateMachine->getCurrentState())
 	{
@@ -217,4 +221,3 @@ void Player::setAction()
 		break;
 	}
 }
-

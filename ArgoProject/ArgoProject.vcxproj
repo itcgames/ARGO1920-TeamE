@@ -144,6 +144,7 @@
     <ClCompile Include="EnemyHard.cpp" />
     <ClCompile Include="EnemyMedium.cpp" />
     <ClCompile Include="FactoryEnemy.cpp" />
+    <ClCompile Include="FactoryPlayer.cpp" />
     <ClCompile Include="FSM.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
@@ -152,14 +153,16 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Idle.cpp" />
     <ClCompile Include="IEnemy.cpp" />
+    <ClCompile Include="IPlayer.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="Mage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="OptionsState.cpp" />
     <ClCompile Include="Pickup.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Room.cpp" />
@@ -171,6 +174,7 @@
     <ClCompile Include="SkillTwo.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Walking.cpp" />
+    <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActiveComponent.h" />
@@ -190,6 +194,7 @@
     <ClInclude Include="EnemyMedium.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FactoryEnemy.h" />
+    <ClInclude Include="FactoryPlayer.h" />
     <ClInclude Include="FiniteState.h" />
     <ClInclude Include="FSM.h" />
     <ClInclude Include="Game.h" />
@@ -201,15 +206,17 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Idle.h" />
     <ClInclude Include="IEnemy.h" />
+    <ClInclude Include="IPlayer.h" />
     <ClInclude Include="ItemComponent.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="Mage.h" />
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="OptionsState.h" />
     <ClInclude Include="Pickup.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -227,6 +234,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Walking.h" />
+    <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
