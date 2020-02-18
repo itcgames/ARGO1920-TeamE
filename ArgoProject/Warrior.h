@@ -15,6 +15,8 @@ public:
 	Vector2 getPosition(){ return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; }
 	void setAction();
+	virtual bool getSeek() { return m_seek; }
+	virtual void setSeek(bool seek) { m_seek = seek; }
 	//void hit(Entity* t_enemy);
 	SDL_Rect* getRect(){ return m_positionRect; }
 	void Attack(float& m_enemyHealth);

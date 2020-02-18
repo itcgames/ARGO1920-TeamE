@@ -41,6 +41,15 @@ public:
 	void alterMana(float t_change)
 	{
 		m_mana += t_change;
+
+		if(m_mana < 0)
+		{
+			m_mana = 0;
+		}
+		else if (m_mana > m_originalMana * 2)
+		{
+		m_mana = m_originalMana * 2;
+		}
 	}
 
 private:

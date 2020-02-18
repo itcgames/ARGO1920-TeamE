@@ -140,10 +140,12 @@ public:
 
 		for (int i = 0; i < m_minimapList.size(); i++)
 		{
-			int posX = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / m_miniMapRatio.x) + camera->w - miniMap->w;
-			int posY = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / m_miniMapRatio.y) + camera->h - miniMap->h;
+			int posX = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / m_miniMapRatio.x) + miniMap->x;
+			int posY = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / m_miniMapRatio.y) + miniMap->y;
+			int width = m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / m_miniMapRatio.x + 1;
+			int height = m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / m_miniMapRatio.y + 1;
 			//std::cout << posX << " " << posY << std::endl;
-			viewableArea = { posX, posY, m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / 10,m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / 20 };
+			viewableArea = { posX, posY, width,height};
 
 			if (m_minimapList[i]->getComponent<BehaviourComponent>(3) != NULL)
 			{

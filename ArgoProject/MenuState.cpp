@@ -41,6 +41,7 @@ void MenuState::processEvents(bool& isRunning)
 				event.button.y > m_singlePlayerButton->y && event.button.y < m_singlePlayerButton->y + m_singlePlayerButton->h)
 			{
 				//std::cout << "Play Button" << std::endl;
+				data::Instance()->SINGLEPLAYER = true;
 				m_stateMachine->changeState(new CharacterSelectState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_multiPlayerButton->x && event.button.x < m_multiPlayerButton->x + m_multiPlayerButton->w
@@ -48,6 +49,7 @@ void MenuState::processEvents(bool& isRunning)
 				event.button.y > m_multiPlayerButton->y && event.button.y < m_multiPlayerButton->y + m_multiPlayerButton->h)
 			{
 				//std::cout << "Play Button" << std::endl;
+				data::Instance()->SINGLEPLAYER = false;
 				m_stateMachine->changeState(new HostSearchState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_optionsButton->x && event.button.x < m_optionsButton->x + m_optionsButton->w

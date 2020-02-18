@@ -53,13 +53,10 @@ void PlayState::update()
 				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 			}
 			
-			//collision reposnse
-			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());
+			m_player->setSeek(false);
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 		}
 	}
-
-
-
 
 	m_pickUp->update();
 
@@ -99,7 +96,7 @@ void PlayState::update()
 		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 	}
 
-	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth());
+	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 }
 
 void PlayState::render()
@@ -150,8 +147,8 @@ bool PlayState::onEnter()
 	level->y = 0;
 
 	m_miniMap = new SDL_Rect();
-	m_miniMap->w = m_cameraDimensions.x / 10;
-	m_miniMap->h = m_cameraDimensions.y / 10;
+	m_miniMap->w = m_cameraDimensions.x / 5;
+	m_miniMap->h = m_cameraDimensions.y / 5;
 	m_miniMap->x = m_cameraDimensions.x - m_miniMap->w;
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 
@@ -180,10 +177,22 @@ bool PlayState::onEnter()
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	}
+	else if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_KNIGHT")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_KNIGHT);
+	}
+	else
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+	}
+	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_player->init(m_rs, camera, Vector2(350,350));
 
-	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth());
+	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana());
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
