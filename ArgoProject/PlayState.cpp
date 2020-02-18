@@ -41,9 +41,16 @@ void PlayState::update()
 		
 		if (m_cs->aabbCollision(m_player.getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity(), m_enemies[i]->getAttackTime());
+			if (m_player.getSeek() == false)
+			{
+
+			}
+
+			m_player.setSeek(false);
+			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity(), m_player.getSeek());
 			m_enemies[i]->setAttackTime(0);
 		}
+
 	}
 
 	
@@ -65,7 +72,7 @@ void PlayState::update()
 				if (m_cs->aabbCollision(m_player.getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
 					//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					//m_player.setSeek(false);
+					m_player.setSeek(false);
 				}
 			}
 		}

@@ -15,8 +15,6 @@
 #include "Entity.h"
 #include "ECS.h"
 
-class Player;
-
 //
 class CollisionSystem : public System
 {
@@ -48,11 +46,12 @@ public:
 	}
 
 
-	void collisionResponse(Entity* m_a, Entity* m_b, int attackTime)
+	void collisionResponse(Entity* m_a, Entity* m_b, bool seek)
 	{
 
 		//player velocity *= -1
-		//Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
+		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
+		Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
 
 		//
 		/*if (attackTime >= 200)
@@ -67,9 +66,11 @@ public:
 		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 3;
 		*///}
 
-		//m_a->getComponent<PositionComponent>(1)->setPosition(position);
+		position += velocity * -1 * 12;
 
-		
+		m_a->getComponent<PositionComponent>(1)->setPosition(position);
+
+
 		if (m_b->getID() == 2)
 		{
 
@@ -81,24 +82,6 @@ public:
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
 	{
-		/*
-		speed = joystick_speed()
-		old_position = girl.position
-		girl.position.x = girl.position.x + speed.x
-		collided = tilemap_collision(tilemap, girl.rectangle)
-		if(collided)
-		{
-			girl.position = old_position
-		}
-		old_position = girl.position
-		girl.position.y = girl.position.y + speed.y
-		collided = tilemap_collision(tilemap, girl.rectangle)
-		if(collided)
-		{
-			girl.position = old_position
-		}
-		*/
-
 		Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
 		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
 		//

@@ -34,6 +34,16 @@ public:
 		this->m_position = position;
 	}
 
+	void setX(float x)
+	{
+		m_position.x = x;
+	}
+
+	void setY(float y)
+	{
+		m_position.y = y;
+	}
+
 	//
 	Vector2 getPreviousPosition()
 	{

@@ -67,25 +67,19 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Player::update()
 {
-	if (m_ih->leftKeyPressed() == true)
-	{
-		std::cout << "Click" << std::endl;
-	}
-
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40) 
 			{         
-				if (m_seek == true)
-				{
-					m_bs->seek(m_ih->mousePosition);
-				}
+				//m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -94,6 +88,12 @@ void Player::update()
 			m_playerRect->x = m_pc->getPosition().x;
 			m_playerRect->y = m_pc->getPosition().y;
 		}
+
+		else
+		{
+			m_seek = false;
+		}
+
 	}
 
 	if (finiteStateMachine->getCurrentState() == 2)
