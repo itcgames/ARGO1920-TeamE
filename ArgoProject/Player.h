@@ -32,6 +32,7 @@ public:
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
 	HealthComponent* m_hc;
+	ManaComponent* m_mc;
 
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;

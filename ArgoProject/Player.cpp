@@ -32,6 +32,7 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
 	m_ac = new ActiveComponent(true,6);
+	m_mc = new ManaComponent(250.0f, 7);
 
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);
@@ -40,7 +41,8 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<StatsComponent>(m_statc, 4);
 	m_player->addComponent<HealthComponent>(m_hc, 5);
 	m_player->addComponent<ActiveComponent>(m_ac, 6);
-	
+	m_player->addComponent<ManaComponent>(m_mc, 7);
+
 	m_rs = t_rs;
 	m_bs->addEntity(m_player);
 	t_rs->addEntity(m_player);
