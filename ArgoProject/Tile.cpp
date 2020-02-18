@@ -22,7 +22,7 @@ Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag
 
 	m_pc = new PositionComponent(Vector2(endRect->x, endRect->y), 1);
 	m_sc = new SpriteComponent(img, endRect, 2);
-	m_ac = new ActiveComponent(true);
+	m_ac = new ActiveComponent(true,6);
 
 	m_tile->addComponent<PositionComponent>(m_pc,1);
 	m_tile->addComponent<SpriteComponent>(m_sc, 2);

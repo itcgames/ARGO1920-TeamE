@@ -68,13 +68,13 @@ public:
 
 		position += velocity * -1 * 12;
 
-		m_a->getComponent<PositionComponent>(1)->setPosition(position);
-
-
 		if (m_b->getID() == 2)
 		{
-
-			m_b->getComponent<StatsComponent>(4)->alterHealth(-1);
+			if (m_b->getID() == 2 && m_a->getID() == 1)
+			{	
+				m_b->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
+				m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
+			}
 		}
 
 	}

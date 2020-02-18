@@ -33,13 +33,14 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
+	//Collisions
+
 	for (int i = 0; i < 2; i++)
 	{
 		m_enemies[i]->update(m_player.getPosition());
 		
-		
-		
-		if (m_cs->aabbCollision(m_player.getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+
+		if (m_cs->aabbCollision(m_player.m_positionRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
 			if (m_player.getSeek() == false)
 			{
@@ -55,13 +56,14 @@ void PlayState::update()
 
 	
 
+
 	m_pickUp->update();
 
 	if (m_cs->aabbCollision(m_player.getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 	{
 		m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
 	}
-
+  
 	for (int i = 0; i < myMap->map.size(); i++)
 	{
 		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
@@ -69,10 +71,11 @@ void PlayState::update()
 			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
 			{
 				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-				if (m_cs->aabbCollision(m_player.getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
-					//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					m_player.setSeek(false);
+					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
+					std::cout << "Hit" << std::endl;
+ 					//m_player.setSeek(false);
 				}
 			}
 		}
@@ -84,44 +87,28 @@ void PlayState::update()
 		m_player.getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 		m_rs->deleteEntity(m_player.getEntity());
 	}*/
+
+	m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+
+	if (!m_player.getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+	{
+		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+	}
 }
 
 void PlayState::render()
 {
-	/* Creating the surface. */
-
-	//m_rs->render(Render::Instance()->getRenderer());
-//	SDL_SetRenderDrawColor(Render::Instance()->getRenderer(), 0, 255, 0, 255);
-
-//	SDL_RenderFillRect(Render::Instance()->getRenderer(), camera);
-
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(),
 		camera,
 		m_miniMap,
 		m_miniMapTexture);
-	//m_rs->render(Render::Instance()->getRenderer());
-		//Vector2(m_player.getPosition().x - camera->x, m_player.getPosition().y - camera->y));
-	//SDL_RenderSetViewport(Render::Instance()->getRenderer(), m_viewRect);
-
-	//m_player.render();
 }
 
 /// handle user and system events/ input
 void PlayState::processEvents(bool &isRunning)
 {
 	m_player.processEvents(isRunning);
-
-	/*SDL_Event event;
-
-	if (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		case SDL_KEYDOWN:
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
-		}
-	}*/
 }
 
 bool PlayState::onEnter()
@@ -141,8 +128,6 @@ bool PlayState::onEnter()
 			m_client.Connect();
 		}
 	}
-	m_rs = new RenderSystem();
-	m_cs = new CollisionSystem();
 
 	camera = new SDL_Rect();
 	camera->w = m_cameraDimensions.x;
@@ -151,8 +136,8 @@ bool PlayState::onEnter()
 	camera->y = 0;
 
 	level = new SDL_Rect();
-	level->w = 4000;
-	level->h = 4000;
+	level->w = 12000;
+	level->h = 12000;
 	level->x = 0;
 	level->y = 0;
 
@@ -162,20 +147,31 @@ bool PlayState::onEnter()
 	m_miniMap->x = m_cameraDimensions.x - m_miniMap->w;
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 
+	Vector2 miniMapRatio = Vector2(level->w / m_miniMap->w, level->h / m_miniMap->h);
+
+	m_rs = new RenderSystem(Render::Instance()->getRenderer(), miniMapRatio);
+	m_cs = new CollisionSystem();
+
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);	
-	Vector2 temp = { 400, 400 };
+	Vector2 temp = { 1500, 1500 };
 	for (int i = 0; i < 2; i++)
 	{
-		m_enemies.push_back(new Ai);
-		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
+		if (i == 0)
+		{
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
+		}
+		else
+		{
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
+		}		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
-		temp = {600, 800};
+		temp = {1750, 1200};
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player.init(m_rs, camera, myMap->map.at(0)->getCenterPos());
+	m_player.init(m_rs, camera, Vector2(350,350));
 
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");

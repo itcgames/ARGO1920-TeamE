@@ -1,3 +1,6 @@
+#ifndef COMMANDSYSTEM
+#define COMMANDSYSTEM
+
 #include <map>
 #include <vector>
 #include <SDL.h>
@@ -99,6 +102,7 @@ public:
 		commands[SDLK_w] = pressAttackTwo;
 		commands[SDLK_e] = pressAttackThree;
 		commands[SDLK_r] = pressAttackFour;
+
 
 	}
 
@@ -260,3 +264,4 @@ public:
 
 };
 
+#endif

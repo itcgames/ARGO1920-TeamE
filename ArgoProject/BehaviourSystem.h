@@ -152,7 +152,7 @@ public:
 
 	float getOrientation(Vector2& t_vector)
 	{
-		return atan2(t_vector.y, t_vector.x);
+		return atan2(-t_vector.y, -t_vector.x);
 	}
 
 private:

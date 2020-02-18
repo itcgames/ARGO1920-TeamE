@@ -134,19 +134,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ai.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientGetterMethods.cpp" />
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="EnemyEasy.cpp" />
+    <ClCompile Include="EnemyHard.cpp" />
+    <ClCompile Include="EnemyMedium.cpp" />
+    <ClCompile Include="FactoryEnemy.cpp" />
     <ClCompile Include="FSM.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="HighScoreState.cpp" />
     <ClCompile Include="HostSearchState.cpp" />
     <ClCompile Include="Idle.cpp" />
+    <ClCompile Include="IEnemy.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -169,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActiveComponent.h" />
-    <ClInclude Include="Ai.h" />
     <ClInclude Include="BehaviourComponent.h" />
     <ClInclude Include="BehaviourSystem.h" />
     <ClInclude Include="CharacterSelectState.h" />
@@ -181,7 +184,11 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="EnemyEasy.h" />
+    <ClInclude Include="EnemyHard.h" />
+    <ClInclude Include="EnemyMedium.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FactoryEnemy.h" />
     <ClInclude Include="FiniteState.h" />
     <ClInclude Include="FSM.h" />
     <ClInclude Include="Game.h" />
@@ -191,6 +198,7 @@
     <ClInclude Include="HighScoreState.h" />
     <ClInclude Include="HostSearchState.h" />
     <ClInclude Include="Idle.h" />
+    <ClInclude Include="IEnemy.h" />
     <ClInclude Include="ItemComponent.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="ManaComponent.h" />

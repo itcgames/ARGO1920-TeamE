@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAP
+#define MAP
+//#pragma once
 #include "Room.h"
 
 #include "SDL.h"
@@ -23,6 +25,8 @@ public:
 	std::vector<Tile*> path;
 
 	int roomsNum = 12;
+	int tileSize = 300;
 
 };
 
+#endif

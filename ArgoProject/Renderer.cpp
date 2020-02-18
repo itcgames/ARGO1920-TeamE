@@ -20,7 +20,7 @@ void Renderer::setUpRenderer(const char* title, int xPos, int yPos, int width, i
 			std::cout << "Window Created" << std::endl;
 		}
 
-		renderer = SDL_CreateRenderer(window, -1, 0 | SDL_RENDERER_PRESENTVSYNC);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);

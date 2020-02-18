@@ -91,6 +91,7 @@ public:
 
 	}
 
+
 	void alterHealth(int t_change)
 	{
 		m_health += t_change;
@@ -100,6 +101,7 @@ public:
 	{
 		m_gold += gold;
 	}
+
 
 	//
 
