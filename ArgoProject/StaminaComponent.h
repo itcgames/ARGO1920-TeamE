@@ -31,6 +31,11 @@ public:
 		m_stamina = stamina;
 	}
 
+	void addStamina(int stamina)
+	{
+		m_stamina += stamina;
+	}
+
 private:
 	int m_stamina;
 };

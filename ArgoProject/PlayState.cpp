@@ -39,15 +39,31 @@ void PlayState::update()
 	{
 		m_enemies[i]->update(m_player.getPosition());
 		
+
 		if (m_cs->aabbCollision(m_player.m_positionRect, m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity());
+			if (m_player.getSeek() == false)
+			{
+
+			}
+
+			m_player.setSeek(false);
+			m_cs->collisionResponse(m_player.getEntity(), m_enemies[i]->getEntity(), m_player.getSeek());
 			m_enemies[i]->setAttackTime(0);
 		}
+
 	}
+
+	
+
 
 	m_pickUp->update();
 
+	if (m_cs->aabbCollision(m_player.getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	{
+		m_cs->pickupCollisionResponse(m_player.getEntity(), m_pickUp->getEntity());
+	}
+  
 	for (int i = 0; i < myMap->map.size(); i++)
 	{
 		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)

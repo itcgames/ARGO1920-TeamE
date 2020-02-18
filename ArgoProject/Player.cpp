@@ -40,9 +40,15 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_pc = new PositionComponent(Vector2(m_positionRect->x, m_positionRect->y), 1);
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
+
+	m_hc = new HealthComponent(1000, 7);
+	m_mc = new ManaComponent(1000, 8);
+	m_stc = new StaminaComponent(1000, 9);
+
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
 		data::Instance()->getData().m_playerStats.at(0).m_strength, data::Instance()->getData().m_playerStats.at(0).m_speed,
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
+
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
 	m_ac = new ActiveComponent(true,6);
 
@@ -53,8 +59,9 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<StatsComponent>(m_statc, 4);
 	m_player->addComponent<HealthComponent>(m_hc, 5);
 	m_player->addComponent<ActiveComponent>(m_ac, 6);
-
-
+	m_player->addComponent<ManaComponent>(m_mc, 8);
+	m_player->addComponent<StaminaComponent>(m_stc, 9);
+	
 	m_rs = t_rs;
 
 	//Behaviour System
@@ -75,6 +82,54 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 void Player::update()
 {
 	//checks if the player is in walking state
+	if (finiteStateMachine->getCurrentState() == 1)
+	{
+		//the player seeks the mouse position
+		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
+		{
+			m_seek = true;
+			//This is to stop the jittering in the movement.         
+			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
+			if (mag > 40) 
+			{         
+				//m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
+			}
+			else
+			{
+				m_ih->move = false;
+			}
+			m_playerRect->x = m_pc->getPosition().x;
+			m_playerRect->y = m_pc->getPosition().y;
+		}
+
+		else
+		{
+			m_seek = false;
+		}
+
+	}
+
+	if (finiteStateMachine->getCurrentState() == 2)
+	{
+		spriteSheetY = 226;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		spriteSheetY = 339;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		spriteSheetY = 452;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 5)
+	{
+		spriteSheetY = 565;
+	}
+	animate();
 
 	if (m_ih->move)
 	{

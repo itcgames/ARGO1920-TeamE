@@ -37,6 +37,11 @@ public:
 	{
 		m_health = health;
 	}
+	
+	void addHealth(int health)
+	{
+		m_health += health;
+	}
 
 	void alterHealth(float t_change)
 	{
