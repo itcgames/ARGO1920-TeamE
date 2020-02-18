@@ -11,27 +11,15 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_animationRect->x = 0; 
 	m_animationRect->y = 0;
 
-	//Collision Rect Position
-	m_collisionRect = new SDL_Rect();
-	m_collisionRect->x = startPos.x + 100;
-	m_collisionRect->y = startPos.y + 100;
-
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/WARRIOR SPRITE SHEEt.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/warrior.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
 	SDL_FreeSurface(playerSurface);
 
-	//load in the player texture
-	SDL_Surface* collisionSurface = IMG_Load("Assets/Tiles/tileTwo.png");
-	m_collisionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), collisionSurface);
-	//SDL_QueryTexture(m_collisionTexture, NULL, NULL, &colTextureWidth, &colTextureHeight);
-	SDL_FreeSurface(collisionSurface);
-
-
 	//set both rectangles to the size of one frame from the sprite sheet
-	frameWidth = textureWidth / 12;
-	frameHeight = textureHeight /6;
+	frameWidth = textureWidth / 11;
+	frameHeight = textureHeight /5;
 	//Players Position Rect Size
 	m_positionRect->w = frameWidth; 
 	m_positionRect->h = frameHeight;
@@ -39,13 +27,9 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_animationRect->w = frameWidth; 
 	m_animationRect->h = frameHeight;
 
-	//Collision Rect Size
-	m_collisionRect->w = 100;
-	m_collisionRect->h = 100;
 
 	//Create Entities
 	m_player = new Entity();
-	m_collisionSquare = new Entity();
 
 	//Creates the Systems
 	m_bs = new BehaviourSystem;
@@ -68,23 +52,13 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<StatsComponent>(m_statc, 4);
 	m_player->addComponent<ActiveComponent>(m_ac, 6);
 
-	//Collision Square Components
-	m_collision_pc = new PositionComponent(Vector2(m_collisionRect->x, m_collisionRect->y), 1);
-	m_collision_sc = new SpriteComponent(m_collisionTexture, m_collisionRect, 2);
-	m_collision_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
-
-	m_collisionSquare->addComponent<PositionComponent>(m_collision_pc,1);
-	m_collisionSquare->addComponent<SpriteComponent>(m_collision_sc,2);
-	m_collisionSquare->addComponent<BehaviourComponent>(m_collision_bc, 3);
 
 	m_rs = t_rs;
 
 	//Behaviour System
 	m_bs->addEntity(m_player);
-	m_bs->addEntity(m_collisionSquare);
 
 	//Render System
-	t_rs->addEntity(m_collisionSquare);
 	t_rs->addEntity(m_player);
 
 	m_camera = t_camera;
@@ -99,8 +73,6 @@ void Player::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 void Player::update()
 {
 	//checks if the player is in walking state
-	setAction();
-	animate();
 
 	if (m_ih->move)
 	{
@@ -127,6 +99,9 @@ void Player::update()
 		commandQueue.back()->execute(finiteStateMachine);
 		commandQueue.pop_back();
 	}
+
+	setAction();
+	animate();
 }
 
 
@@ -136,23 +111,11 @@ void Player::processEvents(bool isRunning)
 	m_ih->generateInputs(commandQueue, m_camera);
 }
 
-
-void Player::hit(Entity* t_enemy)
-{
-	float mag = sqrt((m_pc->getPosition().x - t_enemy->getComponent<PositionComponent>(1)->getPosition().x) * (m_pc->getPosition().x - t_enemy->getComponent<PositionComponent>(1)->getPosition().x) + 
-					(m_pc->getPosition().y - t_enemy->getComponent<PositionComponent>(1)->getPosition().y) * (m_pc->getPosition().y -  t_enemy->getComponent<PositionComponent>(1)->getPosition().y));
-
-	if (mag < 100 && finiteStateMachine->getCurrentState() == 4)
-	{
-		std::cout << "Player Hit Enemy" << std::endl;
-	}
-}
-
 //animate the player sprite
 void Player::animate()
 {
 	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 12;
+	Uint32 sprite = (ticks / 100) % 11;
 	m_animationRect->x = sprite * (frameWidth);
 	m_animationRect->y = spriteSheetY;
 

@@ -20,14 +20,13 @@ public:
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; };
-
 	void setAction();
+
 
 	void hit(Entity* t_enemy);
 
 	//Entities
 	Entity* m_player;
-	Entity* m_collisionSquare;
 
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
@@ -38,10 +37,6 @@ public:
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
 
-	//Collision Square Components
-	SpriteComponent* m_collision_sc;
-	PositionComponent* m_collision_pc;
-	BehaviourComponent* m_collision_bc;
 
 
 	//Player animated sprite
@@ -50,8 +45,6 @@ public:
 	SDL_Texture* m_playerTexture;
 	SDL_Texture* m_collisionTexture;
 
-	//Player collsion Square
-	SDL_Rect* m_collisionRect;
 
 	SDL_Rect* m_camera;
 

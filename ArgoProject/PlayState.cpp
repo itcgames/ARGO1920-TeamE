@@ -57,7 +57,7 @@ void PlayState::update()
 				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
 				if (m_cs->aabbCollision(m_player.m_positionRect, myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
-					m_cs->wallCollisionResponse(m_player.m_collisionSquare, myMap->map[i]->tileList[z]->getEntity());
+					m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
 					std::cout << "Hit" << std::endl;
  					//m_player.setSeek(false);
 				}
@@ -143,7 +143,7 @@ bool PlayState::onEnter()
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player.init(m_rs, camera, Vector2(150,150));
+	m_player.init(m_rs, camera, Vector2(350,350));
 
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
