@@ -7,6 +7,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth)
 
 	m_health.w = t_cameraDimension.x * 0.25; m_health.h = 20;
 	m_health.x = t_cameraDimension.x * 0.5; m_health.y = t_cameraDimension.y * 0.92;
+	m_healthOverflow.w = 0; m_healthOverflow.h = 20;
+	m_healthOverflow.x = t_cameraDimension.x * 0.5; m_healthOverflow.y = t_cameraDimension.y * 0.92;
 
 	healthFullWidth = m_health.w;
 
@@ -16,7 +18,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth)
 
 	SDL_Surface* healthSurface = IMG_Load("Assets/Health.png");
 	m_healthTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), healthSurface);
-
+	SDL_Surface* healthOverflowSurface = IMG_Load("Assets/Gold.png");
+	m_healthOverflowTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), healthOverflowSurface);
 
 	//SDL_QueryTexture(m_healthtexture, NULL, NULL, &m_health.w, &m_health.h);
 	//SDL_FreeSurface(healthSurface);
@@ -39,8 +42,17 @@ HUD::~HUD()
 
 void HUD::update(float t_currentHealth)
 {
-	m_health.w = (t_currentHealth / originalHealth)
-		* healthFullWidth;
+	if (t_currentHealth <= originalHealth)
+	{
+		m_health.w = (t_currentHealth / originalHealth)
+			* healthFullWidth;
+	}
+	else
+	{
+		m_health.w = healthFullWidth;
+		m_healthOverflow.w = ((t_currentHealth - originalHealth) / originalHealth)
+			* healthFullWidth;
+	}
 }
 
 void HUD::render()
@@ -48,6 +60,7 @@ void HUD::render()
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_texture, NULL, &m_background);
 
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthTexture, NULL,&m_health);
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthOverflowTexture, NULL, &m_healthOverflow);
 
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_manatexture, NULL, &m_mana);
 }

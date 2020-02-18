@@ -18,11 +18,16 @@ public:
 	SDL_Rect m_viewableArea;
 
 	SDL_Rect m_background;
+
 	SDL_Rect m_health;
+	SDL_Rect m_healthOverflow;
+
 	SDL_Rect m_mana;
+	SDL_Rect m_manaOverflow;
 
 	SDL_Texture* m_texture;
 	SDL_Texture* m_healthTexture;
+	SDL_Texture* m_healthOverflowTexture;
 	SDL_Texture* m_manatexture;
 
 	bool q = false;
