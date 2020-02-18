@@ -103,6 +103,7 @@ public:
 		commands[SDLK_e] = pressAttackThree;
 		commands[SDLK_r] = pressAttackFour;
 
+
 	}
 
 	~InputHandler()
@@ -248,16 +249,19 @@ public:
 			{
 				if (_event.button.button == SDL_BUTTON_LEFT)
 				{
+					std::cout << "Mouse Click" << std::endl;
 					return true;
+					break;
 				}
 				else
 				{
-
+					return false;
 				}
 			}
 
-			return false;
+			
 	}
+
 };
 
 #endif
