@@ -46,12 +46,6 @@
     <Filter Include="Source Files\PlayerFSM">
       <UniqueIdentifier>{0329cb77-8757-40e7-b285-1feee26fda73}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FactoryPattern">
-      <UniqueIdentifier>{6f87ed26-dff9-4846-89f4-13c0f876e3ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\FactoryPattern">
-      <UniqueIdentifier>{9e538d1f-da7a-45c5-9c4d-88e5d4bdba27}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,6 +67,9 @@
       <Filter>Source Files\Menu Components</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ai.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -147,21 +144,6 @@
     <ClCompile Include="FSM.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
-    <ClCompile Include="IEnemy.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
-    <ClCompile Include="FactoryEnemy.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyMedium.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyHard.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyEasy.cpp">
-      <Filter>Source Files\FactoryPattern</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -191,9 +173,6 @@
     <ClInclude Include="System.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="PositionComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -216,6 +195,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ai.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -311,20 +293,8 @@
     <ClInclude Include="ItemComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="IEnemy.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="FactoryEnemy.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyMedium.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyHard.h">
-      <Filter>Header Files\FactoryPattern</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyEasy.h">
-      <Filter>Header Files\FactoryPattern</Filter>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

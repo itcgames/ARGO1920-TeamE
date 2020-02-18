@@ -27,7 +27,7 @@ public:
 
 	std::string returnTileType(std::string type);
 
-	int m_tileSize = 100;
+	int m_tileSize = 300;
 
 	int roomSizeX;
 	int roomSizeY;

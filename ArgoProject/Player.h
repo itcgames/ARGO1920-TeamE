@@ -12,6 +12,7 @@
 #include "FiniteState.h"
 #include <iostream>
 
+
 class Player
 {
 public:
@@ -21,11 +22,14 @@ public:
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	Entity* getEntity() { return m_player; };
-	bool getSeek();
+	void setAction();
 
-	void setSeek(bool seek);
 
+	void hit(Entity* t_enemy);
+
+	//Entities
 	Entity* m_player;
+
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
 	StatsComponent* m_statc;
@@ -37,9 +41,14 @@ public:
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
 
-	SDL_Rect* m_playerRect;
+
+
+	//Player animated sprite
+	SDL_Rect* m_positionRect;
+	SDL_Rect* m_animationRect;
 	SDL_Texture* m_playerTexture;
-	SDL_Rect* playerPos;
+	SDL_Texture* m_collisionTexture;
+
 
 	SDL_Rect* m_camera;
 
@@ -51,11 +60,9 @@ public:
 
 	int frameWidth, frameHeight;
 	int textureWidth, textureHeight;
-
-	bool m_seek;
-
+	int colTextureWidth, colTextureHeight;
 	int spriteSheetY = 0;
-
+	int spriteSheetX = 0;
 };
 
 #endif
