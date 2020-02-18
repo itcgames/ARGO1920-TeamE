@@ -1,3 +1,5 @@
+#ifndef PLAYER
+#define PLAYER
 
 #include "SDL.h"
 #include "Entity.h"
@@ -29,6 +31,8 @@ public:
 	StatsComponent* m_statc;
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
+	HealthComponent* m_hc;
+
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
@@ -54,3 +58,4 @@ public:
 
 };
 
+#endif

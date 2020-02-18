@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TILE
+#define TILE
+//#pragma once
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Vector2.h"
@@ -29,6 +31,7 @@ public:
 	Entity* m_tile;
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
+	ActiveComponent* m_ac;
 
 
 	Vector2 m_position = { 0,0 };
@@ -43,3 +46,4 @@ public:
 
 };
 
+#endif
