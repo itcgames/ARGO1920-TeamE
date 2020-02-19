@@ -346,7 +346,7 @@
     </ClInclude>
     <ClInclude Include="Client.h">
       <Filter>Header Files\Systems</Filter>
-    <ClInclude>
+    </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
