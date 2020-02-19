@@ -91,10 +91,20 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ih->addEntity(m_player);
 
 	m_ih->mousePosition = startPos;
+
+	walkSound.load("Assets/Audio/walk.wav");
+	attackSound.load("Assets/Audio/attack1.wav");
+	slamAttackSound.load("Assets/Audio/walk.wav");
+	spinAttackSound.load("Assets/Audio/spinAttack.wav");
 }
 
 void Warrior::update()
 {
+	if (finiteStateMachine->getCurrentState() == 0)
+	{
+		attackSound.stop();
+		spinAttackSound.stop();
+	}
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
@@ -108,29 +118,34 @@ void Warrior::update()
 			{
 				//m_bs->seek(m_ih->mousePosition);
 				m_bs->playerSeek(m_ih->mousePosition, m_seek);
+				walkSound.play();
 			}
 			else
 			{
 				m_ih->move = false;
+				walkSound.stop();
 			}
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
+			
 		}
 
 	}
-
+	//basic bitch attack
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
+		attackSound.play();
 		spriteSheetY = 226;
 	}
-
+	//attack slam attack
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
 		spriteSheetY = 339;
 	}
-
+	//spin attack
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
+		spinAttackSound.play();
 		spriteSheetY = 452;
 	}
 

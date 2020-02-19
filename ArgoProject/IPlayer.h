@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "Data.h"
 #include "FiniteState.h"
+#include "Audio.h"
 #include <iostream>
 
 class IPlayer
@@ -69,6 +70,11 @@ protected:
 	int colTextureWidth, colTextureHeight;
 	int spriteSheetY = 0;
 	int spriteSheetX = 0;
+
+	Audio walkSound;
+	Audio attackSound;
+	Audio slamAttackSound;
+	Audio spinAttackSound;
 };
 
 #endif // !IPLAYER

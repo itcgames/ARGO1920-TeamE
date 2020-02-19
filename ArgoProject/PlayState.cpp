@@ -6,11 +6,13 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
+	m_background.load("Assets/Audio/Background.wav");
 }
 
 
 void PlayState::update()
 {
+	m_background.play();
 	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
 	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
