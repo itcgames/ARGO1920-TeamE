@@ -13,6 +13,7 @@ public:
 	~HUD();
 
 	void update(float t_currentHealth, float t_currentMana);
+	void adjustEmptyRect(SDL_Rect t_bar, float t_fullWidth);
 	void render();
 
 	SDL_Rect m_viewableArea;
@@ -25,11 +26,14 @@ public:
 	SDL_Rect m_mana;
 	SDL_Rect m_manaOverflow;
 
+	SDL_Rect m_empty;
+
 	SDL_Texture* m_texture;
 	SDL_Texture* m_healthTexture;
 	SDL_Texture* m_healthOverflowTexture;
 	SDL_Texture* m_manatexture;
 	SDL_Texture* m_manaOverflowTexture;
+	SDL_Texture* m_emptyTexture;
 
 	bool q = false;
 	bool w = false;
@@ -37,9 +41,11 @@ public:
 
 	float healthFullWidth;
 	float originalHealth;
+	float currentHealth;
 
 	float manaFullWidth;
 	float originalMana;
+	float currentMana;
 };
 
 #endif

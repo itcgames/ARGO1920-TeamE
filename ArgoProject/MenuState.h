@@ -47,6 +47,11 @@ private:
 	SDL_Rect* m_exitButton;
 	SDL_Texture* m_exitButtonTexture;
 
+	TTF_Font* Abel;
+
+	SDL_Rect* m_nameRects[5];
+	SDL_Texture* m_nameTextures[5];
+
 	GameStateMachine* m_stateMachine;
 };
 

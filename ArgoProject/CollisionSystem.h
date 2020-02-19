@@ -74,7 +74,7 @@ public:
 		{
 			if (m_b->getID() == 2 && m_a->getID() == 1)
 			{
-				m_a->getComponent<ManaComponent>(7)->alterMana(0.1f);
+				m_a->getComponent<ManaComponent>(7)->alterMana(-0.1f);
 				//m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
 			}
 
