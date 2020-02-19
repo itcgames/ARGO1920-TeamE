@@ -13,6 +13,7 @@
 #include "Renderer.h"
 #include <iostream>
 #include "Data.h"
+#include "FiniteState.h"
 
 class IEnemy
 {
@@ -40,6 +41,11 @@ protected:
 	Vector2 m_normalizedVec;
 
 	int m_attackTime;
+
+	FSM* finiteStateMachine;
+	FiniteState* state;
+
+
 };
 
 #endif // !IENEMY

@@ -30,6 +30,12 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 	m_hc = new HealthComponent(t_health, 5);
 	m_ac = new ActiveComponent(true, 6);
 
+
+	finiteStateMachine = new FSM();
+	state = new FiniteState();
+
+	finiteStateMachine->idle();
+
 	//adds the new components to the enenmy
 	m_enemy->setID(2);
 	m_enemy->addComponent<PositionComponent>(m_pc, 1);
@@ -47,13 +53,38 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 
 void EnemyMedium::update(Vector2 t_position)
 {
+	if (finiteStateMachine->getCurrentState() == 0)
+	{
+	}
+
+	if (finiteStateMachine->getCurrentState() == 1)
+	{
+	}
+
+	if (finiteStateMachine->getCurrentState() == 2)
+	{
+	}
+
+
 	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
 		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
 
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
-
-	//m_bs->flee(t_position);
-	m_bs->seek(t_position);
+	//This is to stop the jittering in the movement.         
+	float mag = sqrt((m_pc->getPosition().x - t_position.x) * (m_pc->getPosition().x - t_position.x) + (m_pc->getPosition().y - t_position.y) * (m_pc->getPosition().y - t_position.y));
+	if (mag > 100 && mag < 1000)
+	{
+		finiteStateMachine->walking();
+		m_bs->seek(t_position);
+	}
+	else
+	{
+		finiteStateMachine->idle();
+	}
+	if (mag < 100)
+	{
+		finiteStateMachine->skillone();
+	}
 	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;

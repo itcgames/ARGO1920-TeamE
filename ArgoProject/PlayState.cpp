@@ -167,7 +167,7 @@ bool PlayState::onEnter()
 	{
 		if (i == 0)
 		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 		}
 		else
 		{

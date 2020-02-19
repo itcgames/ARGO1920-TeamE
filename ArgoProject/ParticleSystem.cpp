@@ -43,7 +43,7 @@ void ParticleSystem::ChooseType(Type typeID, int numofParticles)
 	{
 		for (int i = 0; i < numofParticles; i++)
 		{
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, 1, disperseInCircle() + Vector2(1000, 600), Vector2(GenerateRandomNumber(-1.0, 1.0), GenerateRandomNumber(-1.0, 1.0))));
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, GenerateRandomNumber(0.1, 0.9), disperseInCircle() + Vector2(1000, 600), Vector2(GenerateRandomNumber(-1.0, 1.0), GenerateRandomNumber(-1.0, 1.0))));
 		}
 	}
 
@@ -51,7 +51,7 @@ void ParticleSystem::ChooseType(Type typeID, int numofParticles)
 	{
 		for (int i = 0; i < numofParticles; i++)
 		{
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, 0.1, disperseInCircle() + Vector2(1000, 600), Vector2(GenerateRandomNumber(-2.0, 2.0), GenerateRandomNumber(-2.0, 2.0))));
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, GenerateRandomNumber(0.1, 2.0), disperseInCircle() + Vector2(1000, 600), Vector2(GenerateRandomNumber(-2.0, 2.0), GenerateRandomNumber(-2.0, 2.0))));
 		}
 	}
 }
