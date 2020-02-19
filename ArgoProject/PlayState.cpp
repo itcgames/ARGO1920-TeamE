@@ -12,7 +12,6 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 
 void PlayState::update()
 {
-	m_background.play();
 	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
 	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
@@ -95,6 +94,8 @@ void PlayState::update()
 		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 	}
 
+	m_pSystem->update();
+
 	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 }
 
@@ -157,9 +158,9 @@ bool PlayState::onEnter()
 
 	m_rs = new RenderSystem(Render::Instance()->getRenderer(), miniMapRatio);
 	m_cs = new CollisionSystem();
-/*
+
 	myMap = new Map(m_rs, m_cs);
-	myMap->CreateMap(m_rs, m_cs);*/	
+	myMap->CreateMap(m_rs, m_cs);	
 	Vector2 temp = { 1500, 1500 };
 	for (int i = 0; i < 2; i++)
 	{
@@ -200,6 +201,8 @@ bool PlayState::onEnter()
 
 
 	m_pSystem =new ParticleSystem(m_playID, 1000, Type::EXPLOSION);
+
+	m_background.play();
 
 	return true;
 }

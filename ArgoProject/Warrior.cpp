@@ -105,6 +105,7 @@ void Warrior::update()
 		attackSound.stop();
 		spinAttackSound.stop();
 		slamAttackSound.stop();
+		//walkSound.stop();
 	}
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
@@ -118,12 +119,12 @@ void Warrior::update()
 			if (mag > 40)
 			{
 				m_bs->playerSeek(m_ih->mousePosition, m_seek);
-				walkSound.play();
+				//walkSound.play();
 			}
 			else
 			{
 				m_ih->move = false;
-				walkSound.stop();
+				//walkSound.stop();
 			}
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;

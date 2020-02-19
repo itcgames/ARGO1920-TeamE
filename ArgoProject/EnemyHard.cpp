@@ -75,7 +75,11 @@ void EnemyHard::update(Vector2 t_position)
 	float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));
 	if (distance < 350)
 	{
-		m_enemySound.play();
+		//m_enemySound.play();
+	}
+	else
+	{
+		//m_enemySound.stop();
 	}
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
 	//This is to stop the jittering in the movement.         
