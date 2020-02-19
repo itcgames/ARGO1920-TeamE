@@ -15,6 +15,8 @@ public:
 	void destroy() { delete this; }
 	int getAttackTime();
 	void setAttackTime(int attackTime);
+	bool getSeek();
+	void setSeek(bool seek);
 };
 
 #endif // !ENEMYMEDIUM

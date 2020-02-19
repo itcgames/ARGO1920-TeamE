@@ -46,6 +46,8 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 
 	m_bs->addEntity(m_enemy);
 
+	m_seek = true;
+
 	t_rs->addEntity(m_enemy);
 	m_enemySound.load("Assets/Audio/Zombie.wav");
 	std::cout << "Enemy Initialized" << std::endl;
@@ -116,4 +118,14 @@ int EnemyEasy::getAttackTime()
 void EnemyEasy::setAttackTime(int attackTime)
 {
 	m_attackTime = attackTime;
+}
+
+bool EnemyEasy::getSeek()
+{
+	return m_seek;
+}
+
+void EnemyEasy::setSeek(bool seek)
+{
+	m_seek = seek;
 }
