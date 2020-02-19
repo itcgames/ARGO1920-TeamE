@@ -29,7 +29,14 @@ private:
 	SDL_Rect* m_searchRect;
 	SDL_Texture* m_searchTexture;
 
+	SDL_Rect* m_exitRect;
+	SDL_Texture* m_exitTexture;
+
 	GameStateMachine* m_stateMachine;
+
+	TTF_Font* Abel;
+
+	Text* m_text[3];
 };
 
 #endif

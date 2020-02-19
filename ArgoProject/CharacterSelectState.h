@@ -32,8 +32,17 @@ private:
 	SDL_Rect* m_mageOption;
 	SDL_Texture* m_mageOptionTexture;
 
+	SDL_Rect* m_exitOption;
+	SDL_Texture* m_exitOptionTexture;
+
 	GameStateMachine* m_stateMachine;
 	GameData m_data;
+
+	TTF_Font* Abel;
+
+	SDL_Rect* m_textRects[3];
+
+	Text* m_text[4];
 };
 
 #endif

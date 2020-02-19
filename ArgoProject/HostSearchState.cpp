@@ -18,6 +18,12 @@ void HostSearchState::render()
 {
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_hostTexture, NULL, m_hostRect);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_searchTexture, NULL, m_searchRect);
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitTexture, NULL, m_exitRect);
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_text[i]->render();
+	}
 }
 
 void HostSearchState::processEvents(bool& isRunning)
@@ -49,6 +55,13 @@ void HostSearchState::processEvents(bool& isRunning)
 				data::Instance()->HOST = false;
 				m_stateMachine->changeState(new CharacterSelectState(m_cameraDimensions, m_stateMachine));
 			}
+			else if (event.button.x > m_exitRect->x && event.button.x < m_exitRect->x + m_exitRect->w
+				&&
+				event.button.y > m_exitRect->y && event.button.y < m_exitRect->y + m_exitRect->h)
+			{
+				//std::cout << "Play Button" << std::endl;
+				m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
+			}
 			break;
 		case SDL_MOUSEBUTTONUP:
 			//move = false;
@@ -63,6 +76,27 @@ void HostSearchState::processEvents(bool& isRunning)
 
 bool HostSearchState::onEnter()
 {
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+
+	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y * 0.3);
+
+	if (!Abel) {
+		printf("TTF_OpenFont: %s\n", TTF_GetError());
+		// handle error
+	}
+
+	std::string m_texts[2];
+	m_texts[0] = "Host";
+	m_texts[1] = "Search";
+
+	for (int i = 0; i < 2; i++)
+	{
+		m_text[i] = new Text(Abel, m_texts[i], m_cameraDimensions.x * 0.1, m_cameraDimensions.y * (0.1 + (float(i) / 2.0f)));
+	}
+	SDL_Color White = { 255, 255, 255 };
 	//std::cout << "Entering Menu State\n";
 
 	m_hostRect = new SDL_Rect();
@@ -74,6 +108,7 @@ bool HostSearchState::onEnter()
 	SDL_Surface* m_hostSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_hostTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_hostSurface);
 
+
 	m_searchRect = new SDL_Rect();
 	m_searchRect->x = m_cameraDimensions.x * 0.1;
 	m_searchRect->y = m_cameraDimensions.y * 0.6;
@@ -83,6 +118,18 @@ bool HostSearchState::onEnter()
 	SDL_Surface* m_searchSurface = IMG_Load("Assets/ecs_text2.png");
 	m_searchTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_searchSurface);
 
+	m_exitRect = new SDL_Rect();
+	m_exitRect->x = m_cameraDimensions.x * (2.5 / 6.0);
+	m_exitRect->y = m_cameraDimensions.y * 0.9;
+	m_exitRect->w = m_cameraDimensions.x * (1.0 / 6.0);
+	m_exitRect->h = m_cameraDimensions.y * 0.1;
+
+	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/Stamina.png");
+	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitOptionSurface);
+	
+	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y * 0.1);
+
+	m_text[2] = new Text(Abel, "Return", m_cameraDimensions.x * (2.5 / 6.0), m_cameraDimensions.y * 0.9);
 
 	return true;
 }

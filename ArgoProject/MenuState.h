@@ -49,8 +49,7 @@ private:
 
 	TTF_Font* Abel;
 
-	SDL_Rect* m_nameRects[5];
-	SDL_Texture* m_nameTextures[5];
+	Text* m_text[5];
 
 	GameStateMachine* m_stateMachine;
 };
