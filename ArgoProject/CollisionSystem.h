@@ -1,11 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 
-// Finished at
-// Time taken:
-// Known bugs:
-
 #ifndef COLLISIONSYSTEM_H
 #define COLLISIONSYSTEM_H
 
@@ -66,15 +58,15 @@ public:
 		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 3;
 		*///}
 
-		position += velocity * -1 * 28;
+		//position += velocity * -1;
 
-		m_a->getComponent<PositionComponent>(1)->setPosition(position);
+		//m_a->getComponent<PositionComponent>(1)->setPosition(position);
 
 		if (m_b->getID() == 2)
 		{
 			if (m_b->getID() == 2 && m_a->getID() == 1)
 			{
-				m_a->getComponent<ManaComponent>(7)->alterMana(0.1f);
+				m_a->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
 				//m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
 			}
 

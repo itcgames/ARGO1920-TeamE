@@ -6,11 +6,13 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
+	m_background.load("Assets/Audio/Background.wav");
 }
 
 
 void PlayState::update()
 {
+	m_background.play();
 	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
 	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
@@ -34,14 +36,28 @@ void PlayState::update()
 	}
 
 	//Collisions
-
 	for (int i = 0; i < 2; i++)
 	{
 		m_enemies[i]->update(m_player->getPosition());
 		
-
+		//collision with enemy and player
 		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
+			//player attacking enemy function
+			float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+
+			if (m_player->m_mc->getMana() > 0)
+			{
+				m_player->Attack(temp);
+			}
+
+			m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+			//update kill count when enemy dead
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			{
+				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+			}
+			
 			m_player->setSeek(false);
 			m_enemies[i]->setSeek(false);
 			m_player->setTargetPosition(m_player->getPosition());
@@ -55,6 +71,12 @@ void PlayState::update()
 			m_enemies[i]->setSeek(true);
 		}
 
+
+		}
+		else
+		{
+			m_player->m_mc->alterMana(0.1f);
+		}
 	}
 
 	m_pickUp->update();
@@ -70,23 +92,16 @@ void PlayState::update()
 		{
 			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
 			{
-				//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
 				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
 					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					std::cout << "Hit" << std::endl;
+					//std::cout << "Hit" << std::endl;
+
 				}
 			}
 		}
 	}
-
-	// Testing deleteEntity
-	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
-	{
-		m_player.getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-		m_rs->deleteEntity(m_player.getEntity());
-	}*/
 
 	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 
@@ -168,7 +183,8 @@ bool PlayState::onEnter()
 		else
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
-		}		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
+		}		
+		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
 		temp = {1750, 1200};

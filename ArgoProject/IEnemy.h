@@ -13,6 +13,7 @@
 #include "Renderer.h"
 #include <iostream>
 #include "Data.h"
+#include "Audio.h"
 
 class IEnemy
 {
@@ -46,6 +47,8 @@ protected:
 	int m_attackTime;
 
 	bool m_seek;
+  
+	Audio m_enemySound;
 };
 
 #endif // !IENEMY
