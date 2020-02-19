@@ -258,25 +258,6 @@ void Warrior::setAction()
 		default:
 			break;
 		}
-		break;
-	case 2:
-		m_animationRect->x = 0;
-		spriteSheetY = 0;
-		break;
-	case 3:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 3;
-		break;
-	case 4:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 4;
-		break;
-	case 5:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 5;
-		break;
-	default:
-		break;
 	}
 }
 

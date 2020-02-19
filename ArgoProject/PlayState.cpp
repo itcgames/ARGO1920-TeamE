@@ -70,9 +70,6 @@ void PlayState::update()
 		{
 			m_enemies[i]->setSeek(true);
 		}
-
-
-		}
 		else
 		{
 			m_player->m_mc->alterMana(0.1f);
