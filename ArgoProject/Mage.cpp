@@ -1,7 +1,8 @@
-#include "Mage.h"
+ #include "Mage.h"
 
 Mage::Mage()
 {
+	std::cout << "You are a Mage" << std::endl;
 }
 
 Mage::~Mage()
@@ -20,7 +21,7 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_animationRect->y = 0;
 
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/warrior.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/warrior3.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
 	SDL_FreeSurface(playerSurface);
@@ -72,6 +73,9 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<StaminaComponent>(m_stc, 9);
 	m_rs = t_rs;
 
+	m_bc->setMaxSpeed(m_statc->getSpeed());
+	m_hc->setHealth(m_statc->getHealth());
+
 	//Behaviour System
 	m_bs->addEntity(m_player);
 
@@ -79,6 +83,8 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	t_rs->addEntity(m_player);
 
 	m_camera = t_camera;
+
+	m_seek = false;
 
 	//Input InputHandler
 	m_ih = new InputHandler();
@@ -95,12 +101,13 @@ void Mage::update()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
 				//m_bs->seek(m_ih->mousePosition);
-				m_bs->seek(m_ih->mousePosition);
+				m_bs->playerSeek(m_ih->mousePosition, m_seek);
 			}
 			else
 			{
@@ -109,28 +116,12 @@ void Mage::update()
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 		}
-
+		else
+		{
+			m_seek = false;
+		}
 	}
 
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-		spriteSheetY = 226;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 3)
-	{
-		spriteSheetY = 339;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 4)
-	{
-		spriteSheetY = 452;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 5)
-	{
-		spriteSheetY = 565;
-	}
 	animate();
 
 	if (m_ih->move)
@@ -146,7 +137,7 @@ void Mage::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == textureWidth - frameWidth)
+	if (commandQueue.empty() && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
@@ -181,43 +172,82 @@ void Mage::processEvents(bool isRunning)
 
 void Mage::setAction()
 {
-	switch (finiteStateMachine->getCurrentState())
+	if (m_mc->getMana() > 0)
 	{
-	case 1:
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
+		switch (finiteStateMachine->getCurrentState())
 		{
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
+		case 1:
+			//the player seeks the mouse position
+			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-				m_bs->seek(m_ih->mousePosition);
+				m_seek = true;
+				//This is to stop the jittering in the movement.         
+				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
+				if (mag > 40)
+				{
+					m_bs->playerSeek(m_ih->mousePosition, m_seek);
+				}
+				else
+				{
+					m_ih->move = false;
+				}
+				m_positionRect->x = m_pc->getPosition().x;
+				m_positionRect->y = m_pc->getPosition().y;
 			}
 			else
 			{
-				m_ih->move = false;
+				m_seek = false;
 			}
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
+			break;
+		case 2:
+			setDamage(4);
+			m_animationRect->x = 0;
+			spriteSheetY = 0;
+			break;
+		case 3:
+			m_animationRect->x = 0;
+			spriteSheetY = frameHeight * 3;
+			break;
+		case 4:
+			m_animationRect->x = 0;
+			spriteSheetY = frameHeight * 4;
+			break;
+		case 5:
+			m_animationRect->x = 0;
+			spriteSheetY = frameHeight * 5;
+			break;
+		default:
+			break;
 		}
-		break;
-	case 2:
-		m_animationRect->x = 0;
-		spriteSheetY = 0;
-		break;
-	case 3:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 3;
-		break;
-	case 4:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 4;
-		break;
-	case 5:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 5;
-		break;
-	default:
-		break;
+	}
+}
+
+void Mage::Attack(float& m_enemyHealth)
+{
+	if (finiteStateMachine->getCurrentState() == 2)
+	{
+		if (m_animationRect->x == 0)
+		{
+			m_mc->alterMana(-2);
+			m_enemyHealth -= dmg;
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		if (m_animationRect->x == 0)
+		{
+			m_mc->alterMana(-3);
+			m_hc->alterHealth(1);
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		if (m_animationRect->x == 0)
+		{
+			m_mc->alterMana(-4);
+			dmg += 0.1;
+		}
 	}
 }

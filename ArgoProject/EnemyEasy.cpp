@@ -47,6 +47,7 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	m_bs->addEntity(m_enemy);
 
 	t_rs->addEntity(m_enemy);
+	m_enemySound.load("Assets/Audio/Zombie.wav");
 	std::cout << "Enemy Initialized" << std::endl;
 }
 
@@ -67,7 +68,11 @@ void EnemyEasy::update(Vector2 t_position)
 
 	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
 		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
-
+	float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));
+	if (distance < 350)
+	{
+		m_enemySound.play();
+	}
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
 	//This is to stop the jittering in the movement.         
 	float mag = sqrt((m_pc->getPosition().x - t_position.x) * (m_pc->getPosition().x - t_position.x) + (m_pc->getPosition().y - t_position.y) * (m_pc->getPosition().y - t_position.y));

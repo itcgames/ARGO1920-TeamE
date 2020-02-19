@@ -1,12 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 10:50 4 February 2020
-// Finished at
-// Time taken:
-// Known bugs:
-
-
 #ifndef MANACOMPONENT_H
 #define MANACOMPONENT_H
 
@@ -41,6 +32,15 @@ public:
 	void alterMana(float t_change)
 	{
 		m_mana += t_change;
+
+		if(m_mana <= 0)
+		{
+			m_mana = 0;
+		}
+		else if (m_mana > m_originalMana * 2)
+		{
+			m_mana = m_originalMana * 2;
+		}
 	}
 
 private:

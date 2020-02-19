@@ -61,13 +61,6 @@ public:
 	InputType type() { return STATE; }
 };
 
-class AttackFour : public Command
-{
-public:
-	void execute(FSM* fsm) { fsm->skillfour(); }
-	InputType type() { return STATE; }
-};
-
 class InputHandler : public System
 {
 public:
@@ -75,7 +68,6 @@ public:
 	Command* pressAttackOne;
 	Command* pressAttackTwo;
 	Command* pressAttackThree;
-	Command* pressAttackFour;
 
 	std::map <int, Command*> commands;
 
@@ -96,12 +88,10 @@ public:
 		pressAttackOne = new AttackOne();
 		pressAttackTwo = new AttackTwo();
 		pressAttackThree = new AttackThree();
-		pressAttackFour = new AttackFour();
 
 		commands[SDLK_q] = pressAttackOne;
 		commands[SDLK_w] = pressAttackTwo;
 		commands[SDLK_e] = pressAttackThree;
-		commands[SDLK_r] = pressAttackFour;
 
 
 	}

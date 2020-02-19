@@ -129,9 +129,6 @@
     <ClCompile Include="SkillOne.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
-    <ClCompile Include="SkillFour.cpp">
-      <Filter>Source Files\PlayerFSM</Filter>
-    </ClCompile>
     <ClCompile Include="Idle.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
@@ -171,10 +168,7 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
+    <ClCompile Include="Audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,9 +293,6 @@
     <ClInclude Include="Idle.h">
       <Filter>Header Files\PlayerFSM</Filter>
     </ClInclude>
-    <ClInclude Include="SkillFour.h">
-      <Filter>Header Files\PlayerFSM</Filter>
-    </ClInclude>
     <ClInclude Include="SkillOne.h">
       <Filter>Header Files\PlayerFSM</Filter>
     </ClInclude>
@@ -356,10 +347,7 @@
     <ClInclude Include="Knight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
+    <ClInclude Include="Audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

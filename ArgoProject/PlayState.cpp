@@ -6,11 +6,13 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
+	m_background.load("Assets/Audio/Background.wav");
 }
 
 
 void PlayState::update()
 {
+	m_background.play();
 	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
 	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
@@ -34,28 +36,36 @@ void PlayState::update()
 	}
 
 	//Collisions
-
 	for (int i = 0; i < 2; i++)
 	{
 		m_enemies[i]->update(m_player->getPosition());
 		
-
+		//collision with enemy and player
 		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
-			/*if (m_player.getSeek() == false)
+			//player attacking enemy function
+			float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+
+			if (m_player->m_mc->getMana() > 0)
 			{
+				m_player->Attack(temp);
+			}
 
-			}*/
-
-			//m_player.setSeek(false);
-			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity());//, m_player.getSeek());
-			//m_enemies[i]->setAttackTime(0);
+			m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+			//update kill count when enemy dead
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			{
+				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+			}
+			
+			m_player->setSeek(false);
+			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 		}
-
+		else
+		{
+			m_player->m_mc->alterMana(0.1f);
+		}
 	}
-
-	
-
 
 	m_pickUp->update();
 
@@ -64,29 +74,19 @@ void PlayState::update()
 		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 	}
   
-	//for (int i = 0; i < myMap->map.size(); i++)
-	//{
-	//	for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
-	//	{
-	//		if (myMap->map[i]->tileList[z]->getTag() == "Wall")
-	//		{
-	//			//m_cs->wallCollisionResponse(m_player.getEntity(), myMap->map[i]->tileList[z]->getEntity());
-	//			if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-	//			{
-	//				m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
-	//				std::cout << "Hit" << std::endl;
- //					//m_player.setSeek(false);
-	//			}
-	//		}
-	//	}
-	//}
-
-	// Testing deleteEntity
-	/*if (m_cs->aabbCollision(m_player.m_playerRect, m_pickUp->getRect()) == true)
+	for (int i = 0; i < myMap->map.size(); i++)
 	{
-		m_player.getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-		m_rs->deleteEntity(m_player.getEntity());
-	}*/
+		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+		{
+			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
+				}
+			}
+		}
+	}
 
 	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 
@@ -95,9 +95,7 @@ void PlayState::update()
 		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 	}
 
-	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth());
-
-	m_pSystem->update();
+	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 }
 
 void PlayState::render()
@@ -150,8 +148,8 @@ bool PlayState::onEnter()
 	level->y = 0;
 
 	m_miniMap = new SDL_Rect();
-	m_miniMap->w = m_cameraDimensions.x / 10;
-	m_miniMap->h = m_cameraDimensions.y / 10;
+	m_miniMap->w = m_cameraDimensions.x / 5;
+	m_miniMap->h = m_cameraDimensions.y / 5;
 	m_miniMap->x = m_cameraDimensions.x - m_miniMap->w;
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 
@@ -172,17 +170,30 @@ bool PlayState::onEnter()
 		else
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
-		}		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
+		}		
+		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
 			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
 		temp = {1750, 1200};
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
-	m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	}
+	else if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_KNIGHT")
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_KNIGHT);
+	}
+	else
+	{
+		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+	}
+	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_player->init(m_rs, camera, Vector2(350,350));
 
-	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth());
+	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana());
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);

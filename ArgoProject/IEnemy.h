@@ -13,6 +13,7 @@
 #include "Renderer.h"
 #include <iostream>
 #include "Data.h"
+#include "Audio.h"
 #include "FiniteState.h"
 
 class IEnemy
@@ -46,6 +47,8 @@ protected:
 	FiniteState* state;
 
 
+
+	Audio m_enemySound;
 };
 
 #endif // !IENEMY

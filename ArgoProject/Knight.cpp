@@ -2,6 +2,7 @@
 
 Knight::Knight()
 {
+	std::cout << "You are a Knight" << std::endl;
 }
 
 Knight::~Knight()
@@ -48,10 +49,7 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_pc = new PositionComponent(Vector2(m_positionRect->x, m_positionRect->y), 1);
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
-
-	m_hc = new HealthComponent(1000, 7);
-	m_mc = new ManaComponent(1000, 8);
-	m_stc = new StaminaComponent(1000, 9);
+	
 
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
 		data::Instance()->getData().m_playerStats.at(0).m_strength, data::Instance()->getData().m_playerStats.at(0).m_speed,
@@ -60,6 +58,7 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
 	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
+	m_stc = new StaminaComponent(1000, 9);
 
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);
@@ -72,6 +71,9 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_player->addComponent<StaminaComponent>(m_stc, 9);
 	m_rs = t_rs;
 
+	m_bc->setMaxSpeed(m_statc->getSpeed());
+	m_hc->setHealth(m_statc->getHealth());
+
 	//Behaviour System
 	m_bs->addEntity(m_player);
 
@@ -79,6 +81,8 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	t_rs->addEntity(m_player);
 
 	m_camera = t_camera;
+
+	m_seek = false;
 
 	//Input InputHandler
 	m_ih = new InputHandler();
@@ -95,6 +99,7 @@ void Knight::update()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
@@ -109,27 +114,10 @@ void Knight::update()
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 		}
-
-	}
-
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-		spriteSheetY = 226;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 3)
-	{
-		spriteSheetY = 339;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 4)
-	{
-		spriteSheetY = 452;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 5)
-	{
-		spriteSheetY = 565;
+		else
+		{
+			m_seek = false;
+		}
 	}
 	animate();
 
@@ -146,13 +134,13 @@ void Knight::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == textureWidth - frameWidth)
+	if (commandQueue.empty() && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
 
-	else while (!commandQueue.empty())
+	else while (!commandQueue.empty() && timer == 0)
 	{
 		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
@@ -161,6 +149,12 @@ void Knight::update()
 
 	setAction();
 	animate();
+
+	if (timer > 0)
+	{
+		timer--;
+		std::cout << timer << std::endl;
+	}
 }
 
 void Knight::animate()
@@ -181,43 +175,74 @@ void Knight::processEvents(bool isRunning)
 
 void Knight::setAction()
 {
-	switch (finiteStateMachine->getCurrentState())
+	if (m_mc->getMana() > 0)
 	{
-	case 1:
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
+		switch (finiteStateMachine->getCurrentState())
 		{
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
+		case 1:
+			//the player seeks the mouse position
+			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-				m_bs->seek(m_ih->mousePosition);
+				m_seek = true;
+				//This is to stop the jittering in the movement.         
+				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
+				if (mag > 40)
+				{
+					m_bs->playerSeek(m_ih->mousePosition, m_seek);
+				}
+				else
+				{
+					m_ih->move = false;
+				}
+				m_positionRect->x = m_pc->getPosition().x;
+				m_positionRect->y = m_pc->getPosition().y;
 			}
 			else
 			{
-				m_ih->move = false;
+				m_seek = false;
 			}
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
+			break;
+		case 2:
+			setDamage(6);
+			m_animationRect->x = 0;
+			spriteSheetY = 0;
+			break;
+		case 3:
+			setDamage(7);
+			m_animationRect->x = 0;
+			spriteSheetY = frameHeight * 3;
+			break;
+		case 4:
+			m_animationRect->x = 0;
+			spriteSheetY = frameHeight * 4;
+			break;
+		case 5:
+			m_animationRect->x = 0;
+			spriteSheetY = frameHeight * 5;
+			break;
+		default:
+			break;
 		}
-		break;
-	case 2:
-		m_animationRect->x = 0;
-		spriteSheetY = 0;
-		break;
-	case 3:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 3;
-		break;
-	case 4:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 4;
-		break;
-	case 5:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 5;
-		break;
-	default:
-		break;
+	}
+}
+
+void Knight::Attack(float& m_enemyHealth)
+{
+	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3)
+	{
+		if (m_animationRect->x == 0)
+		{
+			m_mc->alterMana(-2);
+			m_enemyHealth -= dmg;
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		if (m_animationRect->x == 0)
+		{
+			m_mc->alterMana(-4);
+			m_hc->alterHealth(2);
+		}
 	}
 }

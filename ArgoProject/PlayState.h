@@ -17,6 +17,7 @@
 #include "FactoryEnemy.h"
 #include "IPlayer.h"
 #include "FactoryPlayer.h"
+#include "Audio.h"
 
 class PlayState : public GameState
 {
@@ -57,6 +58,7 @@ private:
 
 	Server m_server{ 1111, true };
 	Client m_client{ data::Instance()->IPADDRESS, 1111 };
+	Audio m_background;
 
 	ParticleSystem* m_pSystem;
 };
