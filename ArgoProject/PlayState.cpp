@@ -12,7 +12,6 @@ PlayState::PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachin
 
 void PlayState::update()
 {
-	m_background.play();
 	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
 	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
@@ -34,7 +33,6 @@ void PlayState::update()
 	{
 		camera->y = level->h - camera->h;
 	}
-
 	//Collisions
 	for (int i = 0; i < 2; i++)
 	{
@@ -65,14 +63,13 @@ void PlayState::update()
 			
 			//m_enemies[i]->setAttackTime(0);
 		}
-
-		if(m_cs->enemyCollisionResponse(m_player->getRect(), m_enemies[i]->getEntity(), m_player->getPosition()) == false)
-		{
-			m_enemies[i]->setSeek(true);
-		}
 		else
 		{
 			m_player->m_mc->alterMana(0.1f);
+		}
+		if(m_cs->enemyCollisionResponse(m_player->getRect(), m_enemies[i]->getEntity(), m_player->getPosition()) == false)
+		{
+			m_enemies[i]->setSeek(true);
 		}
 	}
 
@@ -107,8 +104,11 @@ void PlayState::update()
 		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 	}
 
+	m_pSystem->update();
+
 	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 }
+
 
 void PlayState::render()
 {
@@ -118,6 +118,8 @@ void PlayState::render()
 		m_miniMap,
 		m_miniMapTexture,
 		m_hud);
+
+	m_pSystem->render();
 }
 
 /// handle user and system events/ input
@@ -175,7 +177,7 @@ bool PlayState::onEnter()
 	{
 		if (i == 0)
 		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 		}
 		else
 		{
@@ -207,6 +209,11 @@ bool PlayState::onEnter()
 
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
+
+
+	m_pSystem =new ParticleSystem(m_playID, 1000, Type::EXPLOSION);
+
+	m_background.play();
 
 	return true;
 }

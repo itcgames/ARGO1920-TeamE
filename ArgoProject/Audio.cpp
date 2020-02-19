@@ -21,4 +21,5 @@ void Audio::play()
 void Audio::stop()
 {
 	SDL_PauseAudioDevice(deviceId, 1);
+	SDL_ClearQueuedAudio(deviceId);
 }

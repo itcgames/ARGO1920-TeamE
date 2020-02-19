@@ -14,6 +14,7 @@
 #include <iostream>
 #include "Data.h"
 #include "Audio.h"
+#include "FiniteState.h"
 
 class IEnemy
 {
@@ -45,6 +46,11 @@ protected:
 	Vector2 m_normalizedVec;
 
 	int m_attackTime;
+
+	FSM* finiteStateMachine;
+	FiniteState* state;
+
+
 
 	bool m_seek;
   
