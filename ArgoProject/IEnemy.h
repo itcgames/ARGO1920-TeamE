@@ -13,6 +13,7 @@
 #include "Renderer.h"
 #include <iostream>
 #include "Data.h"
+#include "Audio.h"
 
 class IEnemy
 {
@@ -40,6 +41,8 @@ protected:
 	Vector2 m_normalizedVec;
 
 	int m_attackTime;
+
+	Audio m_enemySound;
 };
 
 #endif // !IENEMY

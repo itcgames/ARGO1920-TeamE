@@ -11,6 +11,7 @@
 #include "Data.h"
 #include "FiniteState.h"
 #include "Audio.h"
+#include "CollisionSystem.h"
 #include <iostream>
 
 class IPlayer
@@ -24,6 +25,8 @@ public:
 	virtual Vector2 getPosition() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
+	virtual void Attack(float&m_enemyHealth) = 0;
+	virtual void setDamage(float t_dmg) = 0;
 	virtual bool getSeek() = 0;
 	virtual void setSeek(bool seek) = 0;
 
@@ -31,6 +34,7 @@ public:
 
 
 	virtual SDL_Rect* getRect() = 0;
+	ManaComponent* m_mc;
 protected:
 	Entity* m_player;
 
@@ -39,7 +43,6 @@ protected:
 	SpriteComponent* m_sc;
 	StatsComponent* m_statc;
 	HealthComponent* m_hc;
-	ManaComponent* m_mc;
 	StaminaComponent* m_stc;
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
@@ -75,6 +78,7 @@ protected:
 	Audio attackSound;
 	Audio slamAttackSound;
 	Audio spinAttackSound;
+	float dmg = 0.1;
 };
 
 #endif // !IPLAYER

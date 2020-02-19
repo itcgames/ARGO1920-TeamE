@@ -129,9 +129,6 @@
     <ClCompile Include="SkillOne.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
-    <ClCompile Include="SkillFour.cpp">
-      <Filter>Source Files\PlayerFSM</Filter>
-    </ClCompile>
     <ClCompile Include="Idle.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
@@ -294,9 +291,6 @@
       <Filter>Header Files\PlayerFSM</Filter>
     </ClInclude>
     <ClInclude Include="Idle.h">
-      <Filter>Header Files\PlayerFSM</Filter>
-    </ClInclude>
-    <ClInclude Include="SkillFour.h">
       <Filter>Header Files\PlayerFSM</Filter>
     </ClInclude>
     <ClInclude Include="SkillOne.h">
