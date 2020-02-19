@@ -20,12 +20,12 @@ Highscores:
   - name: ""
     score: 0
 Player:
-  - class: PLAYER_KNIGHT
+  - class: PLAYER_WARRIOR
     gold: 0
-    health: 200
+    health: 150
     killcount: 0
-    speed: 2
-    strength: 200
+    speed: 5
+    strength: 100
 Presets:
   Stats:
     - class: zombie

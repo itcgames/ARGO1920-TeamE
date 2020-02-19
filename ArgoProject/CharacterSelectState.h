@@ -19,6 +19,9 @@ public:
 	virtual std::string getStateID() const { return m_characterSelectID; };
 
 private:
+	void cameraSetup();
+	void collisions();
+
 	Vector2 m_cameraDimensions;
 
 	static const std::string  m_characterSelectID;

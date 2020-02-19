@@ -34,6 +34,9 @@ public:
 
 
 private:
+	void cameraSetup();
+	void collisions();
+
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;

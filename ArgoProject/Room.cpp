@@ -62,31 +62,20 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 	{
 		if (tileList[i]->covered == true)
 		{
-			if (tileList[i]->getTag() == "Wall")
-			{
-				wallCount--;
-			}
-			if (tileList[i]->getTag() == "Floor")
-			{
-				floorCount--;
-			}
-
 			tileList[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 			t_rs->deleteEntity(tileList[i]->getEntity());
 
 
-			if (tileList[i]->getTag() == "Wall")
-			{
-				t_cs->deleteEntity(tileList[i]->getEntity());
-			}
-
-			//delete tileList[i].release();
 			if (tileList[i]->getTag() == "Floor")
 			{
+				floorCount--;
 				tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
 			}
 			else
 			{
+				wallCount--;
+				t_cs->deleteEntity(tileList[i]->getEntity());
+
 				tileList[i] = nullptr;
 				tileList.erase(tileList.begin() + i);
 				//tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
