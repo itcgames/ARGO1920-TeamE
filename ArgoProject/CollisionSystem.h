@@ -84,8 +84,8 @@ public:
 	bool enemyCollisionResponse(SDL_Rect* m_a, Entity* m_b, Vector2 m_aPos)
 	{
 		//
-		if ((m_aPos.x < m_b->getComponent<PositionComponent>(1)->getPosition().x + 440 && m_aPos.x > m_b->getComponent<PositionComponent>(1)->getPosition().x - 440) &&
-			(m_aPos.y < m_b->getComponent<PositionComponent>(1)->getPosition().y + 440 && m_aPos.y > m_b->getComponent<PositionComponent>(1)->getPosition().x - 440))
+		if ((m_aPos.x < m_b->getComponent<PositionComponent>(1)->getPosition().x + 480 && m_aPos.x > m_b->getComponent<PositionComponent>(1)->getPosition().x - 480) &&
+			(m_aPos.y < m_b->getComponent<PositionComponent>(1)->getPosition().y + 480 && m_aPos.y > m_b->getComponent<PositionComponent>(1)->getPosition().x - 480))
 		{
 			if (m_a->x + m_a->w >= m_b->getComponent<PositionComponent>(1)->getPosition().x &&
 				m_a->y + m_a->h >= m_b->getComponent<PositionComponent>(1)->getPosition().y &&
