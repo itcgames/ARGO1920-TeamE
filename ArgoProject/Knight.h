@@ -21,6 +21,8 @@ public:
 	SDL_Rect* getRect() { return m_positionRect; }
 	void Attack(float& m_enemyHealth);
 	void setDamage(float t_dmg) { dmg = t_dmg; }
+
+	int timer = 0;
 };
 
 #endif // !KNIGHT

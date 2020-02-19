@@ -33,6 +33,7 @@ public:
 
 
 	virtual SDL_Rect* getRect() = 0;
+	ManaComponent* m_mc;
 protected:
 	Entity* m_player;
 
@@ -41,7 +42,6 @@ protected:
 	SpriteComponent* m_sc;
 	StatsComponent* m_statc;
 	HealthComponent* m_hc;
-	ManaComponent* m_mc;
 	StaminaComponent* m_stc;
 	BehaviourComponent* m_bc;
 	ActiveComponent* m_ac;
