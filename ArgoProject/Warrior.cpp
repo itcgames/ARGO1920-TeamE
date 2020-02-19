@@ -105,6 +105,7 @@ void Warrior::update()
 		attackSound.stop();
 		spinAttackSound.stop();
 		slamAttackSound.stop();
+		//walkSound.stop();
 	}
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
@@ -119,12 +120,12 @@ void Warrior::update()
 			if (mag > 40)
 			{
 				m_bs->playerSeek(m_ih->mousePosition, m_seek);
-				walkSound.play();
+				//walkSound.play();
 			}
 			else
 			{
 				m_ih->move = false;
-				walkSound.stop();
+				//walkSound.stop();
 			}
 
 			
@@ -240,43 +241,28 @@ void Warrior::setAction()
 			setDamage(3);
 			m_animationRect->x = 0;
 			spriteSheetY = 0;
+			m_ih->move = false;
 			break;
 		case 3:
 			setDamage(10);
 			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 3;
+			m_ih->move = false;
 			break;
 		case 4:
 			setDamage(6);
 			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 4;
+			m_ih->move = false;
 			break;
 		case 5:
 			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 5;
+			m_ih->move = false;
 			break;
 		default:
 			break;
 		}
-		break;
-	case 2:
-		m_animationRect->x = 0;
-		spriteSheetY = 0;
-		break;
-	case 3:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 3;
-		break;
-	case 4:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 4;
-		break;
-	case 5:
-		m_animationRect->x = 0;
-		spriteSheetY = frameHeight * 5;
-		break;
-	default:
-		break;
 	}
 }
 
