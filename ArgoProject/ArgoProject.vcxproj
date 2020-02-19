@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientGetterMethods.cpp" />
@@ -168,7 +169,6 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="SendGetMethods.cpp" />
     <ClCompile Include="Server.cpp" />
-    <ClCompile Include="SkillFour.cpp" />
     <ClCompile Include="SkillOne.cpp" />
     <ClCompile Include="SkillThree.cpp" />
     <ClCompile Include="SkillTwo.cpp" />
@@ -178,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActiveComponent.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="BehaviourComponent.h" />
     <ClInclude Include="BehaviourSystem.h" />
     <ClInclude Include="CharacterSelectState.h" />
@@ -223,7 +224,6 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Server.h" />
-    <ClInclude Include="SkillFour.h" />
     <ClInclude Include="SkillOne.h" />
     <ClInclude Include="SkillThree.h" />
     <ClInclude Include="SkillTwo.h" />

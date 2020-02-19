@@ -1,11 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 
-// Finished at
-// Time taken:
-// Known bugs:
-
 #ifndef COLLISIONSYSTEM_H
 #define COLLISIONSYSTEM_H
 
@@ -66,19 +58,45 @@ public:
 		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 3;
 		*///}
 
-		position += velocity * -1 * 28;
+		//position += velocity * -1;
 
-		m_a->getComponent<PositionComponent>(1)->setPosition(position);
+		//m_a->getComponent<PositionComponent>(1)->setPosition(position);
 
 		if (m_b->getID() == 2)
 		{
 			if (m_b->getID() == 2 && m_a->getID() == 1)
 			{
-				m_a->getComponent<ManaComponent>(7)->alterMana(-0.1f);
+				//m_a->getComponent<ManaComponent>(7)->alterMana(-0.1f);
+				m_a->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
 				//m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
 			}
 
 		}
+	}
+
+	bool enemyCollisionResponse(SDL_Rect* m_a, Entity* m_b, Vector2 m_aPos)
+	{
+		//
+		if ((m_aPos.x < m_b->getComponent<PositionComponent>(1)->getPosition().x + 480 && m_aPos.x > m_b->getComponent<PositionComponent>(1)->getPosition().x - 480) &&
+			(m_aPos.y < m_b->getComponent<PositionComponent>(1)->getPosition().y + 480 && m_aPos.y > m_b->getComponent<PositionComponent>(1)->getPosition().x - 480))
+		{
+			if (m_a->x + m_a->w >= m_b->getComponent<PositionComponent>(1)->getPosition().x &&
+				m_a->y + m_a->h >= m_b->getComponent<PositionComponent>(1)->getPosition().y &&
+				m_b->getComponent<PositionComponent>(1)->getPosition().x + m_b->getComponent<SpriteComponent>(2)->getRect()->w >= m_a->x &&
+				m_b->getComponent<PositionComponent>(1)->getPosition().y + m_b->getComponent<SpriteComponent>(2)->getRect()->h >= m_a->y)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+		/*
+		if ((t_targetPosition.x < position.x + 300 && t_targetPosition.x > position.x - 300) &&
+			(t_targetPosition.y < position.y + 300 && t_targetPosition.y > position.y - 300)
+		*/
 	}
 
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
