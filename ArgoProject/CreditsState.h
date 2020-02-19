@@ -27,7 +27,7 @@ private:
 	SDL_Rect* m_nameRects[10];
 	SDL_Texture* m_nameTextures[10];
 	
-	TTF_Font* Sans;
+	TTF_Font* Abel;
 
 	GameStateMachine* m_stateMachine;
 };

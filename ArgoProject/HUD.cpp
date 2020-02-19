@@ -37,6 +37,9 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	//SDL_QueryTexture(m_texture, NULL, NULL, &m_background.w, &m_background.h);
 	//SDL_FreeSurface(hudSurface);
 
+	SDL_Surface* emptySurface = IMG_Load("Assets/Empty.png");
+	m_emptyTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), emptySurface);
+
 	originalHealth = t_OriginalHealth;
 	originalMana = t_originalMana;
 }
@@ -47,27 +50,30 @@ HUD::~HUD()
 
 void HUD::update(float t_currentHealth, float t_currentMana)
 {
-	if (t_currentHealth <= originalHealth)
+	currentHealth = t_currentHealth;
+	currentMana = t_currentMana;
+
+	if (currentHealth <= originalHealth)
 	{
-		m_health.w = (t_currentHealth / originalHealth)
+		m_health.w = (currentHealth / originalHealth)
 			* healthFullWidth;
 	}
 	else
 	{
 		m_health.w = healthFullWidth;
-		m_healthOverflow.w = ((t_currentHealth - originalHealth) / originalHealth)
+		m_healthOverflow.w = ((currentHealth - originalHealth) / originalHealth)
 			* healthFullWidth;
 	}
 
-	if (t_currentMana <= originalMana)
+	if (currentMana <= originalMana)
 	{
-		m_mana.w = (t_currentMana / originalMana)
+		m_mana.w = (currentMana / originalMana)
 			* manaFullWidth;
 	}
 	else
 	{
 		m_mana.w = manaFullWidth;
-		m_manaOverflow.w = ((t_currentMana - originalMana) / originalMana)
+		m_manaOverflow.w = ((currentMana - originalMana) / originalMana)
 			* manaFullWidth;
 	}
 }
@@ -76,9 +82,37 @@ void HUD::render()
 {
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_texture, NULL, &m_background);
 
+	if (originalHealth > currentHealth)
+	{
+		adjustEmptyRect(m_health, healthFullWidth);
+		//SDL_RenderCopy(Render::Instance()->getRenderer(), m_emptyTexture, NULL, &m_empty);
+	}
+
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthTexture, NULL,&m_health);
-	SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthOverflowTexture, NULL, &m_healthOverflow);
+
+	if (originalHealth < currentHealth)
+	{
+		SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthOverflowTexture, NULL, &m_healthOverflow);
+	}
+
+	if (originalMana > currentMana)
+	{
+		adjustEmptyRect(m_mana,manaFullWidth);
+		SDL_RenderCopy(Render::Instance()->getRenderer(), m_emptyTexture, NULL, &m_empty);
+	}
 
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_manatexture, NULL, &m_mana);
-	SDL_RenderCopy(Render::Instance()->getRenderer(), m_manaOverflowTexture, NULL, &m_manaOverflow);
+
+	if (originalMana < currentMana)
+	{
+		SDL_RenderCopy(Render::Instance()->getRenderer(), m_manaOverflowTexture, NULL, &m_manaOverflow);
+	}
+}
+
+void HUD::adjustEmptyRect(SDL_Rect t_bar, float t_fullWidth)
+{
+	m_empty.x = t_bar.x;
+	m_empty.y = t_bar.y;
+	m_empty.w = t_fullWidth;
+	m_empty.h = t_bar.h;
 }

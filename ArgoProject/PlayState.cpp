@@ -67,7 +67,6 @@ void PlayState::update()
 		{
 			m_player->m_mc->alterMana(0.1f);
 		}
-
 		if(m_cs->enemyCollisionResponse(m_player->getRect(), m_enemies[i]->getEntity(), m_player->getPosition()) == false)
 		{
 			m_enemies[i]->setSeek(true);
