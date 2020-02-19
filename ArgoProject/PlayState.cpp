@@ -33,7 +33,6 @@ void PlayState::update()
 	{
 		camera->y = level->h - camera->h;
 	}
-
 	//Collisions
 	for (int i = 0; i < 2; i++)
 	{
@@ -64,17 +63,14 @@ void PlayState::update()
 			
 			//m_enemies[i]->setAttackTime(0);
 		}
+		else
+		{
+			m_player->m_mc->alterMana(0.1f);
+		}
 
 		if(m_cs->enemyCollisionResponse(m_player->getRect(), m_enemies[i]->getEntity(), m_player->getPosition()) == false)
 		{
 			m_enemies[i]->setSeek(true);
-		}
-
-
-		}
-		else
-		{
-			m_player->m_mc->alterMana(0.1f);
 		}
 	}
 
@@ -113,6 +109,7 @@ void PlayState::update()
 
 	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 }
+
 
 void PlayState::render()
 {
