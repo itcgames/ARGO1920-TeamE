@@ -17,6 +17,11 @@ public:
 
 	bool Alive();
 	void setPosition(Vector2 newPos);
+	void setAngle(float t_angle);
+	void moveParticle(Vector2 newPos);
+
+	Vector2 getPosition();
+	float getAngle();
 
 private:
 	std::string m_currentState;
@@ -25,7 +30,9 @@ private:
 	int MAX_PARTICLE_LIFE;
 
 	//Properties
+	SDL_Point m_orgPos;
 	Vector2 m_pos;
+	float m_angle;
 	int m_speed = 2;
 	Vector2 m_direction;
 	SDL_Color myCol;

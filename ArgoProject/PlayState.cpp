@@ -188,7 +188,7 @@ bool PlayState::onEnter()
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
 
 
-	m_pSystem =new ParticleSystem(m_playID, 50, Type::BLOOD);
+	m_pSystem =new ParticleSystem(m_playID, 1000, Type::EXPLOSION);
 
 	return true;
 }

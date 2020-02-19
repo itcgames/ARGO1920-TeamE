@@ -58,8 +58,8 @@ void ParticleSystem::ChooseType(Type typeID, int numofParticles)
 
 Vector2 ParticleSystem::disperseInCircle()
 {
-	double a = GenerateRandomNumber(0,2) * 2 * 3.14;
-	double r = 50 * sqrt(GenerateRandomNumber(0,2));
+	double a = GenerateRandomNumber(-2,2) * 2 * 3.14;
+	double r = 300 * sqrt(GenerateRandomNumber(-2,2));
 
 	double x = r * cos(a);
 	double y = r * sin(a);

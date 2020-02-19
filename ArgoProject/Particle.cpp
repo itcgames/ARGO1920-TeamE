@@ -15,7 +15,7 @@ Particle::Particle(const std::string& currentState, int maxAliveTime, Vector2 po
 	m_pos.y = pos.y;
 
 
-	SDL_Surface* surface = IMG_Load("Assets/blood.png");
+	SDL_Surface* surface = IMG_Load("Assets/Tiles/tile.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surface);
 	SDL_FreeSurface(surface);
 
@@ -72,5 +72,9 @@ void Particle::setPosition(Vector2 newPos)
 {
 	m_particle.x = newPos.x;
 	m_particle.y = newPos.y;
+}
+
+void Particle::setAngle(float t_angle)
+{
 }
 
