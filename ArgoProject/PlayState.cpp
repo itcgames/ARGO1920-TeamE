@@ -59,7 +59,19 @@ void PlayState::update()
 			}
 			
 			m_player->setSeek(false);
+			m_enemies[i]->setSeek(false);
+			m_player->setTargetPosition(m_player->getPosition());
 			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
+			
+			//m_enemies[i]->setAttackTime(0);
+		}
+
+		if(m_cs->enemyCollisionResponse(m_player->getRect(), m_enemies[i]->getEntity(), m_player->getPosition()) == false)
+		{
+			m_enemies[i]->setSeek(true);
+		}
+
+
 		}
 		else
 		{
@@ -82,7 +94,10 @@ void PlayState::update()
 			{
 				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
+					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
+					//std::cout << "Hit" << std::endl;
+
 				}
 			}
 		}

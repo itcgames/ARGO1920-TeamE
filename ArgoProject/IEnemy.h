@@ -26,6 +26,10 @@ public:
 
 	virtual int getAttackTime() = 0;
 	virtual void setAttackTime(int attackTime) = 0;
+
+	virtual bool getSeek() = 0;
+	virtual void setSeek(bool seek) = 0;
+
 protected:
 	Entity* m_enemy;
 	SDL_Rect* m_rect;
@@ -42,6 +46,8 @@ protected:
 
 	int m_attackTime;
 
+	bool m_seek;
+  
 	Audio m_enemySound;
 };
 
