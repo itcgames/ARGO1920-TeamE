@@ -98,10 +98,11 @@ void Warrior::update()
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
-		m_seek = true;
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
@@ -113,6 +114,9 @@ void Warrior::update()
 			{
 				m_ih->move = false;
 			}
+
+			
+
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 		}
@@ -208,10 +212,10 @@ void Warrior::setAction()
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 		}
-		else
+		/*else
 		{
 			m_seek = true;
-		}
+		}*/
 		break;
 	case 2:
 		m_animationRect->x = 0;

@@ -81,6 +81,31 @@ public:
 		}
 	}
 
+	bool enemyCollisionResponse(SDL_Rect* m_a, Entity* m_b, Vector2 m_aPos)
+	{
+		//
+		if ((m_aPos.x < m_b->getComponent<PositionComponent>(1)->getPosition().x + 440 && m_aPos.x > m_b->getComponent<PositionComponent>(1)->getPosition().x - 440) &&
+			(m_aPos.y < m_b->getComponent<PositionComponent>(1)->getPosition().y + 440 && m_aPos.y > m_b->getComponent<PositionComponent>(1)->getPosition().x - 440))
+		{
+			if (m_a->x + m_a->w >= m_b->getComponent<PositionComponent>(1)->getPosition().x &&
+				m_a->y + m_a->h >= m_b->getComponent<PositionComponent>(1)->getPosition().y &&
+				m_b->getComponent<PositionComponent>(1)->getPosition().x + m_b->getComponent<SpriteComponent>(2)->getRect()->w >= m_a->x &&
+				m_b->getComponent<PositionComponent>(1)->getPosition().y + m_b->getComponent<SpriteComponent>(2)->getRect()->h >= m_a->y)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+		/*
+		if ((t_targetPosition.x < position.x + 300 && t_targetPosition.x > position.x - 300) &&
+			(t_targetPosition.y < position.y + 300 && t_targetPosition.y > position.y - 300)
+		*/
+	}
+
 	void wallCollisionResponse(Entity* m_a, Entity* m_b)
 	{
 		Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();

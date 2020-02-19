@@ -41,6 +41,8 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 
 	m_bs->addEntity(m_enemy);
 
+	m_seek = true;
+
 	t_rs->addEntity(m_enemy);
 	std::cout << "Enemy Initialized" << std::endl;
 }
@@ -53,8 +55,8 @@ void EnemyEasy::update(Vector2 t_position)
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
 
 	//m_bs->flee(t_position);
-	m_bs->seek(t_position);
-	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
+	//m_bs->seek(t_position);
+	m_bs->enemySeek(t_position, m_normalizedVec, m_seek);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 
@@ -77,4 +79,14 @@ int EnemyEasy::getAttackTime()
 void EnemyEasy::setAttackTime(int attackTime)
 {
 	m_attackTime = attackTime;
+}
+
+bool EnemyEasy::getSeek()
+{
+	return m_seek;
+}
+
+void EnemyEasy::setSeek(bool seek)
+{
+	m_seek = seek;
 }

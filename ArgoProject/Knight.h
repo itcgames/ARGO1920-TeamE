@@ -19,6 +19,8 @@ public:
 	virtual void setSeek(bool seek) { m_seek = seek; }
 	//void hit(Entity* t_enemy);
 	SDL_Rect* getRect() { return m_positionRect; }
+	void setMove(bool move) { m_ih->move = move; }
+	void setTargetPosition(Vector2 vector) { m_ih->mousePosition = vector; }
 };
 
 #endif // !KNIGHT

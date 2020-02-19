@@ -28,6 +28,9 @@ public:
 
 	//virtual void hit(Entity* t_enemy) = 0;
 
+	virtual void setMove(bool move) = 0;
+	virtual void setTargetPosition(Vector2 vector) = 0;
+
 
 	virtual SDL_Rect* getRect() = 0;
 protected:
