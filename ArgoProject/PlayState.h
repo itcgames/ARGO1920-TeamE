@@ -4,14 +4,19 @@
 #include "EndState.h"
 #include "SDL.h"
 #include "Data.h"
-#include "Player.h"
-#include "Ai.h"
 #include "Pickup.h"
 #include "CollisionSystem.h"
 #include "Map.h"
 #include "Server.h"
 #include <vector>
 #include "Client.h"
+#include "HUD.h"
+#include <memory>
+#include "IEnemy.h"
+#include "FactoryEnemy.h"
+#include "IPlayer.h"
+#include "FactoryPlayer.h"
+#include "Audio.h"
 
 class PlayState : public GameState
 {
@@ -31,15 +36,19 @@ private:
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
-	Player m_player;
-	Player m_player2;
+	//Player m_player;
+	std::unique_ptr<IPlayer> m_player;
+	std::unique_ptr<IPlayer> m_player2;
+	HUD* m_hud;
+
 	SDL_Rect* camera;
 	SDL_Rect* m_miniMap;
 	SDL_Rect* level;
 	SDL_Texture* m_miniMapTexture;
 
 	//Ai* m_enemy = new Ai;
-	std::vector<Ai*> m_enemies;
+	//std::unique_ptr<IEnemy> enemy = FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD);
+	std::vector<std::unique_ptr<IEnemy>> m_enemies;
 	PickUp* m_pickUp = new PickUp;
 	Map* myMap;
 
@@ -50,6 +59,8 @@ private:
 	Server m_server{ 1111, true };
 	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
 	Client m_client{ "149.153.106.176", 1111 }; //Connect to Aoife.
+
+	Audio m_background;
 };
 
 #endif

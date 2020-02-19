@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ROOM
+#define ROOM
+//#pragma once
 #include "Tile.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -15,6 +17,7 @@ public:
 	~Room();
 
 	void checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
+	void deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs);
 	void pathOverlaping(RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	Vector2 getCenterPos();
@@ -22,7 +25,9 @@ public:
 	int getWallsCount();
 	int getFloorCount();
 
-	int m_tileSize = 100;
+	std::string returnTileType(std::string type);
+
+	int m_tileSize = 300;
 
 	int roomSizeX;
 	int roomSizeY;
@@ -39,3 +44,4 @@ public:
 	bool roomChecked = false;
 };
 
+#endif

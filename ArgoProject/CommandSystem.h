@@ -1,3 +1,6 @@
+#ifndef COMMANDSYSTEM
+#define COMMANDSYSTEM
+
 #include <map>
 #include <vector>
 #include <SDL.h>
@@ -58,13 +61,6 @@ public:
 	InputType type() { return STATE; }
 };
 
-class AttackFour : public Command
-{
-public:
-	void execute(FSM* fsm) { fsm->skillfour(); }
-	InputType type() { return STATE; }
-};
-
 class InputHandler : public System
 {
 public:
@@ -72,7 +68,6 @@ public:
 	Command* pressAttackOne;
 	Command* pressAttackTwo;
 	Command* pressAttackThree;
-	Command* pressAttackFour;
 
 	std::map <int, Command*> commands;
 
@@ -93,12 +88,11 @@ public:
 		pressAttackOne = new AttackOne();
 		pressAttackTwo = new AttackTwo();
 		pressAttackThree = new AttackThree();
-		pressAttackFour = new AttackFour();
 
 		commands[SDLK_q] = pressAttackOne;
 		commands[SDLK_w] = pressAttackTwo;
 		commands[SDLK_e] = pressAttackThree;
-		commands[SDLK_r] = pressAttackFour;
+
 
 	}
 
@@ -118,6 +112,7 @@ public:
 		{
 			return true;
 		}
+
 		else
 		{
 			fillCommands(command_queue);  // fills command queue
@@ -235,4 +230,28 @@ public:
 	{
 		return action_map[key];
 	}
+
+	bool leftKeyPressed()
+	{
+		SDL_Event _event;
+		while (SDL_PollEvent(&_event))
+			if (_event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (_event.button.button == SDL_BUTTON_LEFT)
+				{
+					std::cout << "Mouse Click" << std::endl;
+					return true;
+					break;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			
+	}
+
 };
+
+#endif

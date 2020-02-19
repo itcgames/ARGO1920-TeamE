@@ -1,4 +1,7 @@
-#pragma once
+//#pragma once
+#ifndef HOSTSEARCHSTATE
+#define HOSTSEARCHSTATE
+
 #include "GameState.h"
 #include "PlayState.h"
 #include "Data.h"
@@ -30,3 +33,4 @@ private:
 	GameStateMachine* m_stateMachine;
 };
 
+#endif
