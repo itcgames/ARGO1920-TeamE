@@ -109,6 +109,7 @@ bool HostSearchState::onEnter()
 	m_hostTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_hostSurface);
 
 
+
 	m_searchRect = new SDL_Rect();
 	m_searchRect->x = m_cameraDimensions.x * 0.1;
 	m_searchRect->y = m_cameraDimensions.y * 0.6;
