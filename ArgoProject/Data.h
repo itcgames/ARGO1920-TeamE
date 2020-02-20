@@ -21,7 +21,7 @@ public:
 
 	GameData& getData() { return m_data; }
 	bool HOST = false;
-	bool SINGLEPLAYER = true;
+	bool SINGLEPLAYER = false;
 	std::string IPADDRESS = "149.153.106.174";
 private:
 	static Data* m_Instance;

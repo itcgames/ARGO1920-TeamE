@@ -47,8 +47,8 @@ bool Server::ListenForNewConnection()
 		std::cout << "Client Connected! ID:" << TotalConnections << std::endl;
 		Connections[TotalConnections] = newConnection; //Set socket in array to be the newest connection before creating the thread to handle this client's socket.
 		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientHandlerThread, (LPVOID)(TotalConnections), NULL, NULL); //Create Thread to handle this client. The index in the socket array for this thread is the value (i).
-		std::string MOTD = "MOTD: Motto of The Day";
-		SendString(TotalConnections, MOTD);
+		std::string welcome = "You have sucessfully joined a server, you are connection: " + std::to_string(TotalConnections);
+		SendString(TotalConnections, welcome);
 		if (TotalConnections == 0)
 		{
 			SendPacketType(TotalConnections, P_Authoritative);

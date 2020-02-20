@@ -54,7 +54,7 @@ public:
 	{
 		m_component.erase(type);
 	};
-	
+
 private:
 	std::unordered_map<int, Component*> m_component;
 	int m_ID;

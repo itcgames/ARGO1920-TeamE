@@ -34,11 +34,15 @@ public:
 
 
 private:
+	void cameraSetup();
+	void collisions();
+
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	//Player m_player;
 	std::unique_ptr<IPlayer> m_player;
+	std::unique_ptr<IPlayer> m_player2;
 	HUD* m_hud;
 
 	SDL_Rect* camera;
@@ -58,7 +62,6 @@ private:
 
 	Server m_server{ 1111, true };
 	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-
 	Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
 
 	Audio m_background;
