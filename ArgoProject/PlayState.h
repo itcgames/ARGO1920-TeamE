@@ -67,6 +67,15 @@ private:
 	Audio m_background;
 
 	ParticleSystem* m_pSystem;
+
+	bool m_menuActive;
+	SDL_Rect* m_menuBackground;
+
+	SDL_Rect* m_playOption;
+	SDL_Rect* m_exitOption;
+
+	TTF_Font* m_font;
+	Text m_text[2];
 };
 
 #endif
