@@ -8,6 +8,7 @@
 #include "GameStateMachine.h"
 #include "Vector2.h"
 #include <iostream>
+#include "Text.h"
 class GameState
 {
 public:

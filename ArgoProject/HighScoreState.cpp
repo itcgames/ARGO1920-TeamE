@@ -19,7 +19,8 @@ void HighScoreState::render()
 		if(m_score[i] > 0)
 		{ 
 			SDL_RenderCopy(Render::Instance()->getRenderer(), m_slotTexture, NULL, m_slotRect[i]);
-			SDL_RenderCopy(Render::Instance()->getRenderer(), m_nameTextures[i], NULL, m_nameRects[i]);
+			//SDL_RenderCopy(Render::Instance()->getRenderer(), m_nameTextures[i], NULL, m_nameRects[i]);
+			m_text[i]->render();
 		}
 	}
 }
@@ -86,15 +87,7 @@ bool HighScoreState::onEnter()
 
 	for (int i = 0; i < 10; i++)
 	{
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Abel, m_display[i].c_str(), White);
-		m_nameTextures[i] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
-
-		m_nameRects[i] = new SDL_Rect();
-
-		m_nameRects[i]->x = m_cameraDimensions.x * 0.2;
-		m_nameRects[i]->y = m_cameraDimensions.y * ((i * 0.1));
-		TTF_SizeText(Abel, m_names[i].c_str(), &m_nameRects[i]->w, &m_nameRects[i]->h);
-		m_nameRects[i]->w = m_nameRects[i]->w * 2;
+		m_text[i] = new Text(Abel, m_display[i], m_cameraDimensions.x * 0.2, m_cameraDimensions.y * ((i * 0.1)));
 
 		m_slotRect[i] = new SDL_Rect();
 
@@ -115,8 +108,7 @@ bool HighScoreState::onExit()
 
 	for (int i = 0; i < 10; i++)
 	{
-		m_nameRects[i] = nullptr;
-		m_nameTextures[i] = nullptr;
+		m_text[i] = nullptr;
 	}
 	return true;
 }
