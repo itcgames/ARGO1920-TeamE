@@ -30,6 +30,12 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 	m_hc = new HealthComponent(t_health, 5);
 	m_ac = new ActiveComponent(true, 6);
 
+
+	finiteStateMachine = new FSM();
+	state = new FiniteState();
+
+	finiteStateMachine->idle();
+
 	//adds the new components to the enenmy
 	m_enemy->setID(2);
 	m_enemy->addComponent<PositionComponent>(m_pc, 1);
@@ -41,6 +47,8 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 
 	m_bs->addEntity(m_enemy);
 
+	m_seek = true;
+
 	t_rs->addEntity(m_enemy);
 	m_enemySound.load("Assets/Audio/Zombie.wav");
 	std::cout << "Enemy Initialized" << std::endl;
@@ -48,21 +56,51 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 
 void EnemyMedium::update(Vector2 t_position)
 {
+	if (finiteStateMachine->getCurrentState() == 0)
+	{
+	}
+
+	if (finiteStateMachine->getCurrentState() == 1)
+	{
+	}
+
+	if (finiteStateMachine->getCurrentState() == 2)
+	{
+	}
+
+
 	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
 		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
 	float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));
 	if (distance < 350)
 	{
-		m_enemySound.play();
+		//m_enemySound.play();
 	}
-	else {
-		m_enemySound.stop();
+	else
+	{
+		//m_enemySound.stop();
 	}
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
+	//This is to stop the jittering in the movement.         
+	float mag = sqrt((m_pc->getPosition().x - t_position.x) * (m_pc->getPosition().x - t_position.x) + (m_pc->getPosition().y - t_position.y) * (m_pc->getPosition().y - t_position.y));
+	if (mag > 100 && mag < 1000)
+	{
+		finiteStateMachine->walking();
+		m_bs->seek(t_position);
+	}
+	else
+	{
+		finiteStateMachine->idle();
+	}
+	if (mag < 100)
+	{
+		finiteStateMachine->skillone();
+	}
+	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
 
 	//m_bs->flee(t_position);
-	m_bs->seek(t_position);
-	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
+	//m_bs->seek(t_position);
+	m_bs->enemySeek(t_position, m_normalizedVec, m_seek);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 
@@ -85,4 +123,14 @@ int EnemyMedium::getAttackTime()
 void EnemyMedium::setAttackTime(int attackTime)
 {
 	m_attackTime = attackTime;
+}
+
+bool EnemyMedium::getSeek()
+{
+	return m_seek;
+}
+
+void EnemyMedium::setSeek(bool seek)
+{
+	m_seek = seek;
 }

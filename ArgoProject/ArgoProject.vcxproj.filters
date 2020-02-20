@@ -25,12 +25,6 @@
     <Filter Include="Source Files\Menu Components">
       <UniqueIdentifier>{902b3bf3-ce1d-4e5b-a962-af4f5b038483}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Levels">
-      <UniqueIdentifier>{eee5fafc-8eca-41c8-b421-68a3ff99d281}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Levels">
-      <UniqueIdentifier>{60553b79-eb36-4fdb-bae9-6ad68b9674d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ECS">
       <UniqueIdentifier>{cf609ef7-6320-4aab-b2f2-160c8d8e7b1b}</UniqueIdentifier>
     </Filter>
@@ -45,6 +39,48 @@
     </Filter>
     <Filter Include="Source Files\PlayerFSM">
       <UniqueIdentifier>{0329cb77-8757-40e7-b285-1feee26fda73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{36a6e477-37a4-43ba-93c1-530a5916be62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{e92e9eb8-45f5-46f4-baa5-a71343ef85e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes + Player">
+      <UniqueIdentifier>{1a79cd53-10a9-41a9-90a6-1f9a03b322f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes + Player">
+      <UniqueIdentifier>{4ad24e11-9cb8-4c2b-8bde-fe6792f9d4fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{616d04f1-ae17-4178-9605-f710eabd2b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{097f8bc5-7cbd-4ede-8f5a-76d5f29b8a52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{3739ba6f-10f9-4b89-a830-44a156846d40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{f0fbb12a-573e-40f8-a85d-a4db4d2ad9ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{a10e755d-3aa0-4d9f-8574-86556fc418a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{d3f38fd1-680d-4c77-b3d2-262e65fe5262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other Systems">
+      <UniqueIdentifier>{dfaf6516-787e-4bf9-af81-9fdd94b7d564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other Systems">
+      <UniqueIdentifier>{b6c3f487-5f4f-4a4c-b3b9-afea75df8226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\In-game objects">
+      <UniqueIdentifier>{c8458dee-9265-4978-8e7c-40ed9c0bb462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\In-game objects">
+      <UniqueIdentifier>{34785364-bd6e-4748-acea-08e890e5ac00}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,21 +102,6 @@
     <ClCompile Include="MenuButton.cpp">
       <Filter>Source Files\Menu Components</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="OptionsState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -93,26 +114,8 @@
     <ClCompile Include="EndState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="Data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pickup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="HostSearchState.cpp">
       <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ClientGetterMethods.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SendGetMethods.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HighScoreState.cpp">
       <Filter>Source Files\States</Filter>
@@ -135,41 +138,80 @@
     <ClCompile Include="FSM.cpp">
       <Filter>Source Files\PlayerFSM</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyEasy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyHard.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="IEnemy.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="EnemyMedium.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="FactoryEnemy.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="IEnemy.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="EnemyHard.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyEasy.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="FactoryPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Warrior.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes + Player</Filter>
     </ClCompile>
     <ClCompile Include="Mage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes + Player</Filter>
     </ClCompile>
     <ClCompile Include="Knight.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes + Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Warrior.cpp">
+      <Filter>Source Files\Classes + Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayer.cpp">
+      <Filter>Source Files\Classes + Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientGetterMethods.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="SendGetMethods.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="Audio.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Other Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Source Files\Other Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>Source Files\Other Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source Files\Other Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files\Other Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Other Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source Files\In-game objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,29 +263,14 @@
     <ClInclude Include="StatsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BehaviourSystem.h">
       <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="CommandSystem.h">
       <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelLoader.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OptionsState.h">
       <Filter>Header Files\States</Filter>
@@ -257,26 +284,11 @@
     <ClInclude Include="EndState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="Data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ECS.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="Pickup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ActiveComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HighScoreState.h">
       <Filter>Header Files\States</Filter>
@@ -311,44 +323,80 @@
     <ClInclude Include="ItemComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RenderSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="EnemyEasy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyHard.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyMedium.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="FactoryEnemy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="IEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FactoryPlayer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="IPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Classes + Player</Filter>
     </ClInclude>
     <ClInclude Include="Mage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Classes + Player</Filter>
     </ClInclude>
     <ClInclude Include="Knight.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Classes + Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior.h">
+      <Filter>Header Files\Classes + Player</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryPlayer.h">
+      <Filter>Header Files\Classes + Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Other Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header Files\Other Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <Filter>Header Files\Other Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Other Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files\Other Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Other Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Header Files\In-game objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -367,17 +415,8 @@
     <Filter Include="Header Files\ECS">
       <UniqueIdentifier>{95128e96-a70c-410c-80e8-c17d139a9d88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Levels">
-      <UniqueIdentifier>{59b58f72-b1a5-4bb3-ae9b-f2ce51aa2216}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{9e3a012a-3bb3-4a0f-95f3-4f993f0a12af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\System">
-      <UniqueIdentifier>{e1b8409e-b544-4e9e-bed2-f4a883e489ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Levels">
-      <UniqueIdentifier>{9d881ab7-31ac-4abb-809b-96b1255169d2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Menu Components">
       <UniqueIdentifier>{6ded5f6f-e757-42eb-94e5-a8f3727ba461}</UniqueIdentifier>

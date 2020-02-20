@@ -105,26 +105,31 @@ void Warrior::update()
 		attackSound.stop();
 		spinAttackSound.stop();
 		slamAttackSound.stop();
+		//walkSound.stop();
 	}
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
-		m_seek = true;
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
+
+			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 			if (mag > 40)
 			{
 				m_bs->playerSeek(m_ih->mousePosition, m_seek);
-				walkSound.play();
+				//walkSound.play();
 			}
 			else
 			{
 				m_ih->move = false;
-				walkSound.stop();
+				//walkSound.stop();
 			}
+
+			
+
 			m_positionRect->x = m_pc->getPosition().x;
 			m_positionRect->y = m_pc->getPosition().y;
 			
@@ -135,25 +140,23 @@ void Warrior::update()
 	//basic bitch attack
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
-		attackSound.play();
-		spriteSheetY = 226;
+		//spriteSheetY = 226;
 	}
 	//attack slam attack
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
 		slamAttackSound.play();
-		spriteSheetY = 339;
+		//spriteSheetY = 339;
 	}
 	//spin attack
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
-		spinAttackSound.play();
-		spriteSheetY = 452;
+		//spriteSheetY = 452;
 	}
 
 	if (finiteStateMachine->getCurrentState() == 5)
 	{
-		spriteSheetY = 565;
+		//spriteSheetY = 565;
 	}
 	animate();
 
@@ -213,43 +216,53 @@ void Warrior::setAction()
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
+
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
 				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 				if (mag > 40)
 				{
 					m_bs->playerSeek(m_ih->mousePosition, m_seek);
+					//walkSound.play();
 				}
 				else
 				{
 					m_ih->move = false;
+					//walkSound.stop();
 				}
+
+
+
 				m_positionRect->x = m_pc->getPosition().x;
 				m_positionRect->y = m_pc->getPosition().y;
-			}
-			else
-			{
-				m_seek = true;
+
 			}
 			break;
 		case 2:
 			setDamage(3);
 			m_animationRect->x = 0;
 			spriteSheetY = 0;
+			attackSound.play();
+			m_ih->move = false;
 			break;
 		case 3:
 			setDamage(10);
 			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 3;
+			slamAttackSound.play();
+			m_ih->move = false;
 			break;
 		case 4:
 			setDamage(6);
 			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 4;
+			spinAttackSound.play();
+			m_ih->move = false;
 			break;
 		case 5:
 			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 5;
+			m_ih->move = false;
 			break;
 		default:
 			break;

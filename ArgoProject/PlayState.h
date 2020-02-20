@@ -1,5 +1,6 @@
 #ifndef PLAYSTATE
 #define PLAYSTATE
+#include "ParticleSystem.h"
 #include "GameState.h"
 #include "EndState.h"
 #include "SDL.h"
@@ -33,6 +34,9 @@ public:
 
 
 private:
+	void cameraSetup();
+	void collisions();
+
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
@@ -58,9 +62,11 @@ private:
 
 	Server m_server{ 1111, true };
 	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	Client m_client{ "149.153.106.176", 1111 }; //Connect to Aoife.
+	Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
 
 	Audio m_background;
+
+	ParticleSystem* m_pSystem;
 };
 
 #endif

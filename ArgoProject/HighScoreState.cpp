@@ -43,9 +43,9 @@ bool HighScoreState::onEnter()
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
-	Sans = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y / 10);
+	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y / 10);
 
-	if (!Sans) {
+	if (!Abel) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 		// handle error
 	}
@@ -86,20 +86,20 @@ bool HighScoreState::onEnter()
 
 	for (int i = 0; i < 10; i++)
 	{
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, m_display[i].c_str(), White);
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Abel, m_display[i].c_str(), White);
 		m_nameTextures[i] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
 
 		m_nameRects[i] = new SDL_Rect();
 
 		m_nameRects[i]->x = m_cameraDimensions.x * 0.2;
-		m_nameRects[i]->y = m_cameraDimensions.y * (i * 0.1) + 0.05;
-		m_nameRects[i]->w = m_cameraDimensions.x * 0.6;
-		m_nameRects[i]->h = m_cameraDimensions.y * 0.1;
-		
+		m_nameRects[i]->y = m_cameraDimensions.y * ((i * 0.1));
+		TTF_SizeText(Abel, m_names[i].c_str(), &m_nameRects[i]->w, &m_nameRects[i]->h);
+		m_nameRects[i]->w = m_nameRects[i]->w * 2;
+
 		m_slotRect[i] = new SDL_Rect();
 
 		m_slotRect[i]->x = m_cameraDimensions.x * 0.2;
-		m_slotRect[i]->y = m_cameraDimensions.y * (i * 0.1) + 0.05;
+		m_slotRect[i]->y = m_cameraDimensions.y * ((i * 0.1) + 0.015);
 		m_slotRect[i]->w = m_cameraDimensions.x * 0.6;
 		m_slotRect[i]->h = m_cameraDimensions.y * 0.1 - 10;
 	}

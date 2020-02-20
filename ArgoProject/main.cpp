@@ -32,10 +32,9 @@ int main(int argc, char* argv[])
 	Uint32 framestart;
 	int frameTime;
 
-	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1500, 900, false);//2500, 2000, false);
+	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 2560, 1440, true);//2500, 2000, false);
 
-	while (game->running() == true)
-	{
+	while (game->running() == true){
 		framestart = SDL_GetTicks();
 
 		game->processEvents();
@@ -43,7 +42,6 @@ int main(int argc, char* argv[])
 		game->render();
 
 		frameTime = SDL_GetTicks() - framestart;
-
 		if (frameDelay > frameTime)
 		{
 			SDL_Delay(frameDelay - frameTime);
