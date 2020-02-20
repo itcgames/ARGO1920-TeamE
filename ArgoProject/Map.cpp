@@ -23,21 +23,21 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 {
 	int y = 0;
 
-	//for (int i = 0; i < map.size(); i++)
-	//{
-	//	for (int j = 0; j < map.size(); j++)
-	//	{
-	//		if (j != i)
-	//		{
-	//			map[j]->checkForOverlap(map[i]->tileList, t_rs, t_cs); // the list thats passed is the one that is being changed. and the one calling the function is the one tiles are being deleted from
-	//		}
-	//	}
-	//}
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int j = 0; j < map.size(); j++)
+		{
+			if (j != i)
+			{
+				map[j]->checkForOverlap(map[i]->tileList, t_rs, t_cs); // the list thats passed is the one that is being changed. and the one calling the function is the one tiles are being deleted from
+			}
+		}
+	}
 
-	//for (int i = 0; i < map.size(); i++)
-	//{
-	//	map[i]->deleteOverlaps(t_rs, t_cs);
-	//}
+	for (int i = 0; i < map.size(); i++)
+	{
+		map[i]->deleteOverlaps(t_rs, t_cs);
+	}
 
 
 	for (int i = 1; i < map.size(); i++)
