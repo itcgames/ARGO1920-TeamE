@@ -40,6 +40,7 @@ public:
 
 	SDL_Rect* m_skillBoxs[3];
 	SDL_Texture* m_skillTexture[3];
+	SDL_Texture* m_timerTexture;
 	bool m_timerActive[3];
 
 	bool &q;

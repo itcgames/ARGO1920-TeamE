@@ -145,7 +145,7 @@ void Warrior::update()
 	//attack slam attack
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
-		slamAttackSound.play();
+		//slamAttackSound.play();
 		//spriteSheetY = 339;
 	}
 	//spin attack
@@ -223,12 +223,12 @@ void Warrior::setAction()
 				if (mag > 40)
 				{
 					m_bs->playerSeek(m_ih->mousePosition, m_seek);
-					//walkSound.play();
+					walkSound.play();
 				}
 				else
 				{
 					m_ih->move = false;
-					//walkSound.stop();
+					walkSound.stop();
 				}
 
 
