@@ -60,7 +60,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
 	m_ac = new ActiveComponent(true, 6);
-	m_mc = new ManaComponent(250.0f, 7);
+	m_mc = new ManaComponent(220.0f, 7);
 
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);

@@ -10,7 +10,7 @@ Map::Map(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 		else
 		{
-			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 1 + 2) * tileSize, (rand() % 1 + 2) * tileSize), t_rs, t_cs));
+			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 25 + 2) * tileSize, (rand() % 25 + 2) * tileSize), t_rs, t_cs));
 		}
 	}
 }
@@ -34,12 +34,7 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 	}
 
-	for (int i = 0; i < map.size(); i++)
-	{
-		map[i]->deleteOverlaps(t_rs, t_cs);
-	}
 
-	
 	for (int i = 1; i < map.size(); i++)
 	{
 		if (i != y)
@@ -116,13 +111,13 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipDown == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(0, tileSize), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(0, tileSize), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 					if (skipUp == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(0, -tileSize), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(0, -tileSize), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
@@ -142,13 +137,13 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipDown == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(0, tileSize), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(0, tileSize), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 					if (skipUp == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(0, -tileSize), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(0, -tileSize), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
@@ -184,14 +179,14 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipRight == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(tileSize, 0), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(tileSize, 0), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 
 					if (skipLeft == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(-tileSize, 0), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(-tileSize, 0), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}
@@ -210,14 +205,14 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 				{
 					if (skipRight == false)
 					{
-						Tile* temp1 = new Tile(newStart + Vector2(tileSize, 0), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp1 = new Tile(newStart + Vector2(tileSize, 0), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp1);
 						temp1 = nullptr;
 					}
 
 					if (skipLeft == false)
 					{
-						Tile* temp2 = new Tile(newStart + Vector2(-tileSize, 0), tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs);
+						Tile* temp2 = new Tile(newStart + Vector2(-tileSize, 0), 150, 150, returnTileType("Wall"), "Wall", t_rs, t_cs);
 						path.push_back(temp2);
 						temp2 = nullptr;
 					}

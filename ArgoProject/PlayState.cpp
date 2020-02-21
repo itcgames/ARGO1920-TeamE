@@ -16,8 +16,8 @@ void PlayState::update()
 
 	m_player->update();
 	//std::cout << "Mini Map Position: " << m_miniMap->x << " " << m_miniMap->y << " Camera Position: " << camera->x << " " << camera->y << std::endl;
-	camera->x = m_player->getPosition().x + 50 - camera->w / 2;
-	camera->y = m_player->getPosition().y + 50 - camera->h / 2;
+	camera->x = m_player->getPosition().x + 20 - camera->w / 2;
+	camera->y = m_player->getPosition().y + 20 - camera->h / 2;
 
 	if (camera->x < 0)
 	{
@@ -157,7 +157,7 @@ bool PlayState::onEnter()
 	if (!data::Instance()->SINGLEPLAYER)
 	{
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-		m_player2->init(m_rs, camera, Vector2(500, 500));
+		m_player2->init(m_rs, camera, Vector2(200, 200));
 	}
 	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana());
 
@@ -165,7 +165,7 @@ bool PlayState::onEnter()
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
 
 
-	m_pSystem =new ParticleSystem(m_playID, 500, Type::EXPLOSION);
+	m_pSystem =new ParticleSystem(m_playID, 200, Type::EXPLOSION);
 
 	//m_background.play();
 
@@ -254,17 +254,23 @@ void PlayState::collisions()
 			{
 				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
-					auto ptr = myMap->map[i]->tileList[z].get();
 					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
-					std::cout << myMap->map[i]->tileList[z]->getPos().x << std::endl;
-					std::cout << myMap->map[i]->tileList[z]->getPos().y << std::endl;
-
-					std::cout << myMap->map[i]->tileList[z]->getTag() << std::endl;
-
 				}
 			}
 		}
+	}
+
+	for (int i = 0; i < myMap->path.size(); i++)
+	{
+			if (myMap->path[i]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_player->getRect(), myMap->path[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_player->setTargetPosition(m_player->getPosition());
+					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->path[i]->getEntity());
+				}
+			}
 	}
 
 	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());

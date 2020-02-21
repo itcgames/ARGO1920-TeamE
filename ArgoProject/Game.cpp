@@ -32,7 +32,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	m_gameStateMachine->changeState(new MenuState( screenDimensions,m_gameStateMachine));
 	//m_gameStateMachine->changeState(new PlayState(screenDimensions));
-	//LevelLoader::writeToPlayer("test", 0, 0, 0, 0, 50);
+	//LevelLoader::writeToPlayer("test", 0, 0, 0, 0, 20);
 	//When reading player data index is ALWAYS 0, ie - m_data.m_playerStats.at(0).
 	//std::cout << "PLAYER" << std::endl;
 	//std::cout << "-----------------------------------------------------------------------------------------" << std::endl;

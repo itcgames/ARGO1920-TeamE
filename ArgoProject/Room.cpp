@@ -41,59 +41,33 @@ void Room::checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* 
 		{
 			if (tileList[i]->getPos() == t[y]->getPos()) // checks the positions are the same
 			{
+
 				if (tileList[i]->getTag() != t[y]->getTag()) // checks that the tags are the same 
 				{
-					t[y]->covered = true;
-				}
+					if (tileList[i]->getTag() == "Wall")
+					{
+						//tileList[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+						//t_rs->deleteEntity(tileList[i]->getEntity());
+						//t_cs->deleteEntity(tileList[i]->getEntity());
 
-				if (tileList[i]->getTag() == "Floor" && t[y]->getTag()== "Floor") // checks that the tags are the same 
-				{
-					t[y]->covered = true;
+						//tileList[i] = nullptr;
+						//tileList.erase(tileList.begin() + i);
+						//tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), 50, 50, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
+					}
+
+					if (t[y]->getTag() == "Wall")
+					{
+						t[y]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+						t_rs->deleteEntity(t[y]->getEntity());
+						t_cs->deleteEntity(t[y]->getEntity());
+
+						t[y] = nullptr;
+						t.erase(t.begin() + y);
+					}
 				}
 			}
 		}
 	}
-}
-
-void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
-{
-	//For loop for deleting
-	for (int i = 0; i < tileList.size(); i++)
-	{
-		auto x = tileList[i]->getPos().x;
-		auto y = tileList[i]->getPos().y;
-		auto ptr = tileList[i].get();
-		if (x == 600 && y == 900)
-		{
-			int x = 0;
-		}
-
-		if (tileList[i]->covered == true)
-		{
-			tileList[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-			t_rs->deleteEntity(tileList[i]->getEntity());
-
-
-			if (tileList[i]->getTag() == "Floor")
-			{
-				floorCount--;
-				auto pos = tileList[i]->getPos();
-				tileList[i] = nullptr;
-				tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(pos, 10, 10, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
-			}
-			else
-			{
-				wallCount--;
-				t_cs->deleteEntity(tileList[i]->getEntity());
-
-				tileList[i] = nullptr;
-				tileList.erase(tileList.begin() + i);
-				//tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
-			}
-		}
-	}
-
-	std::cout << t_rs->getEntitiesSize() << std::endl;
 }
 
 void Room::pathOverlaping(RenderSystem* t_rs, CollisionSystem* t_cs)

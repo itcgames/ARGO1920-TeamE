@@ -111,7 +111,7 @@ public:
 			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
 			Vector2 direction = t_targetPosition - position;
 			float distance = sqrt((direction.x * direction.x) + (direction.y * direction.y));			
-			if (distance < 350)
+			if (distance < 320)
 			{
 				m_velocity = position - t_targetPosition;
 				m_orientation = getOrientation(m_velocity);

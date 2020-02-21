@@ -45,12 +45,12 @@ public:
 			//
 			else if (m_isMedium == true)
 			{
-				m_value = 250;
+				m_value = 220;
 			}
 			//
 			else if (m_isLarge == true)
 			{
-				m_value = 500;
+				m_value = 200;
 			}
 		}
 	}

@@ -56,7 +56,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_dpsOption->y && event.button.y < m_dpsOption->y + m_dpsOption->h)
 			{
-				LevelLoader::writeToPlayer("PLAYER_WARRIOR", 150, 100, 5, 0, 0);
+				LevelLoader::writeToPlayer("PLAYER_WARRIOR", 120, 100, 5, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
 				m_stateMachine->changeState(new PlayState(m_cameraDimensions,m_stateMachine));

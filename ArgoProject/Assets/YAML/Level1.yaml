@@ -22,7 +22,7 @@ Highscores:
 Player:
   - class: PLAYER_WARRIOR
     gold: 0
-    health: 150
+    health: 120
     killcount: 0
     speed: 5
     strength: 100

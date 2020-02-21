@@ -75,7 +75,7 @@ void EnemyHard::update(Vector2 t_position)
 	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
 		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
 	float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));
-	if (distance < 350)
+	if (distance < 320)
 	{
 		//m_enemySound.play();
 	}

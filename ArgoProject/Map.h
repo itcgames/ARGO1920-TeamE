@@ -24,7 +24,7 @@ public:
 	std::vector<std::unique_ptr<Room>> map;
 	std::vector<Tile*> path;
 
-	int roomsNum = 2;
+	int roomsNum = 6;
 	int tileSize = 300;
 
 };
