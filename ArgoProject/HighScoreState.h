@@ -30,13 +30,13 @@ private:
 	std::string m_names[10];
 	std::string m_scoreString[10];
 	std::string m_display[10];
-	SDL_Rect* m_nameRects[10];
-	SDL_Texture* m_nameTextures[10];
 
 	SDL_Rect* m_slotRect[10];
 	SDL_Texture* m_slotTexture;
 
 	TTF_Font* Abel;
+
+	Text* m_text[10];
 
 	GameStateMachine* m_stateMachine;
 };

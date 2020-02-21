@@ -25,7 +25,7 @@ void MenuState::render()
 
 	for (int i = 0; i < 5; i++)
 	{
-		SDL_RenderCopy(Render::Instance()->getRenderer(), m_nameTextures[i], NULL, m_nameRects[i]);
+		m_text[i]->render();
 	}
 }
 
@@ -104,30 +104,17 @@ bool MenuState::onEnter()
 		// handle error
 	}
 
+	std::string m_name[5];
+	m_name[0] = "Singleplayer";
+	m_name[1] = "Multiplayer";
+	m_name[2] = "Options";
+	m_name[3] = "Credits";
+	m_name[4] = "Exit";
+
 	for (int i = 0; i < 5; i++)
 	{
-		m_nameRects[i] = new SDL_Rect();
-
-		m_nameRects[i]->x = m_buttonDimensions.x * 0.05;
-		m_nameRects[i]->y = m_buttonDimensions.y * (0.49 + (float(i) / 10.0f));
+		m_text[i] = new Text(Abel, m_name[i], m_buttonDimensions.x * 0.05, m_buttonDimensions.y * (0.49 + (float(i) / 10.0f)));
 	}
-
-	SDL_Color White = { 255, 255, 255 };
-
-	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Abel, "Singleplayer", White);
-	m_nameTextures[0] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
-
-	surfaceMessage = TTF_RenderText_Solid(Abel, "Multiplayer", White);
-	m_nameTextures[1] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
-
-	surfaceMessage = TTF_RenderText_Solid(Abel, "Options", White);
-	m_nameTextures[2] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
-
-	surfaceMessage = TTF_RenderText_Solid(Abel, "Credits", White);
-	m_nameTextures[3] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
-
-	surfaceMessage = TTF_RenderText_Solid(Abel, "Exit", White);
-	m_nameTextures[4] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
 	//std::cout << "Entering Menu State\n";
 
 	m_singlePlayerButton = new SDL_Rect();
@@ -136,7 +123,6 @@ bool MenuState::onEnter()
 	m_singlePlayerButton->w = m_buttonDimensions.x * 0.4;
 	m_singlePlayerButton->h = m_buttonDimensions.y * 0.05;
 
-	TTF_SizeText(Abel, "Singleplayer", &m_nameRects[0]->w, &m_nameRects[0]->h);
 
 	SDL_Surface* m_singlePlayerButtonSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_singlePlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_singlePlayerButtonSurface);
@@ -147,8 +133,6 @@ bool MenuState::onEnter()
 	m_multiPlayerButton->w = m_buttonDimensions.x * 0.4;
 	m_multiPlayerButton->h = m_buttonDimensions.y * 0.05;
 
-	TTF_SizeText(Abel, "Multiplayer", &m_nameRects[1]->w, &m_nameRects[1]->h);
-
 	SDL_Surface* m_multiPlayerButtonSurface = IMG_Load("Assets/ecs_text2.png");
 	m_multiPlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_multiPlayerButtonSurface);
 
@@ -157,8 +141,6 @@ bool MenuState::onEnter()
 	m_optionsButton->y = m_buttonDimensions.y * 0.7;
 	m_optionsButton->w = m_buttonDimensions.x * 0.4;
 	m_optionsButton->h = m_buttonDimensions.y * 0.05;
-
-	TTF_SizeText(Abel, "Options", &m_nameRects[2]->w, &m_nameRects[2]->h);
 
 	SDL_Surface* m_optionsButtonSurface = IMG_Load("Assets/Health.png");
 	m_optionsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_optionsButtonSurface);
@@ -169,8 +151,6 @@ bool MenuState::onEnter()
 	m_creditsButton->w = m_buttonDimensions.x * 0.4;
 	m_creditsButton->h = m_buttonDimensions.y * 0.05;
 
-	TTF_SizeText(Abel, "Credits", &m_nameRects[3]->w, &m_nameRects[3]->h);
-
 	SDL_Surface* m_creditsButtonSurface = IMG_Load("Assets/Mana.png");
 	m_creditsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_creditsButtonSurface);
 
@@ -179,8 +159,6 @@ bool MenuState::onEnter()
 	m_exitButton->y = m_buttonDimensions.y * 0.9;
 	m_exitButton->w = m_buttonDimensions.x * 0.4;
 	m_exitButton->h = m_buttonDimensions.y * 0.05;
-
-	TTF_SizeText(Abel, "Exit", &m_nameRects[4]->w, &m_nameRects[4]->h);
 
 	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/Stamina.png");
 	m_exitButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitButtonSurface);
