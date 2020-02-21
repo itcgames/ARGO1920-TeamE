@@ -154,6 +154,7 @@ void Mage::update()
 	animate();
 }
 
+
 void Mage::animate()
 {
 	Uint32 ticks = SDL_GetTicks();

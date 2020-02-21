@@ -12,21 +12,24 @@ enum class Type
 {
 	EXPLOSION,
 	TRAIL,
-	BLOOD
+	BLOOD,
+	BARSEFFECT
 };
 
 class ParticleSystem
 {
 public:
-	ParticleSystem(const std::string& currentState, int numofParticles, Type typeID);
+	ParticleSystem(const std::string& currentState, RenderSystem* t_rs);
 	~ParticleSystem();
 
 	void update();
 	void render();
 
-	void ChooseType(Type typeID, int numofParticles);
+	void AddParticles(Vector2 pos,Type typeID, int numofParticles);
 
-	Vector2 disperseInCircle();
+	Vector2 disperseInCircle(int circleRadius);
+
+	Vector2 disperseInRect(Vector2 pos, int width, int height);
 
 	//Utility
 	double GenerateRandomNumber(double min,double max);
@@ -35,6 +38,8 @@ private:
 	std::vector<std::unique_ptr<Particle>> m_particles;
 
 	std::string m_currentState;
+
+	RenderSystem* m_rs;
 
 
 };

@@ -11,6 +11,7 @@ Warrior::~Warrior()
 
 void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 {
+	m_particleEffects = new ParticleSystem("PLAY",t_rs);
 	//creates a source and size rectangle for the player animation
 	m_positionRect = new SDL_Rect();
 	m_positionRect->x = startPos.x;
@@ -188,6 +189,7 @@ void Warrior::update()
 
 	setAction();
 	animate();
+	m_particleEffects->update();
 }
 
 void Warrior::animate()
@@ -216,7 +218,7 @@ void Warrior::setAction()
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10);
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
 				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));

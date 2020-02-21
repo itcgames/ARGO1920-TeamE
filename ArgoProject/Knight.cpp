@@ -157,6 +157,7 @@ void Knight::update()
 	}
 }
 
+
 void Knight::animate()
 {
 	Uint32 ticks = SDL_GetTicks();

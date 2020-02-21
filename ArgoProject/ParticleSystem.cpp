@@ -1,9 +1,9 @@
 #include "ParticleSystem.h"
 
-ParticleSystem::ParticleSystem(const std::string& currentState, int numofParticles, Type typeID)
+ParticleSystem::ParticleSystem(const std::string& currentState, RenderSystem* t_rs)
 {
+	m_rs = t_rs;
 	m_currentState = currentState;
-	ChooseType(typeID,numofParticles);
 }
 
 ParticleSystem::~ParticleSystem()
@@ -16,11 +16,16 @@ void ParticleSystem::update()
 	{
 		for (int i = 0; i < m_particles.size(); i++)
 		{
-			m_particles[i]->update();
-			if (m_particles[i]->Alive() == false)
+			if (m_particles[i] != nullptr)
 			{
-				m_particles[i] = nullptr;
-				m_particles.erase(m_particles.begin() + i);
+				m_particles[i]->update();
+				if (m_particles[i]->Alive() == false)
+				{
+					m_particles[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+					m_rs->deleteEntity(m_particles[i]->getEntity());
+					m_particles[i] = nullptr;
+					m_particles.erase(m_particles.begin() + i);
+				}
 			}
 		}
 	}
@@ -32,18 +37,28 @@ void ParticleSystem::render()
 	{
 		for (int i = 0; i < m_particles.size(); i++)
 		{
-			m_particles[i]->render();
+			if (m_particles[i] != nullptr)
+			{
+				m_particles[i]->render();
+			}
 		}
 	}
 }
 
-void ParticleSystem::ChooseType(Type typeID, int numofParticles)
+void ParticleSystem::AddParticles(Vector2 pos = Vector2{0,0}, Type typeID = Type::EXPLOSION, int numofParticles = MAX_PARTICLES)
 {
+	float timeToLive = 0;
+	Vector2 position = pos;
+	Vector2 velocity = { 0,0 };
 	if (typeID == Type::EXPLOSION)
 	{
 		for (int i = 0; i < numofParticles; i++)
 		{
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, GenerateRandomNumber(0.1, 0.9), disperseInCircle() + Vector2(1000, 600), Vector2(GenerateRandomNumber(-1.0, 1.0), GenerateRandomNumber(-1.0, 1.0))));
+			timeToLive = GenerateRandomNumber(0.1, 0.9);
+			position = disperseInCircle(200) + Vector2(2500, 600);
+			velocity = Vector2(GenerateRandomNumber(-1.0, 1.0), GenerateRandomNumber(-1.0, 1.0));
+
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity,m_rs));
 		}
 	}
 
@@ -51,20 +66,56 @@ void ParticleSystem::ChooseType(Type typeID, int numofParticles)
 	{
 		for (int i = 0; i < numofParticles; i++)
 		{
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, GenerateRandomNumber(0.1, 2.0), disperseInCircle() + Vector2(1000, 600), Vector2(GenerateRandomNumber(-2.0, 2.0), GenerateRandomNumber(-2.0, 2.0))));
+			timeToLive = GenerateRandomNumber(0.1, 0.2);
+			position = disperseInCircle(200) + Vector2(1000, 600);
+			velocity = Vector2(GenerateRandomNumber(-0.2, 0.2), GenerateRandomNumber(-0.2, 0.2));
+
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
+		}
+	}
+
+	if (typeID == Type::BARSEFFECT)
+	{
+		for (int i = 0; i < numofParticles; i++)
+		{
+			timeToLive = GenerateRandomNumber(0.1, 0.4);
+			position = disperseInRect(Vector2(1900, 1990),1000,5);
+			velocity = Vector2(GenerateRandomNumber(-0.1, 0.1), GenerateRandomNumber(-0.1, 0.1));
+
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
+		}
+	}
+
+	if (typeID == Type::TRAIL)
+	{
+		if (m_particles.size() < numofParticles)
+		{
+			timeToLive = GenerateRandomNumber(0.1, 0.4);
+			position = disperseInRect(position, 10, 100);
+			velocity = Vector2(GenerateRandomNumber(-3, 0), GenerateRandomNumber(-0.1, 0.1));
+
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
 		}
 	}
 }
 
-Vector2 ParticleSystem::disperseInCircle()
+Vector2 ParticleSystem::disperseInCircle(int circleRadius)
 {
 	double a = GenerateRandomNumber(-2,2) * 2 * 3.14;
-	double r = 300 * sqrt(GenerateRandomNumber(-2,2));
+	double r = circleRadius * sqrt(GenerateRandomNumber(-2,2));
 
 	double x = r * cos(a);
 	double y = r * sin(a);
 
 	return Vector2(x, y);
+}
+
+Vector2 ParticleSystem::disperseInRect(Vector2 pos, int width, int height)
+{
+	double x = GenerateRandomNumber(pos.x, pos.x + width);
+	double y = GenerateRandomNumber(pos.y, pos.y + height);
+
+	return Vector2(x,y);
 }
 
 double ParticleSystem::GenerateRandomNumber(double min, double max)

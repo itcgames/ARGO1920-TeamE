@@ -2,6 +2,7 @@
 
 HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana)
 {
+
 	m_background.w = t_cameraDimension.x * 0.9; m_background.h = t_cameraDimension.y * 0.1;
 	m_background.x = t_cameraDimension.x * -0.1; m_background.y = t_cameraDimension.y * 0.9;
 

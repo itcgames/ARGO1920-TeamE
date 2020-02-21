@@ -12,6 +12,7 @@
 #include "FiniteState.h"
 #include "Audio.h"
 #include "CollisionSystem.h"
+#include "ParticleSystem.h"
 #include <iostream>
 
 class IPlayer
@@ -82,6 +83,8 @@ protected:
 	Audio slamAttackSound;
 	Audio spinAttackSound;
 	float dmg = 0.1;
+
+	ParticleSystem* m_particleEffects;
 };
 
 #endif // !IPLAYER

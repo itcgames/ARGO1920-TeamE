@@ -69,8 +69,6 @@ void PlayState::update()
 
 	m_pickUp->update();
 
-	m_pSystem->update();
-
 	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 }
 
@@ -84,7 +82,7 @@ void PlayState::render()
 		m_miniMapTexture,
 		m_hud);
 
-	m_pSystem->render();
+	//m_player->render();
 }
 
 /// handle user and system events/ input
@@ -164,8 +162,6 @@ bool PlayState::onEnter()
 	SDL_Surface* miniMapSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), miniMapSurface);
 
-
-	m_pSystem =new ParticleSystem(m_playID, 500, Type::EXPLOSION);
 
 	m_background.play();
 
