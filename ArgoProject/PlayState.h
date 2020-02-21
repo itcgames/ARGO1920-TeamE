@@ -60,9 +60,9 @@ private:
 
 	GameStateMachine* m_stateMachine;
 
-	Server m_server{ 1111, true };
+	Server m_server{ 8888, true };
 	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
+	Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
 
 	Audio m_background;
 

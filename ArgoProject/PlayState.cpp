@@ -60,10 +60,14 @@ void PlayState::update()
 		if (!data::Instance()->HOST)
 		{
 			Vector2 tempPos = m_player2->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-			std::string test = std::to_string(static_cast<int>(tempPos.x));
-			std::string test2 = std::to_string((int)tempPos.y);
+			//std::string test = std::to_string(tempPos.x);
+			//std::string test2 = std::to_string(tempPos.y);
+			std::string test = "1000";
+			std::string test2 = "1000";
 			m_client.SendString(test);
 			m_client.SendString(test2);
+			//m_client.
+			//m_player2->getEntity()->getComponent<PositionComponent>(1)->setPosition(Vector2(data::Instance()->m_player2Pos.at(0), data::Instance()->m_player2Pos.at(1)));
 		}
 	}
 
@@ -97,11 +101,12 @@ bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
 
+	//If its multiplayer mode.
 	if (!data::Instance()->SINGLEPLAYER)
 	{
 		if (data::Instance()->HOST)
 		{
-			for (int i = 0; i < 1; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				m_server.ListenForNewConnection();
 			}
@@ -157,7 +162,7 @@ bool PlayState::onEnter()
 	if (!data::Instance()->SINGLEPLAYER)
 	{
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-		m_player2->init(m_rs, camera, Vector2(500, 500));
+		m_player2->init(m_rs, camera, Vector2(1000, 800));
 	}
 	m_hud = new HUD(m_cameraDimensions, m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana());
 
