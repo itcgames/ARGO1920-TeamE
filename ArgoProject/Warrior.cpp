@@ -239,25 +239,37 @@ void Warrior::setAction()
 			}
 			break;
 		case 2:
-			setDamage(3);
-			m_animationRect->x = 0;
-			spriteSheetY = 0;
-			attackSound.play();
-			m_ih->move = false;
+			if (m_skillCooldown[0] == false)
+			{
+				setDamage(3);
+				m_animationRect->x = 0;
+				spriteSheetY = 0;
+				attackSound.play();
+				m_ih->move = false;
+				m_skillCooldown[0] = true;
+			}
 			break;
 		case 3:
-			setDamage(10);
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 3;
-			slamAttackSound.play();
-			m_ih->move = false;
+			if (m_skillCooldown[1] == false)
+			{
+				setDamage(10);
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 3;
+				slamAttackSound.play();
+				m_ih->move = false;
+				m_skillCooldown[1] = true;
+			}
 			break;
 		case 4:
-			setDamage(6);
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 4;
-			spinAttackSound.play();
-			m_ih->move = false;
+			if (m_skillCooldown[2] == false)
+			{
+				setDamage(6);
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 4;
+				spinAttackSound.play();
+				m_ih->move = false;
+				m_skillCooldown[2] = true;
+			}
 			break;
 		case 5:
 			m_animationRect->x = 0;

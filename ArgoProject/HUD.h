@@ -7,10 +7,11 @@
 #include <iostream>
 #include "FSM.h"
 #include "Text.h"
+#include <string>
 class HUD
 {
 public:
-	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana, bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree);
+	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana ,bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, std::string m_class = "Warrior");
 	~HUD();
 
 	void update(float t_currentHealth, float t_currentMana);
@@ -37,8 +38,8 @@ public:
 	SDL_Texture* m_manaOverflowTexture;
 	SDL_Texture* m_emptyTexture;
 
-	SDL_Rect* m_timerBoxs[3];
-	SDL_Texture* m_timerTexture;
+	SDL_Rect* m_skillBoxs[3];
+	SDL_Texture* m_skillTexture[3];
 	bool m_timerActive[3];
 
 	bool &q;

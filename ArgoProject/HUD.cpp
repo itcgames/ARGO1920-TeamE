@@ -1,6 +1,6 @@
 #include "HUD.h"
 
-HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana, bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree):
+HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana, bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, std::string m_class):
 	q(t_skillOne),
 	w(t_skillTwo),
 	e(t_skillThree)
@@ -58,19 +58,27 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 		// handle error
 	}
+	std::string m_fileAddress = std::string("Assets/" + m_class + std::string("ButtonQ") + ".png ");
+	SDL_Surface* timerSurface = IMG_Load(m_fileAddress.c_str());
+	m_skillTexture[0] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), timerSurface);
 
-	SDL_Surface* timerSurface = IMG_Load("Assets/Empty.png");
-	m_timerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), timerSurface);
+	m_fileAddress = std::string("Assets/" + m_class + std::string("ButtonW") + ".png ");
+	timerSurface = IMG_Load(m_fileAddress.c_str());
+	m_skillTexture[1] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), timerSurface);
+
+	m_fileAddress = std::string("Assets/" + m_class + std::string("ButtonE") + ".png ");
+	timerSurface = IMG_Load(m_fileAddress.c_str());
+	m_skillTexture[2] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), timerSurface);
 
 	for (int i = 0; i < 3; i++)
 	{
 		m_timerLength[i] = 15 * (i + 1);
 		m_timerText[i] = new Text(Abel, std::to_string(int(m_timerLength[i])), t_cameraDimension.x * (0.06 + (0.155 * i)), t_cameraDimension.y * 0.91);
-		m_timerBoxs[i] = new SDL_Rect();
-		m_timerBoxs[i]->x = t_cameraDimension.x * (0.0575 + (0.155 * i));
-		m_timerBoxs[i]->y = t_cameraDimension.y * 0.91;
-		m_timerBoxs[i]->w = t_cameraDimension.x * 0.11;
-		m_timerBoxs[i]->h = t_cameraDimension.y * 0.074;
+		m_skillBoxs[i] = new SDL_Rect();
+		m_skillBoxs[i]->x = t_cameraDimension.x * (0.0575 + (0.155 * i));
+		m_skillBoxs[i]->y = t_cameraDimension.y * 0.91;
+		m_skillBoxs[i]->w = t_cameraDimension.x * 0.11;
+		m_skillBoxs[i]->h = t_cameraDimension.y * 0.074;
 
 		m_timerActive[i] = false;
 	}
@@ -202,10 +210,10 @@ void HUD::render()
 
 	for (int i = 0; i < 3; i++)
 	{
+		SDL_RenderCopy(Render::Instance()->getRenderer(), m_skillTexture[i], NULL, m_skillBoxs[i]);
 		if (m_timerActive[i] == true)
 		{
-			SDL_RenderCopy(Render::Instance()->getRenderer(), m_timerTexture, NULL, m_timerBoxs[i]);
-				m_timerText[i]->render();
+			m_timerText[i]->render();
 		}
 	}
 }
@@ -226,10 +234,10 @@ void HUD::onExit()
 	SDL_DestroyTexture(m_manaTexture);
 	SDL_DestroyTexture(m_manaOverflowTexture);
 	SDL_DestroyTexture(m_emptyTexture);
-	SDL_DestroyTexture(m_timerTexture);
 
 	for (int i = 0; i < 3; i++)
 	{
 		m_timerText[i]->DestroyText();
+		SDL_DestroyTexture(m_skillTexture[i]);
 	}
 }
