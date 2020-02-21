@@ -20,9 +20,9 @@ public:
 	virtual ~IPlayer() {}
 	virtual void init(RenderSystem* t_rs, SDL_Rect* camera, Vector2 startPos) = 0;
 	virtual void update() = 0;
-	virtual void animate() = 0;
 	virtual void processEvents(bool isRunning) = 0;
 	virtual Vector2 getPosition() = 0;
+	virtual float getHealth() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
 	virtual void Attack(float&m_enemyHealth) = 0;

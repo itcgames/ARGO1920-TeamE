@@ -33,7 +33,6 @@ int main(int argc, char* argv[])
 
 	int frameTime;
 
-
 	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 2000, 2000, false);//2500, 2000, false);
 
 	while (game->running() == true){
