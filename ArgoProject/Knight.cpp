@@ -246,3 +246,13 @@ void Knight::Attack(float& m_enemyHealth)
 		}
 	}
 }
+
+bool Knight::getMenuActive()
+{
+	return m_ih->m_menuActive;
+}
+
+void Knight::turnOffMenu()
+{
+	m_ih->m_menuActive = false;
+}

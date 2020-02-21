@@ -281,3 +281,13 @@ void Warrior::Attack(float &m_enemyHealth)
 		}
 	}
 }
+
+bool Warrior::getMenuActive()
+{
+	return m_ih->m_menuActive;
+}
+
+void Warrior::turnOffMenu()
+{
+	m_ih->m_menuActive = false;
+}

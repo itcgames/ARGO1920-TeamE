@@ -17,6 +17,8 @@ public:
 	void setAction();
 	virtual bool getSeek() { return m_seek; }
 	virtual void setSeek(bool seek) { m_seek = seek; }
+	virtual bool getMenuActive();
+	virtual void turnOffMenu();
 	//void hit(Entity* t_enemy);
 	SDL_Rect* getRect(){ return m_positionRect; }
 
@@ -26,6 +28,7 @@ public:
 	void Attack(float& m_enemyHealth);
 	void setDamage(float t_dmg) { dmg = t_dmg; }
 
+	bool m_skillActive[3];
 };
 
 #endif // !WARRIOR

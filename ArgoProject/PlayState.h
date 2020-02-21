@@ -70,12 +70,16 @@ private:
 
 	bool m_menuActive;
 	SDL_Rect* m_menuBackground;
+	SDL_Texture* m_menuBackgroundTexture;
 
 	SDL_Rect* m_playOption;
+	SDL_Texture* m_playOptionTexture;
+
 	SDL_Rect* m_exitOption;
+	SDL_Texture* m_exitOptionTexture;
 
 	TTF_Font* m_font;
-	Text m_text[2];
+	Text* m_text[2];
 };
 
 #endif

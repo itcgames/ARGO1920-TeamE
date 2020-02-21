@@ -57,7 +57,7 @@ bool OptionsState::onEnter()
 
 	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/Gold.png");
 	m_exitButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitButtonSurface);
-
+	SDL_FreeSurface(m_exitButtonSurface);
 	return true;
 }
 bool OptionsState::onExit()

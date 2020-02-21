@@ -91,6 +91,11 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ih->addEntity(m_player);
 
 	m_ih->mousePosition = startPos;
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_skillCooldown[i] = false;
+	}
 }
 
 void Mage::update()
@@ -200,17 +205,29 @@ void Mage::setAction()
 			}
 			break;
 		case 2:
-			setDamage(4);
-			m_animationRect->x = 0;
-			spriteSheetY = 0;
+			if (m_skillCooldown[0] == false)
+			{
+				setDamage(4);
+				m_animationRect->x = 0;
+				spriteSheetY = 0;
+				m_skillCooldown[0] = true;
+			}
 			break;
 		case 3:
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 3;
+			if (m_skillCooldown[1] == false)
+			{
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 3;
+				m_skillCooldown[1] = true;
+			}
 			break;
 		case 4:
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 4;
+			if (m_skillCooldown[2] == false)
+			{
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 4;
+				m_skillCooldown[2] = true;
+			}
 			break;
 		case 5:
 			m_animationRect->x = 0;
@@ -250,4 +267,14 @@ void Mage::Attack(float& m_enemyHealth)
 			dmg += 0.1;
 		}
 	}
+}
+
+bool Mage::getMenuActive()
+{
+	return m_ih->m_menuActive;
+}
+
+void Mage::turnOffMenu()
+{
+	m_ih->m_menuActive = false;
 }

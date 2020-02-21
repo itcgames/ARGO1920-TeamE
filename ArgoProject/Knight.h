@@ -16,6 +16,8 @@ public:
 	Entity* getEntity() { return m_player; }
 	void setAction();
 	virtual bool getSeek() { return m_seek; }
+	virtual bool getMenuActive();
+	virtual void turnOffMenu();
 	virtual void setSeek(bool seek) { m_seek = seek; }
 	//void hit(Entity* t_enemy);
 	SDL_Rect* getRect() { return m_positionRect; }
@@ -27,6 +29,8 @@ public:
 	void setDamage(float t_dmg) { dmg = t_dmg; }
 
 	int timer = 0;
+
+	bool m_skillActive[3];
 };
 
 #endif // !KNIGHT
