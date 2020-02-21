@@ -119,7 +119,6 @@ void Knight::update()
 			m_seek = false;
 		}
 	}
-	animate();
 
 	if (m_ih->move)
 	{
@@ -148,24 +147,13 @@ void Knight::update()
 	}
 
 	setAction();
-	animate();
+	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
 
 	if (timer > 0)
 	{
 		timer--;
 		std::cout << timer << std::endl;
 	}
-}
-
-void Knight::animate()
-{
-	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 11;
-	m_animationRect->x = sprite * (frameWidth);
-	m_animationRect->y = spriteSheetY;
-
-	m_sc->setRect(m_animationRect);
-	m_sc->setDstRect(m_positionRect);
 }
 
 void Knight::processEvents(bool isRunning)

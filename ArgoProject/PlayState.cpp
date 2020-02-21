@@ -36,12 +36,6 @@ void PlayState::update()
 		camera->y = level->h - camera->h;
 	}
 
-
-	if (!m_player->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
-	{
-		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
-	}
-
 	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 
 	//if its multiplayer
@@ -72,6 +66,11 @@ void PlayState::update()
 	m_pSystem->update();
 
 	m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
+
+	if (m_player->getHealth() <= 0)
+	{
+		m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+	}
 }
 
 
@@ -204,43 +203,43 @@ void PlayState::collisions()
 // Enemies
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
-			//Collision with enemy and player
-			if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		//Collision with enemy and player
+		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		{
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
 			{
-				if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
+				//player attacking enemy function
+				float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+
+				if (m_player->m_mc->getMana() > 0)
 				{
-					//player attacking enemy function
-					float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
-
-					if (m_player->m_mc->getMana() > 0)
-					{
-						m_player->Attack(temp);
-					}
-
-					m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
-					//update kill count when enemy dead
-
-					m_player->setSeek(false);
-					m_enemies[i]->setSeek(false);
-					m_player->setTargetPosition(m_player->getPosition());
-					m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
-					//m_enemies[i]->setAttackTime(0);
+					m_player->Attack(temp);
 				}
-				else
-				{
-					m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-					m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-					m_rs->deleteEntity(m_enemies[i]->getEntity());
-					m_cs->deleteEntity(m_enemies[i]->getEntity());
-				}
+
+				m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+				//update kill count when enemy dead
+
+				m_player->setSeek(false);
+				m_enemies[i]->setSeek(false);
+				m_player->setTargetPosition(m_player->getPosition());
+				m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
+				//m_enemies[i]->setAttackTime(0);
 			}
 			else
 			{
-				m_player->m_mc->alterMana(0.1f);
+				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+				m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+				m_rs->deleteEntity(m_enemies[i]->getEntity());
+				m_cs->deleteEntity(m_enemies[i]->getEntity());
 			}
-			m_enemies[i]->update(m_player->getPosition());
-
+		}
+		else
+		{
+			m_player->m_mc->alterMana(0.1f);
+		}
+		m_enemies[i]->update(m_player->getPosition());
 	}
+
 	if (m_cs->aabbCollision(m_player->getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 	{
 		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());

@@ -122,8 +122,6 @@ void Mage::update()
 		}
 	}
 
-	animate();
-
 	if (m_ih->move)
 	{
 		spriteSheetY = frameHeight;
@@ -151,18 +149,7 @@ void Mage::update()
 	}
 
 	setAction();
-	animate();
-}
-
-void Mage::animate()
-{
-	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 11;
-	m_animationRect->x = sprite * (frameWidth);
-	m_animationRect->y = spriteSheetY;
-
-	m_sc->setRect(m_animationRect);
-	m_sc->setDstRect(m_positionRect);
+	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
 }
 
 void Mage::processEvents(bool isRunning)
