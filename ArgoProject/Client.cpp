@@ -16,7 +16,8 @@ bool Client::ProcessPacket(Packet _packettype)
 		std::string positions;
 		if (!GetEntity(positions)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-
+		std::cout << "Processing Packet -> Message we got from Server " + positions << std::endl; //Display the message to the user
+		std::cout << std::endl;
 		break;
 	}
 	default: //If packet type is not accounted for

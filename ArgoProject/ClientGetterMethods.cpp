@@ -11,7 +11,7 @@ bool Client::recvall(char* data, int totalbytes)
 		bytesreceived += RetnCheck; //Add to total bytes received
 	}
 	std::cout << "start recvall debug" << std::endl;
-	std::cout << std::hex << data << std::endl;
+	std::cout << data << std::endl;
 	//assert(totalbytes != 4 && "totalbytes is not equal to 4");
 	std::cout << totalbytes << std::endl;
 	std::cout << "end recvall debug" << std::endl;
@@ -85,6 +85,10 @@ bool Client::SendString(std::string& _string)
 
 bool Client::GetString(std::string& _string)
 {
+	std::cout << "Start Get String Type Debug" << std::endl;
+	std::cout << _string << std::endl;
+	std::cout << "End Get String Type Debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
 	int bufferlength; //Holds length of the message
 	if (!GetInt(bufferlength)) //Get length of buffer and store it in variable: bufferlength
 		return false; //If get int fails, return false
@@ -143,10 +147,6 @@ bool Client::GetEntity(std::string& _string)
 	std::stringstream ss(all_numbers);
 	std::cout << std::endl;
 
-	std::cout << "Start Get Entity Type Debug" << std::endl;
-	std::cout << _string << std::endl;
-	std::cout << "End Get Entity Type Debug" << std::endl;
-	std::cout << "==================================================================" << std::endl;
 	int i;
 	for (; ss >> i;)
 	{
