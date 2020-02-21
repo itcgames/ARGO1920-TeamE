@@ -29,6 +29,8 @@ public:
 	virtual void setDamage(float t_dmg) = 0;
 	virtual bool getSeek() = 0;
 	virtual void setSeek(bool seek) = 0;
+	virtual bool getMenuActive() = 0;
+	virtual void turnOffMenu() = 0;
 
 	//virtual void hit(Entity* t_enemy) = 0;
 
@@ -38,6 +40,8 @@ public:
 
 	virtual SDL_Rect* getRect() = 0;
 	ManaComponent* m_mc;
+
+	bool m_skillCooldown[3];
 protected:
 	Entity* m_player;
 

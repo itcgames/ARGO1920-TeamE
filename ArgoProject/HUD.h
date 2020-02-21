@@ -6,15 +6,18 @@
 #include "Renderer.h"
 #include <iostream>
 #include "FSM.h"
+#include "Text.h"
+#include <string>
 class HUD
 {
 public:
-	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana);
+	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana ,bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, std::string m_class = "Warrior");
 	~HUD();
 
 	void update(float t_currentHealth, float t_currentMana);
 	void adjustEmptyRect(SDL_Rect t_bar, float t_fullWidth);
 	void render();
+	void onExit();
 
 	SDL_Rect m_viewableArea;
 
@@ -31,13 +34,18 @@ public:
 	SDL_Texture* m_texture;
 	SDL_Texture* m_healthTexture;
 	SDL_Texture* m_healthOverflowTexture;
-	SDL_Texture* m_manatexture;
+	SDL_Texture* m_manaTexture;
 	SDL_Texture* m_manaOverflowTexture;
 	SDL_Texture* m_emptyTexture;
 
-	bool q = false;
-	bool w = false;
-	bool e = false;
+	SDL_Rect* m_skillBoxs[3];
+	SDL_Texture* m_skillTexture[3];
+	SDL_Texture* m_timerTexture;
+	bool m_timerActive[3];
+
+	bool &q;
+	bool &w;
+	bool &e;
 
 	float healthFullWidth;
 	float originalHealth;
@@ -46,6 +54,13 @@ public:
 	float manaFullWidth;
 	float originalMana;
 	float currentMana;
+
+	TTF_Font* Abel;
+
+	Text* m_timerText[3];
+	float m_timerStart[3];
+	float m_timerCurrent[3];
+	float m_timerLength[3];
 };
 
 #endif

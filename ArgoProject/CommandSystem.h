@@ -81,6 +81,7 @@ public:
 
 	bool move = false;
 	bool updateMouse = false;
+	bool m_menuActive = false;
 
 	InputHandler()
 	{
@@ -139,6 +140,7 @@ public:
 			{
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 				{
+					m_menuActive = true;
 					return true;
 				}
 				keydown(event);
