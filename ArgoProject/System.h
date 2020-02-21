@@ -36,7 +36,7 @@ public:
 				// ...and that entity's ActiveComponent iAlive is false..
 				if (m_entities[i]->getComponent<ActiveComponent>(6)->getIsActive() == false)
 				{
-					
+					m_entities[i] = nullptr;
 					// ...that entity is erased
 					m_entities.erase(m_entities.begin() + i);
 					break;

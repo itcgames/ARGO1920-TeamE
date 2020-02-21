@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	int frameTime;
 
 
-	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 3840, 2160, true);//2500, 2000, false);
+	game->init("Argo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 3840, 2160, false);//2500, 2000, false);
 
 	while (game->running() == true){
 		framestart = SDL_GetTicks();

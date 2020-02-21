@@ -17,24 +17,23 @@ public:
 
 	void seek(Vector2 t_targetPosition)
 	{
-		for (int i = 0; i < m_entities.size(); i++)
-		{
-			Vector2 position = Vector2(m_entities[i]->getComponent<PositionComponent>(1)->getPosition());
+			Vector2 position = Vector2(m_entities.back()->getComponent<PositionComponent>(1)->getPosition());
 			//change this!!!!!!! move to the center
 			m_velocity = (t_targetPosition - Vector2(25, 25)) - position;
 			m_orientation = getOrientation(m_velocity);
 
 			Vector2 normalizedVelo = Normalize(m_velocity);
 
+			position.x = 0;
+			position.y = 0;
+			m_entities.back()->getComponent<BehaviourComponent>(3)->setRotationAngle(m_orientation * (180 / 3.14159));
 
-			int m_maxSpeed = m_entities[i]->getComponent<BehaviourComponent>(3)->getMaxSpeed();
+			int m_maxSpeed = m_entities.back()->getComponent<BehaviourComponent>(3)->getMaxSpeed();
 			position.x += normalizedVelo.x * m_maxSpeed;
 			position.y += normalizedVelo.y * m_maxSpeed;
 
-			m_entities[i]->getComponent<BehaviourComponent>(3)->setRotationAngle(m_orientation * (180 / 3.14159));
-			m_entities[i]->getComponent<PositionComponent>(1)->setPosition(position);
-			m_entities[i]->getComponent<BehaviourComponent>(3)->setNormalizeVel(normalizedVelo);
-		}
+			m_entities.back()->getComponent<PositionComponent>(1)->setPosition(position);
+			m_entities.back()->getComponent<BehaviourComponent>(3)->setNormalizeVel(normalizedVelo);
 	}
 
 	void playerSeek(Vector2 t_targetPosition, bool seek)

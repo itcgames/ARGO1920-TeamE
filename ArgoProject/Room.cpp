@@ -60,6 +60,14 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 	//For loop for deleting
 	for (int i = 0; i < tileList.size(); i++)
 	{
+		auto x = tileList[i]->getPos().x;
+		auto y = tileList[i]->getPos().y;
+		auto ptr = tileList[i].get();
+		if (x == 600 && y == 900)
+		{
+			int x = 0;
+		}
+
 		if (tileList[i]->covered == true)
 		{
 			tileList[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
@@ -69,7 +77,9 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 			if (tileList[i]->getTag() == "Floor")
 			{
 				floorCount--;
-				tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(tileList[i]->getPos(), m_tileSize, m_tileSize, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
+				auto pos = tileList[i]->getPos();
+				tileList[i] = nullptr;
+				tileList[i] = std::move(std::unique_ptr<Tile>(new Tile(pos, 10, 10, "Assets/tiles/tile.png", "Floor", t_rs, t_cs))); // replaces the tile
 			}
 			else
 			{
@@ -82,6 +92,7 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 			}
 		}
 	}
+
 	std::cout << t_rs->getEntitiesSize() << std::endl;
 }
 

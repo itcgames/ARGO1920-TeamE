@@ -55,25 +55,6 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	//	std::cout << std::endl;
 	//}
 
-	////
-	//m_playerRect = new SDL_Rect();
-	//m_playerRect->x = 200; m_playerRect->y = 200;
-	//m_playerRect->w = 78; m_playerRect->h = 138;
-	//m_rs = new RenderSystem();
-
-	//SDL_Surface* ecsSurface = IMG_Load("Assets/ecs_text.png");
-	//m_ecsTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface);
-
-	//m_entity = new Entity();
-
-	//m_pc = new PositionComponent(Vector2(m_playerRect->x, m_playerRect->y), 1);
-	//m_sc = new SpriteComponent(m_ecsTexture, m_playerRect, 2);
-
-	//m_entity->addComponent<PositionComponent>(m_pc, 1);
-	//m_entity->addComponent<SpriteComponent>(m_sc, 2);
-
-	//m_rs->addEntity(m_entity);
-
 
 	// To get position of entity within a system type m_entities[i]->getComponent<PositionComponent>(1)->getPosition();
 	// Why this way?

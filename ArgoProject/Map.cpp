@@ -10,7 +10,7 @@ Map::Map(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 		else
 		{
-			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 33 + 2) * tileSize, (rand() % 30 + 2) * tileSize), t_rs, t_cs));
+			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 1 + 2) * tileSize, (rand() % 1 + 2) * tileSize), t_rs, t_cs));
 		}
 	}
 }
@@ -39,7 +39,7 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 		map[i]->deleteOverlaps(t_rs, t_cs);
 	}
 
-
+	
 	for (int i = 1; i < map.size(); i++)
 	{
 		if (i != y)
@@ -48,6 +48,7 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 		y++;
 	}
+	
 }
 
 

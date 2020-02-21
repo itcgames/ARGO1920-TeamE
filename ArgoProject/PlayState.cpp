@@ -167,7 +167,7 @@ bool PlayState::onEnter()
 
 	m_pSystem =new ParticleSystem(m_playID, 500, Type::EXPLOSION);
 
-	m_background.play();
+	//m_background.play();
 
 	return true;
 }
@@ -254,8 +254,14 @@ void PlayState::collisions()
 			{
 				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
+					auto ptr = myMap->map[i]->tileList[z].get();
 					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
+					std::cout << myMap->map[i]->tileList[z]->getPos().x << std::endl;
+					std::cout << myMap->map[i]->tileList[z]->getPos().y << std::endl;
+
+					std::cout << myMap->map[i]->tileList[z]->getTag() << std::endl;
+
 				}
 			}
 		}
