@@ -38,6 +38,8 @@ public:
 	virtual void setTargetPosition(Vector2 vector) = 0;
 
 
+
+
 	virtual SDL_Rect* getRect() = 0;
 	ManaComponent* m_mc;
 

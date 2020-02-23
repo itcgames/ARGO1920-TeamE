@@ -1,11 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 14:18 3 February 2020
-// Finished at
-// Time taken:
-// Known bugs:
-
 
 #ifndef POSITIONCOMPONENT_H
 #define POSITIONCOMPONENT_H

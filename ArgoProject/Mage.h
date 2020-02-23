@@ -14,7 +14,7 @@ public:
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	float getHealth() { return m_hc->getHealth(); }
 	Entity* getEntity() { return m_player; }
-	void setAction();
+	void setAction();	
 	virtual bool getSeek() { return m_seek; }
 	virtual bool getMenuActive();
 	virtual void turnOffMenu();

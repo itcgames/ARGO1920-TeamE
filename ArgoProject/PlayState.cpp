@@ -166,9 +166,14 @@ bool PlayState::onEnter()
 
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);	
-	Vector2 temp = { myMap->map[1]->getCenterPos() };
-	for (int i = 0; i < 2; i++)
+
+	int tempRooms = myMap->map.size();
+
+
+	for (int i = 0; i < 20; i++)
 	{
+		int tempRandPos = rand() % tempRooms;
+
 		if (i == 0)
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
@@ -177,10 +182,10 @@ bool PlayState::onEnter()
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
 		}		
-		m_enemies[i]->initialize(m_rs, temp, data::Instance()->getData().m_presets.m_stats.at(i).m_class, data::Instance()->getData().m_presets.m_stats.at(i).m_health,
-			data::Instance()->getData().m_presets.m_stats.at(i).m_strength, data::Instance()->getData().m_presets.m_stats.at(i).m_speed,
-			data::Instance()->getData().m_presets.m_stats.at(i).m_gold, data::Instance()->getData().m_presets.m_stats.at(i).m_killCount);
-		temp = { myMap->map[1]->getCenterPos() };
+		//@ALEX HERE 
+		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(0).m_class, data::Instance()->getData().m_presets.m_stats.at(0).m_health,
+			data::Instance()->getData().m_presets.m_stats.at(0).m_strength, data::Instance()->getData().m_presets.m_stats.at(0).m_speed,
+			data::Instance()->getData().m_presets.m_stats.at(0).m_gold, data::Instance()->getData().m_presets.m_stats.at(0).m_killCount);
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);

@@ -1,11 +1,4 @@
 //
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 10:38 11 Feburary 2020
-// Finished at
-// Time taken:
-// Known bugs:
-
 #ifndef ITEMCOMPONENT_H
 #define ITEMCOMPONENT_H
 

@@ -20,6 +20,8 @@ public:
 	void deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	Vector2 getCenterPos();
+
+	Vector2 getRandomFloorTilePos();
 	Vector2 getSize();
 	int getWallsCount();
 	int getFloorCount();

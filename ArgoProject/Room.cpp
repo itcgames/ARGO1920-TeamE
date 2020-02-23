@@ -77,6 +77,20 @@ Vector2 Room::getCenterPos()
 		return Vector2(tileList[(roomSizeX * roomSizeY) / 2]->getPos());
 }
 
+Vector2 Room::getRandomFloorTilePos()
+{
+	int temp = rand() % tileList.size();
+
+	if (tileList[temp]->getTag() == "Floor")
+	{
+		return tileList[temp]->getPos();
+	}
+	else
+	{
+		return getCenterPos();
+	}
+}
+
 Vector2 Room::getSize()
 {
 	return Vector2(roomSizeX,roomSizeY);
