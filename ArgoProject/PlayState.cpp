@@ -45,28 +45,28 @@ void PlayState::update()
 
 		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 
-		//if its multiplayer
-		if (!data::Instance()->SINGLEPLAYER)
-		{
-			//if you are the host send all positions to the client.
-			if (data::Instance()->HOST)
-			{
-				//Vector2 tempPos = m_player.getEntity()->getComponent<PositionComponent>(1)->getPosition();
-				//std::string test = std::to_string(tempPos.x);
-				//std::string test2 = std::to_string(tempPos.y);
-				//m_server.SendString(1,test);
-				//m_server.SendString(2,test2);
-			}
-			//if you are not the host send your co-ordinates to the server.
-			if (!data::Instance()->HOST)
-			{
-				Vector2 tempPos = m_player2->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-				std::string test = std::to_string(static_cast<int>(tempPos.x));
-				std::string test2 = std::to_string((int)tempPos.y);
-				m_client.SendString(test);
-				m_client.SendString(test2);
-			}
-		}
+		////if its multiplayer
+		//if (!data::Instance()->SINGLEPLAYER)
+		//{
+		//	//if you are the host send all positions to the client.
+		//	if (data::Instance()->HOST)
+		//	{
+		//		//Vector2 tempPos = m_player.getEntity()->getComponent<PositionComponent>(1)->getPosition();
+		//		//std::string test = std::to_string(tempPos.x);
+		//		//std::string test2 = std::to_string(tempPos.y);
+		//		//m_server.SendString(1,test);
+		//		//m_server.SendString(2,test2);
+		//	}
+		//	//if you are not the host send your co-ordinates to the server.
+		//	if (!data::Instance()->HOST)
+		//	{
+		//		Vector2 tempPos = m_player2->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+		//		std::string test = std::to_string(static_cast<int>(tempPos.x));
+		//		std::string test2 = std::to_string((int)tempPos.y);
+		//		m_client.SendString(test);
+		//		m_client.SendString(test2);
+		//	}
+		//}
 
 		m_pickUp->update();
 
@@ -142,20 +142,20 @@ bool PlayState::onEnter()
 {
 	std::cout << "Entering Play State\n";
 
-	if (!data::Instance()->SINGLEPLAYER)
-	{
-		if (data::Instance()->HOST)
-		{
-			for (int i = 0; i < 1; i++)
-			{
-				m_server.ListenForNewConnection();
-			}
-		}
-		else
-		{
-			m_client.Connect();
-		}
-	}
+	//if (!data::Instance()->SINGLEPLAYER)
+	//{
+	//	if (data::Instance()->HOST)
+	//	{
+	//		for (int i = 0; i < 1; i++)
+	//		{
+	//			m_server.ListenForNewConnection();
+	//		}
+	//	}
+	//	else
+	//	{
+	//		m_client.Connect();
+	//	}
+	//}
 
 	cameraSetup();
 
@@ -350,6 +350,18 @@ void PlayState::collisions()
 				}
 			}
 		}
+	}
+
+	for (int i = 0; i < myMap->path.size(); i++)
+	{
+			if (myMap->path[i]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_player->getRect(), myMap->path[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_player->setTargetPosition(m_player->getPosition());
+					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->path[i]->getEntity());
+				}
+			}
 	}
 
 	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
