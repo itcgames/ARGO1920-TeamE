@@ -92,7 +92,22 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 			}
 		}
 	}
-	
+
+	for (int i = 0; i < path.size(); i++)
+	{
+		if (start == path[i]->getPos())
+		{
+			if (path[i]->getTag() == "Wall")
+			{
+				path[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+				t_rs->deleteEntity(path[i]->getEntity());
+				t_cs->deleteEntity(path[i]->getEntity());
+				path[i] = nullptr;
+				path.erase(path.begin() + i);
+			}
+		}
+	}
+
 	if (newStart.x != newEnd.x)
 	{
 		for (int i = 0; i < path.size(); i++)
@@ -158,7 +173,7 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 			}
 			newStart.x += tileSize;
 		}
-		CreatePath(newStart, newEnd,"Path", t_rs, t_cs);
+		CreatePath(newStart, newEnd, "Path", t_rs, t_cs);
 
 	}
 	if (newStart.y != newEnd.y && newStart.x == newEnd.x)
@@ -230,6 +245,7 @@ void Map::CreatePath(Vector2 start, Vector2 end, std::string tag, RenderSystem* 
 		CreatePath(newStart, newEnd, "Path", t_rs, t_cs);
 	}
 }
+
 
 std::string Map::returnTileType(std::string type)
 {
