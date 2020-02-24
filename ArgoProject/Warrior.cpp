@@ -120,10 +120,11 @@ void Warrior::update()
 
 	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
 	{
+		animationFPS = 300;
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
-	else while (!commandQueue.empty() && m_animationRect->x != 0)
+	while (!commandQueue.empty() && m_animationRect->x != 0)
 	{
 		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
@@ -131,7 +132,8 @@ void Warrior::update()
 	}
 
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, animationFPS);
+
 }
 
 void Warrior::processEvents(bool isRunning)
@@ -152,6 +154,7 @@ void Warrior::setAction()
 			//walkSound.stop();
 			break;
 		case 1:
+			animationFPS = 100;
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
@@ -173,10 +176,10 @@ void Warrior::setAction()
 			}
 			break;
 		case 2:
+			animationFPS = 130;
 			if (m_skillCooldown[0] == false)
 			{
 				setDamage(3);
-				m_animationRect->x = 0;
 				spriteSheetY = 0;
 				attackSound.play();
 				m_ih->move = false;
@@ -184,10 +187,10 @@ void Warrior::setAction()
 			}
 			break;
 		case 3:
+			animationFPS = 150;
 			if (m_skillCooldown[1] == false)
 			{
 				setDamage(10);
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound.play();
 				m_ih->move = false;
@@ -195,10 +198,10 @@ void Warrior::setAction()
 			}
 			break;
 		case 4:
+			animationFPS = 150;
 			if (m_skillCooldown[2] == false)
 			{
 				setDamage(6);
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound.play();
 				m_ih->move = false;

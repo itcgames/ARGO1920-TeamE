@@ -119,6 +119,7 @@ void Mage::update()
 
 	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
 	{
+		animationFPS = 300;
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
@@ -131,7 +132,7 @@ void Mage::update()
 	}
 
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, animationFPS);
 }
 
 void Mage::processEvents(bool isRunning)
@@ -146,6 +147,7 @@ void Mage::setAction()
 		switch (finiteStateMachine->getCurrentState())
 		{
 		case 1:
+			animationFPS = 100;
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
@@ -169,15 +171,16 @@ void Mage::setAction()
 			}
 			break;
 		case 2:
+			animationFPS = 200;
 			if (m_skillCooldown[0] == false)
 			{
 				setDamage(4);
-				m_animationRect->x = 0;
 				spriteSheetY = 0;
 				m_skillCooldown[0] = true;
 			}
 			break;
 		case 3:
+			animationFPS = 200;
 			if (m_skillCooldown[1] == false)
 			{
 				m_animationRect->x = 0;
@@ -186,15 +189,14 @@ void Mage::setAction()
 			}
 			break;
 		case 4:
+			animationFPS = 200;
 			if (m_skillCooldown[2] == false)
 			{
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 4;
 				m_skillCooldown[2] = true;
 			}
 			break;
 		case 5:
-			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 5;
 			break;
 		default:

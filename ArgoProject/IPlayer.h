@@ -81,13 +81,14 @@ protected:
 	int textureWidth, textureHeight;
 	int colTextureWidth, colTextureHeight;
 	int spriteSheetY = 0;
-	int spriteSheetX = 0;
 
 	Audio walkSound;
 	Audio attackSound;
 	Audio slamAttackSound;
 	Audio spinAttackSound;
 	float dmg = 0.1;
+
+	int animationFPS = 100;
 };
 
 #endif // !IPLAYER

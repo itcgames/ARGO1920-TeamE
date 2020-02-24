@@ -16,10 +16,13 @@ public:
 
 	void animate(SDL_Rect* t_animationRect, SDL_Rect* t_posRect, int t_spriteSheeyY, int t_frameWidth, int t_speed)
 	{
+		Uint32 ticks = 0;
+		Uint32 sprite = 0;
+		t_animationRect->x = 0;
 		for (int i = 0; i < m_entities.size(); i++)
 		{
-			Uint32 ticks = SDL_GetTicks();
-			Uint32 sprite = (ticks / t_speed) % 11;
+			ticks = SDL_GetTicks();
+			sprite = (ticks / t_speed) % 11;
 			t_animationRect->x = sprite * (t_frameWidth);
 			t_animationRect->y = t_spriteSheeyY;
 
