@@ -10,6 +10,13 @@ bool Client::recvall(char* data, int totalbytes)
 			return false; //Return false - failed to recvall
 		bytesreceived += RetnCheck; //Add to total bytes received
 	}
+	std::cout << "start recvall debug" << std::endl;
+	std::cout << data << std::endl;
+	//assert(totalbytes != 4 && "totalbytes is not equal to 4");
+	std::cout << totalbytes << std::endl;
+	std::cout << "end recvall debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
+	std::cout << std::endl;
 	return true; //Success!
 }
 
@@ -23,6 +30,13 @@ bool Client::sendall(char* data, int totalbytes)
 			return false; //Return false - failed to sendall
 		bytessent += RetnCheck; //Add to total bytes sent
 	}
+	std::cout << "start sendall debug" << std::endl;
+	std::cout << std::hex << data << std::endl;
+	//assert(totalbytes != 4 && "totalbytes is not equal to 4");
+	std::cout << totalbytes << std::endl;
+	std::cout << "end sendall debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
+	std::cout << std::endl;
 	return true; //Success!
 }
 bool Client::SendInt(int _int)
@@ -50,6 +64,10 @@ bool Client::GetPacketType(Packet& _packettype)
 {
 	if (!recvall((char*)& _packettype, sizeof(Packet))) //Try to receive packet type... If packet type fails to be recv'd
 		return false; //Return false: packet type not successfully received
+	std::cout << "Start Get Packet Type Debug" << std::endl;
+	std::cout << std::to_string(_packettype) << std::endl;
+	std::cout << "End Get Packet Type Debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
 	return true;//Return true if we were successful in retrieving the packet type
 }
 
@@ -67,6 +85,10 @@ bool Client::SendString(std::string& _string)
 
 bool Client::GetString(std::string& _string)
 {
+	std::cout << "Start Get String Type Debug" << std::endl;
+	std::cout << _string << std::endl;
+	std::cout << "End Get String Type Debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
 	int bufferlength; //Holds length of the message
 	if (!GetInt(bufferlength)) //Get length of buffer and store it in variable: bufferlength
 		return false; //If get int fails, return false
@@ -103,7 +125,7 @@ struct not_digit {
 	}
 };
 
-bool Client::GetCircle(std::string& _string)
+bool Client::GetEntity(std::string& _string)
 {
 	not_digit notADigit;
 	int bufferlength; //Holds length of the message
@@ -117,10 +139,6 @@ bool Client::GetCircle(std::string& _string)
 		return false; //return false: Fails to receive string buffer
 	}
 	_string = buffer; //set string to received buffer message
-
-	std::cout << "Debug Start" << std::endl;
-	std::cout << _string << std::endl;
-	std::cout << "Debug End" << std::endl;
 	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
 	std::string::iterator end = std::remove_if(_string.begin(), _string.end(), notADigit);
 	std::string all_numbers(_string.begin(), end);

@@ -10,6 +10,12 @@ bool Server::recvall(int ID, char * data, int totalbytes)
 			return false; //Return false - failed to recvall
 		bytesreceived += RetnCheck; //Add to total bytes received
 	}
+	std::cout << "start recvall debug" << std::endl;
+	std::cout << data << std::endl;
+	std::cout << totalbytes << std::endl;
+	std::cout << "end recvall debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
+	std::cout << std::endl;
 	return true; //Success!
 }
 
@@ -23,6 +29,12 @@ bool Server::sendall(int ID, char * data, int totalbytes)
 			return false; //Return false - failed to sendall
 		bytessent += RetnCheck; //Add to total bytes sent
 	}
+	std::cout << "start sendall debug" << std::endl;
+	std::cout << data << std::endl;
+	std::cout << totalbytes << std::endl;
+	std::cout << "end sendall debug" << std::endl;
+	std::cout << "==================================================================" << std::endl;
+	std::cout << std::endl;
 	return true; //Success!
 }
 
@@ -129,7 +141,7 @@ bool Server::GetEntity(int ID, std::string& _string)
 	int i;
 	for (; ss >> i;)
 	{
-		if (vec.size() > 4)
+		if (vec.size() > 2)
 		{
 			vec.clear();
 		}
