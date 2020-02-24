@@ -119,7 +119,6 @@ void Knight::update()
 			m_seek = false;
 		}
 	}
-	animate();
 
 	if (m_ih->move)
 	{
@@ -148,24 +147,13 @@ void Knight::update()
 	}
 
 	setAction();
-	animate();
+	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
 
 	if (timer > 0)
 	{
 		timer--;
 		std::cout << timer << std::endl;
 	}
-}
-
-void Knight::animate()
-{
-	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 11;
-	m_animationRect->x = sprite * (frameWidth);
-	m_animationRect->y = spriteSheetY;
-
-	m_sc->setRect(m_animationRect);
-	m_sc->setDstRect(m_positionRect);
 }
 
 void Knight::processEvents(bool isRunning)
@@ -203,18 +191,30 @@ void Knight::setAction()
 			}
 			break;
 		case 2:
-			setDamage(6);
-			m_animationRect->x = 0;
-			spriteSheetY = 0;
+			if (m_skillCooldown[0] == false)
+			{
+				setDamage(6);
+				m_animationRect->x = 0;
+				spriteSheetY = 0;
+				m_skillCooldown[0] = true;
+			}
 			break;
 		case 3:
-			setDamage(7);
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 3;
+			if (m_skillCooldown[1] == false)
+			{
+				setDamage(7);
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 3;
+				m_skillCooldown[1] = true;
+			}
 			break;
 		case 4:
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 4;
+			if (m_skillCooldown[2] == false)
+			{
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 4;
+				m_skillCooldown[2] = true;
+			}
 			break;
 		case 5:
 			m_animationRect->x = 0;
@@ -245,4 +245,14 @@ void Knight::Attack(float& m_enemyHealth)
 			m_hc->alterHealth(2);
 		}
 	}
+}
+
+bool Knight::getMenuActive()
+{
+	return m_ih->m_menuActive;
+}
+
+void Knight::turnOffMenu()
+{
+	m_ih->m_menuActive = false;
 }

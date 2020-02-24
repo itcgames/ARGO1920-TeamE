@@ -138,11 +138,16 @@ bool HostSearchState::onEnter()
 bool HostSearchState::onExit()
 {
 	m_hostRect = nullptr;
-	m_hostTexture = nullptr;
+	SDL_DestroyTexture(m_hostTexture);
 
 	m_searchRect = nullptr;
-	m_searchTexture = nullptr;
+	SDL_DestroyTexture(m_exitTexture);
 
+	for (int i = 0; i < 2; i++)
+	{
+		m_text[i]->DestroyText();
+	}
+	TTF_CloseFont(Abel);
 	//std::cout << "Exiting Menu State\n";
 	return true;
 }

@@ -91,6 +91,11 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ih->addEntity(m_player);
 
 	m_ih->mousePosition = startPos;
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_skillCooldown[i] = false;
+	}
 }
 
 void Mage::update()
@@ -122,8 +127,6 @@ void Mage::update()
 		}
 	}
 
-	animate();
-
 	if (m_ih->move)
 	{
 		spriteSheetY = frameHeight;
@@ -151,18 +154,7 @@ void Mage::update()
 	}
 
 	setAction();
-	animate();
-}
-
-void Mage::animate()
-{
-	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 11;
-	m_animationRect->x = sprite * (frameWidth);
-	m_animationRect->y = spriteSheetY;
-
-	m_sc->setRect(m_animationRect);
-	m_sc->setDstRect(m_positionRect);
+	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
 }
 
 void Mage::processEvents(bool isRunning)
@@ -200,17 +192,29 @@ void Mage::setAction()
 			}
 			break;
 		case 2:
-			setDamage(4);
-			m_animationRect->x = 0;
-			spriteSheetY = 0;
+			if (m_skillCooldown[0] == false)
+			{
+				setDamage(4);
+				m_animationRect->x = 0;
+				spriteSheetY = 0;
+				m_skillCooldown[0] = true;
+			}
 			break;
 		case 3:
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 3;
+			if (m_skillCooldown[1] == false)
+			{
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 3;
+				m_skillCooldown[1] = true;
+			}
 			break;
 		case 4:
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 4;
+			if (m_skillCooldown[2] == false)
+			{
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 4;
+				m_skillCooldown[2] = true;
+			}
 			break;
 		case 5:
 			m_animationRect->x = 0;
@@ -250,4 +254,14 @@ void Mage::Attack(float& m_enemyHealth)
 			dmg += 0.1;
 		}
 	}
+}
+
+bool Mage::getMenuActive()
+{
+	return m_ih->m_menuActive;
+}
+
+void Mage::turnOffMenu()
+{
+	m_ih->m_menuActive = false;
 }

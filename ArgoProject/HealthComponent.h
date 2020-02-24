@@ -1,11 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 1:00 4 February 2020
-// Finished at
-// Time taken:
-// Known bugs:
-
 #ifndef HEALTHCOMPONENT_H
 #define HEALTHCOMPONENT_H
 

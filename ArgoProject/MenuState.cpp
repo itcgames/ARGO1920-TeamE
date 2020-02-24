@@ -124,8 +124,8 @@ bool MenuState::onEnter()
 	m_singlePlayerButton->h = m_buttonDimensions.y * 0.05;
 
 
-	SDL_Surface* m_singlePlayerButtonSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
-	m_singlePlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_singlePlayerButtonSurface);
+	SDL_Surface* menuSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	m_singlePlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
 
 	m_multiPlayerButton = new SDL_Rect();
 	m_multiPlayerButton->x = m_buttonDimensions.x * 0.05;
@@ -133,8 +133,8 @@ bool MenuState::onEnter()
 	m_multiPlayerButton->w = m_buttonDimensions.x * 0.4;
 	m_multiPlayerButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_multiPlayerButtonSurface = IMG_Load("Assets/ecs_text2.png");
-	m_multiPlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_multiPlayerButtonSurface);
+	menuSurface = IMG_Load("Assets/ecs_text2.png");
+	m_multiPlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
 
 	m_optionsButton = new SDL_Rect();
 	m_optionsButton->x = m_buttonDimensions.x * 0.05;
@@ -142,8 +142,8 @@ bool MenuState::onEnter()
 	m_optionsButton->w = m_buttonDimensions.x * 0.4;
 	m_optionsButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_optionsButtonSurface = IMG_Load("Assets/Health.png");
-	m_optionsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_optionsButtonSurface);
+	menuSurface = IMG_Load("Assets/Health.png");
+	m_optionsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
 
 	m_creditsButton = new SDL_Rect();
 	m_creditsButton->x = m_buttonDimensions.x * 0.05;
@@ -151,8 +151,8 @@ bool MenuState::onEnter()
 	m_creditsButton->w = m_buttonDimensions.x * 0.4;
 	m_creditsButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_creditsButtonSurface = IMG_Load("Assets/Mana.png");
-	m_creditsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_creditsButtonSurface);
+	menuSurface = IMG_Load("Assets/Mana.png");
+	m_creditsButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
 
 	m_exitButton = new SDL_Rect();
 	m_exitButton->x = m_buttonDimensions.x * 0.05;
@@ -160,23 +160,26 @@ bool MenuState::onEnter()
 	m_exitButton->w = m_buttonDimensions.x * 0.4;
 	m_exitButton->h = m_buttonDimensions.y * 0.05;
 
-	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/Stamina.png");
-	m_exitButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitButtonSurface);
+	menuSurface = IMG_Load("Assets/Stamina.png");
+	m_exitButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
 
+	SDL_FreeSurface(menuSurface);
 	return true;
 }
 
 bool MenuState::onExit()
 {
-	m_singlePlayerButton = nullptr;
-	m_singlePlayerButtonTexture = nullptr;
+	SDL_DestroyTexture(m_singlePlayerButtonTexture);
+	SDL_DestroyTexture(m_multiPlayerButtonTexture);
+	SDL_DestroyTexture(m_optionsButtonTexture);
+	SDL_DestroyTexture(m_creditsButtonTexture);
+	SDL_DestroyTexture(m_exitButtonTexture);
 
-	m_optionsButton = nullptr;
-	m_optionsButtonTexture = nullptr;
-
-	m_exitButton = nullptr;
-	m_exitButtonTexture = nullptr;
-
+	for (int i = 0; i < 5; i++)
+	{
+		m_text[i]->DestroyText();
+	}
+	TTF_CloseFont(Abel);
 	//std::cout << "Exiting Menu State\n";
 	return true;
 }

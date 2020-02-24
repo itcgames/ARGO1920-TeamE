@@ -20,15 +20,17 @@ public:
 	virtual ~IPlayer() {}
 	virtual void init(RenderSystem* t_rs, SDL_Rect* camera, Vector2 startPos) = 0;
 	virtual void update() = 0;
-	virtual void animate() = 0;
 	virtual void processEvents(bool isRunning) = 0;
 	virtual Vector2 getPosition() = 0;
+	virtual float getHealth() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
 	virtual void Attack(float&m_enemyHealth) = 0;
 	virtual void setDamage(float t_dmg) = 0;
 	virtual bool getSeek() = 0;
 	virtual void setSeek(bool seek) = 0;
+	virtual bool getMenuActive() = 0;
+	virtual void turnOffMenu() = 0;
 
 	//virtual void hit(Entity* t_enemy) = 0;
 
@@ -36,8 +38,12 @@ public:
 	virtual void setTargetPosition(Vector2 vector) = 0;
 
 
+
+
 	virtual SDL_Rect* getRect() = 0;
 	ManaComponent* m_mc;
+
+	bool m_skillCooldown[3];
 protected:
 	Entity* m_player;
 

@@ -145,7 +145,7 @@ void Warrior::update()
 	//attack slam attack
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
-		slamAttackSound.play();
+		//slamAttackSound.play();
 		//spriteSheetY = 339;
 	}
 	//spin attack
@@ -158,7 +158,6 @@ void Warrior::update()
 	{
 		//spriteSheetY = 565;
 	}
-	animate();
 
 	if (m_ih->move)
 	{
@@ -187,18 +186,7 @@ void Warrior::update()
 	}
 
 	setAction();
-	animate();
-}
-
-void Warrior::animate()
-{
-	Uint32 ticks = SDL_GetTicks();
-	Uint32 sprite = (ticks / 100) % 11;
-	m_animationRect->x = sprite * (frameWidth);
-	m_animationRect->y = spriteSheetY;
-
-	m_sc->setRect(m_animationRect);
-	m_sc->setDstRect(m_positionRect);
+	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
 }
 
 void Warrior::processEvents(bool isRunning)
@@ -223,12 +211,12 @@ void Warrior::setAction()
 				if (mag > 40)
 				{
 					m_bs->playerSeek(m_ih->mousePosition, m_seek);
-					//walkSound.play();
+					walkSound.play();
 				}
 				else
 				{
 					m_ih->move = false;
-					//walkSound.stop();
+					walkSound.stop();
 				}
 
 
@@ -239,25 +227,37 @@ void Warrior::setAction()
 			}
 			break;
 		case 2:
-			setDamage(3);
-			m_animationRect->x = 0;
-			spriteSheetY = 0;
-			attackSound.play();
-			m_ih->move = false;
+			if (m_skillCooldown[0] == false)
+			{
+				setDamage(3);
+				m_animationRect->x = 0;
+				spriteSheetY = 0;
+				attackSound.play();
+				m_ih->move = false;
+				m_skillCooldown[0] = true;
+			}
 			break;
 		case 3:
-			setDamage(10);
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 3;
-			slamAttackSound.play();
-			m_ih->move = false;
+			if (m_skillCooldown[1] == false)
+			{
+				setDamage(10);
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 3;
+				slamAttackSound.play();
+				m_ih->move = false;
+				m_skillCooldown[1] = true;
+			}
 			break;
 		case 4:
-			setDamage(6);
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 4;
-			spinAttackSound.play();
-			m_ih->move = false;
+			if (m_skillCooldown[2] == false)
+			{
+				setDamage(6);
+				m_animationRect->x = 0;
+				spriteSheetY = frameHeight * 4;
+				spinAttackSound.play();
+				m_ih->move = false;
+				m_skillCooldown[2] = true;
+			}
 			break;
 		case 5:
 			m_animationRect->x = 0;
@@ -280,4 +280,14 @@ void Warrior::Attack(float &m_enemyHealth)
 			m_enemyHealth -= dmg;
 		}
 	}
+}
+
+bool Warrior::getMenuActive()
+{
+	return m_ih->m_menuActive;
+}
+
+void Warrior::turnOffMenu()
+{
+	m_ih->m_menuActive = false;
 }

@@ -1,5 +1,5 @@
 #include "Audio.h"
-
+#include <iostream>
 Audio::~Audio()
 {
 	SDL_CloseAudioDevice(deviceId);
@@ -14,8 +14,11 @@ void Audio::load(const char* filename)
 
 void Audio::play()
 {
-	SDL_QueueAudio(deviceId, wavBuffer, wavLength);
-	SDL_PauseAudioDevice(deviceId, 0);
+	if (SDL_GetQueuedAudioSize(deviceId) == 0)
+	{
+		SDL_QueueAudio(deviceId, wavBuffer, wavLength);
+		SDL_PauseAudioDevice(deviceId, 0);
+	}
 }
 
 void Audio::stop()

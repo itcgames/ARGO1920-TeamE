@@ -1,11 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 14:30 3 February 2020
-// Finished at
-// Time taken:
-// Known bugs:
-
 #ifndef VECTOR2_H
 #define VECTOR2_H
 

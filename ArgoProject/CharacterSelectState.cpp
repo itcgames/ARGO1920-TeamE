@@ -101,8 +101,7 @@ bool CharacterSelectState::onEnter()
 		// handle error
 	}
 
-	SDL_Surface* surfaceMessage;
-	SDL_Color White = { 255, 255, 255 };
+	SDL_Surface* characterSelectSurface;
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -117,8 +116,8 @@ bool CharacterSelectState::onEnter()
 	m_tankOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_tankOption->h = m_cameraDimensions.y;
 
-	SDL_Surface* m_tankOptionSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
-	m_tankOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_tankOptionSurface);
+	characterSelectSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	m_tankOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_dpsOption = new SDL_Rect();
 	m_dpsOption->x = m_cameraDimensions.x * (1.0/3.0);
@@ -126,8 +125,8 @@ bool CharacterSelectState::onEnter()
 	m_dpsOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_dpsOption->h = m_cameraDimensions.y;
 
-	SDL_Surface* m_dpsOptionSurface = IMG_Load("Assets/Health.png");
-	m_dpsOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_dpsOptionSurface);
+	characterSelectSurface = IMG_Load("Assets/Health.png");
+	m_dpsOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_mageOption = new SDL_Rect();
 	m_mageOption->x = m_cameraDimensions.x * (2.0 / 3.0);;
@@ -135,8 +134,8 @@ bool CharacterSelectState::onEnter()
 	m_mageOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_mageOption->h = m_cameraDimensions.y;
 
-	SDL_Surface* m_mageOptionSurface = IMG_Load("Assets/Mana.png");
-	m_mageOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_mageOptionSurface);
+	characterSelectSurface = IMG_Load("Assets/Mana.png");
+	m_mageOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_exitOption = new SDL_Rect();
 	m_exitOption->x = m_cameraDimensions.x * (2.5 / 6.0);
@@ -144,14 +143,26 @@ bool CharacterSelectState::onEnter()
 	m_exitOption->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitOption->h = m_cameraDimensions.y * 0.1;
 
-	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/Stamina.png");
-	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitOptionSurface);
+	characterSelectSurface = IMG_Load("Assets/Stamina.png");
+	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_text[3] = new Text(Abel, "Return", m_cameraDimensions.x * (2.5 / 6.0), m_cameraDimensions.y * 0.9);
+
+	SDL_FreeSurface(characterSelectSurface);
 
 	return true;
 }
 bool CharacterSelectState::onExit()
 {
+	SDL_DestroyTexture(m_tankOptionTexture);
+	SDL_DestroyTexture(m_dpsOptionTexture);
+	SDL_DestroyTexture(m_mageOptionTexture);
+	SDL_DestroyTexture(m_exitOptionTexture);
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_text[i]->DestroyText();
+	}
+	TTF_CloseFont(Abel);
 	return true;
 }

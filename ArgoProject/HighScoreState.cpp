@@ -96,7 +96,7 @@ bool HighScoreState::onEnter()
 		m_slotRect[i]->w = m_cameraDimensions.x * 0.6;
 		m_slotRect[i]->h = m_cameraDimensions.y * 0.1 - 10;
 	}
-
+	SDL_FreeSurface(surfaceSlot);
 	return true;
 }
 bool HighScoreState::onExit()
@@ -106,10 +106,19 @@ bool HighScoreState::onExit()
 	//std::fill_n(m_nameTextures, 10, 0);
 	m_stateMachine = nullptr;
 
+	SDL_DestroyTexture(m_slotTexture);
+
+
 	for (int i = 0; i < 10; i++)
 	{
-		m_text[i] = nullptr;
+		m_text[i]->DestroyText();
+		delete m_slotRect[i];
+		m_display[i] = "";
+		m_scoreString[i] = "";
 	}
+
+	TTF_CloseFont(Abel);
+
 	return true;
 }
 

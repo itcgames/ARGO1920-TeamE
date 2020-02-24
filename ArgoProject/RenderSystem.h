@@ -175,6 +175,32 @@ public:
 		SDL_RenderCopyEx(renderer, spriteComponent->getTexture(), NULL, spriteComponent->getRect(), 0, NULL, SDL_FLIP_NONE);
 	}
 
+	void clearMap()
+	{
+		for (int i = 0; i < m_entities.size(); i++)
+		{
+			SDL_DestroyTexture(m_entities[i]->getComponent<SpriteComponent>(2)->getTexture());
+			/*delete m_entities[i]->getComponent<PositionComponent>(1);
+			delete m_entities[i]->getComponent<SpriteComponent>(2);
+			if (m_entities[i]->getID() == 2)
+			{
+				delete m_entities[i]->getComponent<BehaviourComponent>(3);
+				delete m_entities[i]->getComponent<StatsComponent>(4);
+				delete m_entities[i]->getComponent<HealthComponent>(5);
+				delete m_entities[i]->getComponent<ActiveComponent>(6);
+			}
+			else if (m_entities[i]->getID() == 1)
+			{
+				delete m_entities[i]->getComponent<BehaviourComponent>(3);
+				delete m_entities[i]->getComponent<StatsComponent>(4);
+				delete m_entities[i]->getComponent<HealthComponent>(5);
+				delete m_entities[i]->getComponent<ActiveComponent>(6);
+				delete m_entities[i]->getComponent<ManaComponent>(7);
+				delete m_entities[i]->getComponent<StaminaComponent>(8);
+			}*/
+		}
+	}
+
 private:
 	//
 	

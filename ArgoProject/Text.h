@@ -17,7 +17,9 @@ public:
 	SDL_Color White;
 	TTF_Font* Font;
 
+	void update(std::string t_newText);
 	void render();
+	void DestroyText();
 };
 
 #endif // !1

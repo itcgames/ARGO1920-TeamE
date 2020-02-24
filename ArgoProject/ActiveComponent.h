@@ -1,11 +1,3 @@
-//
-// C00204076
-// Brandon Seah-Dempsey
-// Started at 9:56 13 February 2020
-// Finished at
-// Time taken:
-// Known bugs:
-
 #ifndef ACTIVECOMPONENT_H
 #define ACTIVECOMPONENT_H
 

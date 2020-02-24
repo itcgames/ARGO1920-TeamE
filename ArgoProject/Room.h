@@ -18,9 +18,10 @@ public:
 
 	void checkForOverlap(std::vector<std::unique_ptr<Tile>>& t, RenderSystem* t_rs, CollisionSystem* t_cs);
 	void deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs);
-	void pathOverlaping(RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	Vector2 getCenterPos();
+
+	Vector2 getRandomFloorTilePos();
 	Vector2 getSize();
 	int getWallsCount();
 	int getFloorCount();

@@ -60,13 +60,31 @@ private:
 
 	GameStateMachine* m_stateMachine;
 
-	Server m_server{ 8888, true };
+	//Server m_server{ 8888, true };
 	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
+	//Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
+
+	//Server m_server{ 1111, true };
+	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
+	//Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
+
 
 	Audio m_background;
 
 	ParticleSystem* m_pSystem;
+
+	bool m_menuActive;
+	SDL_Rect* m_menuBackground;
+	SDL_Texture* m_menuBackgroundTexture;
+
+	SDL_Rect* m_playOption;
+	SDL_Texture* m_playOptionTexture;
+
+	SDL_Rect* m_exitOption;
+	SDL_Texture* m_exitOptionTexture;
+
+	TTF_Font* m_font;
+	Text* m_text[2];
 };
 
 #endif
