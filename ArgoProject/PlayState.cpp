@@ -205,6 +205,9 @@ bool PlayState::onEnter()
 		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
 			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
 			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
+
+		m_enemies[i]->setRoom(tempRandPos);
+
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
