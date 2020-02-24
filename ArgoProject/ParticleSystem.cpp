@@ -91,7 +91,7 @@ void ParticleSystem::AddParticles(Vector2 pos = Vector2{0,0}, Type typeID = Type
 		if (m_particles.size() < numofParticles)
 		{
 			timeToLive = GenerateRandomNumber(0.1, 0.4);
-			position = disperseInRect(position, 10, 100);
+			position = disperseInRect(position + Vector2(50,0), 100, 100);
 			velocity = Vector2(GenerateRandomNumber(-3, 0), GenerateRandomNumber(-0.1, 0.1));
 
 			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
@@ -112,8 +112,8 @@ Vector2 ParticleSystem::disperseInCircle(int circleRadius)
 
 Vector2 ParticleSystem::disperseInRect(Vector2 pos, int width, int height)
 {
-	double x = GenerateRandomNumber(pos.x, pos.x + width);
-	double y = GenerateRandomNumber(pos.y, pos.y + height);
+	double x = GenerateRandomNumber(pos.x, (int)pos.x + width);
+	double y = GenerateRandomNumber(pos.y, (int)pos.y + height);
 
 	return Vector2(x,y);
 }

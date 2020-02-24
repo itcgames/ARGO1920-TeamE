@@ -42,7 +42,6 @@ private:
 	float m_angle;
 	int m_speed = 2;
 	Vector2 m_direction;
-	SDL_Color myCol;
 	int size = 10;
 
 	//Rectangle

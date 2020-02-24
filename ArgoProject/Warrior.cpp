@@ -11,7 +11,6 @@ Warrior::~Warrior()
 
 void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 {
-	m_particleEffects = new ParticleSystem("PLAY",t_rs);
 	//creates a source and size rectangle for the player animation
 	m_positionRect = new SDL_Rect();
 	m_positionRect->x = startPos.x;
@@ -97,6 +96,8 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	attackSound.load("Assets/Audio/attack1.wav");
 	slamAttackSound.load("Assets/Audio/slam.wav");
 	spinAttackSound.load("Assets/Audio/spinAttack.wav");
+
+	m_particleEffects = new ParticleSystem("PLAY", t_rs);
 }
 
 void Warrior::update()

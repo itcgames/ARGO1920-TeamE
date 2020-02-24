@@ -41,6 +41,7 @@ Particle::Particle(const std::string& currentState, int maxAliveTime, Vector2 po
 
 Particle::~Particle()
 {
+	SDL_DestroyTexture(m_texture);
 }
 
 void Particle::CreateParticle()
