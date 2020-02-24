@@ -271,6 +271,18 @@ bool PlayState::onExit()
 
 	m_hud->onExit();
 
+	//delete m_pSystem;
+	//delete m_rs;
+/*
+	for (int i = 0; i < myMap->map.size(); i++)
+	{
+		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+		{
+			myMap->map[i]->tileList[z]->clearTile();		
+		}
+	}*/
+
+
 	return true;
 }
 
