@@ -16,6 +16,9 @@ public:
 	void setAttackTime(int attackTime);
 	bool getSeek();
 	void setSeek(bool seek);
+
+	int getRoom() { return roomNum; }
+	void setRoom(int roomNumber) { roomNum = roomNumber; }
 };
 
 #endif // !ENEMYHARD
