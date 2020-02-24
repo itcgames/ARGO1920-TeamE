@@ -28,7 +28,21 @@ void PlayState::update()
 		else if (camera->x > level->w - camera->w)
 		{
 			camera->x = level->w - camera->w;
+
 		}
+		//else if (camera->x > level->w - camera->w)
+		//{
+		//	Vector2 tempPos = m_player2->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+		//	//std::string test = std::to_string(tempPos.x);
+		//	//std::string test2 = std::to_string(tempPos.y);
+		//	std::string test = "1000";
+		//	std::string test2 = "1000";
+		//	m_client.SendString(test);
+		//	m_client.SendString(test2);
+		//	//m_client.
+		//	//m_player2->getEntity()->getComponent<PositionComponent>(1)->setPosition(Vector2(data::Instance()->m_player2Pos.at(0), data::Instance()->m_player2Pos.at(1)));
+		//	camera->x = level->w - camera->w;
+		//}
 		if (camera->y < 0)
 		{
 			camera->y = 0;
@@ -36,6 +50,7 @@ void PlayState::update()
 		else if (camera->y > level->h - camera->h)
 		{
 			camera->y = level->h - camera->h;
+
 		}
 
 		if (!m_player->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
@@ -102,7 +117,7 @@ void PlayState::render()
 }
 
 /// handle user and system events/ input
-void PlayState::processEvents(bool &isRunning)
+void PlayState::processEvents(bool& isRunning)
 {
 	if (m_player->getMenuActive() == false)
 	{
@@ -173,22 +188,23 @@ bool PlayState::onEnter()
 	for (int i = 0; i < 20; i++)
 	{
 		int tempRandPos = rand() % tempRooms;
-
-		if (i == 0)
+		int randomEnemyPreset = rand() % 3;
+		if (randomEnemyPreset == 0)
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 		}
-		else
+		if (randomEnemyPreset == 1)
 		{
 			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
+		}
+		if (randomEnemyPreset == 2)
+		{
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
 		}		
- 
-
-		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(0).m_class, data::Instance()->getData().m_presets.m_stats.at(0).m_health,
-			data::Instance()->getData().m_presets.m_stats.at(0).m_strength, data::Instance()->getData().m_presets.m_stats.at(0).m_speed,
-			data::Instance()->getData().m_presets.m_stats.at(0).m_gold, data::Instance()->getData().m_presets.m_stats.at(0).m_killCount);
-
-		m_enemies[i]->setRoom(tempRandPos);
+		//@ALEX HERE 
+		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
+			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
+			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
@@ -210,7 +226,7 @@ bool PlayState::onEnter()
 	if (!data::Instance()->SINGLEPLAYER)
 	{
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-		m_player2->init(m_rs, camera, Vector2(500, 500));
+		m_player2->init(m_rs, camera, Vector2(1000, 800));
 	}
 	m_hud = new HUD(m_cameraDimensions, 
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),

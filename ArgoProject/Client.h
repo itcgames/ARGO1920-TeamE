@@ -10,6 +10,7 @@
 #include <vector>
 #include <stdio.h>
 #include "Server.h"
+#include<assert.h>
 
 class Game;
 
@@ -40,7 +41,7 @@ private: //Private functions
 	bool GetInt(int& _int);
 	bool GetPacketType(Packet& _packettype);
 	bool GetString(std::string& _string);
-	bool GetCircle(std::string& _string);
+	bool GetEntity(std::string& _string);
 
 
 

@@ -21,7 +21,7 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_animationRect->y = 0;
 
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/warrior.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/knight.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
 	SDL_FreeSurface(playerSurface);
