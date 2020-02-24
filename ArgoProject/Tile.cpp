@@ -39,6 +39,7 @@ Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag
 
 Tile::~Tile()
 {
+	SDL_DestroyTexture(img);
 }
 
 void Tile::render()
