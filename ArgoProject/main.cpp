@@ -10,7 +10,6 @@
 #include <SDL_image.h>
 #include <SDL.h>
 #include "yaml-cpp\yaml.h"
-#include "SDL_net.h"
 #include "Game.h"
 #include "LevelLoader.h"
 

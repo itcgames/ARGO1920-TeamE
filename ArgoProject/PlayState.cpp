@@ -205,6 +205,9 @@ bool PlayState::onEnter()
 		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
 			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
 			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
+
+		m_enemies[i]->setRoom(tempRandPos);
+
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
@@ -387,6 +390,31 @@ void PlayState::collisions()
 				}
 			}
 	}
+
+	for (int y = 0; y < m_enemies.size(); y++)
+	{
+		for (int z = 0; z < myMap->map[m_enemies[y]->getRoom()]->tileList.size(); z++)
+		{
+			if (myMap->map[m_enemies[y]->getRoom()]->tileList[z]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_enemies[y]->getEntity()->getComponent<SpriteComponent>(2)->getRect(), myMap->map[m_enemies[y]->getRoom()]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_cs->wallCollisionResponse(m_enemies[y]->getEntity(), myMap->map[m_enemies[y]->getRoom()]->tileList[z]->getEntity());
+				}
+			}
+		}
+	}
+
+	//for (int y = 0; y < m_enemies.size(); y++)
+	//{
+	//	for (int i = 0; i < myMap->path.size(); i++)
+	//	{
+	//		if (m_cs->aabbCollision(m_enemies[y]->getEntity()->getComponent<SpriteComponent>(2)->getRect(), myMap->path[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//		{
+	//			m_cs->wallCollisionResponse(m_enemies[y]->getEntity(), myMap->path[i]->getEntity());
+	//		}
+	//	}
+	//}
 
 	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 }

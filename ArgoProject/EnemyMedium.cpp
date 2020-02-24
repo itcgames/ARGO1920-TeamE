@@ -134,3 +134,4 @@ void EnemyMedium::setSeek(bool seek)
 {
 	m_seek = seek;
 }
+

@@ -135,3 +135,4 @@ void EnemyHard::setSeek(bool seek)
 {
 	m_seek = seek;
 }
+
