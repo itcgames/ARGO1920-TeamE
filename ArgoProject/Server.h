@@ -24,6 +24,7 @@ class Server
 {
 public:
 	Server(int PORT, bool BroadcastPublically = false);
+	~Server();
 	bool ListenForNewConnection();
 
 private:
