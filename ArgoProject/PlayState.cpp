@@ -332,7 +332,7 @@ void PlayState::collisions()
 		}
 		else
 		{
-			m_player->m_mc->alterMana(0.1f);
+			m_player->m_mc->alterMana(0.01f);
 		}
 		m_enemies[i]->update(m_player->getPosition());
 	}

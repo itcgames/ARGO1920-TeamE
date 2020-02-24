@@ -42,6 +42,7 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	//Creates the Systems
 	m_bs = new BehaviourSystem;
+	m_anim = new AnimationSystem;
 	finiteStateMachine = new FSM();
 	state = new FiniteState();
 
@@ -77,6 +78,9 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//Behaviour System
 	m_bs->addEntity(m_player);
 
+	//animation System
+	m_anim->addEntity(m_player);
+
 	//Render System
 	t_rs->addEntity(m_player);
 
@@ -93,33 +97,6 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Knight::update()
 {
-	//checks if the player is in walking state
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
-		{
-			m_seek = true;
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
-			{
-				//m_bs->seek(m_ih->mousePosition);
-				m_bs->seek(m_ih->mousePosition);
-			}
-			else
-			{
-				m_ih->move = false;
-			}
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
-		}
-		else
-		{
-			m_seek = false;
-		}
-	}
-
 	if (m_ih->move)
 	{
 		spriteSheetY = frameHeight;
@@ -133,13 +110,13 @@ void Knight::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
 
-	else while (!commandQueue.empty() && timer == 0)
+	else while (!commandQueue.empty() && m_animationRect->x != 0)
 	{
 		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
@@ -147,13 +124,8 @@ void Knight::update()
 	}
 
 	setAction();
-	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
 
-	if (timer > 0)
-	{
-		timer--;
-		std::cout << timer << std::endl;
-	}
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
 }
 
 void Knight::processEvents(bool isRunning)

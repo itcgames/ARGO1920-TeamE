@@ -7,6 +7,7 @@
 #include "RenderSystem.h"
 #include "BehaviourSystem.h"
 #include "CommandSystem.h"
+#include "AnimationSystem.h"
 #include "Renderer.h"
 #include "Data.h"
 #include "FiniteState.h"
@@ -37,11 +38,9 @@ public:
 	virtual void setMove(bool move) = 0;
 	virtual void setTargetPosition(Vector2 vector) = 0;
 
-
-
-
 	virtual SDL_Rect* getRect() = 0;
 	ManaComponent* m_mc;
+	int m_enemyHealth;
 
 	bool m_skillCooldown[3];
 protected:
@@ -60,6 +59,7 @@ protected:
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
+	AnimationSystem* m_anim;
 
 	//Player animated sprite
 	SDL_Rect* m_positionRect;

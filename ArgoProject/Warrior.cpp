@@ -21,7 +21,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_animationRect->y = 0;
 
 	//load in the player texture
-	SDL_Surface* playerSurface = IMG_Load("Assets/warrior2.png");
+	SDL_Surface* playerSurface = IMG_Load("Assets/warrior.png");
 	m_playerTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playerSurface);
 	SDL_QueryTexture(m_playerTexture, NULL, NULL, &textureWidth, &textureHeight);
 	SDL_FreeSurface(playerSurface);
@@ -42,6 +42,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	//Creates the Systems
 	m_bs = new BehaviourSystem;
+	m_anim = new AnimationSystem;
 	finiteStateMachine = new FSM();
 	state = new FiniteState();
 
@@ -62,6 +63,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
 
+	//adding components
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);
 	m_player->addComponent<SpriteComponent>(m_sc, 2);
@@ -78,6 +80,9 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	//Behaviour System
 	m_bs->addEntity(m_player);
+
+	//Animation System
+	m_anim->addEntity(m_player);
 
 	//Render System
 	t_rs->addEntity(m_player);
@@ -100,65 +105,6 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Warrior::update()
 {
-	if (finiteStateMachine->getCurrentState() == 0)
-	{
-		attackSound.stop();
-		spinAttackSound.stop();
-		slamAttackSound.stop();
-		//walkSound.stop();
-	}
-	//checks if the player is in walking state
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
-		{
-
-			m_seek = true;
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
-			{
-				m_bs->playerSeek(m_ih->mousePosition, m_seek);
-				//walkSound.play();
-			}
-			else
-			{
-				m_ih->move = false;
-				//walkSound.stop();
-			}
-
-			
-
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
-			
-		}
-
-	}
-
-	//basic bitch attack
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-		//spriteSheetY = 226;
-	}
-	//attack slam attack
-	if (finiteStateMachine->getCurrentState() == 3)
-	{
-		//slamAttackSound.play();
-		//spriteSheetY = 339;
-	}
-	//spin attack
-	if (finiteStateMachine->getCurrentState() == 4)
-	{
-		//spriteSheetY = 452;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 5)
-	{
-		//spriteSheetY = 565;
-	}
-
 	if (m_ih->move)
 	{
 		spriteSheetY = frameHeight;
@@ -172,21 +118,20 @@ void Warrior::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
-
-	else while (!commandQueue.empty())
+	else while (!commandQueue.empty() && m_animationRect->x != 0)
 	{
-		//m_animationRect->x = 0;
+		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
 		commandQueue.pop_back();
 	}
 
 	setAction();
-	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
 }
 
 void Warrior::processEvents(bool isRunning)
@@ -200,11 +145,16 @@ void Warrior::setAction()
 	{
 		switch (finiteStateMachine->getCurrentState())
 		{
+		case 0:
+			attackSound.stop();
+			spinAttackSound.stop();
+			slamAttackSound.stop();
+			//walkSound.stop();
+			break;
 		case 1:
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
 				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
@@ -218,12 +168,8 @@ void Warrior::setAction()
 					m_ih->move = false;
 					walkSound.stop();
 				}
-
-
-
 				m_positionRect->x = m_pc->getPosition().x;
 				m_positionRect->y = m_pc->getPosition().y;
-
 			}
 			break;
 		case 2:
@@ -260,7 +206,6 @@ void Warrior::setAction()
 			}
 			break;
 		case 5:
-			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 5;
 			m_ih->move = false;
 			break;

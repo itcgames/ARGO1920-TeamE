@@ -416,6 +416,9 @@
     <ClInclude Include="Text.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

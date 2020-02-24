@@ -28,8 +28,6 @@ public:
 	void Attack(float& m_enemyHealth);
 	void setDamage(float t_dmg) { dmg = t_dmg; }
 
-	int timer = 0;
-
 	bool m_skillActive[3];
 };
 
