@@ -209,9 +209,10 @@ bool PlayState::onEnter()
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 		m_player2->init(m_rs, camera, Vector2(500, 500));
 	}
-	m_hud = new HUD(m_cameraDimensions, 
+	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
-		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2]);
+		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
+		m_player->m_killCount);
 
 	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
@@ -334,10 +335,13 @@ void PlayState::collisions()
 				m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 				//m_enemies[i]->setAttackTime(0);
 			}
-			else
+			if(m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
 			{
+				if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+				{
+					m_player->m_killCount++;
+				}
 				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-				m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 				m_rs->deleteEntity(m_enemies[i]->getEntity());
 				m_cs->deleteEntity(m_enemies[i]->getEntity());
 			}

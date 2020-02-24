@@ -28,7 +28,6 @@ public:
 	void Attack(float& m_enemyHealth);
 	void setDamage(float t_dmg) { dmg = t_dmg; }
 
-	bool m_skillActive[3];
 };
 
 #endif // !WARRIOR
