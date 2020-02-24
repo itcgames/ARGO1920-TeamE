@@ -23,6 +23,7 @@ public:
 	bool HOST = false;
 	bool SINGLEPLAYER = false;
 	std::string IPADDRESS = "149.153.106.174";
+	std::vector<std::string> m_player2Pos;
 private:
 	static Data* m_Instance;
 	GameData m_data;

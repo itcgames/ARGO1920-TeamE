@@ -28,13 +28,19 @@ Player:
     strength: 200
 Presets:
   Stats:
-    - class: zombie
+    - class: ENEMY_EASY
       gold: 5000
       health: 100
       killcount: 0
       speed: 2
       strength: 10
-    - class: skeleton
+    - class: ENEMY_MEDIUM
+      gold: 100000
+      health: 150
+      killcount: 0
+      speed: 3
+      strength: 50
+    - class: ENEMY_HARD
       gold: 100000
       health: 200
       killcount: 0

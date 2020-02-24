@@ -16,7 +16,7 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	m_rect->w = 100; m_rect->h = 100;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/ecs_text2.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/ecs_text3.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
 
 	m_enemy = new Entity();
@@ -30,7 +30,7 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	//creates position and sprite components for the enemy
 	m_pc = new PositionComponent(Vector2(m_rect->x, m_rect->y), 1);
 	m_sc = new SpriteComponent(m_texture, m_rect, 2);
-	m_bc = new BehaviourComponent(Vector2(0, 0), 1, 0, 3);
+	m_bc = new BehaviourComponent(Vector2(0, 0), 1, 0, t_speed);
 	m_statsC = new StatsComponent(t_class, t_health, t_strength, t_speed, t_gold, t_killCount, 4);
 	m_hc = new HealthComponent(t_health, 5);
 	m_ac = new ActiveComponent(true, 6);
