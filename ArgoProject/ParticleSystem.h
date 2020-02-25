@@ -26,6 +26,7 @@ public:
 
 	void AddParticles(Vector2 pos, Type typeID, int numofParticles);
 
+
 	Vector2 disperseInCircle(Vector2 t_pos, int circleRadius);
 
 	Vector2 disperseInRect(Vector2 pos, int width, int height);
