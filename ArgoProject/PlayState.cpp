@@ -14,6 +14,7 @@ void PlayState::update()
 {
 	if (m_player->getMenuActive() == false)
 	{
+		m_miniMapList = m_rs->m_miniMapList;
 		collisions();
 
 		m_player->update();
@@ -106,6 +107,11 @@ void PlayState::update()
 		{
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
+	}
+	else
+	{
+		m_miniMapList;
+		std::cout << "";
 	}
 }
 
@@ -226,17 +232,21 @@ bool PlayState::onEnter()
 	m_enemies.back()->initialize(m_rs, myMap->map[3]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(3).m_class, data::Instance()->getData().m_presets.m_stats.at(3).m_health,
 		data::Instance()->getData().m_presets.m_stats.at(3).m_strength, data::Instance()->getData().m_presets.m_stats.at(3).m_speed,
 		data::Instance()->getData().m_presets.m_stats.at(3).m_gold, data::Instance()->getData().m_presets.m_stats.at(3).m_killCount);*/
+	std::string className;
 	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
 	{
 		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+		className = "Warrior";
 	}
 	else if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_KNIGHT")
 	{
 		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_KNIGHT);
+		className = "Knight";
 	}
 	else
 	{
 		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+		className = "Mage";
 	}
 	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_player->init(m_rs, camera, myMap->map[0]->getCenterPos());
@@ -249,7 +259,8 @@ bool PlayState::onEnter()
 	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
 		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
-		m_player->m_killCount);
+		m_player->m_killCount,
+		className);
 
 	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
@@ -310,6 +321,9 @@ bool PlayState::onEnter()
 
 
 	SDL_FreeSurface(playStateSurface);
+
+	m_miniMapList = m_rs->m_miniMapList;
+
 	return true;
 }
 
@@ -364,57 +378,57 @@ void PlayState::cameraSetup()
 void PlayState::collisions()
 {
 // Enemies
-	for (int i = 0; i < m_enemies.size(); i++)
-	{
-		//Collision with enemy and player
-		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-		{
-			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
-			{
-				//player attacking enemy function
-				float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+	//for (int i = 0; i < m_enemies.size(); i++)
+	//{
+	//	//Collision with enemy and player
+	//	if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//	{
+	//		if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
+	//		{
+	//			//player attacking enemy function
+	//			float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
 
-				if (m_player->m_mc->getMana() > 0)
-				{
-					m_player->Attack(temp);
-				}
+	//			if (m_player->m_mc->getMana() > 0)
+	//			{
+	//				m_player->Attack(temp);
+	//			}
 
-				m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
-				//update kill count when enemy dead
+	//			m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+	//			//update kill count when enemy dead
 
-				m_player->setSeek(false);
-				m_enemies[i]->setSeek(false);
-				m_player->setTargetPosition(m_player->getPosition());
-				m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
-				//m_enemies[i]->setAttackTime(0);
-			}
-			if(m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
-			{
-				if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
-				{
-					m_player->m_killCount++;
-				}
-				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-				m_rs->deleteEntity(m_enemies[i]->getEntity());
-				m_cs->deleteEntity(m_enemies[i]->getEntity());
-			}
-		}
-		else
-		{
-			m_player->m_mc->alterMana(0.1f);
-		}
-		m_enemies[i]->update(m_player->getPosition());
-	}
+	//			m_player->setSeek(false);
+	//			m_enemies[i]->setSeek(false);
+	//			m_player->setTargetPosition(m_player->getPosition());
+	//			m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
+	//			//m_enemies[i]->setAttackTime(0);
+	//		}
+	//		if(m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+	//		{
+	//			if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+	//			{
+	//				m_player->m_killCount++;
+	//			}
+	//			m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+	//			m_rs->deleteEntity(m_enemies[i]->getEntity());
+	//			m_cs->deleteEntity(m_enemies[i]->getEntity());
+	//		}
+	//	}
+	//	else
+	//	{
+	//		m_player->m_mc->alterMana(0.1f);
+	//	}
+	//	m_enemies[i]->update(m_player->getPosition());
+	//}
 
-	for (int i = 0; i < m_pickUp.size(); i++)
+	/*for (int i = 0; i < m_pickUp.size(); i++)
 	{
 		if (m_cs->aabbCollision(m_player->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
 		{
 			m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp.at(i)->getEntity());
 		}
-	}
+	}*/
 
-	for (int i = 0; i < myMap->map.size(); i++)
+	/*for (int i = 0; i < myMap->map.size(); i++)
 	{
 		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
 		{
@@ -439,7 +453,7 @@ void PlayState::collisions()
 					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->path[i]->getEntity());
 				}
 			}
-	}
+	}*/
 
 	for (int y = 0; y < m_enemies.size(); y++)
 	{
@@ -465,6 +479,82 @@ void PlayState::collisions()
 	//		}
 	//	}
 	//}
-
 	//m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
+
+	for (int i = 0; i < m_miniMapList.size(); i++)
+	{
+		if (m_miniMapList[i]->getID() == 0)
+		{
+			if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
+			{
+				m_player->setTargetPosition(m_player->getPosition());
+				m_cs->wallCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
+				
+			}
+		}
+
+		//Collision with enemy and player
+		if (m_miniMapList[i]->getID() == 2)
+		{
+			if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
+			{
+				if (m_miniMapList[i]->getComponent<HealthComponent>(5)->getHealth() > 0)
+				{
+					//player attacking enemy function
+					float temp = m_miniMapList[i]->getComponent<HealthComponent>(5)->getHealth();
+
+					if (m_player->m_mc->getMana() > 0)
+					{
+						m_player->Attack(temp);
+					}
+
+					m_miniMapList[i]->getComponent<HealthComponent>(5)->setHealth(temp);
+					//update kill count when enemy dead
+
+					m_player->setSeek(false);
+
+					for (int j = 0; j < m_enemies.size(); j++)
+					{
+						if (m_miniMapList[i] == m_enemies[j]->getEntity())
+						{
+							m_enemies[j]->setSeek(false);
+						}
+					}
+					m_player->setTargetPosition(m_player->getPosition());
+					m_cs->collisionResponse(m_player->getEntity(), m_miniMapList[i], m_player->getSeek());
+					//m_enemies[i]->setAttackTime(0);
+				}
+				if (m_miniMapList[i]->getComponent<HealthComponent>(5)->getHealth() <= 0)
+				{
+					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
+					{
+						m_player->m_killCount++;
+					}
+					m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+					m_rs->deleteEntity(m_miniMapList[i]);
+					m_cs->deleteEntity(m_miniMapList[i]);
+				}
+			}
+			else
+			{
+				m_player->m_mc->alterMana(0.1f);
+			}
+
+			for (int j = 0; j < m_enemies.size(); j++)
+			{
+				if (m_miniMapList[i] == m_enemies[j]->getEntity())
+				{
+					m_enemies[j]->update(m_player->getPosition());
+				}
+			}
+		}
+
+		if (m_miniMapList[i]->getID() == 3)
+		{
+			if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
+			{
+				m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
+			}
+		}
+	}
 }

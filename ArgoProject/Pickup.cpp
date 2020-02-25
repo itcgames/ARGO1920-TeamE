@@ -84,6 +84,7 @@ void PickUp::initialize(RenderSystem* t_rs, std::string type, bool isSmall,
 	m_item->addComponent<ItemComponent>(m_ic, 5);
 	m_item->addComponent<ActiveComponent>(m_ac, 6);
 	//
+	m_item->setID(3);
 	t_rs->addEntity(m_item);
 
 	std::cout << "Item Initialize" << std::endl;

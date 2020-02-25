@@ -85,6 +85,8 @@ private:
 
 	TTF_Font* m_font;
 	Text* m_text[2];
+
+	std::vector<Entity*> m_miniMapList;
 };
 
 #endif
