@@ -109,13 +109,13 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Warrior::update()
 {
-	std::cout << m_killCount << std::endl;
+	//std::cout << m_killCount << std::endl;
 	if (finiteStateMachine->getCurrentState() == 0)
 	{
 		attackSound.stop();
 		spinAttackSound.stop();
 		slamAttackSound.stop();
-		//walkSound.stop();
+		walkSound.stop();
 
 	}
 	//checks if the player is in walking state
@@ -146,6 +146,17 @@ void Warrior::update()
 			
 		}
 
+	}
+
+	if (finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (m_skillActive[i] == true)
+			{
+				m_skillActive[i] = false;
+			}
+		}
 	}
 
 	//basic bitch attack
@@ -240,7 +251,7 @@ void Warrior::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false
 				&&
-				(m_skillActive[1] == false || m_skillActive[2] == false))
+				(m_skillActive[1] == false && m_skillActive[2] == false))
 			{
 				setDamage(3);
 				m_animationRect->x = 0;

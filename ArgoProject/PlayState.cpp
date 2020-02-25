@@ -55,7 +55,7 @@ void PlayState::update()
 
 		if (!m_player->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
 		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+		 m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
 
 		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
@@ -89,7 +89,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->getHealth() <= 0)
+		if (m_player->getHealth() <= 0 || m_player->m_killCount == 1)
 		{
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
@@ -185,7 +185,7 @@ bool PlayState::onEnter()
 	int tempRooms = myMap->map.size();
 
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		int tempRandPos = rand() % tempRooms;
 		int randomEnemyPreset = rand() % 3;
