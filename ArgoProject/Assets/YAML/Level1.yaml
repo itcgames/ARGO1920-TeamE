@@ -1,14 +1,14 @@
 Highscores:
-  - name: Alex
-    score: 82636
-  - name: Brian
-    score: 90605
-  - name: Paul
-    score: 50000
-  - name: Aoife
+  - name: "Alex"
     score: 99999
-  - name: Brandon
+  - name: "Alex"
+    score: 90605
+  - name: "Paul"
+    score: 82636
+  - name: "Paul"
     score: 76293
+  - name: "Paul"
+    score: 50000
   - name: ""
     score: 0
   - name: ""

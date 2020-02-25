@@ -102,7 +102,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->getHealth() <= 0 || m_player->m_killCount == 1)
+		if (m_player->getHealth() <= 0 || m_player->m_killCount >= 1)
 		{
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
@@ -393,6 +393,7 @@ void PlayState::collisions()
 				if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
 				{
 					m_player->m_killCount++;
+					data::Instance()->playerScore = m_player->m_killCount;
 				}
 				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 				m_rs->deleteEntity(m_enemies[i]->getEntity());

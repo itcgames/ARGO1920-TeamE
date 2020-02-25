@@ -15,6 +15,10 @@ void EndState::update()
 void EndState::render()
 {
 	SDL_RenderCopy(Renderer::Instance()->getRenderer(), m_exitTexture, NULL, m_exit);
+	for (int i = 0; i < m_keyboard.size(); i++)
+	{
+		SDL_RenderCopy(Renderer::Instance()->getRenderer(), m_keyboardTexture[i], NULL, m_keyboard[i]);
+	}
 }
 void EndState::processEvents(bool& isRunning)
 {
@@ -28,11 +32,23 @@ void EndState::processEvents(bool& isRunning)
 			isRunning = false;
 			break;
 		case SDL_MOUSEBUTTONDOWN:
+			for (int i = 0; i < 26; i++)
+			{
+				if (event.button.x > m_keyboard[i]->x && event.button.x <m_keyboard[i]->x + m_keyboard[i]->w
+					&&
+					event.button.y > m_keyboard[i]->y && event.button.y < m_keyboard[i]->y + m_keyboard[i]->h)
+				{
+					data::Instance()->playerName += m_keyValues[i];
+				}
+			}
 			if (event.button.x > m_exit->x && event.button.x <m_exit->x + m_exit->w
 				&&
 				event.button.y > m_exit->y && event.button.y < m_exit->y + m_exit->h)
 			{
 				//std::cout << "Play Button" << std::endl;
+				data::Instance()->newScore();
+				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
+				data::Instance()->setUpData(m_data);
 				m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
 			}
 			break;
@@ -57,9 +73,78 @@ bool EndState::onEnter()
 	SDL_Surface* m_exitSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitSurface);
 
+	std::stringstream ss;
+	std::string temp;
+	for (int i = 0; i < 26; i++)
+	{
+		ss << char(65 + (i));
+		ss >> temp;
+		m_keyValues.push_back(temp);
+		ss.clear();
+	}
+
+	float x = 0.1;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.1);
+		x += 0.110;
+	}
+	x = 0.1;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.210);
+		x += 0.110;
+	}
+	x = 0.1;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.320);
+		x += 0.110;
+	}
+	x = 0.1;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.430);
+		x += 0.110;
+	}
+	x = 0.1;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.540);
+		x += 0.110;
+	}
+	x = 0.1;
+	for (int i = 0; i < 1; i++)
+	{
+		CreateKeyBoardRow(x, 0.650);
+	}
+	CreateKey(0.210, 0.650);
+	CreateKey(0.430, 0.650);
 	return true;
 }
 bool EndState::onExit()
 {
 	return true;
+}
+
+void EndState::CreateKeyBoardRow(float num, float num2)
+{
+	m_keyboard.push_back(new SDL_Rect());
+	m_keyboard.back()->x = m_cameraDimensions.x * (num);
+	m_keyboard.back()->y = m_cameraDimensions.y * (num2);
+	m_keyboard.back()->w = m_cameraDimensions.x * (0.1);
+	m_keyboard.back()->h = m_cameraDimensions.y * (0.1);
+	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/ecs_text.png");
+	m_keyboardTexture.push_back(SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_keyboardSurface));
+}
+
+void EndState::CreateKey(float num, float num2)
+{
+	m_keyboard.push_back(new SDL_Rect());
+	m_keyboard.back()->x = m_cameraDimensions.x * (num);
+	m_keyboard.back()->y = m_cameraDimensions.y * (num2);
+	m_keyboard.back()->w = m_cameraDimensions.x * (0.210);
+	m_keyboard.back()->h = m_cameraDimensions.y * (0.1);
+	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/ecs_text.png");
+	m_keyboardTexture.push_back(SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_keyboardSurface));
 }
