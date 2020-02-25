@@ -455,7 +455,7 @@ void PlayState::collisions()
 			}
 	}*/
 
-	for (int y = 0; y < m_enemies.size(); y++)
+	/*for (int y = 0; y < m_enemies.size(); y++)
 	{
 		for (int z = 0; z < myMap->map[m_enemies[y]->getRoom()]->tileList.size(); z++)
 		{
@@ -467,7 +467,7 @@ void PlayState::collisions()
 				}
 			}
 		}
-	}
+	}*/
 
 	//for (int y = 0; y < m_enemies.size(); y++)
 	//{
