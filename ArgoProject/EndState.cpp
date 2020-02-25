@@ -41,6 +41,18 @@ void EndState::processEvents(bool& isRunning)
 					data::Instance()->playerName += m_keyValues[i];
 				}
 			}
+			if (event.button.x > m_keyboard[26]->x && event.button.x <m_keyboard[26]->x + m_keyboard[26]->w
+				&&
+				event.button.y > m_keyboard[26]->y && event.button.y < m_keyboard[26]->y + m_keyboard[26]->h)
+			{
+				data::Instance()->playerName += " ";
+			}
+			if (event.button.x > m_keyboard[27]->x && event.button.x <m_keyboard[27]->x + m_keyboard[27]->w
+				&&
+				event.button.y > m_keyboard[27]->y && event.button.y < m_keyboard[27]->y + m_keyboard[27]->h)
+			{
+				data::Instance()->playerName.pop_back();
+			}
 			if (event.button.x > m_exit->x && event.button.x <m_exit->x + m_exit->w
 				&&
 				event.button.y > m_exit->y && event.button.y < m_exit->y + m_exit->h)
