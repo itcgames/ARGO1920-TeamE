@@ -547,6 +547,17 @@ void PlayState::collisions()
 					m_enemies[j]->update(m_player->getPosition());
 				}
 			}
+
+			for (int j = 0; j < m_miniMapList.size(); j++)
+			{
+				if (m_miniMapList[j]->getID() == 0)
+				{
+					if (m_cs->aabbCollision(m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect(), m_miniMapList[j]->getComponent<SpriteComponent>(2)->getRect()) == true)
+					{
+						m_cs->wallCollisionResponse(m_miniMapList[i], m_miniMapList[j]);
+					}
+				}
+			}
 		}
 
 		if (m_miniMapList[i]->getID() == 3)
