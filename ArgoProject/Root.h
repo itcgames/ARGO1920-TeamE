@@ -16,16 +16,16 @@ class Root : public Node
 public:
 	void setChild(Node* newChild)
 	{
-		child = newChild;
+		m_child = newChild;
 	}
 
 	virtual bool run() override
 	{
-		return child->run();
+		return m_child->run();
 	}
 
 private:
-	Node* child;
+	Node* m_child;
 };
 
 #endif // ROOT_H

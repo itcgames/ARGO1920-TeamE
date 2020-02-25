@@ -178,6 +178,7 @@ bool PlayState::onEnter()
 
 	m_rs = new RenderSystem(Render::Instance()->getRenderer(), miniMapRatio);
 	m_cs = new CollisionSystem();
+	m_bts = new BehaviourTreeSystem();
 
 	myMap = new Map(m_rs, m_cs);
 	myMap->CreateMap(m_rs, m_cs);	
@@ -207,7 +208,6 @@ bool PlayState::onEnter()
 			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
 
 		m_enemies[i]->setRoom(tempRandPos);
-
 	}
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
@@ -243,6 +243,18 @@ bool PlayState::onEnter()
 
 	m_background.play();
 
+	for (int i = 0; i < 1; i++)
+	{
+		int tempRandPos = rand() % tempRooms;
+		int randomEnemyPreset = rand() % 3;
+
+		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
+
+		//@ALEX HERE 
+		m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
+
+		m_btEnemy[i]->setRoom(tempRandPos);
+	}
 
 	/// Initialise Menu
 	m_menuActive = false;
@@ -356,7 +368,12 @@ void PlayState::collisions()
 		{
 			m_player->m_mc->alterMana(0.1f);
 		}
-		m_enemies[i]->update(m_player->getPosition());
+		m_enemies[i]->update(m_player->getPosition());	
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		m_bts->run(m_btEnemy[i]->getEntity());
 	}
 
 	if (m_cs->aabbCollision(m_player->getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)

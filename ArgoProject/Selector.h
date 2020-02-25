@@ -16,9 +16,9 @@ class Selector : public CompositeNode
 public:
 	virtual bool run() override
 	{
-		for (Node* child : getChildren())   // The generic Selector implementation
+		for (Node* m_child : getChildren())   // The generic Selector implementation
 		{
-			if (child->run())  // If one child succeeds, the entire operation run() succeeds.  Failure only results if all children fail.
+			if (m_child->run())  // If one child succeeds, the entire operation run() succeeds.  Failure only results if all children fail.
 			{
 				return true;
 			}

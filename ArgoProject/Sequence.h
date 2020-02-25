@@ -11,14 +11,14 @@
 
 #include "CompositeNode.h"
 
-class SequenceVec : public CompositeNode 
+class Sequence : public CompositeNode 
 {
 public:
 	virtual bool run() override
 	{
-		for (Node* child : getChildren()) // The generic Sequence implementation.
+		for (Node* m_child : getChildren()) // The generic Sequence implementation.
 		{
-			if (!child->run())  // If one child fails, then enter operation run() fails.  Success only results if all children succeed.
+			if (!m_child->run())  // If one child fails, then enter operation run() fails.  Success only results if all children succeed.
 			{
 				return false;
 			}

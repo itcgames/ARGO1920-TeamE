@@ -7,6 +7,7 @@
 #include "Data.h"
 #include "Pickup.h"
 #include "CollisionSystem.h"
+#include "BehaviourTreeSystem.h"
 #include "Map.h"
 #include "Server.h"
 #include <vector>
@@ -40,6 +41,8 @@ private:
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
+	BehaviourTreeSystem* m_bts;
+
 	//Player m_player;
 	std::unique_ptr<IPlayer> m_player;
 	std::unique_ptr<IPlayer> m_player2;
@@ -53,6 +56,7 @@ private:
 	//Ai* m_enemy = new Ai;
 	//std::unique_ptr<IEnemy> enemy = FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD);
 	std::vector<std::unique_ptr<IEnemy>> m_enemies;
+	std::vector<std::unique_ptr<IEnemy>> m_btEnemy;
 	PickUp* m_pickUp = new PickUp;
 	Map* myMap;
 
