@@ -11,7 +11,7 @@
 class HUD
 {
 public:
-	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana ,bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, std::string m_class = "Warrior");
+	HUD(Vector2 t_cameraDimension, float t_originalHealth, float t_originalMana ,bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, int& t_killCount, std::string m_class = "Warrior");
 	~HUD();
 
 	void update(float t_currentHealth, float t_currentMana);
@@ -47,6 +47,9 @@ public:
 	bool &w;
 	bool &e;
 
+	int &killCount;
+	int m_previousCount;
+
 	float healthFullWidth;
 	float originalHealth;
 	float currentHealth;
@@ -61,6 +64,8 @@ public:
 	float m_timerStart[3];
 	float m_timerCurrent[3];
 	float m_timerLength[3];
+
+	Text* m_killCountText;
 };
 
 #endif

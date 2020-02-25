@@ -23,7 +23,7 @@ public:
 	int getWidth();
 	std::string getTag();
 	Entity* getEntity() { return m_tile; };
-
+	void clearTile();
 
 	bool covered = false;
 

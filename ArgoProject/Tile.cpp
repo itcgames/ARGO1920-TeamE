@@ -67,3 +67,7 @@ std::string Tile::getTag()
 	return tag;
 }
 
+void Tile::clearTile()
+{
+	SDL_DestroyTexture(img);
+}

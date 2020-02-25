@@ -24,6 +24,7 @@ public:
 	virtual void processEvents(bool isRunning) = 0;
 	virtual Vector2 getPosition() = 0;
 	virtual float getHealth() = 0;
+	virtual int getMaxHealth() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
 	virtual void Attack(float&m_enemyHealth) = 0;
@@ -45,6 +46,9 @@ public:
 	ManaComponent* m_mc;
 
 	bool m_skillCooldown[3];
+	bool m_skillActive[3];
+	int m_killCount;
+	float m_attackFrame;
 protected:
 	Entity* m_player;
 
@@ -92,6 +96,7 @@ protected:
 	Audio slamAttackSound;
 	Audio spinAttackSound;
 	float dmg = 0.1;
+	int M_MAX_HEALTH;
 };
 
 #endif // !IPLAYER
