@@ -100,6 +100,9 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	}
 
 	m_killCount = 0;
+	m_particleEffects = new ParticleSystem("PLAY", t_rs);
+
+
 }
 
 void Mage::update()
@@ -157,8 +160,13 @@ void Mage::update()
 		commandQueue.pop_back();
 	}
 
+	if (m_skillCooldown[0])
+	{
+		m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+	}
+
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_particleEffects->update();	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
 }
 
 void Mage::processEvents(bool isRunning)
@@ -198,7 +206,8 @@ void Mage::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false)
 			{
-				setDamage(4);
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+				setDamage(8);
 				spriteSheetY = 0;
 				m_skillCooldown[0] = true;
 			}
