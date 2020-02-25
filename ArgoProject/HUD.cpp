@@ -201,7 +201,7 @@ void HUD::render()
 	if (originalHealth > currentHealth)
 	{
 		adjustEmptyRect(m_health, healthFullWidth);
-		//SDL_RenderCopy(Render::Instance()->getRenderer(), m_emptyTexture, NULL, &m_empty);
+		SDL_RenderCopy(Render::Instance()->getRenderer(), m_emptyTexture, NULL, &m_empty);
 	}
 
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_healthTexture, NULL,&m_health);
