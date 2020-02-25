@@ -52,17 +52,6 @@ public:
 		return m_dstrect;
 	}
 
-	void animate(SDL_Rect *t_animationRect, SDL_Rect *t_posRect, int t_spriteSheeyY, int t_frameWidth)
-	{
-		Uint32 ticks = SDL_GetTicks();
-		Uint32 sprite = (ticks / 100) % 11;
-		t_animationRect->x = sprite * (t_frameWidth);
-		t_animationRect->y = t_spriteSheeyY;
-
-		setRect(t_animationRect);
-		setDstRect(t_posRect);
-	}
-
 private:
 	bool m_isActive;
 	SDL_Texture* m_texture;

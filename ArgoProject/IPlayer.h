@@ -8,6 +8,7 @@
 #include "BehaviourSystem.h"
 #include "CommandSystem.h"
 #include "Renderer.h"
+#include "AnimationSystem.h"
 #include "Data.h"
 #include "FiniteState.h"
 #include "Audio.h"
@@ -65,6 +66,7 @@ protected:
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
+	AnimationSystem* m_anim;
 
 	//Player animated sprite
 	SDL_Rect* m_positionRect;
