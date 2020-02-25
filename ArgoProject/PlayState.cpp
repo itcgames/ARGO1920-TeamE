@@ -55,7 +55,7 @@ void PlayState::update()
 
 		if (!m_player->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
 		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+		 m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
 
 		if (m_player->getEntity()->getComponent<HealthComponent>(4)->getHealth() <= 150)
@@ -102,7 +102,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->getHealth() <= 0)
+		if (m_player->getHealth() <= 0 || m_player->m_killCount == 1)
 		{
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
@@ -196,7 +196,7 @@ bool PlayState::onEnter()
 	int tempRooms = myMap->map.size();
 
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		int tempRandPos = rand() % tempRooms;
 		int randomEnemyPreset = rand() % 3;
@@ -246,9 +246,10 @@ bool PlayState::onEnter()
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 		m_player2->init(m_rs, camera, Vector2(1000, 800));
 	}
-	m_hud = new HUD(m_cameraDimensions, 
+	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
-		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2]);
+		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
+		m_player->m_killCount);
 
 	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
@@ -324,6 +325,18 @@ bool PlayState::onExit()
 
 	m_hud->onExit();
 
+	//delete m_pSystem;
+	//delete m_rs;
+/*
+	for (int i = 0; i < myMap->map.size(); i++)
+	{
+		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+		{
+			myMap->map[i]->tileList[z]->clearTile();		
+		}
+	}*/
+
+
 	return true;
 }
 
@@ -375,10 +388,13 @@ void PlayState::collisions()
 				m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 				//m_enemies[i]->setAttackTime(0);
 			}
-			else
+			if(m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
 			{
+				if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+				{
+					m_player->m_killCount++;
+				}
 				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-				m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
 				m_rs->deleteEntity(m_enemies[i]->getEntity());
 				m_cs->deleteEntity(m_enemies[i]->getEntity());
 			}

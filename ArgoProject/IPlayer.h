@@ -46,6 +46,9 @@ public:
 	ManaComponent* m_mc;
 
 	bool m_skillCooldown[3];
+	bool m_skillActive[3];
+	int m_killCount;
+	float m_attackFrame;
 protected:
 	Entity* m_player;
 
