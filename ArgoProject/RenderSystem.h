@@ -105,7 +105,7 @@ public:
 				{
 					if (m_entities[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
-						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+						SDL_RenderCopyEx(renderer, m_entities[i]->getComponent<SpriteComponent>(2)->getTexture(), m_entities[i]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 
 						viewableArea.y -= 20;
 						viewableArea.h = 10;

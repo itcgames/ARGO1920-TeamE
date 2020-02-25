@@ -50,9 +50,6 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_pc = new PositionComponent(Vector2(m_positionRect->x, m_positionRect->y), 1);
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
-
-	m_hc = new HealthComponent(1000, 7);
-	m_mc = new ManaComponent(1000, 8);
 	m_stc = new StaminaComponent(1000, 9);
 
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
@@ -88,9 +85,6 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	t_rs->addEntity(m_player);
 
 	m_camera = t_camera;
-
-	m_seek = false;
-
 	//Input InputHandler
 	m_ih = new InputHandler();
 	m_ih->addEntity(m_player);
@@ -179,10 +173,9 @@ void Warrior::setAction()
 			animationFPS = 130;
 			if (m_skillCooldown[0] == false)
 			{
-				setDamage(3);
+				setDamage(4);
 				spriteSheetY = 0;
 				attackSound.play();
-				m_ih->move = false;
 				m_skillCooldown[0] = true;
 			}
 			break;
@@ -193,7 +186,6 @@ void Warrior::setAction()
 				setDamage(10);
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound.play();
-				m_ih->move = false;
 				m_skillCooldown[1] = true;
 			}
 			break;
@@ -204,7 +196,6 @@ void Warrior::setAction()
 				setDamage(6);
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound.play();
-				m_ih->move = false;
 				m_skillCooldown[2] = true;
 			}
 			break;

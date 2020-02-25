@@ -180,7 +180,7 @@ bool PlayState::onEnter()
 		}
 		else
 		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 		}		
 		//@ALEX HERE 
 		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(0).m_class, data::Instance()->getData().m_presets.m_stats.at(0).m_health,

@@ -10,6 +10,7 @@
 #include "StatsComponent.h"
 #include "BehaviourSystem.h"
 #include "RenderSystem.h"
+#include "AnimationSystem.h"
 #include "Renderer.h"
 #include <iostream>
 #include "Data.h"
@@ -42,6 +43,7 @@ protected:
 	StatsComponent* m_statsC;
 	HealthComponent* m_hc;
 	ActiveComponent* m_ac;
+	AnimationSystem* m_anim;
 
 	Vector2 m_normalizedVec;
 
@@ -50,7 +52,13 @@ protected:
 	FSM* finiteStateMachine;
 	FiniteState* state;
 
+	SDL_Rect* m_animationRect;
 
+	int frameWidth, frameHeight;
+	int textureWidth, textureHeight;
+	int colTextureWidth, colTextureHeight;
+	int spriteSheetY = 0;
+	int animationFPS = 100;
 
 	bool m_seek;
   

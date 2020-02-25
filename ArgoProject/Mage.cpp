@@ -183,7 +183,6 @@ void Mage::setAction()
 			animationFPS = 200;
 			if (m_skillCooldown[1] == false)
 			{
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 3;
 				m_skillCooldown[1] = true;
 			}
@@ -221,7 +220,7 @@ void Mage::Attack(float& m_enemyHealth)
 		if (m_animationRect->x == 0)
 		{
 			m_mc->alterMana(-3);
-			m_hc->alterHealth(1);
+			m_hc->alterHealth(10);
 		}
 	}
 
@@ -230,7 +229,7 @@ void Mage::Attack(float& m_enemyHealth)
 		if (m_animationRect->x == 0)
 		{
 			m_mc->alterMana(-4);
-			dmg += 0.1;
+			dmg += 1;
 		}
 	}
 }

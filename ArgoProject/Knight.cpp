@@ -176,7 +176,7 @@ void Knight::setAction()
 			animationFPS = 100;
 			if (m_skillCooldown[1] == false)
 			{
-				setDamage(7);
+				setDamage(10);
 				spriteSheetY = frameHeight * 3;
 				m_skillCooldown[1] = true;
 			}

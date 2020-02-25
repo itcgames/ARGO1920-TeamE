@@ -13,15 +13,30 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	//draws a rectangle for the enemy
 	m_rect = new SDL_Rect();
 	m_rect->x = t_Position.x; m_rect->y = t_Position.y;
-	m_rect->w = 100; m_rect->h = 100;
+
+	m_animationRect = new SDL_Rect();
+	m_animationRect->x = 0;
+	m_animationRect->y = 0;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/ecs_text2.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
+	SDL_QueryTexture(m_texture, NULL, NULL, &textureWidth, &textureHeight);
+	SDL_FreeSurface(ecsSurface2);
+
+	//set both rectangles to the size of one frame from the sprite sheet
+	frameWidth = textureWidth / 11;
+	frameHeight = textureHeight / 3;
+	//Players Position Rect Size
+	m_rect->w = frameWidth;
+	m_rect->h = frameHeight;
+	//Players Animation Rect Size
+	m_animationRect->w = frameWidth;
+	m_animationRect->h = frameHeight;
 
 	m_enemy = new Entity();
 	m_bs = new BehaviourSystem;
-
+	m_anim = new AnimationSystem;
 	finiteStateMachine = new FSM();
 	state = new FiniteState();
 
@@ -45,41 +60,30 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	m_enemy->addComponent<ActiveComponent>(m_ac, 6);
 
 	m_bs->addEntity(m_enemy);
+	//Animation System
+	m_anim->addEntity(m_enemy);
 
 	m_seek = true;
 
 	t_rs->addEntity(m_enemy);
 	m_enemySound.load("Assets/Audio/Zombie.wav");
-	std::cout << "Enemy Initialized" << std::endl;
 }
 
 void EnemyEasy::update(Vector2 t_position)
 {
-	if (finiteStateMachine->getCurrentState() == 0)
-	{
-	}
+	//Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
+	//	t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
+	//float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));
+	//if (distance < 350)
+	//{
+	//	//m_enemySound.play();
+	//}
+	//else
+	//{
+	//	//m_enemySound.stop();
+	//}
+	//m_normalizedVec = m_normalizedVec.normalize(newVec);
 
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-	}
-
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-	}
-
-
-	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
-		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
-	float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));
-	if (distance < 350)
-	{
-		//m_enemySound.play();
-	}
-	else
-	{
-		//m_enemySound.stop();
-	}
-	m_normalizedVec = m_normalizedVec.normalize(newVec);
 	//This is to stop the jittering in the movement.         
 	float mag = sqrt((m_pc->getPosition().x - t_position.x) * (m_pc->getPosition().x - t_position.x) + (m_pc->getPosition().y - t_position.y) * (m_pc->getPosition().y - t_position.y));
 	if (mag > 100 && mag < 1000)
@@ -95,7 +99,7 @@ void EnemyEasy::update(Vector2 t_position)
 	{
 		finiteStateMachine->skillone();
 	}
-	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
+
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 
@@ -108,6 +112,26 @@ void EnemyEasy::update(Vector2 t_position)
 	{
 		m_enemy->getComponent<ActiveComponent>(6)->setIsActive(false);
 	}
+
+	if (finiteStateMachine->getCurrentState() == 0)
+	{	
+		animationFPS = 100;
+		spriteSheetY = frameHeight * 2;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 1)
+	{		
+		animationFPS = 100;
+		spriteSheetY = 0;
+	}
+
+	if (finiteStateMachine->getCurrentState() == 2)
+	{		
+		animationFPS = 100;
+		spriteSheetY = frameHeight;		
+	}
+
+	m_anim->animate(m_animationRect, m_rect, spriteSheetY, frameWidth, animationFPS);
 }
 
 int EnemyEasy::getAttackTime()
