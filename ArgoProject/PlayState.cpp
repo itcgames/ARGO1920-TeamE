@@ -206,6 +206,12 @@ bool PlayState::onEnter()
 		m_enemies[i]->setRoom(tempRandPos);
 
 	}
+	//@BRIAN
+	//Boss enemy setup here
+	/*m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_BOSS));
+	m_enemies.back()->initialize(m_rs, myMap->map[3]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(3).m_class, data::Instance()->getData().m_presets.m_stats.at(3).m_health,
+		data::Instance()->getData().m_presets.m_stats.at(3).m_strength, data::Instance()->getData().m_presets.m_stats.at(3).m_speed,
+		data::Instance()->getData().m_presets.m_stats.at(3).m_gold, data::Instance()->getData().m_presets.m_stats.at(3).m_killCount);*/
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")

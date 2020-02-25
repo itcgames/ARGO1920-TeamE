@@ -18,6 +18,8 @@ std::unique_ptr<IEnemy> FactoryEnemy::createEnemy(ENEMY_TYPE t_enemyType)
 		return std::make_unique<EnemyMedium>();
 	case ENEMY_HARD:
 		return std::make_unique<EnemyHard>();
+	case ENEMY_BOSS:
+		return std::make_unique<EnemyBoss>();
 	default:
 		return std::make_unique<EnemyEasy>();
 	}
