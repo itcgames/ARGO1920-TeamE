@@ -36,6 +36,9 @@ public:
 private:
 	void cameraSetup();
 	void collisions();
+	void MenuInit();
+	double GenerateRandomNumber(double min, double max);
+
 
 	static const std::string m_playID;
 	RenderSystem* m_rs;
@@ -71,8 +74,7 @@ private:
 
 	Audio m_background;
 
-	ParticleSystem* m_pSystem;
-
+	// Pause Menu Parts
 	bool m_menuActive;
 	SDL_Rect* m_menuBackground;
 	SDL_Texture* m_menuBackgroundTexture;
@@ -85,8 +87,12 @@ private:
 
 	TTF_Font* m_font;
 	Text* m_text[2];
+	std::string className;
 
 	std::vector<Entity*> m_miniMapList;
+
+	bool bossSpawned = false;
+
 };
 
 #endif
