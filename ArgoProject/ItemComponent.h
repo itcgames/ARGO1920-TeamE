@@ -33,17 +33,17 @@ public:
 			//
 			if (m_isSmall == true)
 			{
-				m_value = 100;
+				m_value = 10;
 			}
 			//
 			else if (m_isMedium == true)
 			{
-				m_value = 250;
+				m_value = 20;
 			}
 			//
 			else if (m_isLarge == true)
 			{
-				m_value = 500;
+				m_value = 30;
 			}
 		}
 	}

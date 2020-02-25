@@ -60,6 +60,7 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_mc = new ManaComponent(250.0f, 7);
 	m_stc = new StaminaComponent(1000, 9);
 
+	M_MAX_HEALTH = m_hc->getHealth() * 2;
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);
 	m_player->addComponent<SpriteComponent>(m_sc, 2);

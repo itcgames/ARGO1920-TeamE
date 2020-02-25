@@ -50,7 +50,6 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
 
-	m_hc = new HealthComponent(1000, 7);
 	m_mc = new ManaComponent(1000, 8);
 	m_stc = new StaminaComponent(1000, 9);
 
@@ -59,6 +58,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
 
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
+	M_MAX_HEALTH = m_hc->getHealth() * 2;
 	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
 

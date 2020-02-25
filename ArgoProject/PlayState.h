@@ -53,7 +53,7 @@ private:
 	//Ai* m_enemy = new Ai;
 	//std::unique_ptr<IEnemy> enemy = FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD);
 	std::vector<std::unique_ptr<IEnemy>> m_enemies;
-	PickUp* m_pickUp = new PickUp;
+	std::vector<PickUp*> m_pickUp;
 	Map* myMap;
 
 	Vector2 m_cameraDimensions;

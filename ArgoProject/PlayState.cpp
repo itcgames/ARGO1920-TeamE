@@ -58,8 +58,23 @@ void PlayState::update()
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
 
-		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
+		if (m_player->getEntity()->getComponent<HealthComponent>(4)->getHealth() <= 150)
+		{
+			for (int i = 0; i < m_pickUp.size(); i++)
+			{
+				m_pickUp.at(i)->update();
 
+				if (m_cs->aabbCollision(m_player->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp.at(i)->getEntity());
+					m_pickUp[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+					m_rs->deleteEntity(m_pickUp.at(i)->getEntity());
+					m_cs->deleteEntity(m_pickUp.at(i)->getEntity());
+					delete m_pickUp[i];
+					m_pickUp.erase(m_pickUp.begin() + i);
+				}
+			}
+		}
 		////if its multiplayer
 		//if (!data::Instance()->SINGLEPLAYER)
 		//{
@@ -83,7 +98,6 @@ void PlayState::update()
 		//	}
 		//}
 
-		m_pickUp->update();
 
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
@@ -212,8 +226,6 @@ bool PlayState::onEnter()
 	m_enemies.back()->initialize(m_rs, myMap->map[3]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(3).m_class, data::Instance()->getData().m_presets.m_stats.at(3).m_health,
 		data::Instance()->getData().m_presets.m_stats.at(3).m_strength, data::Instance()->getData().m_presets.m_stats.at(3).m_speed,
 		data::Instance()->getData().m_presets.m_stats.at(3).m_gold, data::Instance()->getData().m_presets.m_stats.at(3).m_killCount);*/
-
-	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
 	{
 		m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
@@ -241,7 +253,25 @@ bool PlayState::onEnter()
 	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
-
+	for (int i = 0; i < 20; i++)
+	{
+		int tempRandPos = rand() % tempRooms;
+		int randomPickupPreset = rand() % 3;
+		tempRandPos = rand() % tempRooms;
+		m_pickUp.push_back(new PickUp);
+		if (randomPickupPreset == 0)
+		{
+			m_pickUp.at(i)->initialize(m_rs, "Health", true, false, false, myMap->map[tempRandPos]->getRandomFloorTilePos());
+		}
+		if (randomPickupPreset == 1)
+		{
+			m_pickUp.at(i)->initialize(m_rs, "Health", false, true, false, myMap->map[tempRandPos]->getRandomFloorTilePos());
+		}
+		if (randomPickupPreset == 2)
+		{
+			m_pickUp.at(i)->initialize(m_rs, "Health", false, false, true, myMap->map[tempRandPos]->getRandomFloorTilePos());
+		}
+	}
 	m_background.play();
 
 
@@ -360,9 +390,12 @@ void PlayState::collisions()
 		m_enemies[i]->update(m_player->getPosition());
 	}
 
-	if (m_cs->aabbCollision(m_player->getRect(), m_pickUp->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	for (int i = 0; i < m_pickUp.size(); i++)
 	{
-		m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
+		if (m_cs->aabbCollision(m_player->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		{
+			m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp.at(i)->getEntity());
+		}
 	}
 
 	for (int i = 0; i < myMap->map.size(); i++)
@@ -417,5 +450,5 @@ void PlayState::collisions()
 	//	}
 	//}
 
-	m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
+	//m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 }
