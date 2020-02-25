@@ -31,6 +31,9 @@ public:
 	virtual bool getSeek() = 0;
 	virtual void setSeek(bool seek) = 0;
 
+	virtual int getRoom() = 0;
+	virtual void setRoom(int roomNumber) = 0;
+
 protected:
 	Entity* m_enemy;
 	SDL_Rect* m_rect;
@@ -50,7 +53,7 @@ protected:
 	FSM* finiteStateMachine;
 	FiniteState* state;
 
-
+	int roomNum = 0;
 
 	bool m_seek;
   

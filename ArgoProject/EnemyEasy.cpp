@@ -129,3 +129,5 @@ void EnemyEasy::setSeek(bool seek)
 {
 	m_seek = seek;
 }
+
+
