@@ -12,6 +12,7 @@
 #include "FiniteState.h"
 #include "Audio.h"
 #include "CollisionSystem.h"
+#include "ParticleSystem.h"
 #include <iostream>
 
 class IPlayer
@@ -69,6 +70,9 @@ protected:
 	SDL_Rect* m_animationRect;
 	SDL_Texture* m_playerTexture;
 	SDL_Texture* m_collisionTexture;
+
+	//Particles
+	ParticleSystem* m_particleEffects;
 
 	bool m_seek;
 

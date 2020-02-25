@@ -85,7 +85,6 @@ void PlayState::update()
 
 		m_pickUp->update();
 
-		m_pSystem->update();
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
@@ -105,8 +104,6 @@ void PlayState::render()
 		m_miniMap,
 		m_miniMapTexture,
 		m_hud);
-
-	m_pSystem->render();
 
 	if (m_player->getMenuActive() == true)
 	{
@@ -209,6 +206,12 @@ bool PlayState::onEnter()
 		m_enemies[i]->setRoom(tempRandPos);
 
 	}
+	//@BRIAN
+	//Boss enemy setup here
+	/*m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_BOSS));
+	m_enemies.back()->initialize(m_rs, myMap->map[3]->getRandomFloorTilePos(), data::Instance()->getData().m_presets.m_stats.at(3).m_class, data::Instance()->getData().m_presets.m_stats.at(3).m_health,
+		data::Instance()->getData().m_presets.m_stats.at(3).m_strength, data::Instance()->getData().m_presets.m_stats.at(3).m_speed,
+		data::Instance()->getData().m_presets.m_stats.at(3).m_gold, data::Instance()->getData().m_presets.m_stats.at(3).m_killCount);*/
 
 	m_pickUp->initialize(m_rs, "Health", true, false, false);
 	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
@@ -239,8 +242,6 @@ bool PlayState::onEnter()
 	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
-
-	m_pSystem =new ParticleSystem(m_playID, 500, Type::EXPLOSION);
 
 	m_background.play();
 

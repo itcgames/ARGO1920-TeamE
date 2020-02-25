@@ -79,7 +79,7 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 
 	for (int i = 0; i < 3; i++)
 	{
-		m_timerLength[i] = 15 * (i + 1);
+		m_timerLength[i] = 1 * (i + 1);
 		m_timerText[i] = new Text(Abel, std::to_string(int(m_timerLength[i])), t_cameraDimension.x * (0.06 + (0.13 * i)), t_cameraDimension.y * 0.91);
 		m_skillBoxs[i] = new SDL_Rect();
 		m_skillBoxs[i]->x = t_cameraDimension.x * (0.02 + (0.13 * i));

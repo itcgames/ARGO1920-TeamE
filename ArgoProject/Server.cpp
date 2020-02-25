@@ -34,6 +34,11 @@ Server::Server(int PORT, bool BroadcastPublically) //Port = port to broadcast on
 	serverptr = this;
 }
 
+Server::~Server()
+{
+	delete this;
+}
+
 bool Server::ListenForNewConnection()
 {
 	SOCKET newConnection = accept(sListen, (SOCKADDR*)&addr, &addrlen); //Accept a new connection

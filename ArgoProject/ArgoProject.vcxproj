@@ -141,6 +141,7 @@
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="EnemyBoss.cpp" />
     <ClCompile Include="EnemyEasy.cpp" />
     <ClCompile Include="EnemyHard.cpp" />
     <ClCompile Include="EnemyMedium.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="EnemyBoss.h" />
     <ClInclude Include="EnemyEasy.h" />
     <ClInclude Include="EnemyHard.h" />
     <ClInclude Include="EnemyMedium.h" />

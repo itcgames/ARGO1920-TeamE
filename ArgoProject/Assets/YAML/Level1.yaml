@@ -46,3 +46,9 @@ Presets:
       killcount: 0
       speed: 5
       strength: 50
+    - class: ENEMY_BOSS
+      gold: 100000
+      health: 400
+      killcount: 0
+      speed: 1
+      strength: 100

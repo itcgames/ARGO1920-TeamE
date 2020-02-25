@@ -92,6 +92,8 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	m_ih->mousePosition = startPos;
 
+	m_particleEffects = new ParticleSystem("PLAY", t_rs);
+
 	walkSound.load("Assets/Audio/walk.wav");
 	attackSound.load("Assets/Audio/attack1.wav");
 	slamAttackSound.load("Assets/Audio/slam.wav");
@@ -124,7 +126,7 @@ void Warrior::update()
 		//the player seeks the mouse position
 		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 		{
-
+			m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10);
 			m_seek = true;
 			//This is to stop the jittering in the movement.         
 			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
@@ -209,6 +211,7 @@ void Warrior::update()
 
 	setAction();
 	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
+	m_particleEffects->update();
 }
 
 void Warrior::processEvents(bool isRunning)
