@@ -89,6 +89,14 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ih->addEntity(m_player);
 
 	m_ih->mousePosition = startPos;
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_skillCooldown[i] = false;
+		m_skillActive[i] = false;
+	}
+
+	m_killCount = 0;
 }
 
 void Knight::update()

@@ -1,24 +1,25 @@
 #include "HUD.h"
 
-HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana, bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, std::string m_class):
+HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana, bool& t_skillOne, bool& t_skillTwo, bool& t_skillThree, int& t_killCount ,std::string m_class):
 	q(t_skillOne),
 	w(t_skillTwo),
-	e(t_skillThree)
+	e(t_skillThree),
+	killCount(t_killCount)
 {
 	m_background.w = t_cameraDimension.x * 0.8; m_background.h = t_cameraDimension.y * 0.1;
 	m_background.x = 0; m_background.y = t_cameraDimension.y * 0.9;
 
 	m_health.w = t_cameraDimension.x * 0.25; m_health.h = 20;
-	m_health.x = t_cameraDimension.x * 0.5; m_health.y = t_cameraDimension.y * 0.92;
+	m_health.x = t_cameraDimension.x * 0.425; m_health.y = t_cameraDimension.y * 0.92;
 	m_healthOverflow.w = 0; m_healthOverflow.h = 20;
-	m_healthOverflow.x = t_cameraDimension.x * 0.5; m_healthOverflow.y = t_cameraDimension.y * 0.92;
+	m_healthOverflow.x = t_cameraDimension.x * 0.425; m_healthOverflow.y = t_cameraDimension.y * 0.92;
 
 	healthFullWidth = m_health.w;
 
 	m_mana.w = t_cameraDimension.x * 0.25; m_mana.h = 20;
-	m_mana.x = t_cameraDimension.x * 0.5; m_mana.y = t_cameraDimension.y * 0.95;
+	m_mana.x = t_cameraDimension.x * 0.425; m_mana.y = t_cameraDimension.y * 0.95;
 	m_manaOverflow.w = 0; m_manaOverflow.h = 20;
-	m_manaOverflow.x = t_cameraDimension.x * 0.5; m_manaOverflow.y = t_cameraDimension.y * 0.95;
+	m_manaOverflow.x = t_cameraDimension.x * 0.425; m_manaOverflow.y = t_cameraDimension.y * 0.95;
 	manaFullWidth = m_mana.w;
 
 	SDL_Surface* healthSurface = IMG_Load("Assets/Health.png");
@@ -79,9 +80,9 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	for (int i = 0; i < 3; i++)
 	{
 		m_timerLength[i] = 1 * (i + 1);
-		m_timerText[i] = new Text(Abel, std::to_string(int(m_timerLength[i])), t_cameraDimension.x * (0.06 + (0.155 * i)), t_cameraDimension.y * 0.91);
+		m_timerText[i] = new Text(Abel, std::to_string(int(m_timerLength[i])), t_cameraDimension.x * (0.06 + (0.13 * i)), t_cameraDimension.y * 0.91);
 		m_skillBoxs[i] = new SDL_Rect();
-		m_skillBoxs[i]->x = t_cameraDimension.x * (0.05 + (0.15 * i));
+		m_skillBoxs[i]->x = t_cameraDimension.x * (0.02 + (0.13 * i));
 		m_skillBoxs[i]->y = t_cameraDimension.y * 0.91;
 		m_skillBoxs[i]->w = t_cameraDimension.x * 0.125;
 		m_skillBoxs[i]->h = t_cameraDimension.y * 0.074;
@@ -89,6 +90,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 		m_timerActive[i] = false;
 	}
 
+	m_killCountText = new Text(Abel, std::to_string(int(killCount)), t_cameraDimension.x * 0.7, t_cameraDimension.y * 0.91);
+	m_previousCount = killCount;
 }
 
 HUD::~HUD()
@@ -131,6 +134,14 @@ void HUD::update(float t_currentHealth, float t_currentMana)
 		m_timerActive[2] = e;
 	}
 
+	//Kill Count
+	if (killCount != m_previousCount)
+	{
+		m_killCountText->update(std::to_string(killCount));
+		m_previousCount = killCount;
+	}
+
+
 	//Bars
 	if (currentHealth <= originalHealth)
 	{
@@ -154,9 +165,6 @@ void HUD::update(float t_currentHealth, float t_currentMana)
 		m_manaOverflow.w = ((currentMana - originalMana) / originalMana)
 			* manaFullWidth;
 	}
-
-
-
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -182,6 +190,8 @@ void HUD::update(float t_currentHealth, float t_currentMana)
 			}
 		}
 	}
+
+
 }
 
 void HUD::render()
@@ -223,6 +233,7 @@ void HUD::render()
 			m_timerText[i]->render();
 		}
 	}
+	m_killCountText->render();
 }
 
 void HUD::adjustEmptyRect(SDL_Rect t_bar, float t_fullWidth)

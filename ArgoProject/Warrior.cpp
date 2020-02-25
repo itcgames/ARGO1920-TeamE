@@ -98,16 +98,27 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	attackSound.load("Assets/Audio/attack1.wav");
 	slamAttackSound.load("Assets/Audio/slam.wav");
 	spinAttackSound.load("Assets/Audio/spinAttack.wav");
+
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_skillCooldown[i] = false;
+		m_skillActive[i] = false;
+	}
+	m_attackFrame = 9999;
+	m_killCount = 0;
 }
 
 void Warrior::update()
 {
+	//std::cout << m_killCount << std::endl;
 	if (finiteStateMachine->getCurrentState() == 0)
 	{
 		attackSound.stop();
 		spinAttackSound.stop();
 		slamAttackSound.stop();
-		//walkSound.stop();
+		walkSound.stop();
+
 	}
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
@@ -137,6 +148,17 @@ void Warrior::update()
 			
 		}
 
+	}
+
+	if (finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (m_skillActive[i] == true)
+			{
+				m_skillActive[i] = false;
+			}
+		}
 	}
 
 	//basic bitch attack
@@ -230,7 +252,9 @@ void Warrior::setAction()
 			}
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false)
+			if (m_skillCooldown[0] == false
+				&&
+				(m_skillActive[1] == false && m_skillActive[2] == false))
 			{
 				setDamage(3);
 				m_animationRect->x = 0;
@@ -238,10 +262,13 @@ void Warrior::setAction()
 				attackSound.play();
 				m_ih->move = false;
 				m_skillCooldown[0] = true;
+				m_skillActive[0] = true;
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false)
+			if (m_skillCooldown[1] == false
+				&&
+				(m_skillActive[0] == false && m_skillActive[2] == false))
 			{
 				setDamage(10);
 				m_animationRect->x = 0;
@@ -249,10 +276,13 @@ void Warrior::setAction()
 				slamAttackSound.play();
 				m_ih->move = false;
 				m_skillCooldown[1] = true;
+				m_skillActive[1] = true;
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false)
+			if (m_skillCooldown[2] == false
+				&&
+				(m_skillActive[0] == false && m_skillActive[1] == false))
 			{
 				setDamage(6);
 				m_animationRect->x = 0;
@@ -260,6 +290,7 @@ void Warrior::setAction()
 				spinAttackSound.play();
 				m_ih->move = false;
 				m_skillCooldown[2] = true;
+				m_skillActive[2] = true;
 			}
 			break;
 		case 5:
@@ -277,10 +308,17 @@ void Warrior::Attack(float &m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3 || finiteStateMachine->getCurrentState() == 4)
 	{
-		if (m_animationRect->x == 0)
+		int m_state = finiteStateMachine->getCurrentState() - 2;
+		if (m_animationRect->x == 0 && m_skillActive[m_state])
 		{
 			m_mc->alterMana(-4);
 			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+		}
+		if (m_attackFrame < m_animationRect->x)
+		{
+			m_skillActive[m_state] = false;
+			m_attackFrame = 9999;
 		}
 	}
 }
