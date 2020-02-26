@@ -90,6 +90,12 @@ public:
 		}
 	}
 
+	Vector2 magnitude(Vector2 vector)
+	{
+		float length = sqrt((vector.x * vector.x) + (vector.y * vector.y));
+		return length;
+	}
+
 
 	float x, y;
 };

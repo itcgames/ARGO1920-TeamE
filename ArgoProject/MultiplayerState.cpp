@@ -440,7 +440,7 @@ void MultiplayerState::collisions()
 
 	for (int i = 0; i < 1; i++)
 	{
-		m_bts->run(m_btEnemy[i]->getEntity());
+		m_bts->run(m_btEnemy[i]->getEntity(), myMap->WayPoints);
 	}
 
 	/*for (int i = 0; i < m_pickUp.size(); i++)

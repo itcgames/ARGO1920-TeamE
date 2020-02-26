@@ -13,7 +13,7 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	//draws a rectangle for the enemy
 	m_rect = new SDL_Rect();
 	m_rect->x = t_Position.x; m_rect->y = t_Position.y;
-	m_rect->w = 100; m_rect->h = 100;
+	m_rect->w = 10; m_rect->h = 10;
 
 	//loads texture for enemy
 	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie2.png");

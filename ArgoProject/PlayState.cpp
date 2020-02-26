@@ -17,29 +17,29 @@ void PlayState::update()
 	{
 		//Updates()
 			// Player 
-		m_player->update();
+		//m_player->update();
 
 		//HUD 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		//Pickups
-		if (m_player->getEntity()->getComponent<HealthComponent>(4)->getHealth() <= 150)
-		{
-			for (int i = 0; i < m_pickUp.size(); i++)
-			{
-				m_pickUp.at(i)->update();
+		////Pickups
+		//if (m_player->getEntity()->getComponent<HealthComponent>(4)->getHealth() <= 150)
+		//{
+		//	for (int i = 0; i < m_pickUp.size(); i++)
+		//	{
+		//		m_pickUp.at(i)->update();
 
-				if (m_cs->aabbCollision(m_player->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp.at(i)->getEntity());
-					m_pickUp[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-					m_rs->deleteEntity(m_pickUp.at(i)->getEntity());
-					m_cs->deleteEntity(m_pickUp.at(i)->getEntity());
-					delete m_pickUp[i];
-					m_pickUp.erase(m_pickUp.begin() + i);
-				}
-			}
-		}
+		//		if (m_cs->aabbCollision(m_player->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+		//		{
+		//			m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp.at(i)->getEntity());
+		//			m_pickUp[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+		//			m_rs->deleteEntity(m_pickUp.at(i)->getEntity());
+		//			m_cs->deleteEntity(m_pickUp.at(i)->getEntity());
+		//			delete m_pickUp[i];
+		//			m_pickUp.erase(m_pickUp.begin() + i);
+		//		}
+		//	}
+		//}
 
 
 		m_miniMapList = m_rs->m_miniMapList;
@@ -77,7 +77,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->m_killCount == 0)
+		if (m_player->m_killCount == 10)
 		{
 			if (bossSpawned == false)
 			{
@@ -93,10 +93,15 @@ void PlayState::update()
 			}
 		}
 
-		if (m_player->getHealth() <= 0 || m_player->m_killCount == 11)
+		for (int i = 0; i < 1; i++)
 		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+			m_bts->run(m_btEnemy[i]->getEntity(), myMap->WayPoints);
 		}
+
+		//if (m_player->getHealth() <= 0 || m_player->m_killCount == 11)
+		//{
+		//	m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+		//}
 
 	}
 	else
@@ -181,53 +186,53 @@ bool PlayState::onEnter()
 	myMap->CreateMap(m_rs, m_cs);
 
 
-	// Create Enemies 
-	for (int i = 0; i < 10; i++)
-	{
-		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
-		int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
+	//// Create Enemies 
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
+	//	int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
 
-		if (randomEnemyPreset == 0)
-		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
-		}
-		if (randomEnemyPreset == 1)
-		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
-		}
-		if (randomEnemyPreset == 2)
-		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
-		}
+	//	if (randomEnemyPreset == 0)
+	//	{
+	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
+	//	}
+	//	if (randomEnemyPreset == 1)
+	//	{
+	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
+	//	}
+	//	if (randomEnemyPreset == 2)
+	//	{
+	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
+	//	}
 
-		//Init the enemy based of the above condition that was met
-		m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->disperse(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
-			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
-			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
+	//	//Init the enemy based of the above condition that was met
+	//	m_enemies[i]->initialize(m_rs, myMap->map[tempRandPos]->disperse(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
+	//		data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
+	//		data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
 
-		//Sets the room that the enemy is placed in.
-		m_enemies[i]->setRoom(tempRandPos);
-	}
+	//	//Sets the room that the enemy is placed in.
+	//	m_enemies[i]->setRoom(tempRandPos);
+	//}
 
-	// Create Pickups
-	for (int i = 0; i < 20; i++)
-	{
-		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
-		int randomPickupPreset = rand() % 3;
-		m_pickUp.push_back(new PickUp);
-		if (randomPickupPreset == 0)
-		{
-			m_pickUp.at(i)->initialize(m_rs, "Health", true, false, false, myMap->map[tempRandPos]->disperse());
-		}
-		if (randomPickupPreset == 1)
-		{
-			m_pickUp.at(i)->initialize(m_rs, "Health", false, true, false, myMap->map[tempRandPos]->disperse());
-		}
-		if (randomPickupPreset == 2)
-		{
-			m_pickUp.at(i)->initialize(m_rs, "Health", false, false, true, myMap->map[tempRandPos]->disperse());
-		}
-	}
+	//// Create Pickups
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
+	//	int randomPickupPreset = rand() % 3;
+	//	m_pickUp.push_back(new PickUp);
+	//	if (randomPickupPreset == 0)
+	//	{
+	//		m_pickUp.at(i)->initialize(m_rs, "Health", true, false, false, myMap->map[tempRandPos]->disperse());
+	//	}
+	//	if (randomPickupPreset == 1)
+	//	{
+	//		m_pickUp.at(i)->initialize(m_rs, "Health", false, true, false, myMap->map[tempRandPos]->disperse());
+	//	}
+	//	if (randomPickupPreset == 2)
+	//	{
+	//		m_pickUp.at(i)->initialize(m_rs, "Health", false, false, true, myMap->map[tempRandPos]->disperse());
+	//	}
+	//}
 
 	//Creates the Player
 	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
@@ -361,11 +366,6 @@ void PlayState::collisions()
 			m_player->m_mc->alterMana(0.1f);
 		}
 		m_enemies[i]->update(m_player->getPosition());
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		m_bts->run(m_btEnemy[i]->getEntity());
 	}
 
 	/*for (int i = 0; i < m_pickUp.size(); i++)
