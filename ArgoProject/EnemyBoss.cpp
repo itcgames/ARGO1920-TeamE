@@ -13,10 +13,10 @@ void EnemyBoss::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	//draws a rectangle for the enemy
 	m_rect = new SDL_Rect();
 	m_rect->x = t_Position.x; m_rect->y = t_Position.y;
-	m_rect->w = 300; m_rect->h = 300;
+	m_rect->w = 600; m_rect->h = 600;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/ecs_text.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/zombie2boss.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
 
 	m_enemy = new Entity();

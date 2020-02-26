@@ -207,6 +207,7 @@ void Mage::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false)
 			{
+				setDamage(1);
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
 				spriteSheetY = 0;
 				
@@ -222,7 +223,6 @@ void Mage::setAction()
 			if (m_skillCooldown[2] == false)
 			{
 				spriteSheetY = frameHeight * 4;
-				setDamage(40);
 			}
 			break;
 		case 5:
@@ -240,7 +240,7 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false)
 		{
-			m_mc->alterMana(-1);
+			m_mc->alterMana(-10);
 			m_enemyHealth -= dmg;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
@@ -253,8 +253,8 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-2);
-			m_hc->alterHealth(50);
+			m_mc->alterMana(-12);
+			m_hc->alterHealth(10);
 			std::cout << m_animationRect->x << std::endl;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
@@ -267,7 +267,7 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-3);
+			m_mc->alterMana(-13);
 			dmg += 1;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
