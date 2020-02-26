@@ -95,7 +95,7 @@ bool EndState::onEnter()
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
-	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y / 20);
+	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", m_cameraDimensions.y / 20);
 
 	if (!Abel) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());

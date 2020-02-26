@@ -55,7 +55,7 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
-	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", t_cameraDimension.y * 0.074);
+	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", t_cameraDimension.y * 0.074);
 
 	if (!Abel) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
