@@ -8,10 +8,12 @@
 #include "BehaviourSystem.h"
 #include "CommandSystem.h"
 #include "Renderer.h"
+#include "AnimationSystem.h"
 #include "Data.h"
 #include "FiniteState.h"
 #include "Audio.h"
 #include "CollisionSystem.h"
+#include "ParticleSystem.h"
 #include <iostream>
 
 class IPlayer
@@ -23,6 +25,7 @@ public:
 	virtual void processEvents(bool isRunning) = 0;
 	virtual Vector2 getPosition() = 0;
 	virtual float getHealth() = 0;
+	virtual int getMaxHealth() = 0;
 	virtual Entity* getEntity() = 0;
 	virtual void setAction() = 0;
 	virtual void Attack(float&m_enemyHealth) = 0;
@@ -44,6 +47,9 @@ public:
 	ManaComponent* m_mc;
 
 	bool m_skillCooldown[3];
+	bool m_skillActive[3];
+	int m_killCount;
+	float m_attackFrame;
 protected:
 	Entity* m_player;
 
@@ -60,12 +66,16 @@ protected:
 	BehaviourSystem* m_bs;
 	RenderSystem* m_rs;
 	InputHandler* m_ih;
+	AnimationSystem* m_anim;
 
 	//Player animated sprite
 	SDL_Rect* m_positionRect;
 	SDL_Rect* m_animationRect;
 	SDL_Texture* m_playerTexture;
 	SDL_Texture* m_collisionTexture;
+
+	//Particles
+	ParticleSystem* m_particleEffects;
 
 	bool m_seek;
 
@@ -88,6 +98,7 @@ protected:
 	Audio slamAttackSound;
 	Audio spinAttackSound;
 	float dmg = 0.1;
+	int M_MAX_HEALTH;
 };
 
 #endif // !IPLAYER

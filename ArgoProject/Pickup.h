@@ -20,7 +20,7 @@
 class PickUp
 {
 public:
-	void initialize(RenderSystem* t_rs, std::string type, bool isSmall, bool isMedium, bool isLarge);
+	void initialize(RenderSystem* t_rs, std::string type, bool isSmall, bool isMedium, bool isLarge, Vector2 t_pos);
 	void update();
 	void destroy();
 
@@ -34,6 +34,7 @@ private:
 	PositionComponent* m_pc;
 	SpriteComponent* m_sc;
 	ItemComponent* m_ic;
+	ActiveComponent* m_ac;
 };
 
 #endif // !PICKUP_H

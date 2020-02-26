@@ -1,31 +1,28 @@
-#include "EnemyEasy.h"
+#include "EnemyBoss.h"
 
-EnemyEasy::EnemyEasy()
+EnemyBoss::EnemyBoss()
 {
 }
 
-EnemyEasy::~EnemyEasy()
+EnemyBoss::~EnemyBoss()
 {
 }
 
-void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount)
+void EnemyBoss::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t_class, int t_health, int t_strength, int t_speed, int t_gold, int t_killCount)
 {
 	//draws a rectangle for the enemy
 	m_rect = new SDL_Rect();
 	m_rect->x = t_Position.x; m_rect->y = t_Position.y;
-	m_rect->w = 100; m_rect->h = 100;
+	m_rect->w = 300; m_rect->h = 300;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie2.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/ecs_text.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
 
 	m_enemy = new Entity();
 	m_bs = new BehaviourSystem;
 
-	finiteStateMachine = new FSM();
-	state = new FiniteState();
 
-	finiteStateMachine->idle();
 
 	//creates position and sprite components for the enemy
 	m_pc = new PositionComponent(Vector2(m_rect->x, m_rect->y), 1);
@@ -34,6 +31,12 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	m_statsC = new StatsComponent(t_class, t_health, t_strength, t_speed, t_gold, t_killCount, 4);
 	m_hc = new HealthComponent(t_health, 5);
 	m_ac = new ActiveComponent(true, 6);
+
+
+	finiteStateMachine = new FSM();
+	state = new FiniteState();
+
+	finiteStateMachine->idle();
 
 	//adds the new components to the enenmy
 	m_enemy->setID(2);
@@ -50,10 +53,10 @@ void EnemyEasy::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 
 	t_rs->addEntity(m_enemy);
 	m_enemySound.load("Assets/Audio/Zombie.wav");
-	std::cout << "Enemy Initialized" << std::endl;
+	std::cout << "Boss Initialized" << std::endl;
 }
 
-void EnemyEasy::update(Vector2 t_position)
+void EnemyBoss::update(Vector2 t_position)
 {
 	if (finiteStateMachine->getCurrentState() == 0)
 	{
@@ -65,6 +68,7 @@ void EnemyEasy::update(Vector2 t_position)
 
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
+
 	}
 
 
@@ -91,11 +95,13 @@ void EnemyEasy::update(Vector2 t_position)
 	{
 		finiteStateMachine->idle();
 	}
-	if(mag < 100)
+	if (mag < 100)
 	{
 		finiteStateMachine->skillone();
 	}
-	//m_bs->enemySeek(t_position, m_normalizedVec, m_attackTime);
+	//m_bs->flee(t_position);
+	//m_bs->seek(t_position);
+	m_bs->enemySeek(t_position, m_normalizedVec, m_seek);
 	m_rect->x = m_pc->getPosition().x;
 	m_rect->y = m_pc->getPosition().y;
 
@@ -110,24 +116,22 @@ void EnemyEasy::update(Vector2 t_position)
 	}
 }
 
-int EnemyEasy::getAttackTime()
+int EnemyBoss::getAttackTime()
 {
 	return m_attackTime;
 }
 
-void EnemyEasy::setAttackTime(int attackTime)
+void EnemyBoss::setAttackTime(int attackTime)
 {
 	m_attackTime = attackTime;
 }
 
-bool EnemyEasy::getSeek()
+bool EnemyBoss::getSeek()
 {
 	return m_seek;
 }
 
-void EnemyEasy::setSeek(bool seek)
+void EnemyBoss::setSeek(bool seek)
 {
 	m_seek = seek;
 }
-
-

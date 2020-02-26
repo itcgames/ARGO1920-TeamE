@@ -37,6 +37,9 @@ public:
 private:
 	void cameraSetup();
 	void collisions();
+	void MenuInit();
+	double GenerateRandomNumber(double min, double max);
+
 
 	static const std::string m_playID;
 	RenderSystem* m_rs;
@@ -56,8 +59,10 @@ private:
 	//Ai* m_enemy = new Ai;
 	//std::unique_ptr<IEnemy> enemy = FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD);
 	std::vector<std::unique_ptr<IEnemy>> m_enemies;
+
 	std::vector<std::unique_ptr<IEnemy>> m_btEnemy;
-	PickUp* m_pickUp = new PickUp;
+
+	std::vector<PickUp*> m_pickUp;
 	Map* myMap;
 
 	Vector2 m_cameraDimensions;
@@ -75,8 +80,7 @@ private:
 
 	Audio m_background;
 
-	ParticleSystem* m_pSystem;
-
+	// Pause Menu Parts
 	bool m_menuActive;
 	SDL_Rect* m_menuBackground;
 	SDL_Texture* m_menuBackgroundTexture;
@@ -89,6 +93,12 @@ private:
 
 	TTF_Font* m_font;
 	Text* m_text[2];
+	std::string className;
+
+	std::vector<Entity*> m_miniMapList;
+
+	bool bossSpawned = false;
+
 };
 
 #endif

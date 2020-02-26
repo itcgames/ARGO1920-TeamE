@@ -13,6 +13,7 @@ public:
 	void processEvents(bool isRunning);
 	Vector2 getPosition() { return m_pc->getPosition(); }
 	float getHealth() { return m_hc->getHealth(); }
+	int getMaxHealth() { return M_MAX_HEALTH; }
 	Entity* getEntity() { return m_player; }
 	void setAction();	
 	virtual bool getSeek() { return m_seek; }

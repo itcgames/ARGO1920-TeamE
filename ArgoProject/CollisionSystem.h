@@ -111,9 +111,7 @@ public:
 
 	void pickupCollisionResponse(Entity* m_a, Entity* m_b)
 	{
-		if (aabbCollision(m_a->getComponent<SpriteComponent>(2)->getRect(),
-			m_b->getComponent<SpriteComponent>(2)->getRect()) == true)
-		{
+		
 			
 			// If type is set to "Health" or "health"...
 			if (m_b->getComponent<ItemComponent>(5)->getType() == "Health" || 
@@ -138,7 +136,7 @@ public:
 					//std::cout << "Large Health collision" << std::endl;
 				}*/
 
-				m_a->getComponent<StatsComponent>(4)->alterHealth(m_b->getComponent<ItemComponent>(5)->getValue());
+				m_a->getComponent<HealthComponent>(5)->alterHealth(m_b->getComponent<ItemComponent>(5)->getValue());
 			}
 			
 			// If type is set to "Mana" or "mana"...
@@ -222,7 +220,7 @@ public:
 
 			
 
-		}// End if
+		
 	}
 
 	// Separating Axis Theorem Collision

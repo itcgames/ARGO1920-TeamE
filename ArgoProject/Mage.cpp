@@ -44,14 +44,13 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_bs = new BehaviourSystem;
 	finiteStateMachine = new FSM();
 	state = new FiniteState();
+	m_anim = new AnimationSystem();
 
 	//Player Animated Rect Components amd Adding those
 	m_pc = new PositionComponent(Vector2(m_positionRect->x, m_positionRect->y), 1);
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
 
-	m_hc = new HealthComponent(1000, 7);
-	m_mc = new ManaComponent(1000, 8);
 	m_stc = new StaminaComponent(1000, 9);
 
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
@@ -61,6 +60,7 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
 	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
+	M_MAX_HEALTH = m_hc->getHealth() * 2;
 
 	m_player->setID(1);
 	m_player->addComponent<PositionComponent>(m_pc, 1);
@@ -89,13 +89,20 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//Input InputHandler
 	m_ih = new InputHandler();
 	m_ih->addEntity(m_player);
+	m_anim->addEntity(m_player);
 
 	m_ih->mousePosition = startPos;
 
 	for (int i = 0; i < 3; i++)
 	{
 		m_skillCooldown[i] = false;
+		m_skillActive[i] = false;
 	}
+
+	m_killCount = 0;
+	m_particleEffects = new ParticleSystem("PLAY", t_rs);
+
+
 }
 
 void Mage::update()
@@ -140,21 +147,26 @@ void Mage::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
 
-	else while (!commandQueue.empty())
+	else while (!commandQueue.empty() && m_animationRect->x != 0)
 	{
 		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
 		commandQueue.pop_back();
 	}
 
+	if (m_skillCooldown[0])
+	{
+		m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+	}
+
 	setAction();
-	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
+	m_particleEffects->update();	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
 }
 
 void Mage::processEvents(bool isRunning)
@@ -194,8 +206,8 @@ void Mage::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false)
 			{
-				setDamage(4);
-				m_animationRect->x = 0;
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+				setDamage(8);
 				spriteSheetY = 0;
 				m_skillCooldown[0] = true;
 			}
@@ -203,7 +215,6 @@ void Mage::setAction()
 		case 3:
 			if (m_skillCooldown[1] == false)
 			{
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 3;
 				m_skillCooldown[1] = true;
 			}
@@ -211,13 +222,11 @@ void Mage::setAction()
 		case 4:
 			if (m_skillCooldown[2] == false)
 			{
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 4;
 				m_skillCooldown[2] = true;
 			}
 			break;
 		case 5:
-			m_animationRect->x = 0;
 			spriteSheetY = frameHeight * 5;
 			break;
 		default:

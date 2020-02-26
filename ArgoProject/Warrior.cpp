@@ -7,6 +7,7 @@ Warrior::Warrior()
 
 Warrior::~Warrior()
 {
+	SDL_DestroyTexture(m_playerTexture);
 }
 
 void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
@@ -44,13 +45,13 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_bs = new BehaviourSystem;
 	finiteStateMachine = new FSM();
 	state = new FiniteState();
+	m_anim = new AnimationSystem();
 
 	//Player Animated Rect Components amd Adding those
 	m_pc = new PositionComponent(Vector2(m_positionRect->x, m_positionRect->y), 1);
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
 
-	m_hc = new HealthComponent(1000, 7);
 	m_mc = new ManaComponent(1000, 8);
 	m_stc = new StaminaComponent(1000, 9);
 
@@ -59,6 +60,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 		data::Instance()->getData().m_playerStats.at(0).m_gold, data::Instance()->getData().m_playerStats.at(0).m_killCount, 4);
 
 	m_hc = new HealthComponent(data::Instance()->getData().m_playerStats.at(0).m_health, 5);
+	M_MAX_HEALTH = m_hc->getHealth() * 2;
 	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
 
@@ -89,104 +91,66 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//Input InputHandler
 	m_ih = new InputHandler();
 	m_ih->addEntity(m_player);
+	m_anim->addEntity(m_player);
 
 	m_ih->mousePosition = startPos;
+
+	m_particleEffects = new ParticleSystem("PLAY", t_rs);
 
 	walkSound.load("Assets/Audio/walk.wav");
 	attackSound.load("Assets/Audio/attack1.wav");
 	slamAttackSound.load("Assets/Audio/slam.wav");
 	spinAttackSound.load("Assets/Audio/spinAttack.wav");
+
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_skillCooldown[i] = false;
+		m_skillActive[i] = false;
+	}
+	m_attackFrame = 9999;
+	m_killCount = 0;
 }
 
 void Warrior::update()
 {
-	if (finiteStateMachine->getCurrentState() == 0)
+	if (finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
 	{
-		attackSound.stop();
-		spinAttackSound.stop();
-		slamAttackSound.stop();
-		//walkSound.stop();
-	}
-	//checks if the player is in walking state
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
+		for (int i = 0; i < 3; i++)
 		{
-
-			m_seek = true;
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
+			if (m_skillActive[i] == true)
 			{
-				m_bs->playerSeek(m_ih->mousePosition, m_seek);
-				//walkSound.play();
+				m_skillActive[i] = false;
 			}
-			else
-			{
-				m_ih->move = false;
-				//walkSound.stop();
-			}
-
-			
-
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
-			
 		}
-
-	}
-
-	//basic bitch attack
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-		//spriteSheetY = 226;
-	}
-	//attack slam attack
-	if (finiteStateMachine->getCurrentState() == 3)
-	{
-		//slamAttackSound.play();
-		//spriteSheetY = 339;
-	}
-	//spin attack
-	if (finiteStateMachine->getCurrentState() == 4)
-	{
-		//spriteSheetY = 452;
-	}
-
-	if (finiteStateMachine->getCurrentState() == 5)
-	{
-		//spriteSheetY = 565;
 	}
 
 	if (m_ih->move)
 	{
-		spriteSheetY = frameHeight;
 		finiteStateMachine->walking();
 
-		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y)
-			&&
-			m_ih->updateMouse)
+		//Allows to click and hold to move
+		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y) && m_ih->updateMouse)
 		{
 			m_ih->mousePosition = m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y);
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
 	{
-		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
 	}
 
-	else while (!commandQueue.empty())
+	if(!commandQueue.empty() && m_animationRect->x != 0)
 	{
-		//m_animationRect->x = 0;
+		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
 		commandQueue.pop_back();
 	}
 
 	setAction();
-	m_sc->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_particleEffects->update();
 }
 
 void Warrior::processEvents(bool isRunning)
@@ -200,18 +164,22 @@ void Warrior::setAction()
 	{
 		switch (finiteStateMachine->getCurrentState())
 		{
+		case 0:
+			spriteSheetY = frameHeight * 2;
+			break;
 		case 1:
 			//the player seeks the mouse position
+			spriteSheetY = frameHeight;
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-
+				walkSound.play();
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10);
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
 				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
 				if (mag > 40)
 				{
 					m_bs->playerSeek(m_ih->mousePosition, m_seek);
-					walkSound.play();
 				}
 				else
 				{
@@ -219,52 +187,49 @@ void Warrior::setAction()
 					walkSound.stop();
 				}
 
-
-
 				m_positionRect->x = m_pc->getPosition().x;
 				m_positionRect->y = m_pc->getPosition().y;
 
 			}
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false)
+			if (m_skillCooldown[0] == false && (m_skillActive[1] == false && m_skillActive[2] == false))
 			{
 				setDamage(3);
-				m_animationRect->x = 0;
 				spriteSheetY = 0;
 				attackSound.play();
 				m_ih->move = false;
 				m_skillCooldown[0] = true;
+				m_skillActive[0] = true;
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false)
+			if (m_skillCooldown[1] == false && (m_skillActive[0] == false && m_skillActive[2] == false))
 			{
 				setDamage(10);
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound.play();
 				m_ih->move = false;
 				m_skillCooldown[1] = true;
+				m_skillActive[1] = true;
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false)
+			if (m_skillCooldown[2] == false && (m_skillActive[0] == false && m_skillActive[1] == false))
 			{
 				setDamage(6);
-				m_animationRect->x = 0;
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound.play();
 				m_ih->move = false;
 				m_skillCooldown[2] = true;
+				m_skillActive[2] = true;
 			}
 			break;
-		case 5:
-			m_animationRect->x = 0;
-			spriteSheetY = frameHeight * 5;
-			m_ih->move = false;
-			break;
 		default:
+			attackSound.stop();
+			spinAttackSound.stop();
+			slamAttackSound.stop();
+			walkSound.stop();
 			break;
 		}
 	}
@@ -274,11 +239,18 @@ void Warrior::Attack(float &m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3 || finiteStateMachine->getCurrentState() == 4)
 	{
-		if (m_animationRect->x == 0)
-		{
+		//int m_state = finiteStateMachine->getCurrentState() - 2;
+		//if (m_animationRect->x == 0 && m_skillActive[m_state])
+		//{
 			m_mc->alterMana(-4);
 			m_enemyHealth -= dmg;
-		}
+			m_attackFrame = 0;
+		//}
+		//if (m_attackFrame < m_animationRect->x)
+		//{
+		//	m_skillActive[m_state] = false;
+		//	m_attackFrame = 9999;
+		//}
 	}
 }
 
