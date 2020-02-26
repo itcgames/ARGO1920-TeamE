@@ -1,5 +1,5 @@
-#ifndef PLAYSTATE
-#define PLAYSTATE
+#ifndef MULTIPLAYERSTATE
+#define MULTIPLAYERSTATE
 #include "ParticleSystem.h"
 #include "GameState.h"
 #include "EndState.h"
@@ -20,13 +20,13 @@
 #include "FactoryPlayer.h"
 #include "Audio.h"
 
-class PlayState : public GameState
+class MultiplayerState : public GameState
 {
 public:
-	PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachine);
+	MultiplayerState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine);
 	virtual void update();
 	virtual void render();
-	virtual void processEvents(bool &isRunning);
+	virtual void processEvents(bool& isRunning);
 
 	virtual bool onEnter();
 	virtual bool onExit();
@@ -48,6 +48,7 @@ private:
 
 	//Player m_player;
 	std::unique_ptr<IPlayer> m_player;
+	std::unique_ptr<IPlayer> m_player2;
 	HUD* m_hud;
 
 	SDL_Rect* camera;
@@ -68,16 +69,12 @@ private:
 
 	GameStateMachine* m_stateMachine;
 
-	//Server m_server{ 8888, true };
+	Server m_server{ 8888, true };
 	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	//Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
-
-	//Server m_server{ 1111, true };
-	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	//Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
+	Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
 
 
-	Audio* m_background;
+	Audio m_background;
 
 	// Pause Menu Parts
 	bool m_menuActive;

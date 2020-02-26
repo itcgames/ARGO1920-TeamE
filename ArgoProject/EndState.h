@@ -24,7 +24,16 @@ private:
 	GameStateMachine* m_stateMachine;
 
 	SDL_Rect* m_exit;
+	std::vector<SDL_Rect*> m_keyboard;
 	SDL_Texture* m_exitTexture;
+	std::vector<SDL_Texture*> m_keyboardTexture;
+	std::vector<std::string> m_keyValues;
+	GameData m_data;
+	void CreateKeyBoardRow(float num, float num2, float num3, float num4);
+	void CreateKey(float num, float num2);
+	TTF_Font* Abel;
+	Text* m_message;
+	std::vector<Text*> m_keyText;
 };
 
 #endif

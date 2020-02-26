@@ -25,7 +25,7 @@ public: //Public functions
 	bool SendCircle();
 	bool CloseConnection();
 
-	std::vector<int> vec;
+	std::vector<std::string> vec;
 
 private: //Private functions
 	bool ProcessPacket(Packet _packettype);
@@ -52,5 +52,3 @@ private:
 };
 
 static Client* clientptr; //This client ptr is necessary so that the ClientThread method can access the Client instance/methods. Since the ClientThread method is static, this is the simplest workaround I could think of since there will only be one instance of the client.
-
-

@@ -19,7 +19,7 @@ Server::Server(int PORT, bool BroadcastPublically) //Port = port to broadcast on
 	addr.sin_family = AF_INET; //IPv4 Socket
 
 	sListen = socket(AF_INET, SOCK_STREAM, NULL); //Create socket to listen for new connections
-	if (bind(sListen, (SOCKADDR*)&addr, sizeof(addr)) == SOCKET_ERROR) //Bind the address to the socket, if we fail to bind the address..
+	if (bind(sListen, (SOCKADDR*)& addr, sizeof(addr)) == SOCKET_ERROR) //Bind the address to the socket, if we fail to bind the address..
 	{
 		std::string ErrorMsg = "Failed to bind the address to our listening socket. Winsock Error:" + std::to_string(WSAGetLastError());
 		MessageBoxA(NULL, ErrorMsg.c_str(), "Error", MB_OK | MB_ICONERROR);
@@ -41,7 +41,7 @@ Server::~Server()
 
 bool Server::ListenForNewConnection()
 {
-	SOCKET newConnection = accept(sListen, (SOCKADDR*)&addr, &addrlen); //Accept a new connection
+	SOCKET newConnection = accept(sListen, (SOCKADDR*)& addr, &addrlen); //Accept a new connection
 	if (newConnection == 0) //If accepting the client connection failed
 	{
 		std::cout << "Failed to accept the client's connection." << std::endl;
@@ -67,37 +67,37 @@ bool Server::ProcessPacket(int ID, Packet _packettype)
 {
 	switch (_packettype)
 	{
-	//case P_ChatMessage: //Packet Type: chat message
-	//{
-	//	std::string Message; //string to store our message we received
-	//	if (!GetString(ID, Message)) //Get the chat message and store it in variable: Message
-	//		return false; //If we do not properly get the chat message, return false
-	//					  //Next we need to send the message out to each user
-	//	if (!SendString(ID, Message)) //Send message to connection at index i, if message fails to be sent...
-	//	{
-	//		std::cout << "Failed to send message from client ID: " << ID << " to client ID: " << ID << std::endl;
-	//	}
-	//	for (int i = 0; i < TotalConnections; i++)
-	//	{
-	//		if (i == ID) //If connection is the user who sent the message...
-	//			continue;//Skip to the next user since there is no purpose in sending the message back to the user who sent it.
-	//		//if (!SendString(i, Message)) //Send message to connection at index i, if message fails to be sent...
-	//		//{
-	//		//	std::cout << "Failed to send message from client ID: " << ID << " to client ID: " << i << std::endl;
-	//		//}
-	//		if (TotalConnections == 0) //player 1
-	//		{
-	//			SendPacketType(TotalConnections, P_Authoritative);
-	//		}
-	//		else if (TotalConnections == 1) //player 2
-	//		{
-	//		}
-	//		TotalConnections += 1;
-	//		return true;
-	//	}
-	//	std::cout << "Processed chat message packet from user ID: " << ID << std::endl;
-	//	break;
-	//}
+		//case P_ChatMessage: //Packet Type: chat message
+		//{
+		//	std::string Message; //string to store our message we received
+		//	if (!GetString(ID, Message)) //Get the chat message and store it in variable: Message
+		//		return false; //If we do not properly get the chat message, return false
+		//					  //Next we need to send the message out to each user
+		//	if (!SendString(ID, Message)) //Send message to connection at index i, if message fails to be sent...
+		//	{
+		//		std::cout << "Failed to send message from client ID: " << ID << " to client ID: " << ID << std::endl;
+		//	}
+		//	for (int i = 0; i < TotalConnections; i++)
+		//	{
+		//		if (i == ID) //If connection is the user who sent the message...
+		//			continue;//Skip to the next user since there is no purpose in sending the message back to the user who sent it.
+		//		//if (!SendString(i, Message)) //Send message to connection at index i, if message fails to be sent...
+		//		//{
+		//		//	std::cout << "Failed to send message from client ID: " << ID << " to client ID: " << i << std::endl;
+		//		//}
+		//		if (TotalConnections == 0) //player 1
+		//		{
+		//			SendPacketType(TotalConnections, P_Authoritative);
+		//		}
+		//		else if (TotalConnections == 1) //player 2
+		//		{
+		//		}
+		//		TotalConnections += 1;
+		//		return true;
+		//	}
+		//	std::cout << "Processed chat message packet from user ID: " << ID << std::endl;
+		//	break;
+		//}
 	case P_CircleData:
 	{
 		std::string Message; //string to store our message we received

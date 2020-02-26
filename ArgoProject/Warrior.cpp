@@ -205,33 +205,30 @@ void Warrior::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false && (m_skillActive[1] == false && m_skillActive[2] == false))
 			{
-				setDamage(3);
+				setDamage(30);
 				spriteSheetY = 0;
 				attackSound->play();
 				m_ih->move = false;
-				m_skillCooldown[0] = true;
 				m_skillActive[0] = true;
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false && (m_skillActive[0] == false && m_skillActive[2] == false))
 			{
-				setDamage(10);
+				setDamage(40);
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound->play();
 				m_ih->move = false;
-				m_skillCooldown[1] = true;
 				m_skillActive[1] = true;
 			}
 			break;
 		case 4:
 			if (m_skillCooldown[2] == false && (m_skillActive[0] == false && m_skillActive[1] == false))
 			{
-				setDamage(6);
+				setDamage(50);
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound->play();
 				m_ih->move = false;
-				m_skillCooldown[2] = true;
 				m_skillActive[2] = true;
 			}
 			break;
@@ -247,20 +244,46 @@ void Warrior::setAction()
 
 void Warrior::Attack(float &m_enemyHealth)
 {
-	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3 || finiteStateMachine->getCurrentState() == 4)
+	if (finiteStateMachine->getCurrentState() == 2 )
 	{
-		//int m_state = finiteStateMachine->getCurrentState() - 2;
-		//if (m_animationRect->x == 0 && m_skillActive[m_state])
-		//{
-			m_mc->alterMana(-4);
+		if (m_skillCooldown[0] == false )
+		{
+			m_mc->alterMana(-30);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
-		//}
-		//if (m_attackFrame < m_animationRect->x)
-		//{
-		//	m_skillActive[m_state] = false;
-		//	m_attackFrame = 9999;
-		//}
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[0] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		if (m_skillCooldown[1] == false)
+		{
+			m_mc->alterMana(-30);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[1] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		if (m_skillCooldown[2] == false)
+		{
+			m_mc->alterMana(-30);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[2] = true;
+			}
+		}
 	}
 }
 
