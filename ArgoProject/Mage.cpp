@@ -242,7 +242,10 @@ void Mage::Attack(float& m_enemyHealth)
 		{
 			m_mc->alterMana(-1);
 			m_enemyHealth -= dmg;
-			m_skillCooldown[0] = true;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[0] = true;
+			}
 		}
 	}
 
@@ -252,7 +255,11 @@ void Mage::Attack(float& m_enemyHealth)
 		{
 			m_mc->alterMana(-2);
 			m_hc->alterHealth(50);
-			m_skillCooldown[1] = true;
+			std::cout << m_animationRect->x << std::endl;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[1] = true;
+			}
 		}
 	}
 
@@ -262,7 +269,10 @@ void Mage::Attack(float& m_enemyHealth)
 		{
 			m_mc->alterMana(-3);
 			dmg += 1;
-			m_skillCooldown[2] = true;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[2] = true;
+			}
 		}
 	}
 }
