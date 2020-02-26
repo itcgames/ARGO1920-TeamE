@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include "Entity.h"
+#include <random>
 
 class Room
 {
@@ -20,8 +21,9 @@ public:
 	void deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs);
 
 	Vector2 getCenterPos();
+	double GenerateRandomNumber(double min, double max);
 
-	Vector2 getRandomFloorTilePos();
+	Vector2 disperse();
 	Vector2 getSize();
 	int getWallsCount();
 	int getFloorCount();
@@ -43,6 +45,8 @@ public:
 
 	bool collided = false;
 	bool roomChecked = false;
+
+	Vector2 centerPoint;
 };
 
 #endif

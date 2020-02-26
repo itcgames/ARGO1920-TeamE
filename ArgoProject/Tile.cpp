@@ -28,12 +28,16 @@ Tile::Tile(Vector2 pos,int width,int height,std::string path,std::string tileTag
 	m_tile->addComponent<SpriteComponent>(m_sc, 2);
 	m_tile->addComponent<ActiveComponent>(m_ac, 6);
 
-	t_rs->addEntity(m_tile);
+	m_tile->setID(-1);
 
 	if (tag == "Wall")
 	{
+		m_tile->setID(0);
 		t_cs->addEntity(m_tile);
 	}
+
+
+	t_rs->addEntity(m_tile);
 
 }
 

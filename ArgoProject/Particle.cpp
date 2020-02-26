@@ -33,6 +33,7 @@ Particle::Particle(const std::string& currentState, int maxAliveTime, Vector2 po
 	m_particle->addComponent<PositionComponent>(m_pc, 1);
 	m_particle->addComponent<SpriteComponent>(m_sc, 2);
 	m_particle->addComponent<ActiveComponent>(m_ac, 6);
+	m_particle->setID(-2);
 
 	t_rs->addEntity(m_particle);
 

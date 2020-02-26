@@ -19,7 +19,7 @@
 class RenderSystem : public System
 {
 public:
-	std::vector<Entity*> m_minimapList;
+	std::vector<Entity*> m_miniMapList;
 	SDL_Surface* healthSurface;
 	SDL_Texture* healthTexture;
 	Vector2 m_miniMapRatio;
@@ -57,6 +57,7 @@ public:
 
 	void renderPlayState(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Rect* miniMap, SDL_Texture* t_miniMapTexture, HUD* t_hud)//, Vector2 positon)
 	{
+		m_miniMapList.clear();
 		int playerID = 0;
 		for (int i = 0; i < m_entities.size(); i++)
 		{
@@ -82,7 +83,7 @@ public:
 
 					angle = 0;
 				}
-				m_minimapList.push_back(m_entities[i]);
+				m_miniMapList.push_back(m_entities[i]);
 
 				int posX = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().x - camera->x);
 				int posY = (m_entities[i]->getComponent<PositionComponent>(1)->getPosition().y - camera->y);
@@ -138,18 +139,18 @@ public:
 		viewableArea = { miniMap->x, miniMap->y, miniMap->w,miniMap->h };
 		SDL_RenderCopy(renderer, t_miniMapTexture,NULL,&viewableArea);
 
-		for (int i = 0; i < m_minimapList.size(); i++)
+		for (int i = 0; i < m_miniMapList.size(); i++)
 		{
-			int posX = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / m_miniMapRatio.x) + miniMap->x;
-			int posY = ((m_minimapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / m_miniMapRatio.y) + miniMap->y;
-			int width = m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / m_miniMapRatio.x + 1;
-			int height = m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / m_miniMapRatio.y + 1;
+			int posX = ((m_miniMapList[i]->getComponent<PositionComponent>(1)->getPosition().x) / m_miniMapRatio.x) + miniMap->x;
+			int posY = ((m_miniMapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / m_miniMapRatio.y) + miniMap->y;
+			int width = m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / m_miniMapRatio.x + 1;
+			int height = m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / m_miniMapRatio.y + 1;
 			//std::cout << posX << " " << posY << std::endl;
 			viewableArea = { posX, posY, width,height};
 
-			if (m_minimapList[i]->getComponent<BehaviourComponent>(3) != NULL)
+			if (m_miniMapList[i]->getComponent<BehaviourComponent>(3) != NULL)
 			{
-				angle = m_minimapList[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
+				angle = m_miniMapList[i]->getComponent<BehaviourComponent>(3)->getRotationAngle();
 			}
 			else
 			{
@@ -157,16 +158,15 @@ public:
 			}
 
 			//SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
-			if (m_minimapList[i]->getID() != 1)
+			if (m_miniMapList[i]->getID() != 1)
 			{
-				SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
+				SDL_RenderCopyEx(renderer, m_miniMapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);
 			}
 			else
 			{
-				SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), m_minimapList[i]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
+				SDL_RenderCopyEx(renderer, m_miniMapList[i]->getComponent<SpriteComponent>(2)->getTexture(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect(), &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 			}
 		}
-		m_minimapList.clear();
 	}
 
 	//

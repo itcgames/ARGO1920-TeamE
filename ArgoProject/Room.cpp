@@ -24,6 +24,8 @@ Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs, CollisionSyste
 			}
 		}
 	}
+
+	centerPoint = tileList[tileList.size() / 2]->getPos();
 }
 
 Room::~Room()
@@ -74,21 +76,15 @@ void Room::deleteOverlaps(RenderSystem* t_rs, CollisionSystem* t_cs)
 
 Vector2 Room::getCenterPos()
 {
-		return Vector2(tileList[(roomSizeX * roomSizeY) / 2]->getPos());
+		return centerPoint;
 }
 
-Vector2 Room::getRandomFloorTilePos()
+Vector2 Room::disperse()
 {
-	int temp = rand() % tileList.size();
+	double x = GenerateRandomNumber(centerPoint.x - m_tileSize * 2, centerPoint.x + m_tileSize * 2);
+	double y = GenerateRandomNumber(centerPoint.y - m_tileSize * 2, centerPoint.y + m_tileSize * 2);
 
-	if (tileList[temp]->getTag() == "Floor")
-	{
-		return tileList[temp]->getPos();
-	}
-	else
-	{
-		return getCenterPos();
-	}
+	return Vector2(x, y);
 }
 
 Vector2 Room::getSize()
@@ -199,4 +195,12 @@ std::string Room::returnTileType(std::string type)
 		}
 	}
 
+}
+
+double Room::GenerateRandomNumber(double min, double max)
+{
+	std::random_device m_randDev;
+	std::mt19937 mt(m_randDev());
+	std::uniform_real_distribution<double> dist(min, max);
+	return dist(mt);
 }
