@@ -52,6 +52,14 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 		y++;
 	}
+
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int x = 0; x < map[i]->tileList.size(); x++)
+		{
+			mapInfo.push_back(map[i]->tileList[x]->getEntity());
+		}
+	}
 }
 
 

@@ -27,6 +27,8 @@ public:
 	int roomsNum = 20;
 	int tileSize = 300;
 
+	std::vector<Entity*> mapInfo;
+
 };
 
 #endif

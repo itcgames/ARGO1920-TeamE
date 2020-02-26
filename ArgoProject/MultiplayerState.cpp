@@ -100,7 +100,7 @@ void MultiplayerState::update()
 			}
 			if (m_client.vec.size() > 0)
 			{
-				std::string temp = (m_client.vec[0]);
+				std::string temp = m_client.vec[0];
 				std::cout << "recv test" << std::endl;
 				std::string sub = "";
 				std::string sub2 = "";
@@ -348,8 +348,45 @@ bool MultiplayerState::onEnter()
 	}
 
 	m_miniMapList = m_rs->m_miniMapList;
+	for (int i = 0; i < myMap->mapInfo.size(); i++)
+	{
+		sendMap += std::to_string(myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
+		sendMap += std::to_string(myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
+		sendMap += std::to_string(myMap->mapInfo[i]->getID()) + "|";
+	}
+	m_client.SendString(sendMap);
+	std::string temp = m_client.vec[0];
+	std::cout << "recv test" << std::endl;
+	std::cout << temp << std::endl;
+	std::cout << "_____________________________________________" << std::endl;
 
-
+	//std::string sub = "";
+	//std::string sub2 = "";
+	//std::string sub3 = "";
+	//float x = 0;
+	//float y;
+	//int id;
+	//int pos = temp.find("|");
+	//if (pos > -1)
+	//{
+	//	// Copy substring after pos 
+	//	//std::string sub2 = temp.substr(pos + 1);
+	//	for (int i = 0; i < pos; i++)
+	//	{
+	//		if (temp[i] != 44)
+	//		{
+	//			sub += temp[i];
+	//		}
+	//	}
+	//	// prints the result 
+	//	std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
+	//	std::stringstream stream1(sub);
+	//	std::stringstream stream2(sub2);
+	//	std::stringstream stream3(sub2);
+	//	stream1 >> x;
+	//	stream2 >> y;
+	//	stream3 >> id;
+	//}
 	return true;
 }
 
