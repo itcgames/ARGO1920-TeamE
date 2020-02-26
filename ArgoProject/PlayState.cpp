@@ -406,6 +406,7 @@ void PlayState::collisions()
 				if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
 				{
 					m_player->m_killCount++;
+					data::Instance()->playerScore = m_player->m_killCount;
 				}
 				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 				m_rs->deleteEntity(m_enemies[i]->getEntity());
