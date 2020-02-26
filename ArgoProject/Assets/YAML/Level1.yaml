@@ -26,6 +26,13 @@ Player:
     killcount: 0
     speed: 5
     strength: 100
+    
+  - class: PLAYER_KNIGHT
+    gold: 0
+    health: 200
+    killcount: 0
+    speed: 2
+    strength: 200
 Presets:
   Stats:
     - class: ENEMY_EASY

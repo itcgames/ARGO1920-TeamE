@@ -8,9 +8,13 @@ Map::Map(RenderSystem* t_rs, CollisionSystem* t_cs)
 		{
 			map.push_back(std::make_unique<Room>(7, 7, Vector2(0,0), t_rs, t_cs));
 		}
+		if (i == roomsNum - 1)
+		{
+			map.push_back(std::make_unique<Room>(10, 10, Vector2(45 * tileSize, 15 * tileSize), t_rs, t_cs));
+		}
 		else
 		{
-			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 33 + 2) * tileSize, (rand() % 30 + 2) * tileSize), t_rs, t_cs));
+			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 33 + 4) * tileSize, (rand() % 33 + 5) * tileSize), t_rs, t_cs));
 		}
 	}
 }

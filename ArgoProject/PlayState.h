@@ -7,6 +7,7 @@
 #include "Data.h"
 #include "Pickup.h"
 #include "CollisionSystem.h"
+#include "BehaviourTreeSystem.h"
 #include "Map.h"
 #include "Server.h"
 #include <vector>
@@ -36,10 +37,15 @@ public:
 private:
 	void cameraSetup();
 	void collisions();
+	void MenuInit();
+	double GenerateRandomNumber(double min, double max);
+
 
 	static const std::string m_playID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
+	BehaviourTreeSystem* m_bts;
+
 	//Player m_player;
 	std::unique_ptr<IPlayer> m_player;
 	std::unique_ptr<IPlayer> m_player2;
@@ -53,6 +59,9 @@ private:
 	//Ai* m_enemy = new Ai;
 	//std::unique_ptr<IEnemy> enemy = FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD);
 	std::vector<std::unique_ptr<IEnemy>> m_enemies;
+
+	std::vector<std::unique_ptr<IEnemy>> m_btEnemy;
+
 	std::vector<PickUp*> m_pickUp;
 	Map* myMap;
 
@@ -71,8 +80,7 @@ private:
 
 	Audio m_background;
 
-	ParticleSystem* m_pSystem;
-
+	// Pause Menu Parts
 	bool m_menuActive;
 	SDL_Rect* m_menuBackground;
 	SDL_Texture* m_menuBackgroundTexture;
@@ -85,8 +93,12 @@ private:
 
 	TTF_Font* m_font;
 	Text* m_text[2];
+	std::string className;
 
 	std::vector<Entity*> m_miniMapList;
+
+	bool bossSpawned = false;
+
 };
 
 #endif
