@@ -82,6 +82,12 @@
     <Filter Include="Source Files\In-game objects">
       <UniqueIdentifier>{34785364-bd6e-4748-acea-08e890e5ac00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\BT">
+      <UniqueIdentifier>{e86acda1-39f8-4379-a0e6-c3794dab691d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BT\Behaviours">
+      <UniqueIdentifier>{70b5afcc-dca9-4de7-9b55-84724365f819}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -418,6 +424,30 @@
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
+    <ClInclude Include="CompositeNode.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
+    <ClInclude Include="Selector.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
+    <ClInclude Include="Root.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBehaviours.h">
+      <Filter>Header Files\BT\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviourTreeSystem.h">
+      <Filter>Header Files\BT\Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBoss.h">
       <Filter>Header Files\Enemies</Filter>

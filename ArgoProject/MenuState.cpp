@@ -180,6 +180,6 @@ bool MenuState::onExit()
 		m_text[i]->DestroyText();
 	}
 	TTF_CloseFont(Abel);
-	//std::cout << "Exiting Menu State\n";
+
 	return true;
 }

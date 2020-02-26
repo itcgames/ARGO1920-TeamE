@@ -82,6 +82,8 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	//Render System
 	t_rs->addEntity(m_player);
 
+	m_particleEffects = new ParticleSystem("PLAY", t_rs);
+
 	m_camera = t_camera;
 
 	m_seek = false;
@@ -165,6 +167,8 @@ void Knight::update()
 		timer--;
 		std::cout << timer << std::endl;
 	}
+
+	m_particleEffects->update();
 }
 
 void Knight::processEvents(bool isRunning)
@@ -204,7 +208,7 @@ void Knight::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false)
 			{
-				setDamage(6);
+				setDamage(30);
 				spriteSheetY = 0;
 				m_skillCooldown[0] = true;
 			}
@@ -212,7 +216,7 @@ void Knight::setAction()
 		case 3:
 			if (m_skillCooldown[1] == false)
 			{
-				setDamage(7);
+				setDamage(60);
 				spriteSheetY = frameHeight * 3;
 				m_skillCooldown[1] = true;
 			}
@@ -220,6 +224,7 @@ void Knight::setAction()
 		case 4:
 			if (m_skillCooldown[2] == false)
 			{
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10);
 				spriteSheetY = frameHeight * 4;
 				m_skillCooldown[2] = true;
 			}
@@ -237,20 +242,20 @@ void Knight::Attack(float& m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3)
 	{
-		if (m_animationRect->x == 0)
-		{
-			m_mc->alterMana(-2);
+		//if (m_animationRect->x == 0)
+		//{
+			m_mc->alterMana(-0.3);
 			m_enemyHealth -= dmg;
-		}
+		//}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
-		if (m_animationRect->x == 0)
-		{
-			m_mc->alterMana(-4);
-			m_hc->alterHealth(2);
-		}
+		//if (m_animationRect->x == 0)
+		//{
+			m_mc->alterMana(-0.4);
+			m_hc->alterHealth(20);
+		//}
 	}
 }
 

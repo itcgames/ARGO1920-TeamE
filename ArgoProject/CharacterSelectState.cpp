@@ -18,11 +18,6 @@ void CharacterSelectState::render()
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_dpsOptionTexture, NULL, m_dpsOption);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_mageOptionTexture, NULL, m_mageOption);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitOptionTexture, NULL, m_exitOption);
-
-	for (int i = 0; i < 4; i++)
-	{
-		m_text[i]->render();
-	}
 }
 void CharacterSelectState::processEvents(bool& isRunning)
 {
@@ -83,32 +78,8 @@ void CharacterSelectState::processEvents(bool& isRunning)
 }
 bool CharacterSelectState::onEnter()
 {
-	std::string m_classNames[3];
-
-	m_classNames[0] = "Knight";
-	m_classNames[1] = "Warrior";
-	m_classNames[2] = "Mage";
-
-	if (TTF_Init() == -1)
-	{
-		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
-	}
-
-	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y / 10);
-
-	if (!Abel) {
-		printf("TTF_OpenFont: %s\n", TTF_GetError());
-		// handle error
-	}
 
 	SDL_Surface* characterSelectSurface;
-
-	for (int i = 0; i < 3; i++)
-	{
-		m_textRects[i] = new SDL_Rect();
-		TTF_SizeText(Abel, m_classNames[i].c_str(), &m_textRects[i]->w, &m_textRects[i]->h);
-		m_text[i] = new Text(Abel, m_classNames[i], m_cameraDimensions.x * ((1.0f + 2.0f * i) / 6.0f) - m_textRects[i]->w / 2, m_cameraDimensions.y * 0.2);
-	}
 
 	m_tankOption = new SDL_Rect();
 	m_tankOption->x = 0;
@@ -116,7 +87,7 @@ bool CharacterSelectState::onEnter()
 	m_tankOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_tankOption->h = m_cameraDimensions.y;
 
-	characterSelectSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	characterSelectSurface = IMG_Load("Assets/knightCharacter.png");
 	m_tankOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_dpsOption = new SDL_Rect();
@@ -125,7 +96,7 @@ bool CharacterSelectState::onEnter()
 	m_dpsOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_dpsOption->h = m_cameraDimensions.y;
 
-	characterSelectSurface = IMG_Load("Assets/Health.png");
+	characterSelectSurface = IMG_Load("Assets/warriorCharacter.png");
 	m_dpsOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_mageOption = new SDL_Rect();
@@ -134,7 +105,7 @@ bool CharacterSelectState::onEnter()
 	m_mageOption->w = m_cameraDimensions.x * (1.0 / 3.0);
 	m_mageOption->h = m_cameraDimensions.y;
 
-	characterSelectSurface = IMG_Load("Assets/Mana.png");
+	characterSelectSurface = IMG_Load("Assets/wizardCharacter.png");
 	m_mageOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_exitOption = new SDL_Rect();
@@ -145,8 +116,6 @@ bool CharacterSelectState::onEnter()
 
 	characterSelectSurface = IMG_Load("Assets/Stamina.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
-
-	m_text[3] = new Text(Abel, "Return", m_cameraDimensions.x * (2.5 / 6.0), m_cameraDimensions.y * 0.9);
 
 	SDL_FreeSurface(characterSelectSurface);
 
@@ -159,10 +128,5 @@ bool CharacterSelectState::onExit()
 	SDL_DestroyTexture(m_mageOptionTexture);
 	SDL_DestroyTexture(m_exitOptionTexture);
 
-	for (int i = 0; i < 3; i++)
-	{
-		m_text[i]->DestroyText();
-	}
-	TTF_CloseFont(Abel);
 	return true;
 }
