@@ -226,6 +226,7 @@ bool PlayState::onEnter()
 	//Creates the Systems
 	m_rs = new RenderSystem(Render::Instance()->getRenderer(), miniMapRatio);
 	m_cs = new CollisionSystem();
+	m_bts = new BehaviourTreeSystem();
 
 	//Creates the Map
 	myMap = new Map(m_rs, m_cs);
@@ -258,7 +259,6 @@ bool PlayState::onEnter()
 
 		//Sets the room that the enemy is placed in.
 		m_enemies[i]->setRoom(tempRandPos);
-
 	}
 
 	// Create Pickups
@@ -314,7 +314,22 @@ bool PlayState::onEnter()
 	//Play Background Music
 	m_background.play();
 
+
+	for (int i = 0; i < 1; i++)
+	{
+		int tempRandPos = rand() % tempRooms;
+		int randomEnemyPreset = rand() % 3;
+
+		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
+
+		//@ALEX HERE 
+		m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
+
+		m_btEnemy[i]->setRoom(tempRandPos);
+	}
+
 	m_miniMapList = m_rs->m_miniMapList;
+
 
 	return true;
 }
@@ -400,7 +415,12 @@ void PlayState::collisions()
 		{
 			m_player->m_mc->alterMana(0.1f);
 		}
-		m_enemies[i]->update(m_player->getPosition());
+		m_enemies[i]->update(m_player->getPosition());	
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		m_bts->run(m_btEnemy[i]->getEntity());
 	}
 
 	/*for (int i = 0; i < m_pickUp.size(); i++)
