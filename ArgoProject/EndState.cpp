@@ -43,7 +43,11 @@ void EndState::processEvents(bool& isRunning)
 					&&
 					event.button.y > m_keyboard[i]->y && event.button.y < m_keyboard[i]->y + m_keyboard[i]->h)
 				{
-					data::Instance()->playerName += m_keyValues[i];
+					if (data::Instance()->playerName.size() < 11)
+					{
+						data::Instance()->playerName += m_keyValues[i];
+					}
+					m_message->update(data::Instance()->playerName);
 				}
 			}
 			if (event.button.x > m_keyboard[26]->x && event.button.x <m_keyboard[26]->x + m_keyboard[26]->w
@@ -51,12 +55,17 @@ void EndState::processEvents(bool& isRunning)
 				event.button.y > m_keyboard[26]->y && event.button.y < m_keyboard[26]->y + m_keyboard[26]->h)
 			{
 				data::Instance()->playerName += " ";
+				m_message->update(data::Instance()->playerName);
 			}
 			if (event.button.x > m_keyboard[27]->x && event.button.x <m_keyboard[27]->x + m_keyboard[27]->w
 				&&
 				event.button.y > m_keyboard[27]->y && event.button.y < m_keyboard[27]->y + m_keyboard[27]->h)
 			{
-				data::Instance()->playerName.pop_back();
+				if (data::Instance()->playerName.size() > 0)
+				{
+					data::Instance()->playerName.pop_back();
+				}
+				m_message->update(data::Instance()->playerName);
 			}
 			if (event.button.x > m_exit->x && event.button.x <m_exit->x + m_exit->w
 				&&
@@ -101,7 +110,7 @@ bool EndState::onEnter()
 	m_exit->w = m_cameraDimensions.x * 0.2;
 	m_exit->h = m_cameraDimensions.y * 0.1;
 
-	SDL_Surface* m_exitSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	SDL_Surface* m_exitSurface = IMG_Load("Assets/ecs_text.png");
 	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitSurface);
 
 	std::stringstream ss;
@@ -173,9 +182,9 @@ bool EndState::onEnter()
 	{
 		m_keyText[i]->update(m_keyValues[i]);
 	}
-	m_keyText.push_back(new Text(Abel, "Backspace", m_cameraDimensions.x * 0.252, m_cameraDimensions.y * 0.6725));
+	m_keyText.push_back(new Text(Abel, "Space", m_cameraDimensions.x * 0.272, m_cameraDimensions.y * 0.6725));
 	m_keyText.push_back(new Text(Abel, "Delete", m_cameraDimensions.x * 0.500, m_cameraDimensions.y * 0.6725));
-	m_keyText.push_back(new Text(Abel, "Enter", m_cameraDimensions.x * 0.858, m_cameraDimensions.y * 0.9225));
+	m_keyText.push_back(new Text(Abel, "Enter", m_cameraDimensions.x * 0.865, m_cameraDimensions.y * 0.9225));
 	return true;
 }
 bool EndState::onExit()
