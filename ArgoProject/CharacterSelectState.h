@@ -2,6 +2,7 @@
 #define CHARACTERSELECTSTATE
 #include "GameState.h"
 #include "PlayState.h"
+#include "MultiplayerState.h"
 #include "Data.h"
 #include "LevelLoader.h"
 class CharacterSelectState :

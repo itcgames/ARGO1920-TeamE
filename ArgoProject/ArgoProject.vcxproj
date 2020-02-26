@@ -163,6 +163,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="MultiplayerState.cpp" />
     <ClCompile Include="OptionsState.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="MultiplayerState.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="OptionsState.h" />
     <ClInclude Include="Particle.h" />

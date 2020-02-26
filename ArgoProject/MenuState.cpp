@@ -108,7 +108,7 @@ bool MenuState::onEnter()
 	m_name[0] = "Singleplayer";
 	m_name[1] = "Multiplayer";
 	m_name[2] = "Options";
-	m_name[3] = "Credits";
+	m_name[3] = "Highscores";
 	m_name[4] = "Exit";
 
 	for (int i = 0; i < 5; i++)

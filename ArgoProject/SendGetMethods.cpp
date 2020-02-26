@@ -1,6 +1,6 @@
 #include "Server.h"
 
-bool Server::recvall(int ID, char * data, int totalbytes)
+bool Server::recvall(int ID, char* data, int totalbytes)
 {
 	int bytesreceived = 0; //Holds the total bytes received
 	while (bytesreceived < totalbytes) //While we still have more bytes to recv
@@ -10,16 +10,18 @@ bool Server::recvall(int ID, char * data, int totalbytes)
 			return false; //Return false - failed to recvall
 		bytesreceived += RetnCheck; //Add to total bytes received
 	}
-	std::cout << "start recvall debug" << std::endl;
-	std::cout << data << std::endl;
-	std::cout << totalbytes << std::endl;
-	std::cout << "end recvall debug" << std::endl;
-	std::cout << "==================================================================" << std::endl;
-	std::cout << std::endl;
+	//std::cout << "start recvall debug" << std::endl;
+	//for (int i = 0; i < totalbytes; i++)
+	//{
+	//	printf("%02x", *(data + i));
+	//}
+	//std::cout << "end recvall debug" << std::endl;
+	//std::cout << "==================================================================" << std::endl;
+	//std::cout << std::endl;
 	return true; //Success!
 }
 
-bool Server::sendall(int ID, char * data, int totalbytes)
+bool Server::sendall(int ID, char* data, int totalbytes)
 {
 	int bytessent = 0; //Holds the total bytes sent
 	while (bytessent < totalbytes) //While we still have more bytes to send
@@ -29,44 +31,46 @@ bool Server::sendall(int ID, char * data, int totalbytes)
 			return false; //Return false - failed to sendall
 		bytessent += RetnCheck; //Add to total bytes sent
 	}
-	std::cout << "start sendall debug" << std::endl;
-	std::cout << data << std::endl;
-	std::cout << totalbytes << std::endl;
-	std::cout << "end sendall debug" << std::endl;
-	std::cout << "==================================================================" << std::endl;
-	std::cout << std::endl;
+	//std::cout << "start sendall debug" << std::endl;
+	//for (int i = 0; i < bytessent; i++)
+	//{
+	//	printf("%02x", *(data + i));
+	//}
+	//std::cout << "end sendall debug" << std::endl;
+	//std::cout << "==================================================================" << std::endl;
+	//std::cout << std::endl;
 	return true; //Success!
 }
 
 bool Server::SendInt(int ID, int _int)
 {
-	if (!sendall(ID, (char*)&_int, sizeof(int))) //Try to send int... If int fails to send
+	if (!sendall(ID, (char*)& _int, sizeof(int))) //Try to send int... If int fails to send
 		return false; //Return false: int not successfully sent
 	return true; //Return true: int successfully sent
 }
 
-bool Server::GetInt(int ID, int & _int)
+bool Server::GetInt(int ID, int& _int)
 {
-	if (!recvall(ID, (char*)&_int, sizeof(int))) //Try to receive int... If int fails to be recv'd
+	if (!recvall(ID, (char*)& _int, sizeof(int))) //Try to receive int... If int fails to be recv'd
 		return false; //Return false: Int not successfully received
 	return true;//Return true if we were successful in retrieving the int
 }
 
 bool Server::SendPacketType(int ID, Packet _packettype)
 {
-	if (!sendall(ID, (char*)&_packettype, sizeof(Packet))) //Try to send packet type... If packet type fails to send
+	if (!sendall(ID, (char*)& _packettype, sizeof(Packet))) //Try to send packet type... If packet type fails to send
 		return false; //Return false: packet type not successfully sent
 	return true; //Return true: packet type successfully sent
 }
 
-bool Server::GetPacketType(int ID, Packet & _packettype)
+bool Server::GetPacketType(int ID, Packet& _packettype)
 {
-	if (!recvall(ID, (char*)&_packettype, sizeof(Packet))) //Try to receive packet type... If packet type fails to be recv'd
+	if (!recvall(ID, (char*)& _packettype, sizeof(Packet))) //Try to receive packet type... If packet type fails to be recv'd
 		return false; //Return false: packet type not successfully received
 	return true;//Return true if we were successful in retrieving the packet type
 }
 
-bool Server::SendString(int ID, std::string & _string)
+bool Server::SendString(int ID, std::string& _string)
 {
 	if (!SendPacketType(ID, P_CircleData)) //Send packet type: Chat Message, If sending packet type fails...
 		return false; //Return false: Failed to send string
@@ -78,12 +82,12 @@ bool Server::SendString(int ID, std::string & _string)
 	return true; //Return true: string successfully sent
 }
 
-bool Server::GetString(int ID, std::string & _string)
+bool Server::GetString(int ID, std::string& _string)
 {
 	int bufferlength; //Holds length of the message
 	if (!GetInt(ID, bufferlength)) //Get length of buffer and store it in variable: bufferlength
 		return false; //If get int fails, return false
-	char * buffer = new char[bufferlength + 1]; //Allocate buffer
+	char* buffer = new char[bufferlength + 1]; //Allocate buffer
 	buffer[bufferlength] = '\0'; //Set last character of buffer to be a null terminator so we aren't printing memory that we shouldn't be looking at
 	if (!recvall(ID, buffer, bufferlength)) //receive message and store the message in buffer array. If buffer fails to be received...
 	{
@@ -131,14 +135,14 @@ bool Server::GetEntity(int ID, std::string& _string)
 	_string = buffer; //set string to received buffer message
 	delete[] buffer; //Deallocate buffer memory (cleanup to prevent memory leak)
 
-	std::string::iterator end = std::remove_if(_string.begin(), _string.end(), notADigit);
-	std::string all_numbers(_string.begin(), end);
+	//std::string::iterator end = std::remove_if(_string.begin(), _string.end(), notADigit);
+	std::string all_numbers(_string.begin(), _string.end());
 	std::cout << all_numbers;
 
 	std::stringstream ss(all_numbers);
 	std::cout << std::endl;
 
-	int i;
+	std::string i;
 	for (; ss >> i;)
 	{
 		if (vec.size() > 2)
@@ -159,4 +163,3 @@ bool Server::sendEndGame(int ID, bool& endgame)
 {
 	return false;
 }
-
