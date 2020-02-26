@@ -317,7 +317,8 @@ bool PlayState::onEnter()
 
 	for (int i = 0; i < 1; i++)
 	{
-		int tempRandPos = rand() % tempRooms;
+		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
+
 		int randomEnemyPreset = rand() % 3;
 
 		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));

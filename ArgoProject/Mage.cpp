@@ -166,7 +166,8 @@ void Mage::update()
 	}
 
 	setAction();
-	m_particleEffects->update();	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_particleEffects->update();	
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
 }
 
 void Mage::processEvents(bool isRunning)
@@ -207,7 +208,6 @@ void Mage::setAction()
 			if (m_skillCooldown[0] == false)
 			{
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
-				setDamage(8);
 				spriteSheetY = 0;
 				m_skillCooldown[0] = true;
 			}
@@ -223,6 +223,7 @@ void Mage::setAction()
 			if (m_skillCooldown[2] == false)
 			{
 				spriteSheetY = frameHeight * 4;
+				setDamage(40);
 				m_skillCooldown[2] = true;
 			}
 			break;
@@ -239,19 +240,19 @@ void Mage::Attack(float& m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
-		if (m_animationRect->x == 0)
-		{
-			m_mc->alterMana(-2);
+		//if (m_animationRect->x == 0)
+		//{
+			m_mc->alterMana(-0.1);
 			m_enemyHealth -= dmg;
-		}
+		//}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
 		if (m_animationRect->x == 0)
 		{
-			m_mc->alterMana(-3);
-			m_hc->alterHealth(1);
+			m_mc->alterMana(-5);
+			m_hc->alterHealth(50);
 		}
 	}
 
@@ -259,8 +260,8 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_animationRect->x == 0)
 		{
-			m_mc->alterMana(-4);
-			dmg += 0.1;
+			m_mc->alterMana(-3);
+			dmg += 011;
 		}
 	}
 }
