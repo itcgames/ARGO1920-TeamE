@@ -199,7 +199,6 @@ void Warrior::setAction()
 				spriteSheetY = 0;
 				attackSound.play();
 				m_ih->move = false;
-				m_skillCooldown[0] = true;
 				m_skillActive[0] = true;
 			}
 			break;
@@ -210,7 +209,6 @@ void Warrior::setAction()
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound.play();
 				m_ih->move = false;
-				m_skillCooldown[1] = true;
 				m_skillActive[1] = true;
 			}
 			break;
@@ -221,7 +219,6 @@ void Warrior::setAction()
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound.play();
 				m_ih->move = false;
-				m_skillCooldown[2] = true;
 				m_skillActive[2] = true;
 			}
 			break;
@@ -237,11 +234,46 @@ void Warrior::setAction()
 
 void Warrior::Attack(float &m_enemyHealth)
 {
-	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3 || finiteStateMachine->getCurrentState() == 4)
+	if (finiteStateMachine->getCurrentState() == 2 )
 	{
-		m_mc->alterMana(-30);
-		m_enemyHealth -= dmg;
-		m_attackFrame = 0;
+		if (m_skillCooldown[0] == false )
+		{
+			m_mc->alterMana(-30);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[0] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		if (m_skillCooldown[1] == false)
+		{
+			m_mc->alterMana(-30);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[1] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		if (m_skillCooldown[2] == false)
+		{
+			m_mc->alterMana(-30);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[2] = true;
+			}
+		}
 	}
 }
 

@@ -210,7 +210,6 @@ void Knight::setAction()
 			{
 				setDamage(30);
 				spriteSheetY = 0;
-				m_skillCooldown[0] = true;
 			}
 			break;
 		case 3:
@@ -226,7 +225,6 @@ void Knight::setAction()
 			{
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10);
 				spriteSheetY = frameHeight * 4;
-				m_skillCooldown[2] = true;
 			}
 			break;
 		case 5:
@@ -242,20 +240,42 @@ void Knight::Attack(float& m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3)
 	{
-		//if (m_animationRect->x == 0)
-		//{
-			m_mc->alterMana(-0.3);
+		if (m_skillCooldown[0] == false )
+		{
+			m_mc->alterMana(-3);
 			m_enemyHealth -= dmg;
-		//}
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[0] = true;
+				m_skillCooldown[1] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		if (m_skillCooldown[1] == false)
+		{
+			m_mc->alterMana(-3);
+			m_enemyHealth -= dmg;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[1] = true;
+			}
+		}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
-		//if (m_animationRect->x == 0)
-		//{
-			m_mc->alterMana(-0.4);
+		if (m_skillCooldown[2] == false)
+		{
+			m_mc->alterMana(-4);
 			m_hc->alterHealth(20);
-		//}
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[2] = true;
+			}
+		}
 	}
 }
 
