@@ -242,20 +242,20 @@ void Knight::Attack(float& m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3)
 	{
-		if (m_animationRect->x == 0)
-		{
-			m_mc->alterMana(-30);
+		//if (m_animationRect->x == 0)
+		//{
+			m_mc->alterMana(-0.3);
 			m_enemyHealth -= dmg;
-		}
+		//}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
-		if (m_animationRect->x == 0)
-		{
-			m_mc->alterMana(-40);
+		//if (m_animationRect->x == 0)
+		//{
+			m_mc->alterMana(-0.4);
 			m_hc->alterHealth(20);
-		}
+		//}
 	}
 }
 

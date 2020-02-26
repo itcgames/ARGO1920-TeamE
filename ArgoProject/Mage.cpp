@@ -209,14 +209,13 @@ void Mage::setAction()
 			{
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
 				spriteSheetY = 0;
-				m_skillCooldown[0] = true;
+				
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false)
 			{
 				spriteSheetY = frameHeight * 3;
-				m_skillCooldown[1] = true;
 			}
 			break;
 		case 4:
@@ -224,7 +223,6 @@ void Mage::setAction()
 			{
 				spriteSheetY = frameHeight * 4;
 				setDamage(40);
-				m_skillCooldown[2] = true;
 			}
 			break;
 		case 5:
@@ -240,28 +238,31 @@ void Mage::Attack(float& m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
-		//if (m_animationRect->x == 0)
-		//{
-			m_mc->alterMana(-0.1);
+		if (m_skillCooldown[0] == false)
+		{
+			m_mc->alterMana(-1);
 			m_enemyHealth -= dmg;
-		//}
+			m_skillCooldown[0] = true;
+		}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
-		if (m_animationRect->x == 0)
+		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-5);
+			m_mc->alterMana(-2);
 			m_hc->alterHealth(50);
+			m_skillCooldown[1] = true;
 		}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
-		if (m_animationRect->x == 0)
+		if (m_skillCooldown[2] == false)
 		{
 			m_mc->alterMana(-3);
-			dmg += 011;
+			dmg += 1;
+			m_skillCooldown[2] = true;
 		}
 	}
 }
