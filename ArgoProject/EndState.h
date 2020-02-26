@@ -31,6 +31,8 @@ private:
 	GameData m_data;
 	void CreateKeyBoardRow(float num, float num2);
 	void CreateKey(float num, float num2);
+	TTF_Font* Abel;
+	Text* m_message;
 };
 
 #endif

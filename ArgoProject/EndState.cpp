@@ -19,6 +19,7 @@ void EndState::render()
 	{
 		SDL_RenderCopy(Renderer::Instance()->getRenderer(), m_keyboardTexture[i], NULL, m_keyboard[i]);
 	}
+	m_message->render();
 }
 void EndState::processEvents(bool& isRunning)
 {
@@ -76,6 +77,22 @@ void EndState::processEvents(bool& isRunning)
 }
 bool EndState::onEnter()
 {
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+
+	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y / 20);
+
+	if (!Abel) {
+		printf("TTF_OpenFont: %s\n", TTF_GetError());
+		// handle error
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		m_message = new Text(Abel, "Enter Your Name", m_cameraDimensions.x * 0.28, m_cameraDimensions.y * 0.02);
+	}
 	m_exit = new SDL_Rect();
 	m_exit->x = m_cameraDimensions.x * 0.8;
 	m_exit->y = m_cameraDimensions.y * 0.9;
