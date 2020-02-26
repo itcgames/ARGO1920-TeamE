@@ -231,6 +231,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pickup.h" />
+    <ClInclude Include="PlayerBehaviours.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="Renderer.h" />

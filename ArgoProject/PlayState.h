@@ -49,6 +49,7 @@ private:
 	//Player m_player;
 	std::unique_ptr<IPlayer> m_player;
 	std::unique_ptr<IPlayer> m_player2;
+	std::unique_ptr<IPlayer> m_playerBot;
 	HUD* m_hud;
 
 	SDL_Rect* camera;
@@ -99,6 +100,7 @@ private:
 
 	bool bossSpawned = false;
 
+	bool m_botCollide, m_botAttack;
 };
 
 #endif

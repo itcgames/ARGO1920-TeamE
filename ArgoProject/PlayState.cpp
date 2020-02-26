@@ -305,6 +305,17 @@ bool PlayState::onEnter()
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 		m_player2->init(m_rs, camera, Vector2(1000, 800));
 	}
+
+	m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+	m_playerBot->init(m_rs, camera, Vector2(
+		m_player->getPosition().x - 250,
+		m_player->getPosition().y - 300));
+
+	m_bts->initPlayer(m_playerBot->getPosition(), Vector2(0, 0),
+		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getNormalizeVel(), m_cs,
+		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getMaxSpeed(), 0.0f, 0.0f,
+		true, false, false, false, false);
+
 	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
 		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
@@ -317,12 +328,12 @@ bool PlayState::onEnter()
 
 	for (int i = 0; i < 1; i++)
 	{
-		int tempRandPos = rand() % tempRooms;
+		int tempRandPos = rand() % 3;
 		int randomEnemyPreset = rand() % 3;
 
 		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 
-		//@ALEX HERE 
+	
 		m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
 
 		m_btEnemy[i]->setRoom(tempRandPos);
@@ -330,6 +341,8 @@ bool PlayState::onEnter()
 
 	m_miniMapList = m_rs->m_miniMapList;
 
+	m_botCollide = false;
+	m_botAttack = false;
 
 	return true;
 }
@@ -421,7 +434,11 @@ void PlayState::collisions()
 	for (int i = 0; i < 1; i++)
 	{
 		m_bts->run(m_btEnemy[i]->getEntity());
+
+		m_bts->runPlayer(m_playerBot->getEntity(), m_btEnemy[i]->getEntity());
 	}
+
+	
 
 	/*for (int i = 0; i < m_pickUp.size(); i++)
 	{
@@ -559,6 +576,8 @@ void PlayState::collisions()
 				m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
 			}
 		}
+
+		
 	}
 }
 
