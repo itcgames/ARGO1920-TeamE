@@ -129,7 +129,7 @@ void PlayState::update()
 			}
 		}
 		
-		if (m_player->getHealth() <= 0 || m_player->m_killCount == 11)
+		if (m_player->getHealth() <= 0 || m_player->m_killCount == 0)
 		{
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}

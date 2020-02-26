@@ -19,6 +19,10 @@ void EndState::render()
 	{
 		SDL_RenderCopy(Renderer::Instance()->getRenderer(), m_keyboardTexture[i], NULL, m_keyboard[i]);
 	}
+	for (int i = 0; i < m_keyText.size(); i++)
+	{
+		m_keyText[i]->render();
+	}
 	m_message->render();
 }
 void EndState::processEvents(bool& isRunning)
@@ -89,10 +93,8 @@ bool EndState::onEnter()
 		// handle error
 	}
 
-	for (int i = 0; i < 5; i++)
-	{
-		m_message = new Text(Abel, "Enter Your Name", m_cameraDimensions.x * 0.28, m_cameraDimensions.y * 0.02);
-	}
+	m_message = new Text(Abel, "Enter Your Name", m_cameraDimensions.x * 0.28, m_cameraDimensions.y * 0.02);
+
 	m_exit = new SDL_Rect();
 	m_exit->x = m_cameraDimensions.x * 0.8;
 	m_exit->y = m_cameraDimensions.y * 0.9;
@@ -112,43 +114,68 @@ bool EndState::onEnter()
 		ss.clear();
 	}
 
-	float x = 0.1;
-	for (int i = 0; i < 5; i++)
-	{
-		CreateKeyBoardRow(x, 0.1);
-		x += 0.110;
-	}
-	x = 0.1;
-	for (int i = 0; i < 5; i++)
-	{
-		CreateKeyBoardRow(x, 0.210);
-		x += 0.110;
-	}
-	x = 0.1;
-	for (int i = 0; i < 5; i++)
-	{
-		CreateKeyBoardRow(x, 0.320);
-		x += 0.110;
-	}
-	x = 0.1;
-	for (int i = 0; i < 5; i++)
-	{
-		CreateKeyBoardRow(x, 0.430);
-		x += 0.110;
-	}
-	x = 0.1;
-	for (int i = 0; i < 5; i++)
-	{
-		CreateKeyBoardRow(x, 0.540);
-		x += 0.110;
-	}
-	x = 0.1;
 	for (int i = 0; i < 1; i++)
 	{
-		CreateKeyBoardRow(x, 0.650);
+		//m_keyText.push_back(new Text(Abel, m_keyValues[i], m_cameraDimensions.x * 0.142, m_cameraDimensions.y * 0.1225));
+		//m_keyText.push_back(new Text(Abel, m_keyValues[i], m_cameraDimensions.x * 0.252, m_cameraDimensions.y * 0.2325));
+	}
+
+	float x = 0.1;
+	float x2 = 0.142;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.1, x2, 0.1225);
+		x += 0.110;
+		x2 += 0.110;
+	}
+	x = 0.1;
+	x2 = 0.142;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.210, x2, 0.2325);
+		x += 0.110;
+		x2 += 0.110;
+	}
+	x = 0.1;
+	x2 = 0.142;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.320, x2, 0.3425);
+		x += 0.110;
+		x2 += 0.110;
+	}
+	x = 0.1;
+	x2 = 0.142;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.430, x2, 0.4525);
+		x += 0.110;
+		x2 += 0.110;
+	}
+	x = 0.1;
+	x2 = 0.142;
+	for (int i = 0; i < 5; i++)
+	{
+		CreateKeyBoardRow(x, 0.540, x2, 0.5625);
+		x += 0.110;
+		x2 += 0.110;
+	}
+	x = 0.1;
+	x2 = 0.142;
+	for (int i = 0; i < 1; i++)
+	{
+		CreateKeyBoardRow(x, 0.650, x2, 0.6725);
 	}
 	CreateKey(0.210, 0.650);
 	CreateKey(0.430, 0.650);
+
+	for (int i = 0; i < 26; i++)
+	{
+		m_keyText[i]->update(m_keyValues[i]);
+	}
+	m_keyText.push_back(new Text(Abel, "Backspace", m_cameraDimensions.x * 0.252, m_cameraDimensions.y * 0.6725));
+	m_keyText.push_back(new Text(Abel, "Delete", m_cameraDimensions.x * 0.500, m_cameraDimensions.y * 0.6725));
+	m_keyText.push_back(new Text(Abel, "Enter", m_cameraDimensions.x * 0.858, m_cameraDimensions.y * 0.9225));
 	return true;
 }
 bool EndState::onExit()
@@ -156,7 +183,7 @@ bool EndState::onExit()
 	return true;
 }
 
-void EndState::CreateKeyBoardRow(float num, float num2)
+void EndState::CreateKeyBoardRow(float num, float num2, float num3, float num4)
 {
 	m_keyboard.push_back(new SDL_Rect());
 	m_keyboard.back()->x = m_cameraDimensions.x * (num);
@@ -165,6 +192,7 @@ void EndState::CreateKeyBoardRow(float num, float num2)
 	m_keyboard.back()->h = m_cameraDimensions.y * (0.1);
 	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/ecs_text.png");
 	m_keyboardTexture.push_back(SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_keyboardSurface));
+	m_keyText.push_back(new Text(Abel, "A", m_cameraDimensions.x * num3, m_cameraDimensions.y * num4));
 }
 
 void EndState::CreateKey(float num, float num2)

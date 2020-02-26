@@ -29,10 +29,11 @@ private:
 	std::vector<SDL_Texture*> m_keyboardTexture;
 	std::vector<std::string> m_keyValues;
 	GameData m_data;
-	void CreateKeyBoardRow(float num, float num2);
+	void CreateKeyBoardRow(float num, float num2, float num3, float num4);
 	void CreateKey(float num, float num2);
 	TTF_Font* Abel;
 	Text* m_message;
+	std::vector<Text*> m_keyText;
 };
 
 #endif
