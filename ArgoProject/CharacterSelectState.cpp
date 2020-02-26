@@ -159,6 +159,11 @@ bool CharacterSelectState::onExit()
 	SDL_DestroyTexture(m_mageOptionTexture);
 	SDL_DestroyTexture(m_exitOptionTexture);
 
+	//delete m_tankOption;
+	//delete m_mageOption;
+	//delete m_dpsOption;
+	//delete m_exitOption;
+
 	for (int i = 0; i < 3; i++)
 	{
 		m_text[i]->DestroyText();

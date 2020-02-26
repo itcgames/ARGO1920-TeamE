@@ -78,7 +78,7 @@ private:
 	//Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
 
 
-	Audio m_background;
+	Audio* m_background;
 
 	// Pause Menu Parts
 	bool m_menuActive;

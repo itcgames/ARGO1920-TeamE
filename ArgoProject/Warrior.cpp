@@ -7,7 +7,12 @@ Warrior::Warrior()
 
 Warrior::~Warrior()
 {
+	std::cout << "You are not a Warrior" << std::endl;
 	SDL_DestroyTexture(m_playerTexture);
+	delete walkSound;
+	delete attackSound;
+	delete slamAttackSound;
+	delete spinAttackSound;
 }
 
 void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
@@ -97,10 +102,15 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	m_particleEffects = new ParticleSystem("PLAY", t_rs);
 
-	walkSound.load("Assets/Audio/walk.wav");
-	attackSound.load("Assets/Audio/attack1.wav");
-	slamAttackSound.load("Assets/Audio/slam.wav");
-	spinAttackSound.load("Assets/Audio/spinAttack.wav");
+	walkSound = new Audio();
+	attackSound = new Audio();
+	slamAttackSound = new Audio();
+	spinAttackSound = new Audio();
+
+	walkSound->load("Assets/Audio/walk.wav");
+	attackSound->load("Assets/Audio/attack1.wav");
+	slamAttackSound->load("Assets/Audio/slam.wav");
+	spinAttackSound->load("Assets/Audio/spinAttack.wav");
 
 
 	for (int i = 0; i < 3; i++)
@@ -172,7 +182,7 @@ void Warrior::setAction()
 			spriteSheetY = frameHeight;
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-				walkSound.play();
+				walkSound->play();
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10);
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
@@ -184,7 +194,7 @@ void Warrior::setAction()
 				else
 				{
 					m_ih->move = false;
-					walkSound.stop();
+					walkSound->stop();
 				}
 
 				m_positionRect->x = m_pc->getPosition().x;
@@ -197,7 +207,7 @@ void Warrior::setAction()
 			{
 				setDamage(3);
 				spriteSheetY = 0;
-				attackSound.play();
+				attackSound->play();
 				m_ih->move = false;
 				m_skillCooldown[0] = true;
 				m_skillActive[0] = true;
@@ -208,7 +218,7 @@ void Warrior::setAction()
 			{
 				setDamage(10);
 				spriteSheetY = frameHeight * 3;
-				slamAttackSound.play();
+				slamAttackSound->play();
 				m_ih->move = false;
 				m_skillCooldown[1] = true;
 				m_skillActive[1] = true;
@@ -219,17 +229,17 @@ void Warrior::setAction()
 			{
 				setDamage(6);
 				spriteSheetY = frameHeight * 4;
-				spinAttackSound.play();
+				spinAttackSound->play();
 				m_ih->move = false;
 				m_skillCooldown[2] = true;
 				m_skillActive[2] = true;
 			}
 			break;
 		default:
-			attackSound.stop();
-			spinAttackSound.stop();
-			slamAttackSound.stop();
-			walkSound.stop();
+			attackSound->stop();
+			spinAttackSound->stop();
+			slamAttackSound->stop();
+			walkSound->stop();
 			break;
 		}
 	}

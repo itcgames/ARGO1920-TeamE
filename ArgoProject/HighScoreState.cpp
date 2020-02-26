@@ -118,7 +118,6 @@ bool HighScoreState::onExit()
 	}
 
 	TTF_CloseFont(Abel);
-
 	return true;
 }
 

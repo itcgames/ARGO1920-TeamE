@@ -28,7 +28,7 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	m_healthOverflowTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), healthOverflowSurface);
 
 	//SDL_QueryTexture(m_healthtexture, NULL, NULL, &m_health.w, &m_health.h);
-	//SDL_FreeSurface(healthSurface);
+	SDL_FreeSurface(healthSurface);
 
 	SDL_Surface* manaSurface = IMG_Load("Assets/Mana.png");
 	m_manaTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), manaSurface);
@@ -39,10 +39,12 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	SDL_Surface* hudSurface = IMG_Load("Assets/HUD.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), hudSurface);
 	//SDL_QueryTexture(m_texture, NULL, NULL, &m_background.w, &m_background.h);
-	//SDL_FreeSurface(hudSurface);
+	SDL_FreeSurface(hudSurface);
 
 	SDL_Surface* emptySurface = IMG_Load("Assets/Empty.png");
 	m_emptyTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), emptySurface);
+
+	SDL_FreeSurface(emptySurface);
 
 	originalHealth = t_OriginalHealth;
 	originalMana = t_originalMana;
@@ -65,6 +67,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	SDL_SetTextureBlendMode(m_timerTexture, SDL_BLENDMODE_BLEND);
 	SDL_SetTextureAlphaMod(m_timerTexture, 124);
 
+	SDL_FreeSurface(timerSurface);
+
 	std::string m_fileAddress = std::string("Assets/" + m_class + std::string("ButtonQ") + ".png ");
 	SDL_Surface* skillSurface = IMG_Load(m_fileAddress.c_str());
 	m_skillTexture[0] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), skillSurface);
@@ -76,6 +80,8 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	m_fileAddress = std::string("Assets/" + m_class + std::string("ButtonE") + ".png ");
 	skillSurface = IMG_Load(m_fileAddress.c_str());
 	m_skillTexture[2] = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), skillSurface);
+
+	SDL_FreeSurface(skillSurface);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -258,4 +264,5 @@ void HUD::onExit()
 		m_timerText[i]->DestroyText();
 		SDL_DestroyTexture(m_skillTexture[i]);
 	}
+	TTF_CloseFont(Abel);
 }

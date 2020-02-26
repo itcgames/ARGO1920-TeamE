@@ -107,7 +107,7 @@ bool HostSearchState::onEnter()
 
 	SDL_Surface* m_hostSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_hostTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_hostSurface);
-
+	SDL_FreeSurface(m_hostSurface);
 
 
 	m_searchRect = new SDL_Rect();
@@ -118,6 +118,7 @@ bool HostSearchState::onEnter()
 
 	SDL_Surface* m_searchSurface = IMG_Load("Assets/ecs_text2.png");
 	m_searchTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_searchSurface);
+	SDL_FreeSurface(m_searchSurface);
 
 	m_exitRect = new SDL_Rect();
 	m_exitRect->x = m_cameraDimensions.x * (2.5 / 6.0);
@@ -127,7 +128,8 @@ bool HostSearchState::onEnter()
 
 	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/Stamina.png");
 	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitOptionSurface);
-	
+	SDL_FreeSurface(m_exitOptionSurface);
+
 	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y * 0.1);
 
 	m_text[2] = new Text(Abel, "Return", m_cameraDimensions.x * (2.5 / 6.0), m_cameraDimensions.y * 0.9);

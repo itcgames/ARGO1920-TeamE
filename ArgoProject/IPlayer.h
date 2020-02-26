@@ -93,10 +93,10 @@ protected:
 	int spriteSheetY = 0;
 	int spriteSheetX = 0;
 
-	Audio walkSound;
-	Audio attackSound;
-	Audio slamAttackSound;
-	Audio spinAttackSound;
+	Audio* walkSound;
+	Audio* attackSound;
+	Audio* slamAttackSound;
+	Audio* spinAttackSound;
 	float dmg = 0.1;
 	int M_MAX_HEALTH;
 };
