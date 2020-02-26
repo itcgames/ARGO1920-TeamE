@@ -205,7 +205,7 @@ void Warrior::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false && (m_skillActive[1] == false && m_skillActive[2] == false))
 			{
-				setDamage(30);
+				setDamage(1);
 				spriteSheetY = 0;
 				attackSound->play();
 				m_ih->move = false;
@@ -215,7 +215,7 @@ void Warrior::setAction()
 		case 3:
 			if (m_skillCooldown[1] == false && (m_skillActive[0] == false && m_skillActive[2] == false))
 			{
-				setDamage(40);
+				setDamage(2);
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound->play();
 				m_ih->move = false;
@@ -225,7 +225,7 @@ void Warrior::setAction()
 		case 4:
 			if (m_skillCooldown[2] == false && (m_skillActive[0] == false && m_skillActive[1] == false))
 			{
-				setDamage(50);
+				setDamage(3);
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound->play();
 				m_ih->move = false;
