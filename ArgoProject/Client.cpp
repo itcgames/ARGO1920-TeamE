@@ -3,20 +3,20 @@ bool Client::ProcessPacket(Packet _packettype)
 {
 	switch (_packettype)
 	{
-	//case P_ChatMessage: //If packet is a chat message packet
-	//{
-	//	std::string Message; //string to store our message we received
-	//	if (!GetString(Message)) //Get the chat message and store it in variable: Message
-	//		return false; //If we do not properly get the chat message, return false
-	//	std::cout << Message << std::endl; //Display the message to the user
-	//	break;
-	//}
+		//case P_ChatMessage: //If packet is a chat message packet
+		//{
+		//	std::string Message; //string to store our message we received
+		//	if (!GetString(Message)) //Get the chat message and store it in variable: Message
+		//		return false; //If we do not properly get the chat message, return false
+		//	std::cout << Message << std::endl; //Display the message to the user
+		//	break;
+		//}
 	case P_CircleData:
 	{
 		std::string positions;
 		if (!GetEntity(positions)) //Get the chat message and store it in variable: Message
 			return false; //If we do not properly get the chat message, return false
-		std::cout << "Processing Packet -> Message we got from Server " + positions << std::endl; //Display the message to the user
+		//std::cout << "Processing Packet -> Message we got from Server " + positions << std::endl; //Display the message to the user
 		std::cout << std::endl;
 		break;
 	}

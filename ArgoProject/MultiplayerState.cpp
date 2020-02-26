@@ -1,8 +1,8 @@
-#include "PlayState.h"
+#include "MultiplayerState.h"
 
-const std::string PlayState::m_playID = "PLAY";
+const std::string MultiplayerState::m_playID = "MULTIPLAY";
 
-PlayState::PlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine)
+MultiplayerState::MultiplayerState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine)
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
@@ -10,7 +10,7 @@ PlayState::PlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachi
 }
 
 
-void PlayState::update()
+void MultiplayerState::update()
 {
 	//See's if the game has been Paused ( If Not )
 	if (m_player->getMenuActive() == false)
@@ -18,7 +18,7 @@ void PlayState::update()
 		//Updates()
 			// Player 
 		m_player->update();
-
+		m_player2->update();
 		//HUD 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
@@ -75,6 +75,60 @@ void PlayState::update()
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
 
+		////if its multiplayer
+		if (!data::Instance()->SINGLEPLAYER)
+		{
+			//if you are the host send all positions to the client.
+			if (data::Instance()->HOST)
+			{
+				//Vector2 tempPos = m_player.getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				//std::string test = std::to_string(tempPos.x);
+				//std::string test2 = std::to_string(tempPos.y);
+				//m_server.SendString(1,test);
+				//m_server.SendString(2,test2);
+			}
+			//if you are not the host send your co-ordinates to the server.
+			if (!data::Instance()->HOST)
+			{
+				Vector2 tempPos = m_player->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				std::string test = std::to_string(static_cast<int>(tempPos.x));
+				std::string test2 = std::to_string((int)tempPos.y);
+				test += ",";
+				test += test2;
+				m_client.SendString(test);
+				//m_client.SendString(test2);
+			}
+			if (m_client.vec.size() > 0)
+			{
+				std::string temp = (m_client.vec[0]);
+				std::cout << "recv test" << std::endl;
+				std::string sub = "";
+				std::string sub2 = "";
+				float x = 0;
+				float y;
+				int pos = temp.find(",");
+				if (pos > -1)
+				{
+					// Copy substring after pos 
+					std::string sub2 = temp.substr(pos + 1);
+					for (int i = 0; i < pos; i++)
+					{
+						sub += temp[i];
+					}
+					// prints the result 
+					std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
+					std::stringstream stream1(sub);
+					std::stringstream stream2(sub2);
+					stream1 >> x;
+					stream2 >> y;
+					Vector2 pos{ x, y };
+					m_player2->getEntity()->getComponent<PositionComponent>(1)->setPosition(pos);
+				}
+				std::cout << std::endl;
+				std::cout << "==============================================" << std::endl;
+			}
+		}
+
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
 		if (m_player->m_killCount == 10)
@@ -107,7 +161,7 @@ void PlayState::update()
 }
 
 
-void PlayState::render()
+void MultiplayerState::render()
 {
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(),
@@ -125,7 +179,7 @@ void PlayState::render()
 }
 
 /// handle user and system events/ input
-void PlayState::processEvents(bool& isRunning)
+void MultiplayerState::processEvents(bool& isRunning)
 {
 	if (m_player->getMenuActive() == false)
 	{
@@ -161,9 +215,25 @@ void PlayState::processEvents(bool& isRunning)
 	}
 }
 
-bool PlayState::onEnter()
+bool MultiplayerState::onEnter()
 {
 	std::cout << "Entering Play State\n";
+	// Sets the Host or Connects the client to the host game
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		if (data::Instance()->HOST)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				m_server.ListenForNewConnection();
+			}
+		}
+		else
+		{
+			m_client.Connect();
+		}
+	}
+
 
 	MenuInit();
 	cameraSetup();
@@ -246,8 +316,13 @@ bool PlayState::onEnter()
 		className = "Mage";
 	}
 	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-	m_player->init(m_rs, camera, myMap->map[0]->getCenterPos());
+	m_player->init(m_rs, camera, Vector2(1200, 900));
 
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+		m_player2->init(m_rs, camera, Vector2(1000, 800));
+	}
 	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
 		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
@@ -278,7 +353,7 @@ bool PlayState::onEnter()
 	return true;
 }
 
-bool PlayState::onExit()
+bool MultiplayerState::onExit()
 {
 	std::cout << "Exiting Play State\n";
 	SDL_DestroyTexture(m_miniMapTexture);
@@ -296,7 +371,7 @@ bool PlayState::onExit()
 	return true;
 }
 
-void PlayState::cameraSetup()
+void MultiplayerState::cameraSetup()
 {
 	camera = new SDL_Rect();
 	camera->w = m_cameraDimensions.x;
@@ -317,7 +392,7 @@ void PlayState::cameraSetup()
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 }
 
-void PlayState::collisions()
+void MultiplayerState::collisions()
 {
 	// Enemies
 	for (int i = 0; i < m_enemies.size(); i++)
@@ -506,7 +581,7 @@ void PlayState::collisions()
 	}
 }
 
-void PlayState::MenuInit()
+void MultiplayerState::MenuInit()
 {
 	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
@@ -547,7 +622,7 @@ void PlayState::MenuInit()
 	SDL_FreeSurface(playStateSurface);
 }
 
-double PlayState::GenerateRandomNumber(double min, double max)
+double MultiplayerState::GenerateRandomNumber(double min, double max)
 {
 	std::random_device m_randDev;
 	std::mt19937 mt(m_randDev());
