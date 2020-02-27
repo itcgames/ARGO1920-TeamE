@@ -26,6 +26,12 @@ Player:
     killcount: 0
     speed: 7
     strength: 200
+  - class: PLAYER_WARRIOR
+    gold: 0
+    health: 150
+    killcount: 0
+    speed: 5
+    strength: 100
 Presets:
   Stats:
     - class: ENEMY_EASY
