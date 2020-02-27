@@ -199,7 +199,7 @@ void EndState::CreateKeyBoardRow(float num, float num2, float num3, float num4)
 	m_keyboard.back()->y = m_cameraDimensions.y * (num2);
 	m_keyboard.back()->w = m_cameraDimensions.x * (0.1);
 	m_keyboard.back()->h = m_cameraDimensions.y * (0.1);
-	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/ecs_text.png");
+	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/Button.png");
 	m_keyboardTexture.push_back(SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_keyboardSurface));
 	m_keyText.push_back(new Text(Abel, "A", m_cameraDimensions.x * num3, m_cameraDimensions.y * num4));
 }
@@ -211,6 +211,6 @@ void EndState::CreateKey(float num, float num2)
 	m_keyboard.back()->y = m_cameraDimensions.y * (num2);
 	m_keyboard.back()->w = m_cameraDimensions.x * (0.210);
 	m_keyboard.back()->h = m_cameraDimensions.y * (0.1);
-	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/ecs_text.png");
+	SDL_Surface* m_keyboardSurface = IMG_Load("Assets/Button.png");
 	m_keyboardTexture.push_back(SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_keyboardSurface));
 }
