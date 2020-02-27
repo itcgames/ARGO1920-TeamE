@@ -55,7 +55,7 @@ void MenuState::processEvents(bool& isRunning)
 			{
 				//std::cout << "Play Button" << std::endl;
 				data::Instance()->SINGLEPLAYER = false;
-				m_stateMachine->changeState(new HostSearchState(m_buttonDimensions, m_stateMachine));
+				m_stateMachine->changeState(new CharacterSelectState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_optionsButton->x && event.button.x < m_optionsButton->x + m_optionsButton->w
 				&&
