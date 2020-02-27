@@ -78,7 +78,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->m_killCount == 0)
+		if (m_player->m_killCount == 15)
 		{
 			if (bossSpawned == false)
 			{
@@ -94,43 +94,18 @@ void PlayState::update()
 			}
 		}
 
-		if (m_player->getHealth() <= 0 || m_player->m_killCount >= 11)
+		if (m_player->getHealth() <= 0)
 		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+			m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
 		}
+		//|| m_player->m_killCount == 11
 
 	}
 	else
 	{
 		m_miniMapList;
+		std::cout << "";
 	}
-
-	//if (m_enemies.size() < 20)
-	//{
-	//	int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
-	//	int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
-
-	//	if (randomEnemyPreset == 0)
-	//	{
-	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
-	//	}
-	//	if (randomEnemyPreset == 1)
-	//	{
-	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
-	//	}
-	//	if (randomEnemyPreset == 2)
-	//	{
-	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
-	//	}
-
-	//	//Init the enemy based of the above condition that was met
-	//	m_enemies.back()->initialize(m_rs, myMap->map[tempRandPos]->disperse(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
-	//		data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
-	//		data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
-
-	//	//Sets the room that the enemy is placed in.
-	//	m_enemies.back()->setRoom(tempRandPos);
-	//}
 }
 
 
@@ -190,6 +165,7 @@ void PlayState::processEvents(bool& isRunning)
 
 bool PlayState::onEnter()
 {
+	std::cout << "Entering Play State\n";
 
 	MenuInit();
 	cameraSetup();
@@ -208,7 +184,7 @@ bool PlayState::onEnter()
 
 
 	// Create Enemies 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
 		int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
@@ -236,7 +212,7 @@ bool PlayState::onEnter()
 	}
 
 	// Create Pickups
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
 		int randomPickupPreset = rand() % 3;
@@ -274,27 +250,6 @@ bool PlayState::onEnter()
 	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_player->init(m_rs, camera, myMap->map[0]->getCenterPos());
 
-	/*if (!data::Instance()->SINGLEPLAYER)
-	{
-		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-		m_player2->init(m_rs, camera, Vector2(1000, 800));
-	}*/
-
-	m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
-	m_playerBot->init(m_rs, camera, Vector2(
-		m_player->getPosition().x - 250,
-		m_player->getPosition().y - 300));
-
-	m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->setCollide(false);
-
-	m_bts->initPlayer(m_playerBot->getPosition(), Vector2(0, 0),
-		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getNormalizeVel(), 
-		Vector2(m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->w, 
-				m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->h), 
-		Vector2(0, 0), m_cs,
-		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getMaxSpeed(), 
-		0.0f, true, false, false);
-
 	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
 		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
@@ -307,14 +262,13 @@ bool PlayState::onEnter()
 
 	for (int i = 0; i < 1; i++)
 	{
-
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
 
 		int randomEnemyPreset = rand() % 3;
 
 		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 
-	
+		//@ALEX HERE 
 		m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
 
 		m_btEnemy[i]->setRoom(tempRandPos);
@@ -322,14 +276,18 @@ bool PlayState::onEnter()
 
 	m_miniMapList = m_rs->m_miniMapList;
 
-	m_botCollide = false;
-	m_botAttack = false;
 
 	return true;
 }
 
 bool PlayState::onExit()
 {
+	std::cout << "Exiting Play State\n";
+
+	LevelLoader::writeToPlayer(m_player->getEntity()->getComponent<StatsComponent>(4)->getClass(), 200, 200/*m_player->getEntity()->getComponent<StatsComponent>(4)->getHealth()*/, m_player->getEntity()->getComponent<StatsComponent>(4)->getSpeed(), 0, m_player->m_killCount);
+	LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
+	data::Instance()->setUpData(m_data);
+
 	SDL_DestroyTexture(m_miniMapTexture);
 	SDL_DestroyTexture(m_menuBackgroundTexture);
 	SDL_DestroyTexture(m_playOptionTexture);
@@ -366,96 +324,12 @@ void PlayState::cameraSetup()
 
 void PlayState::collisions()
 {
-
-	// Enemies
-	for (int i = 0; i < m_enemies.size(); i++)
+	for (int i = 0; i < 1; i++)
 	{
-		//Collision with enemy and player
-		if (m_cs->aabbCollision(m_player->getRect(), m_enemies[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-		{
-			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
-			{
-				//player attacking enemy function
-				float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
-
-				if (m_player->m_mc->getMana() > 0)
-				{
-					m_player->Attack(temp);
-				}
-
-				m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
-				//update kill count when enemy dead
-
-				m_player->setSeek(false);
-				m_enemies[i]->setSeek(false);
-				m_player->setTargetPosition(m_player->getPosition());
-				m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
-				//m_enemies[i]->setAttackTime(0);
-			}
-			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
-			{
-				if (m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
-				{
-					m_player->m_killCount++;
-				}
-				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-				m_rs->deleteEntity(m_enemies[i]->getEntity());
-				m_cs->deleteEntity(m_enemies[i]->getEntity());
-			}
-		}
-		else
-		{
-			m_player->m_mc->alterMana(0.1f);
-		}
-		m_enemies[i]->update(m_player->getPosition());
+		m_bts->run(m_btEnemy[i]->getEntity());
 	}
 
-
-	//for (int i = 0; i < 1; i++)
-	//{
-	//	m_bts->run(m_btEnemy[i]->getEntity());
-
-	//	m_bts->runPlayer(m_playerBot->getEntity(), m_btEnemy[i]->getEntity());
-
-	//	if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
-	//	{
-	//		if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
-	//		{
-	//			//player attacking enemy function
-	//			float temp = m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
-
-	//			if (m_playerBot->m_mc->getMana() > 0)
-	//			{
-	//				int oldState = m_playerBot->getFSM()->getCurrentState();
-	//				m_playerBot->getFSM()->setCurrentState(2);
-	//				m_playerBot->Attack(temp);
-	//				m_playerBot->getFSM()->setCurrentState(oldState);
-	//			}
-
-	//			m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
-
-
-	//			m_playerBot->setSeek(false);
-	//			//m_enemies[i]->setSeek(false);
-	//			m_playerBot->setTargetPosition(m_player->getPosition());
-	//			m_cs->collisionResponse(m_playerBot->getEntity(), m_btEnemy[i]->getEntity(), m_playerBot->getSeek());
-	//		}
-
-	//		else if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
-	//		{
-	//			if (m_btEnemy[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
-	//			{
-	//				m_playerBot->m_killCount++;
-	//			}
-	//			m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-	//			m_rs->deleteEntity(m_btEnemy[i]->getEntity());
-	//			m_cs->deleteEntity(m_btEnemy[i]->getEntity());
-	//		}
-	//	}
-	//}
-	   
 	for (int i = 0; i < m_miniMapList.size(); i++)
-
 	{
 		if (m_miniMapList[i]->getID() == 0)
 		{
@@ -553,12 +427,12 @@ void PlayState::collisions()
 		}
 
 		if (m_miniMapList[i]->getID() == 3)
-		{
-			if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
 			{
-				m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
+				if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
+				}
 			}
-		}
 		
 	}
 }

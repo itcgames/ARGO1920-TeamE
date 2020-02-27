@@ -100,7 +100,7 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 		m_skillActive[i] = false;
 	}
 
-	m_killCount = 0;
+	m_killCount = m_statc->getkillCount();
 }
 
 void Knight::update()
