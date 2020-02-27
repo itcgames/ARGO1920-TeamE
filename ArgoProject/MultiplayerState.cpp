@@ -12,13 +12,16 @@ MultiplayerState::MultiplayerState(Vector2& t_screenDimensions, GameStateMachine
 
 void MultiplayerState::update()
 {
-	if (!mapMade)
+	if (!data::Instance()->HOST)
 	{
-		if (m_client.vec1.size() > 1)
+		if (!mapMade)
 		{
-			mapDataRecString = m_client.vec1[1];
-			ParseMapData();
-			m_client.vec1.clear();
+			if (m_client.vec1.size() > 1)
+			{
+				mapDataRecString = m_client.vec1[1];
+				ParseMapData();
+				m_client.vec1.clear();
+			}
 		}
 	}
 	//See's if the game has been Paused ( If Not )
@@ -357,13 +360,17 @@ bool MultiplayerState::onEnter()
 	}
 
 	m_miniMapList = m_rs->m_miniMapList;
-	for (int i = 0; i < myMap->mapInfo.size(); i++)
+	
+	if (data::Instance()->HOST)
 	{
-		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
-		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
-		sendMap += std::to_string((int)myMap->mapInfo[i]->getID()) + "," + "|";
+		for (int i = 0; i < myMap->mapInfo.size(); i++)
+		{
+			sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
+			sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
+			sendMap += std::to_string((int)myMap->mapInfo[i]->getID()) + "," + "|";
+		}
+		m_client.SendString(sendMap);
 	}
-	m_client.SendString(sendMap);
 	//mapDataRecString = m_client.vec1[1];
 	//std::cout << "recv test" << std::endl;
 	std::cout << "size = " << mapDataRecString.size() << std::endl;
