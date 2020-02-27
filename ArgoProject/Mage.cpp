@@ -107,6 +107,17 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Mage::update()
 {
+	if (finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (m_skillActive[i] == true)
+			{
+				m_skillActive[i] = false;
+			}
+		}
+	}
+
 	//checks if the player is in walking state
 	if (finiteStateMachine->getCurrentState() == 1)
 	{
@@ -205,24 +216,40 @@ void Mage::setAction()
 			}
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false)
+			if (m_skillCooldown[0] == false && (m_skillActive[1] == false && m_skillActive[2] == false))
 			{
 				setDamage(1);
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
 				spriteSheetY = 0;
 				
+				if (m_skillActive[0] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
+				m_skillActive[0] = true;
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false)
+			if (m_skillCooldown[1] == false && (m_skillActive[0] == false && m_skillActive[2] == false))
 			{
 				spriteSheetY = frameHeight * 3;
+				if (m_skillActive[1] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
+				m_skillActive[1] = true;
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false)
+			if (m_skillCooldown[2] == false && (m_skillActive[0] == false && m_skillActive[1] == false))
 			{
 				spriteSheetY = frameHeight * 4;
+
+				if (m_skillActive[2] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
+				m_skillActive[2] = true;
 			}
 			break;
 		case 5:
@@ -255,7 +282,7 @@ void Mage::Attack(float& m_enemyHealth)
 		{
 			m_mc->alterMana(-12);
 			m_hc->alterHealth(10);
-			std::cout << m_animationRect->x << std::endl;
+
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[1] = true;

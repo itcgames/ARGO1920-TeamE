@@ -210,6 +210,12 @@ void Knight::setAction()
 			{
 				setDamage(1);
 				spriteSheetY = 0;
+
+				if (m_skillActive[0] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
+				m_skillActive[0] = true;
 			}
 			break;
 		case 3:
@@ -217,7 +223,12 @@ void Knight::setAction()
 			{
 				setDamage(3);
 				spriteSheetY = frameHeight * 3;
-				m_skillCooldown[1] = true;
+
+				if (m_skillActive[1] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
+				m_skillActive[1] = true;
 			}
 			break;
 		case 4:
@@ -225,6 +236,12 @@ void Knight::setAction()
 			{
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10);
 				spriteSheetY = frameHeight * 4;
+
+				if (m_skillActive[2] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
+				m_skillActive[2] = true;
 			}
 			break;
 		case 5:
@@ -238,7 +255,7 @@ void Knight::setAction()
 
 void Knight::Attack(float& m_enemyHealth)
 {
-	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3)
+	if (finiteStateMachine->getCurrentState() == 2)
 	{
 		if (m_skillCooldown[0] == false )
 		{
@@ -247,7 +264,6 @@ void Knight::Attack(float& m_enemyHealth)
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[0] = true;
-				m_skillCooldown[1] = true;
 			}
 		}
 	}
