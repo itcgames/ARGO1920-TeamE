@@ -243,6 +243,7 @@ void Warrior::setAction()
 					m_attackTimer = SDL_GetTicks();
 				}
 				m_skillActive[2] = true;
+
 			}
 			break;
 		default:
