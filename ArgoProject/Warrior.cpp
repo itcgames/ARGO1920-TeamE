@@ -124,10 +124,8 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Warrior::update()
 {
-	std::cout << finiteStateMachine->getCurrentState() << std::endl;
 	if (finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
 	{
-		std::cout << "Idle";
 		for (int i = 0; i < 3; i++)
 		{
 			if (m_skillActive[i] == true)
@@ -148,7 +146,7 @@ void Warrior::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400 || !commandQueue.empty() && m_animationRect->x == 1400 && !m_ih->move)
 	{
 		finiteStateMachine->idle();
 	}
