@@ -466,6 +466,17 @@ void PlayState::collisions()
 				m_playerBot->setTargetPosition(m_player->getPosition());
 				m_cs->collisionResponse(m_playerBot->getEntity(), m_btEnemy[i]->getEntity(), m_playerBot->getSeek());
 			}
+
+			else if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			{
+				if (m_btEnemy[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+				{
+					m_playerBot->m_killCount++;
+				}
+				m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+				m_rs->deleteEntity(m_btEnemy[i]->getEntity());
+				m_cs->deleteEntity(m_btEnemy[i]->getEntity());
+			}
 		}
 	}
 
