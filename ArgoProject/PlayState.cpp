@@ -103,7 +103,33 @@ void PlayState::update()
 	else
 	{
 		m_miniMapList;
-		std::cout << "";
+	}
+
+	if (m_enemies.size() < 20)
+	{
+		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
+		int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
+
+		if (randomEnemyPreset == 0)
+		{
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
+		}
+		if (randomEnemyPreset == 1)
+		{
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
+		}
+		if (randomEnemyPreset == 2)
+		{
+			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
+		}
+
+		//Init the enemy based of the above condition that was met
+		m_enemies.back()->initialize(m_rs, myMap->map[tempRandPos]->disperse(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
+			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
+			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
+
+		//Sets the room that the enemy is placed in.
+		m_enemies.back()->setRoom(tempRandPos);
 	}
 }
 
@@ -164,7 +190,6 @@ void PlayState::processEvents(bool& isRunning)
 
 bool PlayState::onEnter()
 {
-	std::cout << "Entering Play State\n";
 
 	MenuInit();
 	cameraSetup();
@@ -183,7 +208,7 @@ bool PlayState::onEnter()
 
 
 	// Create Enemies 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
 		int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
@@ -211,7 +236,7 @@ bool PlayState::onEnter()
 	}
 
 	// Create Pickups
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
 		int randomPickupPreset = rand() % 3;
@@ -305,7 +330,6 @@ bool PlayState::onEnter()
 
 bool PlayState::onExit()
 {
-	std::cout << "Exiting Play State\n";
 	SDL_DestroyTexture(m_miniMapTexture);
 	SDL_DestroyTexture(m_menuBackgroundTexture);
 	SDL_DestroyTexture(m_playOptionTexture);
@@ -342,7 +366,6 @@ void PlayState::cameraSetup()
 
 void PlayState::collisions()
 {
-
 	for (int i = 0; i < m_miniMapList.size(); i++)
 
 	{
@@ -402,7 +425,7 @@ void PlayState::collisions()
 							m_enemies[j]->setSeek(false);
 						}
 					}
-					
+
 					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->collisionResponse(m_player->getEntity(), m_miniMapList[i], m_player->getSeek());
 					//m_enemies[i]->setAttackTime(0);
@@ -442,17 +465,15 @@ void PlayState::collisions()
 		}
 
 		if (m_miniMapList[i]->getID() == 3)
+		{
+			if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
 			{
-				if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
-				}
+				m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
 			}
-
 		}
-		
-	}
 
+	}
+}
 
 void PlayState::MenuInit()
 {
@@ -479,7 +500,7 @@ void PlayState::MenuInit()
 	m_playOption->w = m_cameraDimensions.x * 0.5;
 	m_playOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/ResumeButton.png");
 	m_playOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 	m_exitOption = new SDL_Rect();
@@ -488,7 +509,7 @@ void PlayState::MenuInit()
 	m_exitOption->w = m_cameraDimensions.x * 0.5;
 	m_exitOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/QuitButton.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 

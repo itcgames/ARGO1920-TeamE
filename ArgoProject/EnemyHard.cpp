@@ -53,7 +53,6 @@ void EnemyHard::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 
 	t_rs->addEntity(m_enemy);
 	m_enemySound.load("Assets/Audio/Zombie.wav");
-	std::cout << "Enemy Initialized" << std::endl;
 }
 
 void EnemyHard::update(Vector2 t_position)

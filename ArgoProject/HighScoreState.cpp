@@ -14,6 +14,7 @@ void HighScoreState::update()
 }
 void HighScoreState::render()
 {
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitOptionTexture, NULL, m_exitOption);
 	for (int i = 0; i < 10; i++)
 	{
 		if(m_score[i] > 0)
@@ -32,8 +33,14 @@ void HighScoreState::processEvents(bool& isRunning)
 	{
 		switch (event.type)
 		{
-		case SDL_KEYDOWN:
-			m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
+		case SDL_MOUSEBUTTONDOWN:
+			if (event.button.x > m_exitOption->x && event.button.x <m_exitOption->x + m_exitOption->w
+				&&
+				event.button.y > m_exitOption->y && event.button.y < m_exitOption->y + m_exitOption->h)
+			{
+				m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
+			}
+			break;
 		}
 	}
 }
@@ -97,17 +104,27 @@ bool HighScoreState::onEnter()
 		m_slotRect[i]->h = m_cameraDimensions.y * 0.1 - 10;
 	}
 	SDL_FreeSurface(surfaceSlot);
+
+	m_exitOption = new SDL_Rect();
+	m_exitOption->x = m_cameraDimensions.x * (2.5 / 6.0);
+	m_exitOption->y = m_cameraDimensions.y * 0.9;
+	m_exitOption->w = m_cameraDimensions.x * (1.0 / 6.0);
+	m_exitOption->h = m_cameraDimensions.y * 0.1;
+
+	SDL_Surface* Surface = IMG_Load("Assets/ReturnButton.png");
+	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), Surface);
+
+	SDL_FreeSurface(Surface);
 	return true;
 }
 bool HighScoreState::onExit()
 {
 	std::fill_n(m_names, 10, 0);
-	//std::fill_n(m_nameRects, 10, 0);
-	//std::fill_n(m_nameTextures, 10, 0);
+
 	m_stateMachine = nullptr;
 
 	SDL_DestroyTexture(m_slotTexture);
-
+	SDL_DestroyTexture(m_exitOptionTexture);
 
 	for (int i = 0; i < 10; i++)
 	{

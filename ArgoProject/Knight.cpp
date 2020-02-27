@@ -2,7 +2,6 @@
 
 Knight::Knight()
 {
-	std::cout << "You are a Knight" << std::endl;
 }
 
 Knight::~Knight()
@@ -216,19 +215,21 @@ void Knight::setAction()
 			if (m_skillCooldown[0] == false && attackFinished == true)
 			{
 				setDamage(1);
-				spriteSheetY = 0;
 
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
+				spriteSheetY = frameHeight * 3;
+				m_skillCooldown[0] = true;
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false && attackFinished == true)
 			{
 				setDamage(3);
-				spriteSheetY = frameHeight * 3;
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
+				spriteSheetY = 0;
+				m_skillCooldown[1] = true;
 			}
 			break;
 		case 4:
@@ -238,6 +239,7 @@ void Knight::setAction()
 				spriteSheetY = frameHeight * 4;
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
+				m_skillCooldown[2] = true;
 			}
 			break;
 		case 5:

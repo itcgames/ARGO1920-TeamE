@@ -29,10 +29,8 @@ private:
 	{
 		if (std::rand() % 100 < m_probabilityOfSuccess)
 		{
-			std::cout << m_name << " succeeded." << std::endl;
 			return true;
 		}
-		std::cout << m_name << " failed." << std::endl;
 		return false;
 	}
 };
