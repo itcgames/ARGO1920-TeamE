@@ -68,7 +68,7 @@ void EnemyEasy::update(Vector2 t_position)
 	m_normalizedVec = m_normalizedVec.normalize(newVec);
 	//This is to stop the jittering in the movement.         
 	float mag = sqrt((m_pc->getPosition().x - t_position.x) * (m_pc->getPosition().x - t_position.x) + (m_pc->getPosition().y - t_position.y) * (m_pc->getPosition().y - t_position.y));
-	if (mag > 100 && mag < 1000)
+	if (mag > 100 && mag < 500)
 	{
 		finiteStateMachine->walking();
 		m_bs->seek(t_position);
