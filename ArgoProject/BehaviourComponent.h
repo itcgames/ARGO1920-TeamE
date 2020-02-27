@@ -66,10 +66,21 @@ public:
 		m_angle = t_angle;
 	}
 
+	bool getCollide()
+	{
+		return m_collide;
+	}
+
+	void setCollide(bool collide)
+	{
+		m_collide = collide;
+	}
+
 private:
 	Vector2 m_velocity, m_normalizedVel, m_specialVel;
 	int m_maxSpeed;
 	float m_angle;
+	bool m_collide = false;
 };
 
 #endif // !BEHAVIOURCOMPONENT_H

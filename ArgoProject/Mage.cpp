@@ -262,6 +262,7 @@ void Mage::Attack(float& m_enemyHealth)
 			}
 		}
 	}
+	
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
