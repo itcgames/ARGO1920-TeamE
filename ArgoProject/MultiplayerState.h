@@ -95,6 +95,7 @@ private:
 	std::vector<Entity*> m_miniMapList;
 
 	bool bossSpawned = false;
+	bool mapMade = false;
 	std::string sendMap;
 
 	std::string mapDataRecString;

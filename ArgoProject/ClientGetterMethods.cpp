@@ -145,7 +145,10 @@ bool Client::GetEntity(std::string& _string)
 	//std::string::iterator end = std::remove_if(_string.begin(), _string.end(), notADigit);
 	std::string all_numbers(_string.begin(), _string.end());
 	std::cout << all_numbers;
-
+	if (vec1.size() < 2)
+	{
+		vec1.push_back(all_numbers);
+	}
 	std::stringstream ss(all_numbers);
 	std::cout << std::endl;
 
