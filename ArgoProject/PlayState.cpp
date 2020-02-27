@@ -94,7 +94,7 @@ void PlayState::update()
 			}
 		}
 
-		if (m_player->getHealth() <= 0 || m_player->m_killCount == 11)
+		if (m_player->getHealth() <= 0 || m_player->m_killCount >= 11)
 		{
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
@@ -105,32 +105,32 @@ void PlayState::update()
 		m_miniMapList;
 	}
 
-	if (m_enemies.size() < 20)
-	{
-		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
-		int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
+	//if (m_enemies.size() < 20)
+	//{
+	//	int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
+	//	int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
 
-		if (randomEnemyPreset == 0)
-		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
-		}
-		if (randomEnemyPreset == 1)
-		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
-		}
-		if (randomEnemyPreset == 2)
-		{
-			m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
-		}
+	//	if (randomEnemyPreset == 0)
+	//	{
+	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
+	//	}
+	//	if (randomEnemyPreset == 1)
+	//	{
+	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_MEDIUM));
+	//	}
+	//	if (randomEnemyPreset == 2)
+	//	{
+	//		m_enemies.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_HARD));
+	//	}
 
-		//Init the enemy based of the above condition that was met
-		m_enemies.back()->initialize(m_rs, myMap->map[tempRandPos]->disperse(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
-			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
-			data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
+	//	//Init the enemy based of the above condition that was met
+	//	m_enemies.back()->initialize(m_rs, myMap->map[tempRandPos]->disperse(), data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_class, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_health,
+	//		data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_strength, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_speed,
+	//		data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_gold, data::Instance()->getData().m_presets.m_stats.at(randomEnemyPreset).m_killCount);
 
-		//Sets the room that the enemy is placed in.
-		m_enemies.back()->setRoom(tempRandPos);
-	}
+	//	//Sets the room that the enemy is placed in.
+	//	m_enemies.back()->setRoom(tempRandPos);
+	//}
 }
 
 
