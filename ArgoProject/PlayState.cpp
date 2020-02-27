@@ -399,7 +399,7 @@ void PlayState::collisions()
 			}
 			else
 			{
-				m_player->m_mc->alterMana(0.1f);
+				m_player->m_mc->alterMana(1.0f);
 			}
 			for (int j = 0; j < m_enemies.size(); j++)
 			{
