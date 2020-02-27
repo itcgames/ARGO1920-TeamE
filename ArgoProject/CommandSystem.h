@@ -241,7 +241,6 @@ public:
 			{
 				if (_event.button.button == SDL_BUTTON_LEFT)
 				{
-					std::cout << "Mouse Click" << std::endl;
 					return true;
 					break;
 				}

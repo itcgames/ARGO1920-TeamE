@@ -47,7 +47,6 @@ Particle::~Particle()
 
 void Particle::CreateParticle()
 {
-	std::cout << "Particle Alive" << std::endl;
 	m_alive = true;
 }
 

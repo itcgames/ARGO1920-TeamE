@@ -26,7 +26,6 @@ public:
 			m_a->y + m_a->h >= m_b->y &&
 			m_b->y + m_b->h >= m_a->y)
 		{
-			//std::cout << "AABB collision detected" << std::endl;
 			return true;
 		}
 		else
@@ -41,34 +40,14 @@ public:
 	void collisionResponse(Entity* m_a, Entity* m_b, bool seek)
 	{
 
-		//player velocity *= -1
 		Vector2 position = m_a->getComponent<PositionComponent>(1)->getPosition();
 		Vector2 velocity = m_a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
-
-		//
-		/*if (attackTime >= 200)
-		{
-			position.x += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().x * 10;
-			position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 10;
-		}
-		//
-		else if (attackTime < 200)
-		{*/
-		/*position.x += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().x * 3;
-		position.y += m_b->getComponent<BehaviourComponent>(3)->getNormalizeVel().y * 3;
-		*///}
-
-		//position += velocity * -1;
-
-		//m_a->getComponent<PositionComponent>(1)->setPosition(position);
 
 		if (m_b->getID() == 2)
 		{
 			if (m_b->getID() == 2 && m_a->getID() == 1)
 			{
-				//m_a->getComponent<ManaComponent>(7)->alterMana(-0.1f);
 				m_a->getComponent<HealthComponent>(5)->alterHealth(-0.1f);
-				//m_a->getComponent<ActiveComponent>(6)->setIsActive(false);
 			}
 
 		}
@@ -111,85 +90,11 @@ public:
 
 	void pickupCollisionResponse(Entity* m_a, Entity* m_b)
 	{
-		
-			
-			// If type is set to "Health" or "health"...
+
 			if (m_b->getComponent<ItemComponent>(5)->getType() == "Health" || 
 				m_b->getComponent<ItemComponent>(5)->getType() == "health")
 			{
-				//
-				/*if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Small Health collision" << std::endl;
-				}
-				//
-				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Medium Health collision" << std::endl;
-				}
-				//
-				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Large Health collision" << std::endl;
-				}*/
-
 				m_a->getComponent<HealthComponent>(5)->alterHealth(m_b->getComponent<ItemComponent>(5)->getValue());
-			}
-			
-			// If type is set to "Mana" or "mana"...
-			else if (m_b->getComponent<ItemComponent>(5)->getType() == "Mana" ||
-					 m_b->getComponent<ItemComponent>(5)->getType() == "mana")
-			{
-				//
-				/*if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Small Mana collision" << std::endl;
-				}
-				//
-				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Medium Mana collision" << std::endl;
-				}
-				//
-				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Large Mana collision" << std::endl;
-				}
-				*/
-
-				m_a->getComponent<ManaComponent>(7)->alterMana(m_b->getComponent<ItemComponent>(5)->getValue());
-			}
-
-			// If type is set to "Stamina" or "stamina"... 
-			else if (m_b->getComponent<ItemComponent>(5)->getType() == "Stamina" || 
-					 m_b->getComponent<ItemComponent>(5)->getType() == "stamina")
-			{
-				//
-				/*if (m_b->getComponent<ItemComponent>(5)->getIsSmall() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Small Stamina collision" << std::endl;
-				}
-				//
-				else if (m_b->getComponent<ItemComponent>(5)->getIsMedium() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Medium Stamina collision" << std::endl;
-				}
-				//
-				else if (m_b->getComponent<ItemComponent>(5)->getIsLarge() == true)
-				{
-					//Insert Player logic
-					//std::cout << "Large Stamina collision" << std::endl;
-				}*/
-
-				m_a->getComponent<StaminaComponent>(9)->addStamina(m_b->getComponent<ItemComponent>(5)->getValue());
 			}
 
 			//  If type is set to "Gold" or "gold"...

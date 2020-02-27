@@ -145,7 +145,6 @@ public:
 			int posY = ((m_miniMapList[i]->getComponent<PositionComponent>(1)->getPosition().y) / m_miniMapRatio.y) + miniMap->y;
 			int width = m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()->w / m_miniMapRatio.x + 1;
 			int height = m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()->h / m_miniMapRatio.y + 1;
-			//std::cout << posX << " " << posY << std::endl;
 			viewableArea = { posX, posY, width,height};
 
 			if (m_miniMapList[i]->getComponent<BehaviourComponent>(3) != NULL)
@@ -157,7 +156,6 @@ public:
 				angle = 0;
 			}
 
-			//SDL_RenderCopyEx(renderer, m_minimapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_HORIZONTAL);
 			if (m_miniMapList[i]->getID() != 1)
 			{
 				SDL_RenderCopyEx(renderer, m_miniMapList[i]->getComponent<SpriteComponent>(2)->getTexture(), NULL, &viewableArea, angle, NULL, SDL_FLIP_NONE);

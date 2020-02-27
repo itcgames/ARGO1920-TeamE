@@ -32,14 +32,8 @@ void OptionsState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_exitButton->y && event.button.y < m_exitButton->y + m_exitButton->h)
 			{
-				//std::cout << "Exit Button" << std::endl;
 				m_stateMachine->changeState(new MenuState(m_cameraDimensions,m_stateMachine));
 			}
-			break;
-		case SDL_MOUSEBUTTONUP:
-			//move = false;
-			//m_mouseRect->x = event.button.x;
-			//m_mouseRect->y = event.button.y;
 			break;
 		default:
 			break;

@@ -16,7 +16,6 @@ void SkillOne::idle(FSM* fsm)
 
 void SkillOne::walking(FSM* fsm)
 {
-	//std::cout << "Attack to Walking" << std::endl;
 	fsm->setCurrent(new Walking());
 	delete this;
 }

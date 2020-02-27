@@ -29,6 +29,9 @@ private:
 	Text* m_text[12];
 
 	GameStateMachine* m_stateMachine;
+
+	SDL_Rect* m_exitOption;
+	SDL_Texture* m_exitOptionTexture;
 };
 
 #endif
