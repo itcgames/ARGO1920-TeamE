@@ -101,7 +101,7 @@ void MultiplayerState::update()
 			if (m_client.vec.size() > 0)
 			{
 				std::string temp = m_client.vec[0];
-				std::cout << "recv test" << std::endl;
+				//std::cout << "recv test" << std::endl;
 				std::string sub = "";
 				std::string sub2 = "";
 				float x = 0;
@@ -355,38 +355,15 @@ bool MultiplayerState::onEnter()
 		sendMap += std::to_string(myMap->mapInfo[i]->getID()) + "|";
 	}
 	m_client.SendString(sendMap);
-	std::string temp = m_client.vec[0];
-	std::cout << "recv test" << std::endl;
-	std::cout << temp << std::endl;
-	std::cout << "_____________________________________________" << std::endl;
+	mapDataRecString = m_client.vec[0];
+	////std::cout << "recv test" << std::endl;
+	//std::cout << "size = " << mapDataRecString.size() << std::endl;
+	//std::cout << "_____________________________________________" << std::endl;
+	//std::cout << mapDataRecString << std::endl;
+	//std::cout << "_____________________________________________" << std::endl;
 
-	//std::string sub = "";
-	//std::string sub2 = "";
-	//std::string sub3 = "";
-	//float x = 0;
-	//float y;
-	//int id;
-	//int pos = temp.find("|");
-	//if (pos > -1)
-	//{
-	//	// Copy substring after pos 
-	//	//std::string sub2 = temp.substr(pos + 1);
-	//	for (int i = 0; i < pos; i++)
-	//	{
-	//		if (temp[i] != 44)
-	//		{
-	//			sub += temp[i];
-	//		}
-	//	}
-	//	// prints the result 
-	//	std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
-	//	std::stringstream stream1(sub);
-	//	std::stringstream stream2(sub2);
-	//	std::stringstream stream3(sub2);
-	//	stream1 >> x;
-	//	stream2 >> y;
-	//	stream3 >> id;
-	//}
+	
+	//ParseMapData();
 	return true;
 }
 
@@ -665,4 +642,90 @@ double MultiplayerState::GenerateRandomNumber(double min, double max)
 	std::mt19937 mt(m_randDev());
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(mt);
+}
+
+void MultiplayerState::ParseMapData()
+{
+	bool done = false;
+	std::string sub = "";
+	std::string sub2 = "";
+	std::string sub3 = "";
+	float x = 0;
+	float y;
+	int id;
+	int pos = mapDataRecString.find("|");
+	bool xfound = false;
+	bool yfound = false;
+	bool idFound = false;
+	while (!done)
+	{
+		//x,y,id | x,y,id |
+		for (int i = 0; i < pos; i++)
+		{
+			if (mapDataRecString[i] != 205)
+			{
+				if (mapDataRecString[i] != 44)
+				{
+					sub += mapDataRecString[i];
+					mapDataRecString.erase(mapDataRecString.begin());
+				}
+				else
+				{
+					std::stringstream stream1(sub);
+					if (!xfound)
+					{
+						stream1 >> x;
+						m_mapX.push_back(x);
+						xfound = true;
+					}
+					else if (!yfound)
+					{
+						stream1 >> y;
+						m_mapY.push_back(y);
+						yfound = true;
+					}
+					else if (!idFound)
+					{
+						stream1 >> id;
+						m_mapTileID.push_back(id);
+						idFound = true;
+					}
+					sub.clear();
+					mapDataRecString.erase(mapDataRecString.begin());
+				}
+			}
+			else
+			{
+				done = true;
+				break;
+			}
+		}
+		mapDataRecString.erase(mapDataRecString.begin()); // this will be '|'
+		pos = mapDataRecString.find("|");
+		xfound = false;
+		yfound = false;
+		idFound = false;
+
+	}
+
+	if (pos > -1)
+	{
+		// Copy substring after pos 
+		//std::string sub2 = temp.substr(pos + 1);
+		for (int i = 0; i < pos; i++)
+		{
+			if (mapDataRecString[i] != 44)
+			{
+				sub += mapDataRecString[i];
+			}
+		}
+		// prints the result 
+		std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
+		std::stringstream stream1(sub);
+		std::stringstream stream2(sub2);
+		std::stringstream stream3(sub2);
+		stream1 >> x;
+		stream2 >> y;
+		stream3 >> id;
+	}
 }
