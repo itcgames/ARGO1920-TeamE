@@ -16,7 +16,7 @@ void EnemyHard::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	m_rect->w = 100; m_rect->h = 100;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie2.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie2hard.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
 
 	m_enemy = new Entity();

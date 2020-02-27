@@ -208,14 +208,14 @@ void Knight::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false)
 			{
-				setDamage(30);
+				setDamage(1);
 				spriteSheetY = 0;
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false)
 			{
-				setDamage(60);
+				setDamage(3);
 				spriteSheetY = frameHeight * 3;
 				m_skillCooldown[1] = true;
 			}
@@ -242,7 +242,7 @@ void Knight::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false )
 		{
-			m_mc->alterMana(-3);
+			m_mc->alterMana(-13);
 			m_enemyHealth -= dmg;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
@@ -256,7 +256,7 @@ void Knight::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-3);
+			m_mc->alterMana(-13);
 			m_enemyHealth -= dmg;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
@@ -269,8 +269,8 @@ void Knight::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-4);
-			m_hc->alterHealth(20);
+			m_mc->alterMana(-10);
+			m_hc->alterHealth(5);
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[2] = true;

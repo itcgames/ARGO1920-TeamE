@@ -10,7 +10,7 @@ Map::Map(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 		if (i == roomsNum - 1)
 		{
-			map.push_back(std::make_unique<Room>(10, 10, Vector2(45 * tileSize, 15 * tileSize), t_rs, t_cs));
+			map.push_back(std::make_unique<Room>(11, 11, Vector2(45 * tileSize, 15 * tileSize), t_rs, t_cs));
 		}
 		else
 		{
