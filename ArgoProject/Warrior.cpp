@@ -146,7 +146,7 @@ void Warrior::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400 || !commandQueue.empty() && m_animationRect->x >= 1400 && !m_ih->move)
+	if ((commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400) || (!commandQueue.empty() && m_animationRect->x >= 1400 && !m_ih->move) || m_mc->getMana() <= 0)
 	{
 		finiteStateMachine->idle();
 	}
