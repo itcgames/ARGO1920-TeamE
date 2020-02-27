@@ -62,7 +62,7 @@ void MenuState::processEvents(bool& isRunning)
 				event.button.y > m_optionsButton->y && event.button.y < m_optionsButton->y + m_optionsButton->h)
 			{
 				//std::cout << "Options Button" << std::endl;
-				m_stateMachine->changeState(new OptionsState(m_buttonDimensions, m_stateMachine));
+				m_stateMachine->changeState(new CreditsState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_creditsButton->x && event.button.x < m_creditsButton->x + m_creditsButton->w
 				&&
@@ -107,7 +107,7 @@ bool MenuState::onEnter()
 	std::string m_name[5];
 	m_name[0] = "Singleplayer";
 	m_name[1] = "Multiplayer";
-	m_name[2] = "Options";
+	m_name[2] = "Credits";
 	m_name[3] = "Highscores";
 	m_name[4] = "Exit";
 

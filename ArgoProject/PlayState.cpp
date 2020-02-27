@@ -401,7 +401,7 @@ void PlayState::collisions()
 			}
 		}
 
-			if (m_miniMapList[i]->getID() == 3)
+		if (m_miniMapList[i]->getID() == 3)
 			{
 				if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
 				{
