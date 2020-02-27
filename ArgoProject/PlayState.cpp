@@ -387,7 +387,7 @@ void PlayState::collisions()
 							m_enemies[j]->setSeek(false);
 						}
 					}
-					
+
 					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->collisionResponse(m_player->getEntity(), m_miniMapList[i], m_player->getSeek());
 					//m_enemies[i]->setAttackTime(0);
@@ -433,9 +433,9 @@ void PlayState::collisions()
 					m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
 				}
 			}
-		
+		}
+
 	}
-}
 
 void PlayState::MenuInit()
 {

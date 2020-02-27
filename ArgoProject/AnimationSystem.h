@@ -22,10 +22,11 @@ public:
 		for (int i = 0; i < m_entities.size(); i++)
 		{
 			Uint32 ticks = SDL_GetTicks();
-			if (m_entities[i]->getID() == 1 && (state != 0 || state != 1))
+			if (m_entities[i]->getID() == 1 && (state != 0 || state != 1) && ticks - aTimer < 1401)
 			{
 				ticks -= aTimer;
 			}
+
 			Uint32 sprite = (ticks / t_speed) % 11;
 			t_animationRect->x = sprite * (t_frameWidth);
 			t_animationRect->y = t_spriteSheetY;
