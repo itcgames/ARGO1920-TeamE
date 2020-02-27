@@ -110,7 +110,7 @@ bool EndState::onEnter()
 	m_exit->w = m_cameraDimensions.x * 0.2;
 	m_exit->h = m_cameraDimensions.y * 0.1;
 
-	SDL_Surface* m_exitSurface = IMG_Load("Assets/ecs_text.png");
+	SDL_Surface* m_exitSurface = IMG_Load("Assets/Button.png");
 	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitSurface);
 
 	std::stringstream ss;

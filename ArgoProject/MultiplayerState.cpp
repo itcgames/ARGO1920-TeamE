@@ -12,6 +12,61 @@ MultiplayerState::MultiplayerState(Vector2& t_screenDimensions, GameStateMachine
 
 void MultiplayerState::update()
 {
+	if (!data::Instance()->HOST)
+	{
+		if (!mapMade)
+		{
+			std::string temp = m_client.vec1[0];
+			std::cout << temp.back();
+				for (int i = 0; i < myMap->map.size(); i++)
+				{
+					for (int y = 0; y < myMap->map[i]->tileList.size(); y++)
+					{
+						myMap->map[i]->tileList[y]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+
+						m_rs->deleteEntity(myMap->map[i]->tileList[y]->getEntity());
+						if (myMap->map[i]->tileList[y]->getEntity()->getID() == 0)
+						{
+							m_cs->deleteEntity(myMap->map[i]->tileList[y]->getEntity());
+						}
+						myMap->map[i]->tileList.erase(myMap->map[i]->tileList.begin() + y);
+					}
+				}
+
+				for (int i = 0; i < myMap->path.size(); i++)
+				{
+					myMap->path[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+
+					m_rs->deleteEntity(myMap->path[i]->getEntity());
+					if (myMap->path[i]->getEntity()->getID() == 0)
+					{
+						m_cs->deleteEntity(myMap->path[i]->getEntity());
+					}
+					myMap->path.erase(myMap->path.begin() + i);
+				}
+
+
+
+
+			
+			if (m_client.vec1.size() > 1)
+			{
+				mapDataRecString = m_client.vec1[1];
+				ParseMapData();
+				//m_client.vec1.clear();
+				for (int i = 0; i < m_mapTileID.size(); i++)
+				{
+					myMap->createHostMap(Vector2(m_mapX[i],m_mapY[i]), m_mapTileID[i], m_rs, m_cs);
+					myMap->hostMap.size();
+				}
+
+
+				mapMade = true;
+			}
+				
+			
+		}
+	}
 	//See's if the game has been Paused ( If Not )
 	if (m_player->getMenuActive() == false)
 	{
@@ -100,7 +155,7 @@ void MultiplayerState::update()
 			}
 			if (m_client.vec.size() > 0)
 			{
-				std::string temp = (m_client.vec[0]);
+				std::string temp = m_client.vec[0];
 				std::cout << "recv test" << std::endl;
 				std::string sub = "";
 				std::string sub2 = "";
@@ -348,8 +403,23 @@ bool MultiplayerState::onEnter()
 	}
 
 	m_miniMapList = m_rs->m_miniMapList;
+	
+	for (int i = 0; i < myMap->mapInfo.size(); i++)
+	{
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getID()) + "," + "|";
+	}
+	m_client.SendString(sendMap);
+	//mapDataRecString = m_client.vec1[1];
+	//std::cout << "recv test" << std::endl;
+	std::cout << "size = " << mapDataRecString.size() << std::endl;
+	std::cout << "_____________________________________________" << std::endl;
+	std::cout << mapDataRecString << std::endl;
+	std::cout << "_____________________________________________" << std::endl;
 
-
+	
+	//ParseMapData();
 	return true;
 }
 
@@ -628,4 +698,90 @@ double MultiplayerState::GenerateRandomNumber(double min, double max)
 	std::mt19937 mt(m_randDev());
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(mt);
+}
+
+void MultiplayerState::ParseMapData()
+{
+	bool done = false;
+	std::string sub = "";
+	std::string sub2 = "";
+	std::string sub3 = "";
+	float x = 0;
+	float y;
+	int id;
+	int pos = mapDataRecString.find("|");
+	bool xfound = false;
+	bool yfound = false;
+	bool idFound = false;
+	while (!done)
+	{
+		if (pos >= 0)
+		{
+			//x,y,id | x,y,id |
+			for (int i = 0; i < pos; i++)
+			{
+				if (mapDataRecString[0] != ',')
+				{
+					sub += mapDataRecString[0];
+					mapDataRecString.erase(mapDataRecString.begin());
+				}
+				else
+				{
+					std::stringstream stream1(sub);
+					if (xfound && yfound)
+					{
+						stream1 >> id;
+						m_mapTileID.push_back(id);
+						idFound = true;
+					}
+					if (!xfound)
+					{
+						stream1 >> x;
+						m_mapX.push_back(x);
+						xfound = true;
+					}
+					else if (!yfound)
+					{
+						stream1 >> y;
+						m_mapY.push_back(y);
+						yfound = true;
+					}
+					sub.clear();
+					mapDataRecString.erase(mapDataRecString.begin());
+				}
+			}
+		}
+		else
+		{
+			done = true;
+			break;
+		}
+		mapDataRecString.erase(mapDataRecString.begin()); // this will be '|'
+		pos = mapDataRecString.find("|");
+		xfound = false;
+		yfound = false;
+		idFound = false;
+
+	}
+
+	//if (pos > -1)
+	//{
+	//	// Copy substring after pos 
+	//	//std::string sub2 = temp.substr(pos + 1);
+	//	for (int i = 0; i < pos; i++)
+	//	{
+	//		if (mapDataRecString[i] != 44)
+	//		{
+	//			sub += mapDataRecString[i];
+	//		}
+	//	}
+	//	// prints the result 
+	//	std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
+	//	std::stringstream stream1(sub);
+	//	std::stringstream stream2(sub2);
+	//	std::stringstream stream3(sub2);
+	//	stream1 >> x;
+	//	stream2 >> y;
+	//	stream3 >> id;
+	//}
 }

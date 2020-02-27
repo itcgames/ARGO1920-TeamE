@@ -22,11 +22,11 @@ private:
 
 	static const std::string  m_creditsID;
 
-	std::string m_names[10];
+	std::string m_names[12];
 	
 	TTF_Font* Abel;
 
-	Text* m_text[10];
+	Text* m_text[12];
 
 	GameStateMachine* m_stateMachine;
 };

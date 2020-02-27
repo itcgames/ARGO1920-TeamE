@@ -232,7 +232,7 @@
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="MultiplayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -459,7 +459,7 @@
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="MultiplayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

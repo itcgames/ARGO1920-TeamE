@@ -82,7 +82,7 @@ bool HighScoreState::onEnter()
 	SDL_Color White = { 255, 255, 255 };
 
 
-	SDL_Surface* surfaceSlot = IMG_Load("Assets/ecs_text2.png");
+	SDL_Surface* surfaceSlot = IMG_Load("Assets/Button.png");
 	m_slotTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceSlot);
 
 	for (int i = 0; i < 10; i++)

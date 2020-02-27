@@ -39,6 +39,7 @@ private:
 	void collisions();
 	void MenuInit();
 	double GenerateRandomNumber(double min, double max);
+	void ParseMapData();
 
 
 	static const std::string m_playID;
@@ -94,7 +95,13 @@ private:
 	std::vector<Entity*> m_miniMapList;
 
 	bool bossSpawned = false;
+	bool mapMade = false;
+	std::string sendMap;
 
+	std::string mapDataRecString;
+	std::vector<float> m_mapX;
+	std::vector<float> m_mapY;
+	std::vector<int> m_mapTileID;
 };
 
 #endif

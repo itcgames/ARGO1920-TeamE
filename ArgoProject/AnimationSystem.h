@@ -24,7 +24,7 @@ public:
 			Uint32 ticks = SDL_GetTicks();
 			if (m_entities[i]->getID() == 1 && (state != 0 || state != 1))
 			{
-				ticks -= aTimer;
+				//ticks -= aTimer;
 				//std::cout << ticks << std::endl;
 			}
 			else
