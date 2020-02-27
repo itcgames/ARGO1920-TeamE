@@ -14,29 +14,51 @@ void MultiplayerState::update()
 {
 	if (!data::Instance()->HOST)
 	{
-		std::string temp = m_client.vec1[0];
-		if (temp[temp.back()] != '0')
+		if (!mapMade)
 		{
-			if (!mapMade)
+			std::string temp = m_client.vec1[0];
+			std::cout << temp.back();
+			if (temp[temp.back()] != '0')
 			{
-				if (m_client.vec1.size() > 1)
+				for (int i = 0; i < myMap->map.size(); i++)
 				{
-					mapDataRecString = m_client.vec1[1];
-					ParseMapData();
-					m_client.vec1.clear();
+					for (int y = 0; y < myMap->map[i]->tileList.size(); y++)
+					{
+						myMap->map[i]->tileList[y]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+
+						m_rs->deleteEntity(myMap->map[i]->tileList[y]->getEntity());
+						if (myMap->map[i]->tileList[y]->getEntity()->getID() == 0)
+						{
+							m_cs->deleteEntity(myMap->map[i]->tileList[y]->getEntity());
+						}
+						myMap->map[i]->tileList.erase(myMap->map[i]->tileList.begin() + y);
+					}
+				}
+
+				for (int i = 0; i < myMap->path.size(); i++)
+				{
+					myMap->path[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+
+					m_rs->deleteEntity(myMap->path[i]->getEntity());
+					if (myMap->path[i]->getEntity()->getID() == 0)
+					{
+						m_cs->deleteEntity(myMap->path[i]->getEntity());
+					}
+					myMap->path.erase(myMap->path.begin() + i);
 				}
 			}
-		}
-		else
-		{
-			for (int i = 0; i < myMap->mapInfo.size(); i++)
+			else
 			{
-				m_rs->deleteEntity(myMap->mapInfo[i]);
-				if (myMap->mapInfo[i]->getID() == 0)
+
 				{
-					m_cs->deleteEntity(myMap->mapInfo[i]);
+					if (m_client.vec1.size() > 1)
+					{
+						mapDataRecString = m_client.vec1[1];
+						ParseMapData();
+						//m_client.vec1.clear();
+						mapMade = true;
+					}
 				}
-				myMap->mapInfo.erase(myMap->mapInfo.begin() + i);
 			}
 		}
 	}
