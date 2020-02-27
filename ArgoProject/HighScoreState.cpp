@@ -44,7 +44,7 @@ bool HighScoreState::onEnter()
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
-	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y / 10);
+	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", m_cameraDimensions.y / 10);
 
 	if (!Abel) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
@@ -82,7 +82,7 @@ bool HighScoreState::onEnter()
 	SDL_Color White = { 255, 255, 255 };
 
 
-	SDL_Surface* surfaceSlot = IMG_Load("Assets/ecs_text2.png");
+	SDL_Surface* surfaceSlot = IMG_Load("Assets/Button.png");
 	m_slotTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceSlot);
 
 	for (int i = 0; i < 10; i++)
@@ -118,7 +118,6 @@ bool HighScoreState::onExit()
 	}
 
 	TTF_CloseFont(Abel);
-
 	return true;
 }
 

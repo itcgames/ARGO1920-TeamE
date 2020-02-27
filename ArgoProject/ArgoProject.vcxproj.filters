@@ -231,6 +231,9 @@
     <ClCompile Include="EnemyBoss.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="MultiplayerState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -460,6 +463,9 @@
     </ClInclude>
     <ClInclude Include="RandomSelector.h">
       <Filter>Header Files\BT</Filter>
+     </ClInclude>
+    <ClInclude Include="MultiplayerState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

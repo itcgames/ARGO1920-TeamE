@@ -10,7 +10,7 @@ Map::Map(RenderSystem* t_rs, CollisionSystem* t_cs)
 		}
 		if (i == roomsNum - 1)
 		{
-			map.push_back(std::make_unique<Room>(10, 10, Vector2(45 * tileSize, 15 * tileSize), t_rs, t_cs));
+			map.push_back(std::make_unique<Room>(11, 11, Vector2(45 * tileSize, 15 * tileSize), t_rs, t_cs));
 		}
 		else
 		{
@@ -51,6 +51,21 @@ void Map::CreateMap(RenderSystem* t_rs, CollisionSystem* t_cs)
 			CreatePath(map[y]->getCenterPos(), map[i]->getCenterPos(), "Path", t_rs, t_cs);
 		}
 		y++;
+	}
+
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int x = 0; x < map[i]->tileList.size(); x++)
+		{
+			mapInfo.push_back(map[i]->tileList[x]->getEntity());
+
+		}
+	}
+
+	for (int i = 0; i < path.size(); i++)
+	{
+		mapInfo.push_back(path[i]->getEntity());
+
 	}
 }
 
@@ -348,5 +363,22 @@ std::string Map::returnTileType(std::string type)
 		}
 	}
 
+}
+
+void Map::createHostMap(Vector2 pos, int id, RenderSystem* t_rs, CollisionSystem* t_cs)
+{
+	if (id == 0)
+	{
+		hostMap.push_back(std::make_unique<Tile>(pos, tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs));
+	}
+	if(id == -1)
+	{
+		hostMap.push_back(std::make_unique<Tile>(pos, tileSize, tileSize, returnTileType("Floor"), "Floor", t_rs, t_cs));
+	}
+
+	if (id != -1 || id != 0)
+	{
+		return;
+	}
 }
 

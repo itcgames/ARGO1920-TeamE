@@ -7,7 +7,12 @@ Warrior::Warrior()
 
 Warrior::~Warrior()
 {
+	std::cout << "You are not a Warrior" << std::endl;
 	SDL_DestroyTexture(m_playerTexture);
+	delete walkSound;
+	delete attackSound;
+	delete slamAttackSound;
+	delete spinAttackSound;
 }
 
 void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
@@ -97,10 +102,15 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	m_particleEffects = new ParticleSystem("PLAY", t_rs);
 
-	walkSound.load("Assets/Audio/walk.wav");
-	attackSound.load("Assets/Audio/attack1.wav");
-	slamAttackSound.load("Assets/Audio/slam.wav");
-	spinAttackSound.load("Assets/Audio/spinAttack.wav");
+	walkSound = new Audio();
+	attackSound = new Audio();
+	slamAttackSound = new Audio();
+	spinAttackSound = new Audio();
+
+	walkSound->load("Assets/Audio/walk.wav");
+	attackSound->load("Assets/Audio/attack1.wav");
+	slamAttackSound->load("Assets/Audio/slam.wav");
+	spinAttackSound->load("Assets/Audio/spinAttack.wav");
 
 
 	for (int i = 0; i < 3; i++)
@@ -136,7 +146,7 @@ void Warrior::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400 || !commandQueue.empty() && m_animationRect->x == 1400 && !m_ih->move)
 	{
 		finiteStateMachine->idle();
 	}
@@ -149,7 +159,7 @@ void Warrior::update()
 	}
 
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100, finiteStateMachine->getCurrentState(),m_attackTimer);
 	m_particleEffects->update();
 }
 
@@ -172,7 +182,7 @@ void Warrior::setAction()
 			spriteSheetY = frameHeight;
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
-				walkSound.play();
+				walkSound->play();
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10);
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
@@ -184,7 +194,7 @@ void Warrior::setAction()
 				else
 				{
 					m_ih->move = false;
-					walkSound.stop();
+					walkSound->stop();
 				}
 
 				m_positionRect->x = m_pc->getPosition().x;
@@ -195,41 +205,51 @@ void Warrior::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false && (m_skillActive[1] == false && m_skillActive[2] == false))
 			{
-				setDamage(3);
+				setDamage(1);
 				spriteSheetY = 0;
-				attackSound.play();
+				attackSound->play();
 				m_ih->move = false;
-				m_skillCooldown[0] = true;
+				if (m_skillActive[0] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
 				m_skillActive[0] = true;
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false && (m_skillActive[0] == false && m_skillActive[2] == false))
 			{
-				setDamage(10);
+				setDamage(2);
 				spriteSheetY = frameHeight * 3;
-				slamAttackSound.play();
+				slamAttackSound->play();
 				m_ih->move = false;
-				m_skillCooldown[1] = true;
+				if (m_skillActive[1] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
 				m_skillActive[1] = true;
+				
 			}
 			break;
 		case 4:
 			if (m_skillCooldown[2] == false && (m_skillActive[0] == false && m_skillActive[1] == false))
 			{
-				setDamage(6);
+				setDamage(3);
 				spriteSheetY = frameHeight * 4;
-				spinAttackSound.play();
+				spinAttackSound->play();
 				m_ih->move = false;
-				m_skillCooldown[2] = true;
+				if (m_skillActive[2] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
 				m_skillActive[2] = true;
 			}
 			break;
 		default:
-			attackSound.stop();
-			spinAttackSound.stop();
-			slamAttackSound.stop();
-			walkSound.stop();
+			attackSound->stop();
+			spinAttackSound->stop();
+			slamAttackSound->stop();
+			walkSound->stop();
 			break;
 		}
 	}
@@ -237,20 +257,46 @@ void Warrior::setAction()
 
 void Warrior::Attack(float &m_enemyHealth)
 {
-	if (finiteStateMachine->getCurrentState() == 2 || finiteStateMachine->getCurrentState() == 3 || finiteStateMachine->getCurrentState() == 4)
+	if (finiteStateMachine->getCurrentState() == 2 )
 	{
-		//int m_state = finiteStateMachine->getCurrentState() - 2;
-		//if (m_animationRect->x == 0 && m_skillActive[m_state])
-		//{
-			m_mc->alterMana(-4);
+		if (m_skillCooldown[0] == false )
+		{
+			m_mc->alterMana(-3);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
-		//}
-		//if (m_attackFrame < m_animationRect->x)
-		//{
-		//	m_skillActive[m_state] = false;
-		//	m_attackFrame = 9999;
-		//}
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[0] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 3)
+	{
+		if (m_skillCooldown[1] == false)
+		{
+			m_mc->alterMana(-3);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[1] = true;
+			}
+		}
+	}
+
+	if (finiteStateMachine->getCurrentState() == 4)
+	{
+		if (m_skillCooldown[2] == false)
+		{
+			m_mc->alterMana(-3);
+			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[2] = true;
+			}
+		}
 	}
 }
 

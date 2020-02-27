@@ -16,7 +16,7 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 	m_rect->w = 100; m_rect->h = 100;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie2.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Zombie2med.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
 
 	m_enemy = new Entity();
@@ -56,19 +56,6 @@ void EnemyMedium::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string
 
 void EnemyMedium::update(Vector2 t_position)
 {
-	if (finiteStateMachine->getCurrentState() == 0)
-	{
-	}
-
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-	}
-
-	if (finiteStateMachine->getCurrentState() == 2)
-	{
-	}
-
-
 	Vector2 newVec = (t_position.x - m_enemy->getComponent<PositionComponent>(1)->getPosition().x,
 		t_position.y - m_enemy->getComponent<PositionComponent>(1)->getPosition().y);
 	float distance = sqrt((newVec.x * newVec.x) + (newVec.y * newVec.y));

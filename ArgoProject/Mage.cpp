@@ -147,7 +147,7 @@ void Mage::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x == 0 || !commandQueue.empty() && m_animationRect->x == 0 && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400 || !commandQueue.empty() && m_animationRect->x >= 1400 && !m_ih->move)
 	{
 		spriteSheetY = frameHeight * 2;
 		finiteStateMachine->idle();
@@ -166,7 +166,8 @@ void Mage::update()
 	}
 
 	setAction();
-	m_particleEffects->update();	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_particleEffects->update();	
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100,finiteStateMachine->getCurrentState(), m_attackTimer);
 }
 
 void Mage::processEvents(bool isRunning)
@@ -206,24 +207,22 @@ void Mage::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false)
 			{
+				setDamage(1);
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
-				setDamage(8);
 				spriteSheetY = 0;
-				m_skillCooldown[0] = true;
+				
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false)
 			{
 				spriteSheetY = frameHeight * 3;
-				m_skillCooldown[1] = true;
 			}
 			break;
 		case 4:
 			if (m_skillCooldown[2] == false)
 			{
 				spriteSheetY = frameHeight * 4;
-				m_skillCooldown[2] = true;
 			}
 			break;
 		case 5:
@@ -239,29 +238,42 @@ void Mage::Attack(float& m_enemyHealth)
 {
 	if (finiteStateMachine->getCurrentState() == 2)
 	{
-		if (m_animationRect->x == 0)
+		if (m_skillCooldown[0] == false)
 		{
-			m_mc->alterMana(-2);
+			m_mc->alterMana(-10);
 			m_enemyHealth -= dmg;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[0] = true;
+			}
 		}
 	}
 
 	if (finiteStateMachine->getCurrentState() == 3)
 	{
-		if (m_animationRect->x == 0)
+		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-3);
-			m_hc->alterHealth(1);
+			m_mc->alterMana(-12);
+			m_hc->alterHealth(10);
+			std::cout << m_animationRect->x << std::endl;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[1] = true;
+			}
 		}
 	}
 	
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{
-		if (m_animationRect->x == 0)
+		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-4);
-			dmg += 0.1;
+			m_mc->alterMana(-13);
+			dmg += 1;
+			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
+			{
+				m_skillCooldown[2] = true;
+			}
 		}
 	}
 }

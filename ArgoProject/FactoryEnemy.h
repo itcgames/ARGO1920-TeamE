@@ -1,5 +1,5 @@
 #ifndef FACTORYENEMY
-#define FATORYENEMY
+#define FACTORYENEMY
 
 
 #include <memory>

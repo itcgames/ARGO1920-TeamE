@@ -1,14 +1,14 @@
 Highscores:
-  - name: Alex
-    score: 82636
-  - name: Brian
-    score: 90605
-  - name: Paul
-    score: 50000
-  - name: Aoife
-    score: 99999
-  - name: Brandon
-    score: 76293
+  - name: ALEX
+    score: 11
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
+  - name: ""
+    score: 0
   - name: ""
     score: 0
   - name: ""
@@ -48,7 +48,7 @@ Presets:
       strength: 50
     - class: ENEMY_BOSS
       gold: 100000
-      health: 400
+      health: 1000
       killcount: 0
       speed: 1
       strength: 100

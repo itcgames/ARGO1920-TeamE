@@ -25,7 +25,8 @@ public: //Public functions
 	bool SendCircle();
 	bool CloseConnection();
 
-	std::vector<int> vec;
+	std::vector<std::string> vec;
+    std::vector<std::string> vec1;
 
 private: //Private functions
 	bool ProcessPacket(Packet _packettype);

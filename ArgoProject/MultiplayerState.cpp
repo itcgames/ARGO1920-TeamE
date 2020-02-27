@@ -1,25 +1,79 @@
-#include "PlayState.h"
+#include "MultiplayerState.h"
 
-const std::string PlayState::m_playID = "PLAY";
+const std::string MultiplayerState::m_playID = "MULTIPLAY";
 
-PlayState::PlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine)
+MultiplayerState::MultiplayerState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine)
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
-	m_background = new Audio();
-	m_background->load("Assets/Audio/Background.wav");
+	m_background.load("Assets/Audio/Background.wav");
 }
 
 
-void PlayState::update()
+void MultiplayerState::update()
 {
+	if (!data::Instance()->HOST)
+	{
+		if (!mapMade)
+		{
+			std::string temp = m_client.vec1[0];
+			std::cout << temp.back();
+				for (int i = 0; i < myMap->map.size(); i++)
+				{
+					for (int y = 0; y < myMap->map[i]->tileList.size(); y++)
+					{
+						myMap->map[i]->tileList[y]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+
+						m_rs->deleteEntity(myMap->map[i]->tileList[y]->getEntity());
+						if (myMap->map[i]->tileList[y]->getEntity()->getID() == 0)
+						{
+							m_cs->deleteEntity(myMap->map[i]->tileList[y]->getEntity());
+						}
+						myMap->map[i]->tileList.erase(myMap->map[i]->tileList.begin() + y);
+					}
+				}
+
+				for (int i = 0; i < myMap->path.size(); i++)
+				{
+					myMap->path[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
+
+					m_rs->deleteEntity(myMap->path[i]->getEntity());
+					if (myMap->path[i]->getEntity()->getID() == 0)
+					{
+						m_cs->deleteEntity(myMap->path[i]->getEntity());
+					}
+					myMap->path.erase(myMap->path.begin() + i);
+				}
+
+
+
+
+			
+			if (m_client.vec1.size() > 1)
+			{
+				mapDataRecString = m_client.vec1[1];
+				ParseMapData();
+				//m_client.vec1.clear();
+				for (int i = 0; i < m_mapTileID.size(); i++)
+				{
+					myMap->createHostMap(Vector2(m_mapX[i],m_mapY[i]), m_mapTileID[i], m_rs, m_cs);
+					myMap->hostMap.size();
+				}
+
+
+				mapMade = true;
+			}
+				
+			
+		}
+	}
 	//See's if the game has been Paused ( If Not )
 	if (m_player->getMenuActive() == false)
 	{
 		//Updates()
 			// Player 
 		m_player->update();
-
+		m_player2->update();
 		//HUD 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
@@ -76,9 +130,63 @@ void PlayState::update()
 			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
 
+		////if its multiplayer
+		if (!data::Instance()->SINGLEPLAYER)
+		{
+			//if you are the host send all positions to the client.
+			if (data::Instance()->HOST)
+			{
+				//Vector2 tempPos = m_player.getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				//std::string test = std::to_string(tempPos.x);
+				//std::string test2 = std::to_string(tempPos.y);
+				//m_server.SendString(1,test);
+				//m_server.SendString(2,test2);
+			}
+			//if you are not the host send your co-ordinates to the server.
+			if (!data::Instance()->HOST)
+			{
+				Vector2 tempPos = m_player->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				std::string test = std::to_string(static_cast<int>(tempPos.x));
+				std::string test2 = std::to_string((int)tempPos.y);
+				test += ",";
+				test += test2;
+				m_client.SendString(test);
+				//m_client.SendString(test2);
+			}
+			if (m_client.vec.size() > 0)
+			{
+				std::string temp = m_client.vec[0];
+				std::cout << "recv test" << std::endl;
+				std::string sub = "";
+				std::string sub2 = "";
+				float x = 0;
+				float y;
+				int pos = temp.find(",");
+				if (pos > -1)
+				{
+					// Copy substring after pos 
+					std::string sub2 = temp.substr(pos + 1);
+					for (int i = 0; i < pos; i++)
+					{
+						sub += temp[i];
+					}
+					// prints the result 
+					std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
+					std::stringstream stream1(sub);
+					std::stringstream stream2(sub2);
+					stream1 >> x;
+					stream2 >> y;
+					Vector2 pos{ x, y };
+					m_player2->getEntity()->getComponent<PositionComponent>(1)->setPosition(pos);
+				}
+				std::cout << std::endl;
+				std::cout << "==============================================" << std::endl;
+			}
+		}
+
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->m_killCount == 0)
+		if (m_player->m_killCount == 10)
 		{
 			if (bossSpawned == false)
 			{
@@ -108,7 +216,7 @@ void PlayState::update()
 }
 
 
-void PlayState::render()
+void MultiplayerState::render()
 {
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(),
@@ -126,7 +234,7 @@ void PlayState::render()
 }
 
 /// handle user and system events/ input
-void PlayState::processEvents(bool& isRunning)
+void MultiplayerState::processEvents(bool& isRunning)
 {
 	if (m_player->getMenuActive() == false)
 	{
@@ -162,9 +270,25 @@ void PlayState::processEvents(bool& isRunning)
 	}
 }
 
-bool PlayState::onEnter()
+bool MultiplayerState::onEnter()
 {
 	std::cout << "Entering Play State\n";
+	// Sets the Host or Connects the client to the host game
+	if (!data::Instance()->SINGLEPLAYER)
+	{
+		if (data::Instance()->HOST)
+		{
+			for (int i = 0; i < 1; i++)
+			{
+				m_server.ListenForNewConnection();
+			}
+		}
+		else
+		{
+			m_client.Connect();
+		}
+	}
+
 
 	MenuInit();
 	cameraSetup();
@@ -247,29 +371,13 @@ bool PlayState::onEnter()
 		className = "Mage";
 	}
 	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-	m_player->init(m_rs, camera, myMap->map[0]->getCenterPos());
+	m_player->init(m_rs, camera, Vector2(1200, 900));
 
-	/*if (!data::Instance()->SINGLEPLAYER)
+	if (!data::Instance()->SINGLEPLAYER)
 	{
 		m_player2 = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 		m_player2->init(m_rs, camera, Vector2(1000, 800));
-	}*/
-
-	m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
-	m_playerBot->init(m_rs, camera, Vector2(
-		m_player->getPosition().x - 250,
-		m_player->getPosition().y - 300));
-
-	m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->setCollide(false);
-
-	m_bts->initPlayer(m_playerBot->getPosition(), Vector2(0, 0),
-		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getNormalizeVel(), 
-		Vector2(m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->w, 
-				m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->h), 
-		Vector2(0, 0), m_cs,
-		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getMaxSpeed(), 
-		0.0f, true, false, false);
-
+	}
 	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
 		m_player->m_skillCooldown[0], m_player->m_skillCooldown[1], m_player->m_skillCooldown[2],
@@ -277,33 +385,45 @@ bool PlayState::onEnter()
 		className);
 
 	//Play Background Music
-	m_background->play();
+	m_background.play();
 
 
 	for (int i = 0; i < 1; i++)
 	{
-
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
 
 		int randomEnemyPreset = rand() % 3;
 
 		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 
-	
+		//@ALEX HERE 
 		m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
 
 		m_btEnemy[i]->setRoom(tempRandPos);
 	}
 
 	m_miniMapList = m_rs->m_miniMapList;
+	
+	for (int i = 0; i < myMap->mapInfo.size(); i++)
+	{
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getID()) + "," + "|";
+	}
+	m_client.SendString(sendMap);
+	//mapDataRecString = m_client.vec1[1];
+	//std::cout << "recv test" << std::endl;
+	std::cout << "size = " << mapDataRecString.size() << std::endl;
+	std::cout << "_____________________________________________" << std::endl;
+	std::cout << mapDataRecString << std::endl;
+	std::cout << "_____________________________________________" << std::endl;
 
-	m_botCollide = false;
-	m_botAttack = false;
-
+	
+	//ParseMapData();
 	return true;
 }
 
-bool PlayState::onExit()
+bool MultiplayerState::onExit()
 {
 	std::cout << "Exiting Play State\n";
 	SDL_DestroyTexture(m_miniMapTexture);
@@ -314,12 +434,14 @@ bool PlayState::onExit()
 	m_rs->clearMap();
 
 	m_hud->onExit();
-	delete m_background;
-	//m_player->~IPlayer();
+
+	//delete m_pSystem;
+	//delete m_rs;
+
 	return true;
 }
 
-void PlayState::cameraSetup()
+void MultiplayerState::cameraSetup()
 {
 	camera = new SDL_Rect();
 	camera->w = m_cameraDimensions.x;
@@ -340,10 +462,9 @@ void PlayState::cameraSetup()
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 }
 
-void PlayState::collisions()
+void MultiplayerState::collisions()
 {
-
-// Enemies
+	// Enemies
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
 		//Collision with enemy and player
@@ -368,11 +489,12 @@ void PlayState::collisions()
 				m_cs->collisionResponse(m_player->getEntity(), m_enemies[i]->getEntity(), m_player->getSeek());
 				//m_enemies[i]->setAttackTime(0);
 			}
-			if(m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
 			{
-				if(m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+				if (m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
 				{
 					m_player->m_killCount++;
+					data::Instance()->playerScore = m_player->m_killCount;
 				}
 				m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 				m_rs->deleteEntity(m_enemies[i]->getEntity());
@@ -383,55 +505,13 @@ void PlayState::collisions()
 		{
 			m_player->m_mc->alterMana(0.1f);
 		}
-		m_enemies[i]->update(m_player->getPosition());	
+		m_enemies[i]->update(m_player->getPosition());
 	}
-
 
 	for (int i = 0; i < 1; i++)
 	{
 		m_bts->run(m_btEnemy[i]->getEntity());
-
-		m_bts->runPlayer(m_playerBot->getEntity(), m_btEnemy[i]->getEntity());
-
-		if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
-		{
-			if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
-			{
-				//player attacking enemy function
-				float temp = m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
-
-				if (m_playerBot->m_mc->getMana() > 0)
-				{
-					int oldState = m_playerBot->getFSM()->getCurrentState();
-					m_playerBot->getFSM()->setCurrentState(2);
-					m_playerBot->Attack(temp);
-					m_playerBot->getFSM()->setCurrentState(oldState);
-				}
-
-				m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
-
-				
-				m_playerBot->setSeek(false);
-				//m_enemies[i]->setSeek(false);
-				m_playerBot->setTargetPosition(m_player->getPosition());
-				m_cs->collisionResponse(m_playerBot->getEntity(), m_btEnemy[i]->getEntity(), m_playerBot->getSeek());
-			}
-
-			else if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
-			{
-				if (m_btEnemy[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
-				{
-					m_playerBot->m_killCount++;
-				}
-				m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-				m_rs->deleteEntity(m_btEnemy[i]->getEntity());
-				m_cs->deleteEntity(m_btEnemy[i]->getEntity());
-			}
-		}
 	}
-
-
-	
 
 	/*for (int i = 0; i < m_pickUp.size(); i++)
 	{
@@ -442,9 +522,58 @@ void PlayState::collisions()
 	}*/
 
 	/*for (int i = 0; i < myMap->map.size(); i++)
+	{
+		for (int z = 0; z < myMap->map[i]->tileList.size(); z++)
+		{
+			if (myMap->map[i]->tileList[z]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_player->getRect(), myMap->map[i]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_player->setTargetPosition(m_player->getPosition());
+					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->map[i]->tileList[z]->getEntity());
+				}
+			}
+		}
+	}
+	for (int i = 0; i < myMap->path.size(); i++)
+	{
+			if (myMap->path[i]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_player->getRect(), myMap->path[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_player->setTargetPosition(m_player->getPosition());
+					m_cs->wallCollisionResponse(m_player->getEntity(), myMap->path[i]->getEntity());
+				}
+			}
+	}*/
+
+	for (int y = 0; y < m_enemies.size(); y++)
+	{
+		for (int z = 0; z < myMap->map[m_enemies[y]->getRoom()]->tileList.size(); z++)
+		{
+			if (myMap->map[m_enemies[y]->getRoom()]->tileList[z]->getTag() == "Wall")
+			{
+				if (m_cs->aabbCollision(m_enemies[y]->getEntity()->getComponent<SpriteComponent>(2)->getRect(), myMap->map[m_enemies[y]->getRoom()]->tileList[z]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+				{
+					m_cs->wallCollisionResponse(m_enemies[y]->getEntity(), myMap->map[m_enemies[y]->getRoom()]->tileList[z]->getEntity());
+				}
+			}
+		}
+	}
+
+	//for (int y = 0; y < m_enemies.size(); y++)
+	//{
+	//	for (int i = 0; i < myMap->path.size(); i++)
+	//	{
+	//		if (m_cs->aabbCollision(m_enemies[y]->getEntity()->getComponent<SpriteComponent>(2)->getRect(), myMap->path[i]->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
+	//		{
+	//			m_cs->wallCollisionResponse(m_enemies[y]->getEntity(), myMap->path[i]->getEntity());
+	//		}
+	//	}
+	//}
+	//m_cs->pickupCollisionResponse(m_player->getEntity(), m_pickUp->getEntity());
 
 	for (int i = 0; i < m_miniMapList.size(); i++)
-
 	{
 		if (m_miniMapList[i]->getID() == 0)
 		{
@@ -453,25 +582,6 @@ void PlayState::collisions()
 				m_player->setTargetPosition(m_player->getPosition());
 				m_cs->wallCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
 
-			}
-		}
-
-		if (m_miniMapList[i]->getID() == 1)
-		{
-			bool onMap = false;
-			for (int j = 0; j < m_miniMapList.size(); j++)
-			{
-				if (m_miniMapList[j]->getID() == 0 || m_miniMapList[j]->getID() == -1)
-				{
-					if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[j]->getComponent<SpriteComponent>(2)->getRect()) == true)
-					{
-						onMap = true;
-					}
-				}
-			}
-			if (!onMap)
-			{
-				m_player->getEntity()->getComponent<HealthComponent>(5)->alterHealth(-0.5f);
 			}
 		}
 
@@ -502,7 +612,6 @@ void PlayState::collisions()
 							m_enemies[j]->setSeek(false);
 						}
 					}
-					
 					m_player->setTargetPosition(m_player->getPosition());
 					m_cs->collisionResponse(m_player->getEntity(), m_miniMapList[i], m_player->getSeek());
 					//m_enemies[i]->setAttackTime(0);
@@ -520,43 +629,31 @@ void PlayState::collisions()
 			}
 			else
 			{
-				m_player->m_mc->alterMana(1.0f);
+				m_player->m_mc->alterMana(0.1f);
 			}
-			for (int j = 0; j < m_enemies.size(); j++)
-			{
-				if (m_miniMapList[i] == m_enemies[j]->getEntity())
+
+			/*	for (int j = 0; j < m_enemies.size(); j++)
 				{
-					m_enemies[j]->update(m_player->getPosition());
-				}
-			}
-			for (int j = 0; j < m_miniMapList.size(); j++)
-			{
-				if (m_miniMapList[j]->getID() == 0)
-				{
-					if (m_cs->aabbCollision(m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect(), m_miniMapList[j]->getComponent<SpriteComponent>(2)->getRect()) == true)
+					if (m_miniMapList[i] == m_enemies[j]->getEntity())
 					{
-						m_cs->wallCollisionResponse(m_miniMapList[i], m_miniMapList[j]);
+						m_enemies[j]->update(m_player->getPosition());
 					}
-				}
-			}
+				}*/
 		}
 
 		if (m_miniMapList[i]->getID() == 3)
+		{
+			if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
 			{
-				if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
-				}
+				m_cs->pickupCollisionResponse(m_player->getEntity(), m_miniMapList[i]);
 			}
-
 		}
-		
 	}
 }
 
-void PlayState::MenuInit()
+void MultiplayerState::MenuInit()
 {
-	SDL_Surface* playStateSurface = IMG_Load("Assets/minimapBackground.png");
+	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 	/// Initialise Menu
@@ -568,7 +665,7 @@ void PlayState::MenuInit()
 	m_menuBackground->w = m_cameraDimensions.x;
 	m_menuBackground->h = m_cameraDimensions.y;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/Empty.png");
 	m_menuBackgroundTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 	SDL_SetTextureBlendMode(m_menuBackgroundTexture, SDL_BLENDMODE_BLEND);
 	SDL_SetTextureAlphaMod(m_menuBackgroundTexture, 125);
@@ -579,7 +676,7 @@ void PlayState::MenuInit()
 	m_playOption->w = m_cameraDimensions.x * 0.5;
 	m_playOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/Empty.png");
 	m_playOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 	m_exitOption = new SDL_Rect();
@@ -588,17 +685,103 @@ void PlayState::MenuInit()
 	m_exitOption->w = m_cameraDimensions.x * 0.5;
 	m_exitOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/Empty.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 
 	SDL_FreeSurface(playStateSurface);
 }
 
-double PlayState::GenerateRandomNumber(double min, double max)
+double MultiplayerState::GenerateRandomNumber(double min, double max)
 {
 	std::random_device m_randDev;
 	std::mt19937 mt(m_randDev());
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(mt);
+}
+
+void MultiplayerState::ParseMapData()
+{
+	bool done = false;
+	std::string sub = "";
+	std::string sub2 = "";
+	std::string sub3 = "";
+	float x = 0;
+	float y;
+	int id;
+	int pos = mapDataRecString.find("|");
+	bool xfound = false;
+	bool yfound = false;
+	bool idFound = false;
+	while (!done)
+	{
+		if (pos >= 0)
+		{
+			//x,y,id | x,y,id |
+			for (int i = 0; i < pos; i++)
+			{
+				if (mapDataRecString[0] != ',')
+				{
+					sub += mapDataRecString[0];
+					mapDataRecString.erase(mapDataRecString.begin());
+				}
+				else
+				{
+					std::stringstream stream1(sub);
+					if (xfound && yfound)
+					{
+						stream1 >> id;
+						m_mapTileID.push_back(id);
+						idFound = true;
+					}
+					if (!xfound)
+					{
+						stream1 >> x;
+						m_mapX.push_back(x);
+						xfound = true;
+					}
+					else if (!yfound)
+					{
+						stream1 >> y;
+						m_mapY.push_back(y);
+						yfound = true;
+					}
+					sub.clear();
+					mapDataRecString.erase(mapDataRecString.begin());
+				}
+			}
+		}
+		else
+		{
+			done = true;
+			break;
+		}
+		mapDataRecString.erase(mapDataRecString.begin()); // this will be '|'
+		pos = mapDataRecString.find("|");
+		xfound = false;
+		yfound = false;
+		idFound = false;
+
+	}
+
+	//if (pos > -1)
+	//{
+	//	// Copy substring after pos 
+	//	//std::string sub2 = temp.substr(pos + 1);
+	//	for (int i = 0; i < pos; i++)
+	//	{
+	//		if (mapDataRecString[i] != 44)
+	//		{
+	//			sub += mapDataRecString[i];
+	//		}
+	//	}
+	//	// prints the result 
+	//	std::cout << "x: " << sub << " , " << "y: " << sub2 << std::endl;
+	//	std::stringstream stream1(sub);
+	//	std::stringstream stream2(sub2);
+	//	std::stringstream stream3(sub2);
+	//	stream1 >> x;
+	//	stream2 >> y;
+	//	stream3 >> id;
+	//}
 }
