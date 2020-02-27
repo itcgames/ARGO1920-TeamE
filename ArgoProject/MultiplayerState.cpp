@@ -18,8 +18,6 @@ void MultiplayerState::update()
 		{
 			std::string temp = m_client.vec1[0];
 			std::cout << temp.back();
-			if (temp[temp.back()] != '0')
-			{
 				for (int i = 0; i < myMap->map.size(); i++)
 				{
 					for (int y = 0; y < myMap->map[i]->tileList.size(); y++)
@@ -46,19 +44,27 @@ void MultiplayerState::update()
 					}
 					myMap->path.erase(myMap->path.begin() + i);
 				}
-			}
-			else
+
+
+
+
+			
+			if (m_client.vec1.size() > 1)
 			{
+				mapDataRecString = m_client.vec1[1];
+				ParseMapData();
+				//m_client.vec1.clear();
+				for (int i = 0; i < m_mapTileID.size(); i++)
 				{
-					if (m_client.vec1.size() > 1)
-					{
-						mapDataRecString = m_client.vec1[1];
-						ParseMapData();
-						//m_client.vec1.clear();
-						mapMade = true;
-					}
+					myMap->createHostMap(Vector2(m_mapX[i],m_mapY[i]), m_mapTileID[i], m_rs, m_cs);
+					myMap->hostMap.size();
 				}
+
+
+				mapMade = true;
 			}
+				
+			
 		}
 	}
 	//See's if the game has been Paused ( If Not )

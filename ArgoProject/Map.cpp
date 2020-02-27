@@ -358,3 +358,15 @@ std::string Map::returnTileType(std::string type)
 
 }
 
+void Map::createHostMap(Vector2 pos, int id, RenderSystem* t_rs, CollisionSystem* t_cs)
+{
+	if (id == 0)
+	{
+		hostMap.push_back(std::make_unique<Tile>(pos, tileSize, tileSize, returnTileType("Wall"), "Wall", t_rs, t_cs));
+	}
+	else if(id == -1)
+	{
+		hostMap.push_back(std::make_unique<Tile>(pos, tileSize, tileSize, returnTileType("Floor"), "Floor", t_rs, t_cs));
+	}
+}
+
