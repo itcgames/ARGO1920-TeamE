@@ -95,7 +95,7 @@ void PlayState::update()
 
 		if (m_player->getHealth() <= 0 || m_player->m_killCount == 11)
 		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+			m_stateMachine->changeState(new PlayState(m_cameraDimensions, m_stateMachine));
 		}
 
 	}
@@ -508,7 +508,7 @@ void PlayState::collisions()
 
 void PlayState::MenuInit()
 {
-	SDL_Surface* playStateSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	SDL_Surface* playStateSurface = IMG_Load("Assets/minimapBackground.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 	/// Initialise Menu
@@ -520,7 +520,7 @@ void PlayState::MenuInit()
 	m_menuBackground->w = m_cameraDimensions.x;
 	m_menuBackground->h = m_cameraDimensions.y;
 
-	playStateSurface = IMG_Load("Assets/Empty.png");
+	playStateSurface = IMG_Load("Assets/Button.png");
 	m_menuBackgroundTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 	SDL_SetTextureBlendMode(m_menuBackgroundTexture, SDL_BLENDMODE_BLEND);
 	SDL_SetTextureAlphaMod(m_menuBackgroundTexture, 125);
@@ -531,7 +531,7 @@ void PlayState::MenuInit()
 	m_playOption->w = m_cameraDimensions.x * 0.5;
 	m_playOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Empty.png");
+	playStateSurface = IMG_Load("Assets/Button.png");
 	m_playOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 	m_exitOption = new SDL_Rect();
@@ -540,7 +540,7 @@ void PlayState::MenuInit()
 	m_exitOption->w = m_cameraDimensions.x * 0.5;
 	m_exitOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Empty.png");
+	playStateSurface = IMG_Load("Assets/Button.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 
