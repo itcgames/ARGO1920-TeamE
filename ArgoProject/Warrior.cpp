@@ -146,7 +146,7 @@ void Warrior::update()
 		}
 	}
 
-	if (commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400 || !commandQueue.empty() && m_animationRect->x == 1400 && !m_ih->move)
+	if (commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400 || !commandQueue.empty() && m_animationRect->x >= 1400 && !m_ih->move)
 	{
 		finiteStateMachine->idle();
 	}
@@ -243,7 +243,6 @@ void Warrior::setAction()
 					m_attackTimer = SDL_GetTicks();
 				}
 				m_skillActive[2] = true;
-				m_attackTimer = SDL_GetTicks();
 			}
 			break;
 		default:
@@ -262,7 +261,7 @@ void Warrior::Attack(float &m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false )
 		{
-			m_mc->alterMana(-30);
+			m_mc->alterMana(-1);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
@@ -276,7 +275,7 @@ void Warrior::Attack(float &m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-30);
+			m_mc->alterMana(-1);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
@@ -290,7 +289,7 @@ void Warrior::Attack(float &m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-30);
+			m_mc->alterMana(-1);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
