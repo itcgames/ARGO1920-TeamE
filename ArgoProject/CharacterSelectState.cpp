@@ -135,7 +135,7 @@ bool CharacterSelectState::onEnter()
 	m_exitOption->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitOption->h = m_cameraDimensions.y * 0.1;
 
-	characterSelectSurface = IMG_Load("Assets/Button.png");
+	characterSelectSurface = IMG_Load("Assets/QuitButton.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	SDL_FreeSurface(characterSelectSurface);

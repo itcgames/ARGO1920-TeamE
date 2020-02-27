@@ -462,7 +462,7 @@ void PlayState::MenuInit()
 	m_playOption->w = m_cameraDimensions.x * 0.5;
 	m_playOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/ResumeButton.png");
 	m_playOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 	m_exitOption = new SDL_Rect();
@@ -471,7 +471,7 @@ void PlayState::MenuInit()
 	m_exitOption->w = m_cameraDimensions.x * 0.5;
 	m_exitOption->h = m_cameraDimensions.y * 0.3;
 
-	playStateSurface = IMG_Load("Assets/Button.png");
+	playStateSurface = IMG_Load("Assets/QuitButton.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
 
 

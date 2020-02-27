@@ -23,7 +23,7 @@ Player:
   - class: PLAYER_WARRIOR
     gold: 0
     health: 200
-    killcount: 3
+    killcount: 0
     speed: 6
     strength: 200
 Presets:
