@@ -116,7 +116,7 @@ bool MenuState::onEnter()
 	m_singlePlayerButton = new SDL_Rect();
 	m_singlePlayerButton->x = m_buttonDimensions.x * 0.02;
 	m_singlePlayerButton->y = m_buttonDimensions.y * 0.495;
-	m_singlePlayerButton->w = m_buttonDimensions.x * 0.2;
+	m_singlePlayerButton->w = m_buttonDimensions.x * 0.3;
 	m_singlePlayerButton->h = m_buttonDimensions.y * 0.06;
 
 
@@ -126,7 +126,7 @@ bool MenuState::onEnter()
 	m_multiPlayerButton = new SDL_Rect();
 	m_multiPlayerButton->x = m_buttonDimensions.x * 0.02;
 	m_multiPlayerButton->y = m_buttonDimensions.y * 0.595;
-	m_multiPlayerButton->w = m_buttonDimensions.x * 0.2;
+	m_multiPlayerButton->w = m_buttonDimensions.x * 0.3;
 	m_multiPlayerButton->h = m_buttonDimensions.y * 0.06;
 
 	menuSurface = IMG_Load("Assets/Button.png");
@@ -135,7 +135,7 @@ bool MenuState::onEnter()
 	m_optionsButton = new SDL_Rect();
 	m_optionsButton->x = m_buttonDimensions.x * 0.02;
 	m_optionsButton->y = m_buttonDimensions.y * 0.695;
-	m_optionsButton->w = m_buttonDimensions.x * 0.2;
+	m_optionsButton->w = m_buttonDimensions.x * 0.3;
 	m_optionsButton->h = m_buttonDimensions.y * 0.06;
 
 	menuSurface = IMG_Load("Assets/Button.png");
@@ -144,7 +144,7 @@ bool MenuState::onEnter()
 	m_creditsButton = new SDL_Rect();
 	m_creditsButton->x = m_buttonDimensions.x * 0.02;
 	m_creditsButton->y = m_buttonDimensions.y * 0.795;
-	m_creditsButton->w = m_buttonDimensions.x * 0.2;
+	m_creditsButton->w = m_buttonDimensions.x * 0.3;
 	m_creditsButton->h = m_buttonDimensions.y * 0.06;
 
 	menuSurface = IMG_Load("Assets/Button.png");

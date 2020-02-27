@@ -16,7 +16,7 @@ void EnemyBoss::initialize(RenderSystem* t_rs, Vector2 t_Position, std::string t
 	m_rect->w = 400; m_rect->h = 400;
 
 	//loads texture for enemy
-	SDL_Surface* ecsSurface2 = IMG_Load("Assets/zombie2boss.png");
+	SDL_Surface* ecsSurface2 = IMG_Load("Assets/Skeleton.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), ecsSurface2);
 
 	m_enemy = new Entity();

@@ -125,7 +125,7 @@ bool HostSearchState::onEnter()
 	m_exitRect->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitRect->h = m_cameraDimensions.y * 0.1;
 
-	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/Button.png");
+	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/ReturnButton.png");
 	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitOptionSurface);
 	SDL_FreeSurface(m_exitOptionSurface);
 

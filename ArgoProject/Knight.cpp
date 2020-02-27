@@ -209,14 +209,14 @@ void Knight::setAction()
 			if (m_skillCooldown[0] == false)
 			{
 				setDamage(1);
-				spriteSheetY = 0;
+				spriteSheetY = frameHeight * 3;
 			}
 			break;
 		case 3:
 			if (m_skillCooldown[1] == false)
 			{
 				setDamage(3);
-				spriteSheetY = frameHeight * 3;
+				spriteSheetY = 0;
 				m_skillCooldown[1] = true;
 			}
 			break;
