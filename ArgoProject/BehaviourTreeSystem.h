@@ -73,12 +73,11 @@ public:
 	}
 
 	void initPlayer(Vector2 position, Vector2 targetPosition, Vector2 normalisedVec,
-		CollisionSystem* cs, int maxSpeed, float enemyHealth, float rotationAngle,
-		bool pathfind, bool seek, bool attack, bool collide, bool attacking)
+		Vector2 playerWH, Vector2 targetWH, CollisionSystem* cs, int maxSpeed,  
+		float rotationAngle, bool pathfind, bool seek, bool attack)
 	{
 		m_playerStatus = new PlayerStatus{ position, targetPosition, normalisedVec,
-			cs, maxSpeed, enemyHealth, rotationAngle, pathfind, seek, attack, collide, 
-			attacking };
+			playerWH, targetWH, cs, maxSpeed, rotationAngle, pathfind, seek, attack };
 
 		m_pselector = new Selector();
 		m_psequence = new Sequence();
@@ -110,14 +109,19 @@ public:
 		m_playerStatus->m_targetPosition = b->getComponent<PositionComponent>(1)->getPosition();
 		m_playerStatus->m_normalisedVec = a->getComponent<BehaviourComponent>(3)->getNormalizeVel();
 		m_playerStatus->m_rotationAngle = a->getComponent<BehaviourComponent>(3)->getRotationAngle();
-		m_playerStatus->m_enemyHealth = b->getComponent<HealthComponent>(5)->getHealth();
+
+		m_playerStatus->m_playerWH.x = a->getComponent<SpriteComponent>(2)->getRect()->w;
+		m_playerStatus->m_playerWH.y = a->getComponent<SpriteComponent>(2)->getRect()->h;
+		m_playerStatus->m_targetWH.x = b->getComponent<SpriteComponent>(2)->getRect()->w;
+		m_playerStatus->m_targetWH.y = b->getComponent<SpriteComponent>(2)->getRect()->h;
+
 
 		m_proot->run();
 
 		a->getComponent<PositionComponent>(1)->setPosition(m_playerStatus->m_position);
 		a->getComponent<BehaviourComponent>(3)->setNormalizeVel(m_playerStatus->m_normalisedVec);
 		a->getComponent<BehaviourComponent>(3)->setRotationAngle(m_playerStatus->m_rotationAngle);
-		b->getComponent<HealthComponent>(5)->setHealth(m_playerStatus->m_enemyHealth);
+		a->getComponent<BehaviourComponent>(3)->setCollide(m_playerStatus->m_collide);
 	}
 	
 

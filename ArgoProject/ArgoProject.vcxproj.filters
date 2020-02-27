@@ -458,6 +458,9 @@
     <ClInclude Include="PlayerBehaviours.h">
       <Filter>Header Files\BT\Behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="RandomSelector.h">
+      <Filter>Header Files\BT</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">

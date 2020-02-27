@@ -254,6 +254,7 @@ void Mage::Attack(float& m_enemyHealth)
 			m_hc->alterHealth(1);
 		}
 	}
+	
 
 	if (finiteStateMachine->getCurrentState() == 4)
 	{

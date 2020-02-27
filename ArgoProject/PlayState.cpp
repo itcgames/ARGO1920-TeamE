@@ -311,10 +311,15 @@ bool PlayState::onEnter()
 		m_player->getPosition().x - 250,
 		m_player->getPosition().y - 300));
 
+	m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->setCollide(false);
+
 	m_bts->initPlayer(m_playerBot->getPosition(), Vector2(0, 0),
-		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getNormalizeVel(), m_cs,
-		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getMaxSpeed(), 0.0f, 0.0f,
-		true, false, false, false, false);
+		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getNormalizeVel(), 
+		Vector2(m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->w, 
+				m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->h), 
+		Vector2(0, 0), m_cs,
+		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getMaxSpeed(), 
+		0.0f, true, false, false);
 
 	m_hud = new HUD(m_cameraDimensions,
 		m_player->getEntity()->getComponent<HealthComponent>(5)->getOriginalHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getOriginalMana(),
@@ -431,11 +436,37 @@ void PlayState::collisions()
 		m_enemies[i]->update(m_player->getPosition());	
 	}
 
+
 	for (int i = 0; i < 1; i++)
 	{
 		m_bts->run(m_btEnemy[i]->getEntity());
 
 		m_bts->runPlayer(m_playerBot->getEntity(), m_btEnemy[i]->getEntity());
+
+		if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
+		{
+			if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
+			{
+				//player attacking enemy function
+				float temp = m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+
+				if (m_playerBot->m_mc->getMana() > 0)
+				{
+					int oldState = m_playerBot->getFSM()->getCurrentState();
+					m_playerBot->getFSM()->setCurrentState(2);
+					m_playerBot->Attack(temp);
+					m_playerBot->getFSM()->setCurrentState(oldState);
+				}
+
+				m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+
+				
+				m_playerBot->setSeek(false);
+				//m_enemies[i]->setSeek(false);
+				m_playerBot->setTargetPosition(m_player->getPosition());
+				m_cs->collisionResponse(m_playerBot->getEntity(), m_btEnemy[i]->getEntity(), m_playerBot->getSeek());
+			}
+		}
 	}
 
 	

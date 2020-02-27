@@ -15,6 +15,7 @@ public:
 	FSM();
 
 	int getCurrentState();
+	void setCurrentState(int state);
 	//sets current state
 	void setCurrent(FiniteState* s)
 	{

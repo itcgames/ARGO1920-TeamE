@@ -23,15 +23,15 @@ struct PlayerStatus
 	Vector2 m_position;
 	Vector2 m_targetPosition;
 	Vector2 m_normalisedVec;
+	Vector2 m_playerWH;
+	Vector2 m_targetWH;
 	CollisionSystem* m_cs;
 	int m_maxSpeed;
-	float m_enemyHealth;
 	float m_rotationAngle;
 	bool m_pathfind;
 	bool m_seek;
 	bool m_attack;
 	bool m_collide;
-	bool m_attacking;
 };
 
 class PathFind : public Node
@@ -76,6 +76,7 @@ public:
 		if (m_status->m_seek == false)
 		{
 			seek();
+			collide();
 		}
 
 		return m_status->m_seek;
@@ -98,6 +99,21 @@ public:
 
 		m_status->m_rotationAngle = m_orientation * (180 / 3.14159);
 		m_status->m_position = position;
+	}
+
+	void collide()
+	{
+		if (m_status->m_position.x + m_status->m_playerWH.x >= m_status->m_targetPosition.x &&
+			m_status->m_targetPosition.x + m_status->m_targetWH.x >= m_status->m_position.x &&
+			m_status->m_position.y + m_status->m_playerWH.y >= m_status->m_targetPosition.y &&
+			m_status->m_targetPosition.y + m_status->m_targetWH.y >= m_status->m_position.y)
+		{
+			m_status->m_collide = true;
+		}
+		else
+		{
+			m_status->m_collide = false;
+		}
 	}
 
 	Vector2 Normalize(Vector2& t_vector)
@@ -138,8 +154,17 @@ public:
 		if (m_status->m_attack == false)
 		{
 			
-
-		
+			if (m_status->m_position.x + m_status->m_playerWH.x >= m_status->m_targetPosition.x &&
+				m_status->m_targetPosition.x + m_status->m_targetWH.x >= m_status->m_position.x &&
+				m_status->m_position.y + m_status->m_playerWH.y >= m_status->m_targetPosition.y &&
+				m_status->m_targetPosition.y + m_status->m_targetWH.y >= m_status->m_position.y)
+			{
+				m_status->m_collide = true;
+			}
+			else
+			{
+				m_status->m_collide = false;
+			}
 		}
 
 		return m_status->m_attack;

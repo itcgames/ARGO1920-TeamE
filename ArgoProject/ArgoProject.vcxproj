@@ -234,6 +234,7 @@
     <ClInclude Include="PlayerBehaviours.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="RandomSelector.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Room.h" />
