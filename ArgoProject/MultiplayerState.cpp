@@ -14,13 +14,29 @@ void MultiplayerState::update()
 {
 	if (!data::Instance()->HOST)
 	{
-		if (!mapMade)
+		std::string temp = m_client.vec1[0];
+		if (temp[temp.back()] != '0')
 		{
-			if (m_client.vec1.size() > 1)
+			if (!mapMade)
 			{
-				mapDataRecString = m_client.vec1[1];
-				ParseMapData();
-				m_client.vec1.clear();
+				if (m_client.vec1.size() > 1)
+				{
+					mapDataRecString = m_client.vec1[1];
+					ParseMapData();
+					m_client.vec1.clear();
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < myMap->mapInfo.size(); i++)
+			{
+				m_rs->deleteEntity(myMap->mapInfo[i]);
+				if (myMap->mapInfo[i]->getID() == 0)
+				{
+					m_cs->deleteEntity(myMap->mapInfo[i]);
+				}
+				myMap->mapInfo.erase(myMap->mapInfo.begin() + i);
 			}
 		}
 	}
@@ -361,16 +377,13 @@ bool MultiplayerState::onEnter()
 
 	m_miniMapList = m_rs->m_miniMapList;
 	
-	if (data::Instance()->HOST)
+	for (int i = 0; i < myMap->mapInfo.size(); i++)
 	{
-		for (int i = 0; i < myMap->mapInfo.size(); i++)
-		{
-			sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
-			sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
-			sendMap += std::to_string((int)myMap->mapInfo[i]->getID()) + "," + "|";
-		}
-		m_client.SendString(sendMap);
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().x) + ",";
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getComponent<PositionComponent>(1)->getPosition().y) + ",";
+		sendMap += std::to_string((int)myMap->mapInfo[i]->getID()) + "," + "|";
 	}
+	m_client.SendString(sendMap);
 	//mapDataRecString = m_client.vec1[1];
 	//std::cout << "recv test" << std::endl;
 	std::cout << "size = " << mapDataRecString.size() << std::endl;
