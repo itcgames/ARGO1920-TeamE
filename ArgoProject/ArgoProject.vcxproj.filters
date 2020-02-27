@@ -461,6 +461,12 @@
     <ClInclude Include="AnimationSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerBehaviours.h">
+      <Filter>Header Files\BT\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomSelector.h">
+      <Filter>Header Files\BT</Filter>
+     </ClInclude>
     <ClInclude Include="MultiplayerState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>

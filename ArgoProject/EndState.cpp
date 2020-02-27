@@ -71,17 +71,11 @@ void EndState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_exit->y && event.button.y < m_exit->y + m_exit->h)
 			{
-				//std::cout << "Play Button" << std::endl;
 				data::Instance()->newScore();
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
 				m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
 			}
-			break;
-		case SDL_MOUSEBUTTONUP:
-			//move = false;
-			//m_mouseRect->x = event.button.x;
-			//m_mouseRect->y = event.button.y;
 			break;
 		default:
 			break;

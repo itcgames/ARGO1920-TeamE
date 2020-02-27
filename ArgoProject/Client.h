@@ -4,7 +4,7 @@
 #pragma comment(lib,"ws2_32.lib") //Required for WinSock
 #include <WinSock2.h> //For win sockets
 #include <string> //For std::string
-#include <iostream> //For std::cout, std::endl, std::cin.getline
+#include <iostream> 
 #include <algorithm>
 #include <sstream>
 #include <vector>

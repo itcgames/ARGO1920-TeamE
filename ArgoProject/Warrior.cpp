@@ -2,12 +2,10 @@
 
 Warrior::Warrior()
 {
-	std::cout << "You are a Warrior" << std::endl;
 }
 
 Warrior::~Warrior()
 {
-	std::cout << "You are not a Warrior" << std::endl;
 	SDL_DestroyTexture(m_playerTexture);
 	delete walkSound;
 	delete attackSound;

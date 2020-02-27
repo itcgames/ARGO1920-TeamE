@@ -26,6 +26,8 @@ public:
 	void setMove(bool move) { m_ih->move = move; }
 	void setTargetPosition(Vector2 vector) { m_ih->mousePosition = vector; }
 
+	FSM* getFSM() { return finiteStateMachine; }
+
 	void Attack(float& m_enemyHealth);
 	void setDamage(float t_dmg) { dmg = t_dmg; }
 

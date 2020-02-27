@@ -26,10 +26,6 @@ public:
 			{
 				ticks -= aTimer;
 			}
-			else
-			{
-		
-			}
 			Uint32 sprite = (ticks / t_speed) % 11;
 			t_animationRect->x = sprite * (t_frameWidth);
 			t_animationRect->y = t_spriteSheetY;
