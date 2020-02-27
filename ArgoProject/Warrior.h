@@ -23,6 +23,8 @@ public:
 	//void hit(Entity* t_enemy);
 	SDL_Rect* getRect(){ return m_positionRect; }
 
+	FSM* getFSM() { return finiteStateMachine; }
+
 	void setMove(bool move) { m_ih->move = move; }
 	void setTargetPosition(Vector2 vector) { m_ih->mousePosition = vector; }
 

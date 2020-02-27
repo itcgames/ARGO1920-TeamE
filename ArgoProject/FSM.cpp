@@ -11,6 +11,11 @@ int FSM::getCurrentState()
 	return current->currentState;
 }
 
+void FSM::setCurrentState(int state)
+{
+	current->currentState = state;
+}
+
 void FSM::idle()
 {
 	current->idle(this);

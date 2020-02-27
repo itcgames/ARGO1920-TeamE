@@ -40,7 +40,7 @@ public:
 	virtual void setMove(bool move) = 0;
 	virtual void setTargetPosition(Vector2 vector) = 0;
 
-
+	virtual FSM* getFSM() = 0;
 
 
 	virtual SDL_Rect* getRect() = 0;
