@@ -2,7 +2,6 @@
 
 Mage::Mage()
 {
-	std::cout << "You are a Mage" << std::endl;
 }
 
 Mage::~Mage()
@@ -255,7 +254,6 @@ void Mage::Attack(float& m_enemyHealth)
 		{
 			m_mc->alterMana(-12);
 			m_hc->alterHealth(10);
-			std::cout << m_animationRect->x << std::endl;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[1] = true;

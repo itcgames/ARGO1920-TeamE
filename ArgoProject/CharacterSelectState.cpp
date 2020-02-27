@@ -41,7 +41,6 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_tankOption->y && event.button.y < m_tankOption->y + m_tankOption->h)
 			{
-				//std::cout << "Play Button" << std::endl;
 				LevelLoader::writeToPlayer("PLAYER_KNIGHT", 200, 200, 2, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);

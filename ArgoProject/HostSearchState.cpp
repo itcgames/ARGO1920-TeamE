@@ -43,7 +43,6 @@ void HostSearchState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_hostRect->y && event.button.y < m_hostRect->y + m_hostRect->h)
 			{
-				//std::cout << "Play Button" << std::endl;
 				data::Instance()->HOST = true;
 				m_stateMachine->changeState(new CharacterSelectState(m_cameraDimensions, m_stateMachine));
 			}
@@ -51,7 +50,6 @@ void HostSearchState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_searchRect->y && event.button.y < m_searchRect->y + m_searchRect->h)
 			{
-				//std::cout << "Play Button" << std::endl;
 				data::Instance()->HOST = false;
 				m_stateMachine->changeState(new CharacterSelectState(m_cameraDimensions, m_stateMachine));
 			}
@@ -59,14 +57,8 @@ void HostSearchState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_exitRect->y && event.button.y < m_exitRect->y + m_exitRect->h)
 			{
-				//std::cout << "Play Button" << std::endl;
 				m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
 			}
-			break;
-		case SDL_MOUSEBUTTONUP:
-			//move = false;
-			//m_mouseRect->x = event.button.x;
-			//m_mouseRect->y = event.button.y;
 			break;
 		default:
 			break;
@@ -96,7 +88,6 @@ bool HostSearchState::onEnter()
 	m_text[1] = new Text(Abel, m_texts[1], m_cameraDimensions.x * 0.25, m_cameraDimensions.y * 0.45);
 
 	SDL_Color White = { 255, 255, 255 };
-	//std::cout << "Entering Menu State\n";
 
 	m_hostRect = new SDL_Rect();
 	m_hostRect->x = m_cameraDimensions.x * 0.25;

@@ -2,7 +2,6 @@
 
 Knight::Knight()
 {
-	std::cout << "You are a Knight" << std::endl;
 }
 
 Knight::~Knight()
@@ -165,7 +164,6 @@ void Knight::update()
 	if (timer > 0)
 	{
 		timer--;
-		std::cout << timer << std::endl;
 	}
 
 	m_particleEffects->update();

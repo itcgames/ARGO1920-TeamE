@@ -45,7 +45,7 @@ void MenuState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_singlePlayerButton->y && event.button.y < m_singlePlayerButton->y + m_singlePlayerButton->h)
 			{
-				//std::cout << "Play Button" << std::endl;
+
 				data::Instance()->SINGLEPLAYER = true;
 				m_stateMachine->changeState(new CharacterSelectState(m_buttonDimensions, m_stateMachine));
 			}
@@ -53,7 +53,6 @@ void MenuState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_multiPlayerButton->y && event.button.y < m_multiPlayerButton->y + m_multiPlayerButton->h)
 			{
-				//std::cout << "Play Button" << std::endl;
 				data::Instance()->SINGLEPLAYER = false;
 				m_stateMachine->changeState(new CharacterSelectState(m_buttonDimensions, m_stateMachine));
 			}
@@ -61,24 +60,20 @@ void MenuState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_optionsButton->y && event.button.y < m_optionsButton->y + m_optionsButton->h)
 			{
-				//std::cout << "Options Button" << std::endl;
 				m_stateMachine->changeState(new CreditsState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_creditsButton->x && event.button.x < m_creditsButton->x + m_creditsButton->w
 				&&
 				event.button.y > m_creditsButton->y && event.button.y < m_creditsButton->y + m_creditsButton->h)
 			{
-				//std::cout << "Options Button" << std::endl;
 				m_stateMachine->changeState(new HighScoreState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_exitButton->x && event.button.x < m_exitButton->x + m_exitButton->w
 				&&
 				event.button.y > m_exitButton->y && event.button.y < m_exitButton->y + m_exitButton->h)
 			{
-				//std::cout << "Exit Button" << std::endl;
 				isRunning = false;
 			}
-			break;
 			break;
 		default:
 			break;
@@ -111,7 +106,6 @@ bool MenuState::onEnter()
 	{
 		m_text[i] = new Text(Abel, m_name[i], m_buttonDimensions.x * 0.05, m_buttonDimensions.y * (0.49 + (float(i) / 10.0f)));
 	}
-	//std::cout << "Entering Menu State\n";
 
 	m_singlePlayerButton = new SDL_Rect();
 	m_singlePlayerButton->x = m_buttonDimensions.x * 0.02;
