@@ -55,7 +55,7 @@ bool OptionsState::onEnter()
 	m_exitButton->w = m_cameraDimensions.x * 0.6;
 	m_exitButton->h = m_cameraDimensions.y * 0.2;
 
-	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/Gold.png");
+	SDL_Surface* m_exitButtonSurface = IMG_Load("Assets/Button.png");
 	m_exitButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitButtonSurface);
 	SDL_FreeSurface(m_exitButtonSurface);
 	return true;

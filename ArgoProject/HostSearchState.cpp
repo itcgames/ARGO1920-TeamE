@@ -92,31 +92,30 @@ bool HostSearchState::onEnter()
 	m_texts[0] = "Host";
 	m_texts[1] = "Search";
 
-	for (int i = 0; i < 2; i++)
-	{
-		m_text[i] = new Text(Abel, m_texts[i], m_cameraDimensions.x * 0.1, m_cameraDimensions.y * (0.1 + (float(i) / 2.0f)));
-	}
+	m_text[0] = new Text(Abel, m_texts[0], m_cameraDimensions.x * 0.3, m_cameraDimensions.y * 0.05);
+	m_text[1] = new Text(Abel, m_texts[1], m_cameraDimensions.x * 0.25, m_cameraDimensions.y * 0.45);
+
 	SDL_Color White = { 255, 255, 255 };
 	//std::cout << "Entering Menu State\n";
 
 	m_hostRect = new SDL_Rect();
-	m_hostRect->x = m_cameraDimensions.x * 0.1;
+	m_hostRect->x = m_cameraDimensions.x * 0.25;
 	m_hostRect->y = m_cameraDimensions.y * 0.1;
-	m_hostRect->w = m_cameraDimensions.x * 0.8;
+	m_hostRect->w = m_cameraDimensions.x * 0.5;
 	m_hostRect->h = m_cameraDimensions.y * 0.3;
 
-	SDL_Surface* m_hostSurface = IMG_Load("Assets/miniMapPlaceHolder.png");
+	SDL_Surface* m_hostSurface = IMG_Load("Assets/Button.png");
 	m_hostTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_hostSurface);
 
 
 
 	m_searchRect = new SDL_Rect();
-	m_searchRect->x = m_cameraDimensions.x * 0.1;
-	m_searchRect->y = m_cameraDimensions.y * 0.6;
-	m_searchRect->w = m_cameraDimensions.x * 0.8;
+	m_searchRect->x = m_cameraDimensions.x * 0.25;
+	m_searchRect->y = m_cameraDimensions.y * 0.5;
+	m_searchRect->w = m_cameraDimensions.x * 0.5;
 	m_searchRect->h = m_cameraDimensions.y * 0.3;
 
-	SDL_Surface* m_searchSurface = IMG_Load("Assets/ecs_text2.png");
+	SDL_Surface* m_searchSurface = IMG_Load("Assets/Button.png");
 	m_searchTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_searchSurface);
 
 	m_exitRect = new SDL_Rect();
@@ -125,7 +124,7 @@ bool HostSearchState::onEnter()
 	m_exitRect->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitRect->h = m_cameraDimensions.y * 0.1;
 
-	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/Stamina.png");
+	SDL_Surface* m_exitOptionSurface = IMG_Load("Assets/Button.png");
 	m_exitTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), m_exitOptionSurface);
 	
 	Abel = TTF_OpenFont("Assets/Font/Abel.ttf", m_cameraDimensions.y * 0.1);
