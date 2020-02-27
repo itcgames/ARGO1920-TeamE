@@ -49,7 +49,6 @@ void MultiplayerState::update()
 			}
 			else
 			{
-
 				{
 					if (m_client.vec1.size() > 1)
 					{
