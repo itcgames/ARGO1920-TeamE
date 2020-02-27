@@ -31,6 +31,7 @@ public:
 	int tileSize = 300;
 
 	std::vector<Entity*> mapInfo;
+	std::vector<Vector2> WayPoints;
 
 };
 

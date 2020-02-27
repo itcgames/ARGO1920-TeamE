@@ -26,6 +26,8 @@ Room::Room(int sizeX, int sizeY, Vector2 pos, RenderSystem* t_rs, CollisionSyste
 	}
 
 	centerPoint = tileList[tileList.size() / 2]->getPos();
+
+	//tileList.push_back(std::make_unique<Tile>(getCenterPos(), m_tileSize, m_tileSize, "Assets/Gold.png", "Floor", t_rs, t_cs));
 }
 
 Room::~Room()

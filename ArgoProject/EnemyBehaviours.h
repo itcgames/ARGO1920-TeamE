@@ -15,6 +15,7 @@
 struct EnemyStatus
 {
 	Vector2 m_position;
+	Vector2 m_targetPosition;
 	bool m_right;
 	bool m_left;
 };
@@ -48,6 +49,8 @@ public:
 
 		return m_status->m_left;
 	}
+
+
 
 private:
 	EnemyStatus* m_status;
@@ -133,6 +136,5 @@ private:
 	EnemyStatus* m_status;
 
 };
-
 #endif // !ENEMYBEHAVIOURS_H
 
