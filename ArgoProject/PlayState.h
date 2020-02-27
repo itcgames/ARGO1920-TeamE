@@ -3,6 +3,7 @@
 #include "ParticleSystem.h"
 #include "GameState.h"
 #include "EndState.h"
+#include "LoadState.h"
 #include "SDL.h"
 #include "Data.h"
 #include "Pickup.h"
@@ -97,7 +98,7 @@ private:
 	std::vector<Entity*> m_miniMapList;
 
 	bool bossSpawned = false;
-
+	GameData m_data;
 };
 
 #endif

@@ -42,7 +42,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				event.button.y > m_tankOption->y && event.button.y < m_tankOption->y + m_tankOption->h)
 			{
 				//std::cout << "Play Button" << std::endl;
-				LevelLoader::writeToPlayer("PLAYER_KNIGHT", 200, 200, 2, 0, 0);
+				LevelLoader::writeToPlayer("PLAYER_KNIGHT", 200, 200, 4, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
 				if (data::Instance()->SINGLEPLAYER)
@@ -58,7 +58,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_dpsOption->y && event.button.y < m_dpsOption->y + m_dpsOption->h)
 			{
-				LevelLoader::writeToPlayer("PLAYER_WARRIOR", 150, 100, 5, 0, 0);
+				LevelLoader::writeToPlayer("PLAYER_WARRIOR", 150, 100, 6, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
 				if (data::Instance()->SINGLEPLAYER)
@@ -74,7 +74,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				&&
 				event.button.y > m_mageOption->y && event.button.y < m_mageOption->y + m_mageOption->h)
 			{
-				LevelLoader::writeToPlayer("PLAYER_MAGE", 100, 200, 7, 0, 0);
+				LevelLoader::writeToPlayer("PLAYER_MAGE", 100, 200, 8, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
 				if (data::Instance()->SINGLEPLAYER)

@@ -94,10 +94,11 @@ void PlayState::update()
 			}
 		}
 
-		if (m_player->getHealth() <= 0 || m_player->m_killCount == 11)
+		if (m_player->getHealth() <= 0)
 		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+			m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
 		}
+		//|| m_player->m_killCount == 11
 
 	}
 	else
@@ -282,6 +283,11 @@ bool PlayState::onEnter()
 bool PlayState::onExit()
 {
 	std::cout << "Exiting Play State\n";
+
+	LevelLoader::writeToPlayer(m_player->getEntity()->getComponent<StatsComponent>(4)->getClass(), 200, 200/*m_player->getEntity()->getComponent<StatsComponent>(4)->getHealth()*/, m_player->getEntity()->getComponent<StatsComponent>(4)->getSpeed(), 0, m_player->m_killCount);
+	LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
+	data::Instance()->setUpData(m_data);
+
 	SDL_DestroyTexture(m_miniMapTexture);
 	SDL_DestroyTexture(m_menuBackgroundTexture);
 	SDL_DestroyTexture(m_playOptionTexture);
