@@ -149,5 +149,9 @@ bool CharacterSelectState::onExit()
 	SDL_DestroyTexture(m_mageOptionTexture);
 	SDL_DestroyTexture(m_exitOptionTexture);
 
+	//delete m_tankOption;
+	//delete m_mageOption;
+	//delete m_dpsOption;
+	//delete m_exitOption;
 	return true;
 }

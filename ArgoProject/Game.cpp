@@ -16,6 +16,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	srand(time(NULL));
 
 	Render::Instance()->setUpRenderer(title, xPos, yPos, width, height, fullscreen);
+	SDL_GetWindowSize(Render::Instance()->getWindow(), &width, &height);
 	data::Instance()->setUpData(m_data);
 	if (Render::Instance()->allOk())
 	{

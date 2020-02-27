@@ -10,7 +10,6 @@ SkillOne::~SkillOne()
 
 void SkillOne::idle(FSM* fsm)
 {
-	//std::cout << "Attack to idle" << std::endl;
 	fsm->setCurrent(new Idle());
 	delete this;
 }

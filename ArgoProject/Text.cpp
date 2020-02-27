@@ -10,6 +10,7 @@ Text::Text(TTF_Font* font, std::string t_text,  float xPos, float yPos)
 
 	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Font, t_text.c_str(), White);
 	m_textTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surfaceMessage);
+	SDL_FreeSurface(surfaceMessage);
 
 	m_textRect->x = xPos;
 	m_textRect->y = yPos;

@@ -42,7 +42,7 @@ public:
 			{
 				m_status->m_left = false;
 				m_status->m_position.x -= 5;
-				std::cout << "Moving Left" << std::endl;
+				//std::cout << "Moving Left" << std::endl;
 			}
 		}
 
@@ -67,7 +67,7 @@ public:
 	virtual bool run() override
 	{
 		m_status->m_position.y -= 5;
-		std::cout << "Moving Up" << std::endl;
+		//std::cout << "Moving Up" << std::endl;
 		return true;
 	}
 
@@ -89,7 +89,7 @@ public:
 	virtual bool run() override
 	{
 		m_status->m_position.y += 5;
-		std::cout << "Moving Down" << std::endl;
+		//std::cout << "Moving Down" << std::endl;
 		return true;
 	}
 
@@ -122,7 +122,7 @@ public:
 			{
 				m_status->m_right = false;
 				m_status->m_position.x += 5;
-				std::cout << "Moving Right" << std::endl;
+				//std::cout << "Moving Right" << std::endl;
 			}
 		}
 
