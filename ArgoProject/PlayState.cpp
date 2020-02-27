@@ -335,6 +335,25 @@ void PlayState::collisions()
 			}
 		}
 
+		if (m_miniMapList[i]->getID() == 1)
+		{
+			bool onMap = false;
+			for (int j = 0; j < m_miniMapList.size(); j++)
+			{
+				if (m_miniMapList[j]->getID() == 0 || m_miniMapList[j]->getID() == -1)
+				{
+					if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[j]->getComponent<SpriteComponent>(2)->getRect()) == true)
+					{
+						onMap = true;
+					}
+				}
+			}
+			if (!onMap)
+			{
+				m_player->getEntity()->getComponent<HealthComponent>(5)->alterHealth(-0.5f);
+			}
+		}
+
 		//Collision with enemy and player
 		if (m_miniMapList[i]->getID() == 2)
 		{

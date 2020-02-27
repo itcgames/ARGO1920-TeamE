@@ -160,7 +160,7 @@ void Knight::update()
 	}
 
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100, finiteStateMachine->getCurrentState(), m_attackTimer);
 
 	if (timer > 0)
 	{

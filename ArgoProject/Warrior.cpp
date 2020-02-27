@@ -124,8 +124,10 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Warrior::update()
 {
+	std::cout << finiteStateMachine->getCurrentState() << std::endl;
 	if (finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
 	{
+		std::cout << "Idle";
 		for (int i = 0; i < 3; i++)
 		{
 			if (m_skillActive[i] == true)
@@ -159,7 +161,7 @@ void Warrior::update()
 	}
 
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100, finiteStateMachine->getCurrentState(),m_attackTimer);
 	m_particleEffects->update();
 }
 
@@ -209,6 +211,10 @@ void Warrior::setAction()
 				spriteSheetY = 0;
 				attackSound->play();
 				m_ih->move = false;
+				if (m_skillActive[0] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
 				m_skillActive[0] = true;
 			}
 			break;
@@ -219,7 +225,12 @@ void Warrior::setAction()
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound->play();
 				m_ih->move = false;
+				if (m_skillActive[1] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
 				m_skillActive[1] = true;
+				
 			}
 			break;
 		case 4:
@@ -229,7 +240,12 @@ void Warrior::setAction()
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound->play();
 				m_ih->move = false;
+				if (m_skillActive[2] == false)
+				{
+					m_attackTimer = SDL_GetTicks();
+				}
 				m_skillActive[2] = true;
+				m_attackTimer = SDL_GetTicks();
 			}
 			break;
 		default:

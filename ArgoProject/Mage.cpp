@@ -167,7 +167,7 @@ void Mage::update()
 
 	setAction();
 	m_particleEffects->update();	
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100);
+	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100,finiteStateMachine->getCurrentState(), m_attackTimer);
 }
 
 void Mage::processEvents(bool isRunning)

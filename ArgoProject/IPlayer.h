@@ -99,6 +99,8 @@ protected:
 	Audio* spinAttackSound;
 	float dmg = 0.1;
 	int M_MAX_HEALTH;
+
+	int m_attackTimer;
 };
 
 #endif // !IPLAYER
