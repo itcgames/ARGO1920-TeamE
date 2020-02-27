@@ -78,7 +78,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->m_killCount == 0)
+		if (m_player->m_killCount == 15)
 		{
 			if (bossSpawned == false)
 			{
