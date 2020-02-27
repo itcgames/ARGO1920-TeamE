@@ -98,9 +98,9 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	for (int i = 0; i < 3; i++)
 	{
 		m_skillCooldown[i] = false;
-		m_skillActive[i] = false;
 	}
 
+	attackFinished = true;
 	m_killCount = 0;
 }
 
@@ -160,12 +160,14 @@ void Knight::update()
 	}
 
 	setAction();
-	m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100, finiteStateMachine->getCurrentState(), m_attackTimer);
+	if ((attackFinished == false) || finiteStateMachine->getCurrentState() == 0 || finiteStateMachine->getCurrentState() == 1)
+	{
+		m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100, finiteStateMachine->getCurrentState(), m_attackTimer);
+	}
 
 	if (timer > 0)
 	{
 		timer--;
-		std::cout << timer << std::endl;
 	}
 
 	m_particleEffects->update();
@@ -182,7 +184,12 @@ void Knight::setAction()
 	{
 		switch (finiteStateMachine->getCurrentState())
 		{
+		case 0:
+			spriteSheetY = frameHeight * 2;
+			attackFinished = true;
+			break;
 		case 1:
+			attackFinished = true;
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
@@ -206,42 +213,31 @@ void Knight::setAction()
 			}
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false)
+			if (m_skillCooldown[0] == false && attackFinished == true)
 			{
 				setDamage(1);
 				spriteSheetY = 0;
 
-				if (m_skillActive[0] == false)
-				{
-					m_attackTimer = SDL_GetTicks();
-				}
-				m_skillActive[0] = true;
+				m_attackTimer = SDL_GetTicks();
+				attackFinished = false;
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false)
+			if (m_skillCooldown[1] == false && attackFinished == true)
 			{
 				setDamage(3);
 				spriteSheetY = frameHeight * 3;
-
-				if (m_skillActive[1] == false)
-				{
-					m_attackTimer = SDL_GetTicks();
-				}
-				m_skillActive[1] = true;
+				m_attackTimer = SDL_GetTicks();
+				attackFinished = false;
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false)
+			if (m_skillCooldown[2] == false && attackFinished == true)
 			{
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10);
 				spriteSheetY = frameHeight * 4;
-
-				if (m_skillActive[2] == false)
-				{
-					m_attackTimer = SDL_GetTicks();
-				}
-				m_skillActive[2] = true;
+				m_attackTimer = SDL_GetTicks();
+				attackFinished = false;
 			}
 			break;
 		case 5:
