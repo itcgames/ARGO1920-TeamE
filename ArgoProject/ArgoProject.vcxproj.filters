@@ -237,6 +237,9 @@
     <ClCompile Include="LoadState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PopUpText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -466,11 +469,14 @@
     </ClInclude>
     <ClInclude Include="RandomSelector.h">
       <Filter>Header Files\BT</Filter>
-     </ClInclude>
+    </ClInclude>
     <ClInclude Include="MultiplayerState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="LoadState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PopUpText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

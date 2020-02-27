@@ -20,6 +20,7 @@
 #include "IPlayer.h"
 #include "FactoryPlayer.h"
 #include "Audio.h"
+#include "PopUpText.h"
 
 class PlayState : public GameState
 {
@@ -99,6 +100,11 @@ private:
 
 	bool bossSpawned = false;
 	GameData m_data;
+
+
+	std::vector<PopUpText*> message;
+	TTF_Font* Abel;
+
 };
 
 #endif

@@ -90,6 +90,8 @@ void PlayState::update()
 
 				m_enemies.back()->setRoom(myMap->map.size() - 1);
 
+				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450));
+
 				bossSpawned = true;
 			}
 		}
@@ -99,6 +101,19 @@ void PlayState::update()
 			m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
 		}
 		//|| m_player->m_killCount == 11
+
+		for (int i = 0; i < message.size(); i++)
+		{
+			if (message[i]->m_text != nullptr)
+			{
+				message[i]->update();
+			}
+			else
+			{
+				message.erase(message.begin() + i);
+			}
+			std::cout << message.size() << std::endl;
+		}
 
 	}
 	else
@@ -123,6 +138,13 @@ void PlayState::render()
 		SDL_RenderCopy(Render::Instance()->getRenderer(), m_menuBackgroundTexture, NULL, m_menuBackground);
 		SDL_RenderCopy(Render::Instance()->getRenderer(), m_playOptionTexture, NULL, m_playOption);
 		SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitOptionTexture, NULL, m_exitOption);
+	}
+	for (int i = 0; i < message.size(); i++)
+	{
+		if (message[i] != nullptr)
+		{
+			message[i]->render();
+		}
 	}
 }
 
@@ -276,6 +298,18 @@ bool PlayState::onEnter()
 
 	m_miniMapList = m_rs->m_miniMapList;
 
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+
+	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", m_cameraDimensions.y / 20);
+
+	if (!Abel) {
+		printf("TTF_OpenFont: %s\n", TTF_GetError());
+		// handle error
+	}
+
 
 	return true;
 }
@@ -397,6 +431,7 @@ void PlayState::collisions()
 					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
 						m_player->m_killCount++;
+						message.push_back(new PopUpText(Abel,m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass() + " Killed!", 50, 50 * message.size()));
 					}
 					m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 					m_rs->deleteEntity(m_miniMapList[i]);
