@@ -87,11 +87,6 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				}
 			}
 			break;
-		case SDL_MOUSEBUTTONUP:
-			//move = false;
-			//m_mouseRect->x = event.button.x;
-			//m_mouseRect->y = event.button.y;
-			break;
 		default:
 			break;
 		}
@@ -130,12 +125,12 @@ bool CharacterSelectState::onEnter()
 	m_mageOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	m_exitOption = new SDL_Rect();
-	m_exitOption->x = m_cameraDimensions.x * (2.5 / 6.0);
+	m_exitOption->x = m_cameraDimensions.x * 0.85;
 	m_exitOption->y = m_cameraDimensions.y * 0.9;
 	m_exitOption->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitOption->h = m_cameraDimensions.y * 0.1;
 
-	characterSelectSurface = IMG_Load("Assets/QuitButton.png");
+	characterSelectSurface = IMG_Load("Assets/ReturnButton.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), characterSelectSurface);
 
 	SDL_FreeSurface(characterSelectSurface);

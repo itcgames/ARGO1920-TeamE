@@ -1,23 +1,23 @@
 Highscores:
   - name: ALEX
     score: 11
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
-  - name: 
+  - name: ""
     score: 0
 Player:
   - class: PLAYER_WARRIOR

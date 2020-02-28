@@ -14,13 +14,13 @@ void HighScoreState::update()
 }
 void HighScoreState::render()
 {
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_backgroundTexture, NULL, m_background);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitOptionTexture, NULL, m_exitOption);
 	for (int i = 0; i < 10; i++)
 	{
 		if(m_score[i] > 0)
 		{ 
 			SDL_RenderCopy(Render::Instance()->getRenderer(), m_slotTexture, NULL, m_slotRect[i]);
-			//SDL_RenderCopy(Render::Instance()->getRenderer(), m_nameTextures[i], NULL, m_nameRects[i]);
 			m_text[i]->render();
 		}
 	}
@@ -102,13 +102,22 @@ bool HighScoreState::onEnter()
 	SDL_FreeSurface(surfaceSlot);
 	
 	m_exitOption = new SDL_Rect();
-	m_exitOption->x = m_cameraDimensions.x * (2.5 / 6.0);
+	m_exitOption->x = m_cameraDimensions.x * 0.85;
 	m_exitOption->y = m_cameraDimensions.y * 0.9;
 	m_exitOption->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitOption->h = m_cameraDimensions.y * 0.1;
 
 	SDL_Surface* Surface = IMG_Load("Assets/ReturnButton.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), Surface);
+
+	m_background = new SDL_Rect();
+	m_background->x = 0;
+	m_background->y = 0;
+	m_background->w = m_cameraDimensions.x;
+	m_background->h = m_cameraDimensions.y;
+
+	Surface = IMG_Load("Assets/Highscore.png");
+	m_backgroundTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), Surface);
 
 	SDL_FreeSurface(Surface);
 	return true;
@@ -121,6 +130,7 @@ bool HighScoreState::onExit()
 
 	SDL_DestroyTexture(m_slotTexture);
 	SDL_DestroyTexture(m_exitOptionTexture);
+	SDL_DestroyTexture(m_backgroundTexture);
 
 	for (int i = 0; i < 10; i++)
 	{

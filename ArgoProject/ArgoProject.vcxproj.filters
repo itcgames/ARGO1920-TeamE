@@ -19,12 +19,6 @@
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{ae12ff13-da0b-4886-ba88-f2b6f8e57ef4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Menu Components">
-      <UniqueIdentifier>{f5573c38-5998-4873-a935-5f0e93a7521b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu Components">
-      <UniqueIdentifier>{902b3bf3-ce1d-4e5b-a962-af4f5b038483}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ECS">
       <UniqueIdentifier>{cf609ef7-6320-4aab-b2f2-160c8d8e7b1b}</UniqueIdentifier>
     </Filter>
@@ -104,9 +98,6 @@
     </ClCompile>
     <ClCompile Include="GameStateMachine.cpp">
       <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuButton.cpp">
-      <Filter>Source Files\Menu Components</Filter>
     </ClCompile>
     <ClCompile Include="OptionsState.cpp">
       <Filter>Source Files\States</Filter>
@@ -253,9 +244,6 @@
     </ClInclude>
     <ClInclude Include="GameStateMachine.h">
       <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuButton.h">
-      <Filter>Header Files\Menu Components</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\ECS</Filter>
@@ -466,7 +454,7 @@
     </ClInclude>
     <ClInclude Include="RandomSelector.h">
       <Filter>Header Files\BT</Filter>
-     </ClInclude>
+    </ClInclude>
     <ClInclude Include="MultiplayerState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>

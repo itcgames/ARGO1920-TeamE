@@ -53,6 +53,9 @@ private:
 	Text* m_text[5];
 
 	GameStateMachine* m_stateMachine;
+
+	SDL_Rect* m_background;
+	SDL_Texture* m_backgroundTexture;
 };
 
 #endif
