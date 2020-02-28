@@ -376,10 +376,6 @@ void PlayState::cameraSetup()
 
 void PlayState::collisions()
 {
-	for (int i = 0; i < 1; i++)
-	{
-		m_bts->run(m_btEnemy[i]->getEntity());
-	}
 
 	for (int i = 0; i < m_miniMapList.size(); i++)
 	{

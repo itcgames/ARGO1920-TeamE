@@ -508,11 +508,6 @@ void MultiplayerState::collisions()
 		m_enemies[i]->update(m_playerBot->getPosition());
 	}
 
-	for (int i = 0; i < 1; i++)
-	{
-		m_bts->run(m_btEnemy[i]->getEntity());
-	}
-
 	/*for (int i = 0; i < m_pickUp.size(); i++)
 	{
 		if (m_cs->aabbCollision(m_player->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)

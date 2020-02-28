@@ -83,26 +83,36 @@ public:
 		m_psequence = new Sequence();
 		m_proot = new Sequence();
 
+		m_playerStatus->m_currentWayPoint = 1;
+
 		m_toward = new MoveTowards(m_playerStatus);
-		m_seek = new Seek(m_playerStatus);
-		m_pickup = new GetPickUp(m_playerStatus);
+		//m_seek = new Seek(m_playerStatus);
+		//m_pickup = new GetPickUp(m_playerStatus);
 
 		m_proot->addChild(m_pselector);
 
 		m_pselector->addChild(m_psequence);
 
 		m_psequence->addChild(m_toward);
-		m_psequence->addChild(m_seek);
-		m_psequence->addChild(m_pickup);
+		//m_psequence->addChild(m_seek);
+		//m_psequence->addChild(m_pickup);
 	}
 
-	void run(Entity* entity)
+	void run(Entity* entity, std::vector<Vector2> waypoints)
 	{
-		m_enemyStatus->m_position = entity->getComponent<PositionComponent>(1)->getPosition();
+		if (m_playerStatus->m_position != waypoints.back())
+		{
+			m_playerStatus->m_position = entity->getComponent<PositionComponent>(1)->getPosition();
+			m_playerStatus->m_targetPosition = waypoints[m_playerStatus->m_currentWayPoint];
 
-		m_root->run();
+			m_proot->run();
 
-		entity->getComponent<PositionComponent>(1)->setPosition(m_enemyStatus->m_position);
+			entity->getComponent<PositionComponent>(1)->setPosition(m_playerStatus->m_position);
+			if (m_playerStatus->m_position == waypoints[m_playerStatus->m_currentWayPoint])
+			{
+			m_playerStatus->m_currentWayPoint++;
+			}
+		}
 	}
 
 	void runPlayer(Entity* a, Entity* b, std::vector<Vector2> waypoints)
@@ -117,7 +127,7 @@ public:
 		m_playerStatus->m_targetWH.x = b->getComponent<SpriteComponent>(2)->getRect()->w;
 		m_playerStatus->m_targetWH.y = b->getComponent<SpriteComponent>(2)->getRect()->h;
 
-		if (m_playerStatus->m_position != waypoints.back())
+	/*	if (m_playerStatus->m_position != waypoints.back())
 		{
 			m_playerStatus->m_position = a->getComponent<PositionComponent>(1)->getPosition();
 			m_playerStatus->m_targetPosition = waypoints[m_playerStatus->m_currentWayPoint];
@@ -129,7 +139,7 @@ public:
 			{
 				m_playerStatus->m_currentWayPoint++;
 			}
-		}
+		}*/
 
 		//m_proot->run();
 

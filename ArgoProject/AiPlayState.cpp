@@ -20,33 +20,13 @@ void AiPlayState::update()
 	if (m_playerBot->getMenuActive() == false)
 	{
 		//Updates()
-			// Player 
-		//m_playerBot->update();
 
 		//HUD 
 		m_hud->update(m_playerBot->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_playerBot->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		//Pickups
-		/*if (m_playerBot->getEntity()->getComponent<HealthComponent>(4)->getHealth() <= 150)
-		{
-			for (int i = 0; i < m_pickUp.size(); i++)
-			{
-				m_pickUp.at(i)->update();
-
-				if (m_cs->aabbCollision(m_playerBot->getRect(), m_pickUp.at(i)->getEntity()->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->pickupCollisionResponse(m_playerBot->getEntity(), m_pickUp.at(i)->getEntity());
-					m_pickUp[i]->getEntity()->getComponent<ActiveComponent>(6)->setIsActive(false);
-					m_rs->deleteEntity(m_pickUp.at(i)->getEntity());
-					m_cs->deleteEntity(m_pickUp.at(i)->getEntity());
-					delete m_pickUp[i];
-					m_pickUp.erase(m_pickUp.begin() + i);
-				}
-			}
-		}*/
-
 
 		m_miniMapList = m_rs->m_miniMapList;
+
 		//Calls All the games Collisions
 		collisions();
 
@@ -113,11 +93,6 @@ void AiPlayState::update()
 			std::cout << message.size() << std::endl;
 		}
 
-		/*if (m_playerBot->getHealth() <= 0)
-		{
-			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
-		}*/
-
 		if (EndTimer > 0)
 		{
 			EndTimer--;
@@ -127,101 +102,9 @@ void AiPlayState::update()
 				m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
 			}
 		}
-
-		//|| m_player->m_killCount == 1
-		for (int m = 0; m < m_enemies.size(); m++)
-		{
-			magnitude = m_mag.magnitude(m_playerBot->getPosition(),
-				m_enemies[m]->getEntity()->getComponent<PositionComponent>(1)->getPosition());
-		}
-
-		if (m_playerBot->getHealth() < 50)
-		{
-			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-			int target = 0;
-			for (int i = 0; i < m_pickUp.size(); i++)
-			{
-				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-				if (temp < dist)
-				{
-					target = i;
-				}
-			}
-			if (m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "Health" &&
-				m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "health")
-			{
-				//target is closest pickup
-				m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity(), myMap->WayPoints);
-			}
-		}
-		else if (m_playerBot->getEntity()->getComponent<ManaComponent>(7)->getMana() < 50)
-		{
-			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-			int target = 0;
-			for (int i = 0; i < m_pickUp.size(); i++)
-			{
-				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-				if (temp < dist)
-				{
-					target = i;
-				}
-			}
-			if (m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "Mana" &&
-				m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "mana")
-			{
-				//target is closest pickup
-				//m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity(), myMap->WayPoints);
-			}
-
-			m_playerBot->update();
-
-		}
-		else if (m_playerBot->getEntity()->getComponent<StaminaComponent>(9)->getStamina() < 50)
-		{
-			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-			int target = 0;
-			for (int i = 0; i < m_pickUp.size(); i++)
-			{
-				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-				if (temp < dist)
-				{
-					target = i;
-				}
-			}
-			if (m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "Stamina" &&
-				m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "stamina")
-			{
-				//target is closest pickup
-				m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity(), myMap->WayPoints);
-				m_playerBot->update();
-			}
-		}
-		else
-		{
-			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_enemies[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-			int target = 0;
-			for (int i = 0; i < m_enemies.size(); i++)
-			{
-				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_enemies[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
-				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
-				if (temp < dist)
-				{
-					target = i;
-				}
-			}
-
-			//target is closest pickup
-			m_bts->runPlayer(m_playerBot->getEntity(), m_enemies[target]->getEntity(), myMap->WayPoints);
-			m_playerBot->update();
-
-		}
+		//target is closest pickup
+		m_bts->run(m_playerBot->getEntity(), myMap->WayPoints);
+		m_playerBot->update();
 
 	}
 	else
@@ -374,8 +257,7 @@ bool AiPlayState::onEnter()
 	m_background->play();
 
 	//
-	m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
-	m_playerBot->init(m_rs, camera, myMap->map[0]->getCenterPos());
+
 
 	m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->setCollide(false);
 
@@ -540,9 +422,6 @@ void AiPlayState::collisions()
 					m_enemies[j]->update(m_playerBot->getPosition());
 				}
 
-				//
-				m_bts->runPlayer(m_playerBot->getEntity(), m_enemies[i]->getEntity(), myMap->WayPoints);
-
 				if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
 				{
 					if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
@@ -574,8 +453,6 @@ void AiPlayState::collisions()
 							m_playerBot->m_killCount++;
 						}
 						m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-						//m_rs->deleteEntity(m_enemies[i]->getEntity());
-						//m_cs->deleteEntity(m_enemies[i]->getEntity());
 					}
 				}
 			}
