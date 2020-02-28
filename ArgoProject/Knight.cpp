@@ -214,9 +214,9 @@ void Knight::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false && attackFinished == true)
 			{
-				setDamage(1);
-
+				setDamage(0.01);
 				m_attackTimer = SDL_GetTicks();
+				m_ih->move = false;
 				attackFinished = false;
 				spriteSheetY = frameHeight * 3;
 				m_skillCooldown[0] = true;
@@ -225,8 +225,9 @@ void Knight::setAction()
 		case 3:
 			if (m_skillCooldown[1] == false && attackFinished == true)
 			{
-				setDamage(3);
+				setDamage(0.03);
 				m_attackTimer = SDL_GetTicks();
+				m_ih->move = false;
 				attackFinished = false;
 				spriteSheetY = 0;
 				m_skillCooldown[1] = true;
@@ -238,6 +239,7 @@ void Knight::setAction()
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10);
 				spriteSheetY = frameHeight * 4;
 				m_attackTimer = SDL_GetTicks();
+				m_ih->move = false;
 				attackFinished = false;
 				m_skillCooldown[2] = true;
 			}
@@ -257,8 +259,9 @@ void Knight::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false )
 		{
-			m_mc->alterMana(-13);
+			m_mc->alterMana(-3);
 			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[0] = true;
@@ -270,8 +273,9 @@ void Knight::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-13);
+			m_mc->alterMana(-3);
 			m_enemyHealth -= dmg;
+			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[1] = true;
@@ -283,8 +287,9 @@ void Knight::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-10);
+			m_mc->alterMana(-6);
 			m_hc->alterHealth(5);
+			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[2] = true;

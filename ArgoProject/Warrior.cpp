@@ -199,7 +199,7 @@ void Warrior::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false && attackFinished == true)
 			{
-				setDamage(1);
+				setDamage(0.01);
 				spriteSheetY = 0;
 				attackSound->play();
 				m_ih->move = false;
@@ -211,7 +211,7 @@ void Warrior::setAction()
 		case 3:
 			if (m_skillCooldown[1] == false &&  attackFinished == true)
 			{
-				setDamage(2);
+				setDamage(0.015);
 				spriteSheetY = frameHeight * 3;
 				slamAttackSound->play();
 				m_ih->move = false;
@@ -224,7 +224,7 @@ void Warrior::setAction()
 		case 4:
 			if (m_skillCooldown[2] == false  && attackFinished == true)
 			{
-				setDamage(3);
+				setDamage(0.02);
 				spriteSheetY = frameHeight * 4;
 				spinAttackSound->play();
 				m_ih->move = false;
@@ -249,7 +249,7 @@ void Warrior::Attack(float &m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false )
 		{
-			m_mc->alterMana(-1);
+			m_mc->alterMana(-2);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
@@ -263,7 +263,7 @@ void Warrior::Attack(float &m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-1);
+			m_mc->alterMana(-4);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
@@ -277,7 +277,7 @@ void Warrior::Attack(float &m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-1);
+			m_mc->alterMana(-6);
 			m_enemyHealth -= dmg;
 			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
