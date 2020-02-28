@@ -78,7 +78,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->m_killCount == 15)
+		if (localLevelKillCount == 15)
 		{
 			if (bossSpawned == false)
 			{
@@ -96,11 +96,6 @@ void PlayState::update()
 			}
 		}
 
-		if (m_player->getHealth() <= 0)
-		{
-			m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
-		}
-		//|| m_player->m_killCount == 11
 
 		for (int i = 0; i < message.size(); i++)
 		{
@@ -114,6 +109,23 @@ void PlayState::update()
 			}
 			std::cout << message.size() << std::endl;
 		}
+
+		if (m_player->getHealth() <= 0)
+		{
+			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
+		}
+
+		if (EndTimer > 0)
+		{
+			EndTimer--;
+
+			if (EndTimer <= 10)
+			{
+				m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
+			}
+		}
+
+		//|| m_player->m_killCount == 1
 
 	}
 	else
@@ -431,6 +443,7 @@ void PlayState::collisions()
 					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
 						m_player->m_killCount++;
+						localLevelKillCount++;
 						enemyKilledMessageSort(m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass());
 						message.push_back(new PopUpText(Abel, "+ 1", 1400, 1000, 100));
 
@@ -542,6 +555,7 @@ void PlayState::enemyKilledMessageSort(std::string type)
 
 	if (type == "ENEMY_BOSS")
 	{
-		message.push_back(new PopUpText(Abel, "SKELETON KING ELIMINATED", 1500, 1000, 100));
+		message.push_back(new PopUpText(Abel, "SKELETON KING ELIMINATED", 800, 500, 100));
+		EndTimer = 300;
 	}
 }

@@ -97,6 +97,9 @@ private:
 	std::vector<PopUpText*> message;
 	TTF_Font* Abel;
 
+	int EndTimer = 0;
+	int localLevelKillCount = 0;
+
 };
 
 #endif
