@@ -20,6 +20,7 @@
 #include "IPlayer.h"
 #include "FactoryPlayer.h"
 #include "Audio.h"
+#include "PopUpText.h"
 
 class PlayState : public GameState
 {
@@ -40,7 +41,7 @@ private:
 	void collisions();
 	void MenuInit();
 	double GenerateRandomNumber(double min, double max);
-
+	void enemyKilledMessageSort(std::string type);
 
 	static const std::string m_playID;
 	RenderSystem* m_rs;
@@ -69,14 +70,6 @@ private:
 
 	GameStateMachine* m_stateMachine;
 
-	//Server m_server{ 8888, true };
-	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	//Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
-
-	//Server m_server{ 1111, true };
-	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	//Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
-
 
 	Audio* m_background;
 
@@ -99,6 +92,14 @@ private:
 
 	bool bossSpawned = false;
 	GameData m_data;
+
+
+	std::vector<PopUpText*> message;
+	TTF_Font* Abel;
+
+	int EndTimer = 0;
+	int localLevelKillCount = 0;
+
 };
 
 #endif

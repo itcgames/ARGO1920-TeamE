@@ -196,7 +196,7 @@ void Knight::setAction()
 		case 4:
 			if (m_skillCooldown[2] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
-				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10);
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10,10,"Assets/Tiles/tile.png");
 				spriteSheetY = frameHeight * 4;
 				m_attackTimer = SDL_GetTicks();
 				m_ih->move = false;

@@ -162,7 +162,7 @@ void Mage::update()
 
 	if (m_skillCooldown[0])
 	{
-		m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+		m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16,10, "Assets/Tiles/tile.png");
 	}
 
 	setAction();
@@ -214,11 +214,12 @@ void Mage::setAction()
 		case 2:
 			if (m_skillCooldown[0] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
-				setDamage(0.03);
-				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+				setDamage(1);
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16, 10, "Assets/Tiles/tile.png");
 				spriteSheetY = 0;
-				m_ih->move = false;
-				m_attackTimer = SDL_GetTicks();		
+
+				m_attackTimer = SDL_GetTicks();
+				
 				attackFinished = false;
 			}
 			break;
@@ -226,7 +227,6 @@ void Mage::setAction()
 			if (m_skillCooldown[1] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				spriteSheetY = frameHeight * 3;
-				m_ih->move = false;
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
 			}
@@ -235,7 +235,6 @@ void Mage::setAction()
 			if (m_skillCooldown[2] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				spriteSheetY = frameHeight * 4;
-				m_ih->move = false;
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
 			}
@@ -255,9 +254,8 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false)
 		{
-			m_mc->alterMana(-3);
+			m_mc->alterMana(-10);
 			m_enemyHealth -= dmg;
-			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[0] = true;
@@ -269,9 +267,8 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-3);
-			m_hc->alterHealth(1);
-			m_attackFrame = 0;
+			m_mc->alterMana(-12);
+			m_hc->alterHealth(10);
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[1] = true;
@@ -284,9 +281,8 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-6);
+			m_mc->alterMana(-13);
 			dmg += 1;
-			m_attackFrame = 0;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[2] = true;

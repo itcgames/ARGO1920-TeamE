@@ -174,7 +174,7 @@ void Warrior::setAction()
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
 				walkSound->play();
-				m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10);
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::TRAIL, 10,10, "Assets/Tiles/tile.png");
 				m_seek = true;
 				//This is to stop the jittering in the movement.         
 				float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
