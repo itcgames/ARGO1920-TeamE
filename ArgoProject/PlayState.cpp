@@ -78,7 +78,7 @@ void PlayState::update()
 
 		m_hud->update(m_player->getEntity()->getComponent<HealthComponent>(5)->getHealth(), m_player->getEntity()->getComponent<ManaComponent>(7)->getMana());
 
-		if (m_player->m_killCount == 15)
+		if (localLevelKillCount == 15)
 		{
 			if (bossSpawned == false)
 			{
@@ -90,18 +90,48 @@ void PlayState::update()
 
 				m_enemies.back()->setRoom(myMap->map.size() - 1);
 
+				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450,120));
+
 				bossSpawned = true;
 			}
 		}
 
+
+		for (int i = 0; i < message.size(); i++)
+		{
+			if (message[i]->m_text != nullptr)
+			{
+				message[i]->update();
+			}
+			else
+			{
+				message.erase(message.begin() + i);
+			}
+			std::cout << message.size() << std::endl;
+		}
+
 		if (m_player->getHealth() <= 0)
 		{
-			m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
+			m_stateMachine->changeState(new EndState(m_cameraDimensions, m_stateMachine));
 		}
+
+		if (EndTimer > 0)
+		{
+			EndTimer--;
+
+			if (EndTimer <= 10)
+			{
+				m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
+			}
+		}
+
+		//|| m_player->m_killCount == 1
+
 	}
 	else
 	{
 		m_miniMapList;
+		std::cout << "";
 	}
 }
 
@@ -120,6 +150,13 @@ void PlayState::render()
 		SDL_RenderCopy(Render::Instance()->getRenderer(), m_menuBackgroundTexture, NULL, m_menuBackground);
 		SDL_RenderCopy(Render::Instance()->getRenderer(), m_playOptionTexture, NULL, m_playOption);
 		SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitOptionTexture, NULL, m_exitOption);
+	}
+	for (int i = 0; i < message.size(); i++)
+	{
+		if (message[i] != nullptr)
+		{
+			message[i]->render();
+		}
 	}
 }
 
@@ -162,6 +199,7 @@ void PlayState::processEvents(bool& isRunning)
 
 bool PlayState::onEnter()
 {
+	data::Instance()->playerName = "";
 	std::cout << "Entering Play State\n";
 
 	MenuInit();
@@ -273,6 +311,18 @@ bool PlayState::onEnter()
 
 	m_miniMapList = m_rs->m_miniMapList;
 
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+
+	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", m_cameraDimensions.y / 20);
+
+	if (!Abel) {
+		printf("TTF_OpenFont: %s\n", TTF_GetError());
+		// handle error
+	}
+
 
 	return true;
 }
@@ -284,6 +334,7 @@ bool PlayState::onExit()
 	LevelLoader::writeToPlayer(m_player->getEntity()->getComponent<StatsComponent>(4)->getClass(), 200, 200/*m_player->getEntity()->getComponent<StatsComponent>(4)->getHealth()*/, m_player->getEntity()->getComponent<StatsComponent>(4)->getSpeed(), 0, m_player->m_killCount);
 	LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 	data::Instance()->setUpData(m_data);
+	data::Instance()->update();
 
 	SDL_DestroyTexture(m_miniMapTexture);
 	SDL_DestroyTexture(m_menuBackgroundTexture);
@@ -308,7 +359,7 @@ void PlayState::cameraSetup()
 
 	level = new SDL_Rect();
 	level->w = 18000;
-	level->h = 12000;
+	level->h = 13000;
 	level->x = 0;
 	level->y = 0;
 
@@ -394,6 +445,11 @@ void PlayState::collisions()
 					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
 						m_player->m_killCount++;
+						data::Instance()->playerScore = m_player->m_killCount;
+						localLevelKillCount++;
+						enemyKilledMessageSort(m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass());
+						message.push_back(new PopUpText(Abel, "+ 1", 1400, 1000, 100));
+
 					}
 					m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 					m_rs->deleteEntity(m_miniMapList[i]);
@@ -481,4 +537,28 @@ double PlayState::GenerateRandomNumber(double min, double max)
 	std::mt19937 mt(m_randDev());
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(mt);
+}
+
+void PlayState::enemyKilledMessageSort(std::string type)
+{
+	if (type == "ENEMY_EASY")
+	{
+		message.push_back(new PopUpText(Abel, "Lesser Zombie Killed!", 50, 50 * message.size(), 80));
+	}
+
+	if (type == "ENEMY_MEDIUM")
+	{
+		message.push_back(new PopUpText(Abel, "Zombie Killed!", 50, 50 * message.size(), 80));
+	}
+
+	if (type == "ENEMY_HARD")
+	{
+		message.push_back(new PopUpText(Abel, "Elite Zombie Killed!", 50, 50 * message.size(), 80));
+	}
+
+	if (type == "ENEMY_BOSS")
+	{
+		message.push_back(new PopUpText(Abel, "SKELETON KING ELIMINATED", 800, 500, 100));
+		EndTimer = 300;
+	}
 }

@@ -170,6 +170,7 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="PopUpText.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="SendGetMethods.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="PlayerBehaviours.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="PopUpText.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="RandomSelector.h" />
     <ClInclude Include="Renderer.h" />

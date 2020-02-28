@@ -24,7 +24,7 @@ public:
 
 	void update();
 
-	void AddParticles(Vector2 pos, Type typeID, int numofParticles);
+	void AddParticles(Vector2 pos, Type typeID, int numofParticles,int size,std::string fileName);
 
 	Vector2 disperseInCircle(Vector2 t_pos, int circleRadius);
 

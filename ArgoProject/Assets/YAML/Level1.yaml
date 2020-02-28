@@ -1,6 +1,6 @@
 Highscores:
-  - name: ALEX
-    score: 11
+  - name: ""
+    score: 0
   - name: ""
     score: 0
   - name: ""
@@ -48,7 +48,7 @@ Presets:
       strength: 50
     - class: ENEMY_BOSS
       gold: 100000
-      health: 1000
+      health: 50
       killcount: 0
       speed: 1
       strength: 100

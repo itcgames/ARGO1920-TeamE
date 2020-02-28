@@ -45,6 +45,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				LevelLoader::writeToPlayer("PLAYER_KNIGHT", 200, 200, 4, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
+				data::Instance()->update();
 				if (data::Instance()->SINGLEPLAYER)
 				{
 					m_stateMachine->changeState(new PlayState(m_cameraDimensions, m_stateMachine));
@@ -61,6 +62,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				LevelLoader::writeToPlayer("PLAYER_WARRIOR", 150, 100, 6, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
+				data::Instance()->update();
 				if (data::Instance()->SINGLEPLAYER)
 				{
 					m_stateMachine->changeState(new PlayState(m_cameraDimensions, m_stateMachine));
@@ -77,6 +79,7 @@ void CharacterSelectState::processEvents(bool& isRunning)
 				LevelLoader::writeToPlayer("PLAYER_MAGE", 100, 200, 8, 0, 0);
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
+				data::Instance()->update();
 				if (data::Instance()->SINGLEPLAYER)
 				{
 					m_stateMachine->changeState(new PlayState(m_cameraDimensions, m_stateMachine));
