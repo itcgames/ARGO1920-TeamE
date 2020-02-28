@@ -55,7 +55,6 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_sc = new SpriteComponent(m_playerTexture, m_positionRect, 2);
 	m_bc = new BehaviourComponent(Vector2(0, 0), 10, 0, 3);
 
-	m_mc = new ManaComponent(1000, 8);
 	m_stc = new StaminaComponent(1000, 9);
 
 	m_statc = new StatsComponent(data::Instance()->getData().m_playerStats.at(0).m_class, data::Instance()->getData().m_playerStats.at(0).m_health,
@@ -134,7 +133,7 @@ void Warrior::update()
 		}
 	}
 
-	if ((commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400) || (!commandQueue.empty() && m_animationRect->x >= 1400 && !m_ih->move) || m_mc->getMana() <= 0)
+	if ((commandQueue.empty() && !m_ih->move && m_animationRect->x >= 1400) || (!commandQueue.empty() && m_animationRect->x >= 1400 && !m_ih->move))
 	{
 		finiteStateMachine->idle();
 		spriteSheetY = frameHeight * 2;
@@ -162,8 +161,7 @@ void Warrior::processEvents(bool isRunning)
 
 void Warrior::setAction()
 {
-	if (m_mc->getMana() > 0)
-	{
+
 		switch (finiteStateMachine->getCurrentState())
 		{
 		case 0:
@@ -197,7 +195,7 @@ void Warrior::setAction()
 			attackFinished = true;
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false && attackFinished == true)
+			if (m_skillCooldown[0] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				setDamage(0.01);
 				spriteSheetY = 0;
@@ -209,7 +207,7 @@ void Warrior::setAction()
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false &&  attackFinished == true)
+			if (m_skillCooldown[1] == false &&  attackFinished == true && m_mc->getMana() > 0)
 			{
 				setDamage(0.015);
 				spriteSheetY = frameHeight * 3;
@@ -222,7 +220,7 @@ void Warrior::setAction()
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false  && attackFinished == true)
+			if (m_skillCooldown[2] == false  && attackFinished == true && m_mc->getMana() > 0)
 			{
 				setDamage(0.02);
 				spriteSheetY = frameHeight * 4;
@@ -240,7 +238,7 @@ void Warrior::setAction()
 			walkSound->stop();
 			break;
 		}
-	}
+	
 }
 
 void Warrior::Attack(float &m_enemyHealth)

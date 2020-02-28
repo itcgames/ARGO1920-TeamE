@@ -180,8 +180,7 @@ void Mage::processEvents(bool isRunning)
 
 void Mage::setAction()
 {
-	if (m_mc->getMana() > 0)
-	{
+
 		switch (finiteStateMachine->getCurrentState())
 		{
 		case 0:
@@ -213,7 +212,7 @@ void Mage::setAction()
 			attackFinished = true;
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false && attackFinished == true)
+			if (m_skillCooldown[0] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				setDamage(1);
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16, 10, "Assets/Tiles/tile.png");
@@ -225,7 +224,7 @@ void Mage::setAction()
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false && attackFinished == true)
+			if (m_skillCooldown[1] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				spriteSheetY = frameHeight * 3;
 				m_attackTimer = SDL_GetTicks();
@@ -233,7 +232,7 @@ void Mage::setAction()
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false && attackFinished == true)
+			if (m_skillCooldown[2] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				spriteSheetY = frameHeight * 4;
 				m_attackTimer = SDL_GetTicks();
@@ -246,7 +245,7 @@ void Mage::setAction()
 		default:
 			break;
 		}
-	}
+	
 }
 
 void Mage::Attack(float& m_enemyHealth)

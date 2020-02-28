@@ -104,37 +104,9 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 }
 
 void Knight::update()
-{
-	//checks if the player is in walking state
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
-		{
-			m_seek = true;
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
-			{
-				//m_bs->seek(m_ih->mousePosition);
-				m_bs->seek(m_ih->mousePosition);
-			}
-			else
-			{
-				m_ih->move = false;
-			}
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
-		}
-		else
-		{
-			m_seek = false;
-		}
-	}
-
+{	
 	if (m_ih->move)
 	{
-		spriteSheetY = frameHeight;
 		finiteStateMachine->walking();
 
 		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y)
@@ -151,7 +123,7 @@ void Knight::update()
 		finiteStateMachine->idle();
 	}
 
-	else while (!commandQueue.empty() && m_animationRect->x != 0)
+	if (!commandQueue.empty() && m_animationRect->x != 0)
 	{
 		m_animationRect->x = 0;
 		commandQueue.back()->execute(finiteStateMachine);
@@ -163,12 +135,6 @@ void Knight::update()
 	{
 		m_anim->animate(m_animationRect, m_positionRect, spriteSheetY, frameWidth, 100, finiteStateMachine->getCurrentState(), m_attackTimer);
 	}
-
-	if (timer > 0)
-	{
-		timer--;
-	}
-
 	m_particleEffects->update();
 }
 
@@ -179,8 +145,7 @@ void Knight::processEvents(bool isRunning)
 
 void Knight::setAction()
 {
-	if (m_mc->getMana() > 0)
-	{
+
 		switch (finiteStateMachine->getCurrentState())
 		{
 		case 0:
@@ -188,7 +153,7 @@ void Knight::setAction()
 			attackFinished = true;
 			break;
 		case 1:
-			attackFinished = true;
+			spriteSheetY = frameHeight;
 			//the player seeks the mouse position
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
@@ -206,51 +171,41 @@ void Knight::setAction()
 				m_positionRect->x = m_pc->getPosition().x;
 				m_positionRect->y = m_pc->getPosition().y;
 			}
-			else
-			{
-				m_seek = false;
-			}
+			attackFinished = true;
 			break;
 		case 2:
-			if (m_skillCooldown[0] == false && attackFinished == true)
+			if (m_skillCooldown[0] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
-				setDamage(0.01);
+				setDamage(0.01);	
 				m_attackTimer = SDL_GetTicks();
 				m_ih->move = false;
 				attackFinished = false;
 				spriteSheetY = frameHeight * 3;
-				m_skillCooldown[0] = true;
 			}
 			break;
 		case 3:
-			if (m_skillCooldown[1] == false && attackFinished == true)
+			if (m_skillCooldown[1] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
-				setDamage(0.03);
-				m_attackTimer = SDL_GetTicks();
+				setDamage(0.03);	
 				m_ih->move = false;
+				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
 				spriteSheetY = 0;
-				m_skillCooldown[1] = true;
 			}
 			break;
 		case 4:
-			if (m_skillCooldown[2] == false && attackFinished == true)
+			if (m_skillCooldown[2] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 10,10,"Assets/Tiles/tile.png");
 				spriteSheetY = frameHeight * 4;
 				m_attackTimer = SDL_GetTicks();
 				m_ih->move = false;
 				attackFinished = false;
-				m_skillCooldown[2] = true;
 			}
-			break;
-		case 5:
-			spriteSheetY = frameHeight * 5;
 			break;
 		default:
 			break;
 		}
-	}
 }
 
 void Knight::Attack(float& m_enemyHealth)
