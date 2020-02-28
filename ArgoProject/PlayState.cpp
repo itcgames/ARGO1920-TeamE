@@ -46,7 +46,6 @@ void PlayState::update()
 		m_miniMapList = m_rs->m_miniMapList;
 		//Calls All the games Collisions
 		collisions();
-		m_playerBot->update();
 		camera->x = m_player->getPosition().x + 50 - camera->w / 2;
 		camera->y = m_player->getPosition().y + 50 - camera->h / 2;
 
@@ -122,6 +121,7 @@ void PlayState::update()
 		}
 		//target is closest pickup
 		m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity());
+		m_playerBot->update();
 	}
 }
 
