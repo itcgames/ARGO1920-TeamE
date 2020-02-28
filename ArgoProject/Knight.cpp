@@ -101,6 +101,8 @@ void Knight::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	attackFinished = true;
 	m_killCount = m_statc->getkillCount();
+
+	finiteStateMachine->idle();
 }
 
 void Knight::update()

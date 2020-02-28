@@ -199,6 +199,7 @@ void PlayState::processEvents(bool& isRunning)
 
 bool PlayState::onEnter()
 {
+	data::Instance()->playerName = "";
 	std::cout << "Entering Play State\n";
 
 	MenuInit();
@@ -333,6 +334,7 @@ bool PlayState::onExit()
 	LevelLoader::writeToPlayer(m_player->getEntity()->getComponent<StatsComponent>(4)->getClass(), 200, 200/*m_player->getEntity()->getComponent<StatsComponent>(4)->getHealth()*/, m_player->getEntity()->getComponent<StatsComponent>(4)->getSpeed(), 0, m_player->m_killCount);
 	LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 	data::Instance()->setUpData(m_data);
+	data::Instance()->update();
 
 	SDL_DestroyTexture(m_miniMapTexture);
 	SDL_DestroyTexture(m_menuBackgroundTexture);
@@ -443,6 +445,7 @@ void PlayState::collisions()
 					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
 						m_player->m_killCount++;
+						data::Instance()->playerScore = m_player->m_killCount;
 						localLevelKillCount++;
 						enemyKilledMessageSort(m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass());
 						message.push_back(new PopUpText(Abel, "+ 1", 1400, 1000, 100));

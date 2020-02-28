@@ -74,6 +74,7 @@ void EndState::processEvents(bool& isRunning)
 				data::Instance()->newScore();
 				LevelLoader::load(".\\ASSETS\\YAML\\Level1.yaml", m_data);
 				data::Instance()->setUpData(m_data);
+				data::Instance()->update();
 				m_stateMachine->changeState(new MenuState(m_cameraDimensions, m_stateMachine));
 			}
 			break;
@@ -84,6 +85,7 @@ void EndState::processEvents(bool& isRunning)
 }
 bool EndState::onEnter()
 {
+	data::Instance()->playerName = "";
 	if (TTF_Init() == -1)
 	{
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());

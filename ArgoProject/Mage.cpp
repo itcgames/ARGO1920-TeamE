@@ -102,6 +102,8 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_particleEffects = new ParticleSystem("PLAY", t_rs);
 
 	attackFinished = true;
+
+	finiteStateMachine->idle();
 }
 
 void Mage::update()

@@ -19,6 +19,7 @@ public:
 
 	void setUpData(GameData& t_data);
 	void newScore();
+	void update();
 	GameData& getData() { return m_data; }
 	bool HOST = false;
 	bool SINGLEPLAYER = false;
