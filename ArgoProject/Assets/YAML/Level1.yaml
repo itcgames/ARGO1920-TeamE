@@ -24,7 +24,7 @@ Player:
     gold: 0
     health: 150
     killcount: 0
-    speed: 5
+    speed: 6
     strength: 100
 Presets:
   Stats:
