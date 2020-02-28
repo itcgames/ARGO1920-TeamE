@@ -47,7 +47,6 @@ void PlayState::update()
 		//Calls All the games Collisions
 		collisions();
 		m_playerBot->update();
-
 		camera->x = m_player->getPosition().x + 50 - camera->w / 2;
 		camera->y = m_player->getPosition().y + 50 - camera->h / 2;
 
@@ -389,44 +388,44 @@ void PlayState::collisions()
 	{
 		//m_bts->run(m_playerBot->getEntity(), myMap->WayPoints);
 
-		//	m_bts->runPlayer(m_playerBot->getEntity(), m_btEnemy[i]->getEntity());
+		m_bts->runPlayer(m_playerBot->getEntity(), m_enemies[i]->getEntity());
 
-		//	if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
-		//	{
-		//		if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
-		//		{
-		//			//player attacking enemy function
-		//			float temp = m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+		if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
+		{
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
+			{
+				//player attacking enemy function
+				float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
 
-		//			if (m_playerBot->m_mc->getMana() > 0)
-		//			{
-		//				int oldState = m_playerBot->getFSM()->getCurrentState();
-		//				m_playerBot->getFSM()->setCurrentState(2);
-		//				m_playerBot->Attack(temp);
-		//				m_playerBot->getFSM()->setCurrentState(oldState);
-		//			}
+				if (m_playerBot->m_mc->getMana() > 0)
+				{
+					int oldState = m_playerBot->getFSM()->getCurrentState();
+					m_playerBot->getFSM()->setCurrentState(2);
+					m_playerBot->Attack(temp);
+					m_playerBot->getFSM()->setCurrentState(oldState);
+				}
 
-		//			m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+				m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
 
 
-		//			m_playerBot->setSeek(false);
-		//			//m_enemies[i]->setSeek(false);
-		//			m_playerBot->setTargetPosition(m_player->getPosition());
-		//			m_cs->collisionResponse(m_playerBot->getEntity(), m_btEnemy[i]->getEntity(), m_playerBot->getSeek());
-		//		}
+				m_playerBot->setSeek(false);
+				//m_enemies[i]->setSeek(false);
+				m_playerBot->setTargetPosition(m_player->getPosition());
+				m_cs->collisionResponse(m_playerBot->getEntity(), m_enemies[i]->getEntity(), m_playerBot->getSeek());
+			}
 
-		//		else if (m_btEnemy[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
-		//		{
-		//			if (m_btEnemy[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
-		//			{
-		//				m_playerBot->m_killCount++;
-		//			}
-		//			m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-		//			m_rs->deleteEntity(m_btEnemy[i]->getEntity());
-		//			m_cs->deleteEntity(m_btEnemy[i]->getEntity());
-		//		}
-		//	}
-		//}
+			else if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			{
+				if (m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+				{
+					m_playerBot->m_killCount++;
+				}
+				m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+				m_rs->deleteEntity(m_btEnemy[i]->getEntity());
+				m_cs->deleteEntity(m_btEnemy[i]->getEntity());
+			}
+		}
+	}
 
 
 
@@ -542,8 +541,8 @@ void PlayState::collisions()
 
 		}
 
-	}
 }
+
 
 
 void PlayState::MenuInit()

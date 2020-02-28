@@ -244,4 +244,67 @@ private:
 
 };
 
+class GetHealth : public Node
+{
+public:
+	GetHealth(PlayerStatus* status) :
+		m_status(status)
+	{
+
+	}
+
+	virtual bool run() override
+	{
+		if (m_status->atPoint == false)
+		{
+			if (m_status->m_position == m_status->m_targetPosition)
+			{
+				m_status->atPoint = true;
+			}
+			else
+			{
+				Vector2 movementVector = m_status->m_targetPosition - m_status->m_position;
+				if (movementVector.x > 0)
+				{
+					if (m_status->m_position.x != m_status->m_targetPosition.x)
+					{
+						m_status->m_position.x += 5;
+					}
+				}
+				else
+				{
+					if (m_status->m_position.x != m_status->m_targetPosition.x)
+					{
+						m_status->m_position.x -= 5;
+					}
+				}
+
+				if (movementVector.y > 0)
+				{
+					if (m_status->m_position.y != m_status->m_targetPosition.y && m_status->m_position.x == m_status->m_targetPosition.x)
+					{
+						m_status->m_position.y += 5;
+					}
+				}
+				else
+				{
+					if (m_status->m_position.y != m_status->m_targetPosition.y && m_status->m_position.x == m_status->m_targetPosition.x)
+					{
+						m_status->m_position.y -= 5;
+					}
+				}
+
+				std::cout << "Getting Health" << std::endl;
+			}
+		}
+
+		return m_status->atPoint;
+	}
+
+private:
+	PlayerStatus* m_status;
+
+};
+
+
 #endif // !PLAYERBEHAVIOURS_H
