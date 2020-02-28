@@ -51,8 +51,8 @@ void PlayState::update()
 		collisions();
 
 
-		camera->x = m_player->getPosition().x + 50 - camera->w / 2;
-		camera->y = m_player->getPosition().y + 50 - camera->h / 2;
+		camera->x = m_playerBot->getPosition().x + 50 - camera->w / 2;
+		camera->y = m_playerBot->getPosition().y + 50 - camera->h / 2;
 
 		if (camera->x < 0)
 		{
@@ -412,12 +412,12 @@ bool PlayState::onEnter()
 
 		int randomEnemyPreset = rand() % 3;
 
-		m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
+		//m_btEnemy.push_back(FactoryEnemy::createEnemy(FactoryEnemy::ENEMY_EASY));
 
 		//@ALEX HERE 
-		m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
+		//m_btEnemy[i]->initialize(m_rs, m_player->getPosition(), "BT", 100, 100, 100, 100, 0);
 
-		m_btEnemy[i]->setRoom(tempRandPos);
+		//m_btEnemy[i]->setRoom(tempRandPos);
 	}
 
 	m_miniMapList = m_rs->m_miniMapList;
@@ -484,7 +484,7 @@ void PlayState::collisions()
 {
 	for (int i = 0; i < 1; i++)
 	{
-		m_bts->run(m_btEnemy[i]->getEntity());
+		//m_bts->run(m_btEnemy[i]->getEntity());
 	}
 
 	/*for (int i = 0; i < 1; i++)
@@ -529,7 +529,7 @@ void PlayState::collisions()
 			}
 		}
 	}*/
-
+	int playerNo = 0;
 	for (int i = 0; i < m_miniMapList.size(); i++)
 	{
 		if (m_miniMapList[i]->getID() == 0)
@@ -544,12 +544,14 @@ void PlayState::collisions()
 
 		if (m_miniMapList[i]->getID() == 1)
 		{
+			playerNo++;
+			std::cout << playerNo << std::endl;
 			bool onMap = false;
 			for (int j = 0; j < m_miniMapList.size(); j++)
 			{
 				if (m_miniMapList[j]->getID() == 0 || m_miniMapList[j]->getID() == -1)
 				{
-					if (m_cs->aabbCollision(m_player->getRect(), m_miniMapList[j]->getComponent<SpriteComponent>(2)->getRect()) == true)
+					if (m_cs->aabbCollision(m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect(), m_miniMapList[j]->getComponent<SpriteComponent>(2)->getRect()) == true)
 					{
 						onMap = true;
 					}
@@ -665,8 +667,8 @@ void PlayState::collisions()
 						m_playerBot->m_killCount++;
 					}
 					m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
-					m_rs->deleteEntity(m_btEnemy[i]->getEntity());
-					m_cs->deleteEntity(m_btEnemy[i]->getEntity());
+					//m_rs->deleteEntity(m_btEnemy[i]->getEntity());
+					//m_cs->deleteEntity(m_btEnemy[i]->getEntity());
 				}
 			}
 			//

@@ -137,7 +137,7 @@ public:
 
 
 		
-		if (m_playerStatus->m_position != waypoints.back())
+		/*if (m_playerStatus->m_position != waypoints.back())
 		{
 			m_playerStatus->m_position = entity->getComponent<PositionComponent>(1)->getPosition();
 
@@ -151,7 +151,7 @@ public:
 			{
 				m_playerStatus->currentWaypoint++;
 			}
-		}
+		}*/
 		
 
 		m_proot->run();
