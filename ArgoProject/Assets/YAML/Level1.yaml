@@ -1,24 +1,24 @@
 Highscores:
   - name: ALEX
-    score: 1
-  - name: BILL
-    score: 2
-  - name: SETH
-    score: 3
-  - name: TOM
-    score: 4
-  - name: AL
-    score: 4
-  - name: JOE
-    score: 6
-  - name: JIM
-    score: 8
-  - name: JOE
-    score: 8
-  - name: BEN
-    score: 3
-  - name: TIM
-    score: 19
+    score: 11
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
+  - name: 
+    score: 0
 Player:
   - class: PLAYER_WARRIOR
     gold: 0

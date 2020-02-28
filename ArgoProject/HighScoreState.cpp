@@ -77,7 +77,7 @@ bool HighScoreState::onEnter()
 	{
 		for (int j = i + 1; j < 10; j++)
 		{
-			if (m_scoreString[j] > m_scoreString[i])
+			if (m_score[j] > m_score[i])
 			{
 				temp = m_score[i];
 				nameTemp = m_names[i];
@@ -142,7 +142,7 @@ void HighScoreState::writeScores()
 	{
 		for (int j = i + 1; j < 10; j++)
 		{
-			if (m_scoreString[j] > m_scoreString[i])
+			if (m_score[j] > m_score[i])
 			{
 				temp = m_score[i];
 				nameTemp = m_names[i];
