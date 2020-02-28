@@ -32,6 +32,9 @@ private:
 
 	SDL_Rect* m_exitOption;
 	SDL_Texture* m_exitOptionTexture;
+
+	SDL_Rect* m_background;
+	SDL_Texture* m_backgroundTexture;
 };
 
 #endif
