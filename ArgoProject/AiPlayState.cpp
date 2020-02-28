@@ -1,8 +1,8 @@
-#include "PlayState.h"
+#include "AiPlayState.h"
 
-const std::string PlayState::m_playID = "PLAY";
+const std::string AiPlayState::m_AiPlayID = "PLAY";
 
-PlayState::PlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine)
+AiPlayState::AiPlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine)
 {
 	m_cameraDimensions = t_screenDimensions;
 	m_stateMachine = t_stateMachine;
@@ -11,7 +11,7 @@ PlayState::PlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachi
 }
 
 
-void PlayState::update()
+void AiPlayState::update()
 {
 	//See's if the game has been Paused ( If Not )
 	if (m_playerBot->getMenuActive() == false)
@@ -90,7 +90,7 @@ void PlayState::update()
 
 				m_enemies.back()->setRoom(myMap->map.size() - 1);
 
-				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450,120));
+				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450, 120));
 
 				bossSpawned = true;
 			}
@@ -136,7 +136,7 @@ void PlayState::update()
 }
 
 
-void PlayState::render()
+void AiPlayState::render()
 {
 	m_rs->renderPlayState(
 		Render::Instance()->getRenderer(),
@@ -161,7 +161,7 @@ void PlayState::render()
 }
 
 /// handle user and system events/ input
-void PlayState::processEvents(bool& isRunning)
+void AiPlayState::processEvents(bool& isRunning)
 {
 	if (m_playerBot->getMenuActive() == false)
 	{
@@ -197,10 +197,10 @@ void PlayState::processEvents(bool& isRunning)
 	}
 }
 
-bool PlayState::onEnter()
+bool AiPlayState::onEnter()
 {
 	data::Instance()->playerName = "";
-	std::cout << "Entering Play State\n";
+	std::cout << "Entering Ai Play State\n";
 
 	MenuInit();
 	cameraSetup();
@@ -266,22 +266,9 @@ bool PlayState::onEnter()
 		}
 	}
 
-	//Creates the Player
-	if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_WARRIOR")
-	{
-		m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
-		className = "Warrior";
-	}
-	else if (data::Instance()->getData().m_playerStats.at(0).m_class == "PLAYER_KNIGHT")
-	{
-		m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_KNIGHT);
-		className = "Knight";
-	}
-	else
-	{
-		m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
-		className = "Mage";
-	}
+	//Creates the Player Bot
+	m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
+	className = "Warrior";
 	//m_player = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_WARRIOR);
 	m_playerBot->init(m_rs, camera, myMap->map[0]->getCenterPos());
 
@@ -327,7 +314,7 @@ bool PlayState::onEnter()
 	return true;
 }
 
-bool PlayState::onExit()
+bool AiPlayState::onExit()
 {
 	std::cout << "Exiting Play State\n";
 
@@ -349,7 +336,7 @@ bool PlayState::onExit()
 	return true;
 }
 
-void PlayState::cameraSetup()
+void AiPlayState::cameraSetup()
 {
 	camera = new SDL_Rect();
 	camera->w = m_cameraDimensions.x;
@@ -370,7 +357,7 @@ void PlayState::cameraSetup()
 	m_miniMap->y = m_cameraDimensions.y - m_miniMap->h;
 }
 
-void PlayState::collisions()
+void AiPlayState::collisions()
 {
 	for (int i = 0; i < 1; i++)
 	{
@@ -480,17 +467,17 @@ void PlayState::collisions()
 		}
 
 		if (m_miniMapList[i]->getID() == 3)
+		{
+			if (m_cs->aabbCollision(m_playerBot->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
 			{
-				if (m_cs->aabbCollision(m_playerBot->getRect(), m_miniMapList[i]->getComponent<SpriteComponent>(2)->getRect()) == true)
-				{
-					m_cs->pickupCollisionResponse(m_playerBot->getEntity(), m_miniMapList[i]);
-				}
+				m_cs->pickupCollisionResponse(m_playerBot->getEntity(), m_miniMapList[i]);
 			}
 		}
-
 	}
 
-void PlayState::MenuInit()
+}
+
+void AiPlayState::MenuInit()
 {
 	SDL_Surface* playStateSurface = IMG_Load("Assets/minimapBackground.png");
 	m_miniMapTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), playStateSurface);
@@ -531,7 +518,7 @@ void PlayState::MenuInit()
 	SDL_FreeSurface(playStateSurface);
 }
 
-double PlayState::GenerateRandomNumber(double min, double max)
+double AiPlayState::GenerateRandomNumber(double min, double max)
 {
 	std::random_device m_randDev;
 	std::mt19937 mt(m_randDev());
@@ -539,7 +526,7 @@ double PlayState::GenerateRandomNumber(double min, double max)
 	return dist(mt);
 }
 
-void PlayState::enemyKilledMessageSort(std::string type)
+void AiPlayState::enemyKilledMessageSort(std::string type)
 {
 	if (type == "ENEMY_EASY")
 	{

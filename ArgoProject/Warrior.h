@@ -14,7 +14,7 @@ public:
 	Vector2 getPosition(){ return m_pc->getPosition(); }
 	float getHealth() { return m_hc->getHealth(); }
 	int getMaxHealth() { return M_MAX_HEALTH; }
-	Entity* getEntity() { return m_player; }
+	Entity* getEntity() { return m_playerBot; }
 	void setAction();
 	virtual bool getSeek() { return m_seek; }
 	virtual void setSeek(bool seek) { m_seek = seek; }

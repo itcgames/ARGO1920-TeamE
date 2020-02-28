@@ -51,7 +51,7 @@ public:
 	int m_killCount;
 	float m_attackFrame;
 protected:
-	Entity* m_player;
+	Entity* m_playerBot;
 
 	//Components
 	PositionComponent* m_pc;

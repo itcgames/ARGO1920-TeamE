@@ -1,5 +1,5 @@
-#ifndef PLAYSTATE
-#define PLAYSTATE
+#ifndef AIPLAYSTATE
+#define AIPLAYSTATE
 #include "ParticleSystem.h"
 #include "GameState.h"
 #include "EndState.h"
@@ -21,19 +21,19 @@
 #include "FactoryPlayer.h"
 #include "Audio.h"
 #include "PopUpText.h"
-
-class PlayState : public GameState
+class AiPlayState :
+	public GameState
 {
 public:
-	PlayState(Vector2 &t_screenDimensions,GameStateMachine* t_stateMachine);
+	AiPlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachine);
 	virtual void update();
 	virtual void render();
-	virtual void processEvents(bool &isRunning);
+	virtual void processEvents(bool& isRunning);
 
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	virtual std::string getStateID() const { return m_playID; };
+	virtual std::string getStateID() const { return m_AiPlayID; };
 
 
 private:
@@ -43,7 +43,7 @@ private:
 	double GenerateRandomNumber(double min, double max);
 	void enemyKilledMessageSort(std::string type);
 
-	static const std::string m_playID;
+	static const std::string m_AiPlayID;
 	RenderSystem* m_rs;
 	CollisionSystem* m_cs;
 	BehaviourTreeSystem* m_bts;
@@ -99,7 +99,6 @@ private:
 
 	int EndTimer = 0;
 	int localLevelKillCount = 0;
-
 };
 
 #endif

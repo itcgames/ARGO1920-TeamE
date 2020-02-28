@@ -231,6 +231,9 @@
     <ClCompile Include="PopUpText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AiPlayState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="PopUpText.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AiPlayState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

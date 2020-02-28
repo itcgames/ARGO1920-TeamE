@@ -42,7 +42,7 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 
 	//Create Entities
-	m_player = new Entity();
+	m_playerBot = new Entity();
 
 	//Creates the Systems
 	m_bs = new BehaviourSystem;
@@ -66,25 +66,25 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 	m_ac = new ActiveComponent(true, 6);
 	m_mc = new ManaComponent(250.0f, 7);
 
-	m_player->setID(1);
-	m_player->addComponent<PositionComponent>(m_pc, 1);
-	m_player->addComponent<SpriteComponent>(m_sc, 2);
-	m_player->addComponent<BehaviourComponent>(m_bc, 3);
-	m_player->addComponent<StatsComponent>(m_statc, 4);
-	m_player->addComponent<HealthComponent>(m_hc, 5);
-	m_player->addComponent<ActiveComponent>(m_ac, 6);
-	m_player->addComponent<ManaComponent>(m_mc, 7);
-	m_player->addComponent<StaminaComponent>(m_stc, 9);
+	m_playerBot->setID(1);
+	m_playerBot->addComponent<PositionComponent>(m_pc, 1);
+	m_playerBot->addComponent<SpriteComponent>(m_sc, 2);
+	m_playerBot->addComponent<BehaviourComponent>(m_bc, 3);
+	m_playerBot->addComponent<StatsComponent>(m_statc, 4);
+	m_playerBot->addComponent<HealthComponent>(m_hc, 5);
+	m_playerBot->addComponent<ActiveComponent>(m_ac, 6);
+	m_playerBot->addComponent<ManaComponent>(m_mc, 7);
+	m_playerBot->addComponent<StaminaComponent>(m_stc, 9);
 	m_rs = t_rs;
 
 	m_bc->setMaxSpeed(m_statc->getSpeed());
 	m_hc->setHealth(m_statc->getHealth());
 
 	//Behaviour System
-	m_bs->addEntity(m_player);
+	m_bs->addEntity(m_playerBot);
 
 	//Render System
-	t_rs->addEntity(m_player);
+	t_rs->addEntity(m_playerBot);
 
 	m_camera = t_camera;
 
@@ -92,8 +92,8 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 	//Input InputHandler
 	m_ih = new InputHandler();
-	m_ih->addEntity(m_player);
-	m_anim->addEntity(m_player);
+	m_ih->addEntity(m_playerBot);
+	m_anim->addEntity(m_playerBot);
 
 	m_ih->mousePosition = startPos;
 
