@@ -14,6 +14,7 @@ void CreditsState::update()
 }
 void CreditsState::render()
 {
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_backgroundTexture, NULL, m_background);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitOptionTexture, NULL, m_exitOption);
 	for (int i = 0; i < 12; i++)
 	{
@@ -45,13 +46,22 @@ void CreditsState::processEvents(bool& isRunning)
 bool CreditsState::onEnter()
 {
 	m_exitOption = new SDL_Rect();
-	m_exitOption->x = m_cameraDimensions.x * (2.5 / 6.0);
+	m_exitOption->x = m_cameraDimensions.x * 0.85;
 	m_exitOption->y = m_cameraDimensions.y * 0.9;
 	m_exitOption->w = m_cameraDimensions.x * (1.0 / 6.0);
 	m_exitOption->h = m_cameraDimensions.y * 0.1;
 
 	SDL_Surface* Surface = IMG_Load("Assets/ReturnButton.png");
 	m_exitOptionTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), Surface);
+
+	m_background = new SDL_Rect();
+	m_background->x = 0;
+	m_background->y = 0;
+	m_background->w = m_cameraDimensions.x;
+	m_background->h = m_cameraDimensions.y;
+
+	Surface = IMG_Load("Assets/Credits.png");
+	m_backgroundTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), Surface);
 
 	SDL_FreeSurface(Surface);
 
@@ -68,17 +78,16 @@ bool CreditsState::onEnter()
 	}
 
 	m_names[0] = "Developers";
-	m_names[1] = "Aoife Powders";
-	m_names[2] = "Alex O'Toole";
-	m_names[3] = "Brian O'Neill";
+	m_names[1] = "Brian O'Neill";
+	m_names[2] = "Aoife Powders";
+	m_names[3] = "Ales O'Toole";
 	m_names[4] = "Paul Nolan";
 	m_names[5] = "Brandon Seah-Dempsey";
 	m_names[6] = "Designers";
-	m_names[7] = "Niall Cullen";
-	m_names[8] = "Person 4";
-	m_names[9] = "Person 5";
-	m_names[10] = "Person 6";
-	m_names[11] = "Person 7";
+	m_names[7] = "Rafaela Silva";
+	m_names[8] = "Niall Cullen";
+	m_names[9] = "Jack Redmond";
+	m_names[10] = "Ryan O'Connor";
 
 
 	SDL_Color White = { 255, 255, 255 };
@@ -97,6 +106,7 @@ bool CreditsState::onEnter()
 bool CreditsState::onExit()
 {
 	SDL_DestroyTexture(m_exitOptionTexture);
+	SDL_DestroyTexture(m_backgroundTexture);
 	std::fill_n(m_names, 12, 0);
 	m_stateMachine = nullptr;
 

@@ -98,13 +98,10 @@ void PlayState::update()
 		{
 			m_stateMachine->changeState(new LoadState(m_cameraDimensions, m_stateMachine));
 		}
-		//|| m_player->m_killCount == 11
-
 	}
 	else
 	{
 		m_miniMapList;
-		std::cout << "";
 	}
 }
 
@@ -184,7 +181,7 @@ bool PlayState::onEnter()
 
 
 	// Create Enemies 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1); // Random room inside the map
 		int randomEnemyPreset = rand() % 3; // Random Number to find the type of enemy to spawn
@@ -212,7 +209,7 @@ bool PlayState::onEnter()
 	}
 
 	// Create Pickups
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		int tempRandPos = GenerateRandomNumber(1, myMap->map.size() - 1);
 		int randomPickupPreset = rand() % 3;

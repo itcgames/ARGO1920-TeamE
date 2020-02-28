@@ -163,7 +163,6 @@
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MultiplayerState.cpp" />
     <ClCompile Include="OptionsState.cpp" />
@@ -228,7 +227,6 @@
     <ClInclude Include="Mage.h" />
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="MultiplayerState.h" />
     <ClInclude Include="Node.h" />
