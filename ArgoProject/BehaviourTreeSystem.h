@@ -91,12 +91,14 @@ public:
 		m_seek = new Seek(m_playerStatus);
 		m_attack = new Attack(m_playerStatus);
 		m_towards = new MoveTowards(m_playerStatus);
+		m_health = new GetHealth(m_playerStatus);
 
 		m_proot->addChild(m_pselector);
 		
 		m_pselector->addChild(m_psequence);
 
 		m_psequence->addChild(m_towards);
+		m_psequence->addChild(m_health);
 		//m_psequence->addChild(m_seek);
 		//m_psequence->addChild(m_attack);
 	}
@@ -169,6 +171,7 @@ private:
 	Seek* m_seek;
 	Attack* m_attack;
 	MoveTowards* m_towards;
+	GetHealth* m_health;
 
 };
 

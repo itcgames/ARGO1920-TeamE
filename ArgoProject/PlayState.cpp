@@ -104,6 +104,25 @@ void PlayState::update()
 		m_miniMapList;
 		std::cout << "";
 	}
+
+	//if bot health is low go get a health pickup
+	if (m_playerBot->getHealth() < 50)
+	{
+		Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+		float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+		int target = 0;
+		for (int i = 0; i < m_pickUp.size(); i++)
+		{
+			pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+			if (temp < dist)
+			{
+				target = i;
+			}
+		}
+		//target is closest pickup
+		m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity());
+	}
 }
 
 
