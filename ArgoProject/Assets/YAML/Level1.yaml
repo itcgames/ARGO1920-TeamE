@@ -1,30 +1,30 @@
 Highscores:
   - name: ALEX
     score: 11
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
-  - name: ""
+  - name: 
     score: 0
 Player:
   - class: PLAYER_WARRIOR
     gold: 0
     health: 150
     killcount: 0
-    speed: 6
+    speed: 5
     strength: 100
 Presets:
   Stats:
