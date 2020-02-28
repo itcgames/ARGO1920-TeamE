@@ -4,6 +4,7 @@
 //#include "PlayState.h"
 #include "Data.h"
 #include "HighScoreState.h"
+#include "AiPlayState.h"
 #include "CharacterSelectState.h"
 #include "OptionsState.h"
 #include "SDL.h"
@@ -36,6 +37,9 @@ private:
 	SDL_Rect* m_singlePlayerButton;
 	SDL_Texture* m_singlePlayerButtonTexture;
 
+	SDL_Rect* m_aiPlayerButton;
+	SDL_Texture* m_aiPlayerButtonTexture;
+
 	SDL_Rect* m_multiPlayerButton;
 	SDL_Texture* m_multiPlayerButtonTexture;
 
@@ -50,7 +54,7 @@ private:
 
 	TTF_Font* Abel;
 
-	Text* m_text[5];
+	Text* m_text[6];
 
 	GameStateMachine* m_stateMachine;
 

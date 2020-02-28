@@ -6,20 +6,20 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	e(t_skillThree),
 	killCount(t_killCount)
 {
-	m_background.w = t_cameraDimension.x * 0.8; m_background.h = t_cameraDimension.y * 0.1;
-	m_background.x = 0; m_background.y = t_cameraDimension.y * 0.9;
+	m_background.w = t_cameraDimension.x * 0.8; m_background.h = t_cameraDimension.y * 0.2;
+	m_background.x = 0; m_background.y = t_cameraDimension.y * 0.85;
 
 	m_health.w = t_cameraDimension.x * 0.25; m_health.h = 20;
-	m_health.x = t_cameraDimension.x * 0.425; m_health.y = t_cameraDimension.y * 0.92;
+	m_health.x = t_cameraDimension.x * 0.425; m_health.y = t_cameraDimension.y * 0.91;
 	m_healthOverflow.w = 0; m_healthOverflow.h = 20;
-	m_healthOverflow.x = t_cameraDimension.x * 0.425; m_healthOverflow.y = t_cameraDimension.y * 0.92;
+	m_healthOverflow.x = t_cameraDimension.x * 0.425; m_healthOverflow.y = t_cameraDimension.y * 0.91;
 
 	healthFullWidth = m_health.w;
 
 	m_mana.w = t_cameraDimension.x * 0.25; m_mana.h = 20;
-	m_mana.x = t_cameraDimension.x * 0.425; m_mana.y = t_cameraDimension.y * 0.95;
+	m_mana.x = t_cameraDimension.x * 0.425; m_mana.y = t_cameraDimension.y * 0.96;
 	m_manaOverflow.w = 0; m_manaOverflow.h = 20;
-	m_manaOverflow.x = t_cameraDimension.x * 0.425; m_manaOverflow.y = t_cameraDimension.y * 0.95;
+	m_manaOverflow.x = t_cameraDimension.x * 0.425; m_manaOverflow.y = t_cameraDimension.y * 0.96;
 	manaFullWidth = m_mana.w;
 
 	SDL_Surface* healthSurface = IMG_Load("Assets/Health.png");
@@ -27,18 +27,15 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 	SDL_Surface* healthOverflowSurface = IMG_Load("Assets/Gold.png");
 	m_healthOverflowTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), healthOverflowSurface);
 
-	//SDL_QueryTexture(m_healthtexture, NULL, NULL, &m_health.w, &m_health.h);
 	SDL_FreeSurface(healthSurface);
 
 	SDL_Surface* manaSurface = IMG_Load("Assets/Mana.png");
 	m_manaTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), manaSurface);
 	SDL_Surface* manaOverflowSurface = IMG_Load("Assets/Stamina.png");
 	m_manaOverflowTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), manaOverflowSurface);
-	//SDL_FreeSurface(manaSurface);
 
 	SDL_Surface* hudSurface = IMG_Load("Assets/HUD.png");
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), hudSurface);
-	//SDL_QueryTexture(m_texture, NULL, NULL, &m_background.w, &m_background.h);
 	SDL_FreeSurface(hudSurface);
 
 	SDL_Surface* emptySurface = IMG_Load("Assets/Empty.png");
@@ -55,7 +52,7 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 
-	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", t_cameraDimension.y * 0.074);
+	Abel = TTF_OpenFont("Assets/Font/CopperPlateGothicBold.ttf", t_cameraDimension.y * 0.04);
 
 	if (!Abel) {
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
@@ -89,15 +86,20 @@ HUD::HUD(Vector2 t_cameraDimension, float t_OriginalHealth, float t_originalMana
 		m_timerText[i] = new Text(Abel, std::to_string(int(m_timerLength[i])), t_cameraDimension.x * (0.06 + (0.13 * i)), t_cameraDimension.y * 0.91);
 		m_skillBoxs[i] = new SDL_Rect();
 		m_skillBoxs[i]->x = t_cameraDimension.x * (0.02 + (0.13 * i));
-		m_skillBoxs[i]->y = t_cameraDimension.y * 0.91;
-		m_skillBoxs[i]->w = t_cameraDimension.x * 0.125;
-		m_skillBoxs[i]->h = t_cameraDimension.y * 0.074;
+		m_skillBoxs[i]->y = t_cameraDimension.y * 0.88;
+		m_skillBoxs[i]->w = t_cameraDimension.x * 0.1;
+		m_skillBoxs[i]->h = t_cameraDimension.y * 0.1;
 
 		m_timerActive[i] = false;
 	}
 
-	m_killCountText = new Text(Abel, std::to_string(int(killCount)), t_cameraDimension.x * 0.7, t_cameraDimension.y * 0.91);
+	m_killCountText = new Text(Abel, std::to_string(int(killCount)), t_cameraDimension.x * 0.72, t_cameraDimension.y * 0.91);
 	m_previousCount = killCount;
+
+	m_healthText = new Text(Abel, "Health", t_cameraDimension.x * 0.42, t_cameraDimension.y * 0.87);
+	m_manaText = new Text(Abel, "Mana", t_cameraDimension.x * 0.42, t_cameraDimension.y * 0.92);
+	m_KillText = new Text(Abel, "Kills", t_cameraDimension.x * 0.69, t_cameraDimension.y * 0.86);
+
 }
 
 HUD::~HUD()
@@ -240,6 +242,9 @@ void HUD::render()
 		}
 	}
 	m_killCountText->render();
+	m_healthText->render();
+	m_manaText->render();
+	m_KillText->render();
 }
 
 void HUD::adjustEmptyRect(SDL_Rect t_bar, float t_fullWidth)

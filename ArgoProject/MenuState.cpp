@@ -19,12 +19,13 @@ void MenuState::render()
 {
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_backgroundTexture, NULL, m_background);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_singlePlayerButtonTexture, NULL, m_singlePlayerButton);
+	SDL_RenderCopy(Render::Instance()->getRenderer(), m_aiPlayerButtonTexture, NULL, m_aiPlayerButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_multiPlayerButtonTexture, NULL, m_multiPlayerButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_optionsButtonTexture, NULL, m_optionsButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_creditsButtonTexture, NULL, m_creditsButton);
 	SDL_RenderCopy(Render::Instance()->getRenderer(), m_exitButtonTexture, NULL, m_exitButton);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		m_text[i]->render();
 	}
@@ -49,6 +50,13 @@ void MenuState::processEvents(bool& isRunning)
 
 				data::Instance()->SINGLEPLAYER = true;
 				m_stateMachine->changeState(new CharacterSelectState(m_buttonDimensions, m_stateMachine));
+			}
+			else if (event.button.x > m_aiPlayerButton->x && event.button.x < m_aiPlayerButton->x + m_aiPlayerButton->w
+				&&
+				event.button.y > m_aiPlayerButton->y && event.button.y < m_aiPlayerButton->y + m_aiPlayerButton->h)
+			{
+				data::Instance()->SINGLEPLAYER = true;
+				m_stateMachine->changeState(new AiPlayState(m_buttonDimensions, m_stateMachine));
 			}
 			else if (event.button.x > m_multiPlayerButton->x && event.button.x < m_multiPlayerButton->x + m_multiPlayerButton->w
 				&&
@@ -96,27 +104,38 @@ bool MenuState::onEnter()
 		// handle error
 	}
 
-	std::string m_name[5];
+	std::string m_name[6];
 	m_name[0] = "Singleplayer";
-	m_name[1] = "Multiplayer";
-	m_name[2] = "Credits";
-	m_name[3] = "Highscores";
-	m_name[4] = "Exit";
+	m_name[1] = "Ai Player";
+	m_name[2] = "Multiplayer";
+	m_name[3] = "Credits";
+	m_name[4] = "Highscores";
+	m_name[5] = "Exit";
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		m_text[i] = new Text(Abel, m_name[i], m_buttonDimensions.x * 0.525, m_buttonDimensions.y * (0.49 + (float(i) / 10.0f)));
+		m_text[i] = new Text(Abel, m_name[i], m_buttonDimensions.x * 0.525, m_buttonDimensions.y * (0.39 + (float(i) / 10.0f)));
 	}
 
 	m_singlePlayerButton = new SDL_Rect();
 	m_singlePlayerButton->x = m_buttonDimensions.x * 0.5;
-	m_singlePlayerButton->y = m_buttonDimensions.y * 0.495;
+	m_singlePlayerButton->y = m_buttonDimensions.y * 0.395;
 	m_singlePlayerButton->w = m_buttonDimensions.x * 0.3;
 	m_singlePlayerButton->h = m_buttonDimensions.y * 0.06;
 
 
 	SDL_Surface* menuSurface = IMG_Load("Assets/Button.png");
 	m_singlePlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
+
+	m_aiPlayerButton = new SDL_Rect();
+	m_aiPlayerButton->x = m_buttonDimensions.x * 0.5;
+	m_aiPlayerButton->y = m_buttonDimensions.y * 0.495;
+	m_aiPlayerButton->w = m_buttonDimensions.x * 0.3;
+	m_aiPlayerButton->h = m_buttonDimensions.y * 0.06;
+
+
+	menuSurface = IMG_Load("Assets/Button.png");
+	m_aiPlayerButtonTexture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), menuSurface);
 
 	m_multiPlayerButton = new SDL_Rect();
 	m_multiPlayerButton->x = m_buttonDimensions.x * 0.5;
