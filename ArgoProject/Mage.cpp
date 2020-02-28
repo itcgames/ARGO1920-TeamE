@@ -108,37 +108,8 @@ void Mage::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Mage::update()
 {
-
-	//checks if the player is in walking state
-	if (finiteStateMachine->getCurrentState() == 1)
-	{
-		//the player seeks the mouse position
-		if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
-		{
-			m_seek = true;
-			//This is to stop the jittering in the movement.         
-			float mag = sqrt((m_pc->getPosition().x - m_ih->mousePosition.x) * (m_pc->getPosition().x - m_ih->mousePosition.x) + (m_pc->getPosition().y - m_ih->mousePosition.y) * (m_pc->getPosition().y - m_ih->mousePosition.y));
-			if (mag > 40)
-			{
-				//m_bs->seek(m_ih->mousePosition);
-				m_bs->playerSeek(m_ih->mousePosition, m_seek);
-			}
-			else
-			{
-				m_ih->move = false;
-			}
-			m_positionRect->x = m_pc->getPosition().x;
-			m_positionRect->y = m_pc->getPosition().y;
-		}
-		else
-		{
-			m_seek = false;
-		}
-	}
-
 	if (m_ih->move)
 	{
-		spriteSheetY = frameHeight;
 		finiteStateMachine->walking();
 
 		if (m_ih->mousePosition != m_ih->mouseRelativePosition + Vector2(m_camera->x, m_camera->y)
@@ -191,6 +162,7 @@ void Mage::setAction()
 			break;
 		case 1:
 			//the player seeks the mouse position
+			spriteSheetY = frameHeight;
 			if (m_pc->getPosition().x != m_ih->mousePosition.x && m_pc->getPosition().y != m_ih->mousePosition.y)
 			{
 				m_seek = true;
@@ -207,10 +179,6 @@ void Mage::setAction()
 				m_positionRect->x = m_pc->getPosition().x;
 				m_positionRect->y = m_pc->getPosition().y;
 			}
-			else
-			{
-				m_seek = false;
-			}
 			attackFinished = true;
 			break;
 		case 2:
@@ -219,7 +187,7 @@ void Mage::setAction()
 				setDamage(1);
 				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16, 10, "Assets/Tiles/tile.png");
 				spriteSheetY = 0;
-
+				m_ih->move = false;
 				m_attackTimer = SDL_GetTicks();
 				
 				attackFinished = false;
@@ -229,6 +197,7 @@ void Mage::setAction()
 			if (m_skillCooldown[1] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				spriteSheetY = frameHeight * 3;
+				m_ih->move = false;
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
 			}
@@ -237,12 +206,10 @@ void Mage::setAction()
 			if (m_skillCooldown[2] == false && attackFinished == true && m_mc->getMana() > 0)
 			{
 				spriteSheetY = frameHeight * 4;
+				m_ih->move = false;
 				m_attackTimer = SDL_GetTicks();
 				attackFinished = false;
 			}
-			break;
-		case 5:
-			spriteSheetY = frameHeight * 5;
 			break;
 		default:
 			break;
@@ -256,7 +223,7 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[0] == false)
 		{
-			m_mc->alterMana(-10);
+			m_mc->alterMana(-2);
 			m_enemyHealth -= dmg;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
@@ -269,7 +236,7 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[1] == false)
 		{
-			m_mc->alterMana(-12);
+			m_mc->alterMana(-3);
 			m_hc->alterHealth(10);
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
@@ -283,7 +250,7 @@ void Mage::Attack(float& m_enemyHealth)
 	{
 		if (m_skillCooldown[2] == false)
 		{
-			m_mc->alterMana(-13);
+			m_mc->alterMana(-3);
 			dmg += 1;
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{

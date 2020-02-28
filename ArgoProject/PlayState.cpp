@@ -558,7 +558,7 @@ void PlayState::enemyKilledMessageSort(std::string type)
 
 	if (type == "ENEMY_BOSS")
 	{
-		message.push_back(new PopUpText(Abel, "SKELETON KING ELIMINATED", 800, 500, 100));
+		message.push_back(new PopUpText(Abel, "SKELETON KING ELIMINATED", 600, 500, 100));
 		EndTimer = 300;
 	}
 }

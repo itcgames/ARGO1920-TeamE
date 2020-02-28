@@ -66,6 +66,9 @@ public:
 	float m_timerLength[3];
 
 	Text* m_killCountText;
+	Text* m_healthText;
+	Text* m_manaText;
+	Text* m_KillText;
 };
 
 #endif

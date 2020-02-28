@@ -123,7 +123,6 @@ void Warrior::init(RenderSystem* t_rs, SDL_Rect* t_camera, Vector2 startPos)
 
 void Warrior::update()
 {
-
 	if (m_ih->move)
 	{
 		finiteStateMachine->walking();
