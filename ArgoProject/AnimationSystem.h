@@ -22,18 +22,13 @@ public:
 		for (int i = 0; i < m_entities.size(); i++)
 		{
 			Uint32 ticks = SDL_GetTicks();
-			if (m_entities[i]->getID() == 1 && (state != 0 || state != 1))
+			if (m_entities[i]->getID() == 1 && (state != 0 || state != 1) && ticks - aTimer < 1401)
 			{
 				ticks -= aTimer;
-				std::cout << ticks << std::endl;
 			}
-			else
-			{
-		
-			}
+
 			Uint32 sprite = (ticks / t_speed) % 11;
 			t_animationRect->x = sprite * (t_frameWidth);
-			std::cout << t_animationRect->x << std::endl;
 			t_animationRect->y = t_spriteSheetY;
 			m_entities[i]->getComponent<SpriteComponent>(2)->setRect(t_animationRect);
 			m_entities[i]->getComponent<SpriteComponent>(2)->setDstRect(t_posRect);

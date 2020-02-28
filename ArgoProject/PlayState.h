@@ -3,6 +3,7 @@
 #include "ParticleSystem.h"
 #include "GameState.h"
 #include "EndState.h"
+#include "LoadState.h"
 #include "SDL.h"
 #include "Data.h"
 #include "Pickup.h"
@@ -48,8 +49,6 @@ private:
 
 	//Player m_player;
 	std::unique_ptr<IPlayer> m_player;
-  
-	std::unique_ptr<IPlayer> m_player2;
 	std::unique_ptr<IPlayer> m_playerBot;
 	HUD* m_hud;
 
@@ -100,8 +99,7 @@ private:
 	std::vector<Entity*> m_miniMapList;
 
 	bool bossSpawned = false;
-
-	bool m_botCollide, m_botAttack;
+	GameData m_data;
 };
 
 #endif

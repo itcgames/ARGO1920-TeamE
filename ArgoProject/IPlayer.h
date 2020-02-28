@@ -101,6 +101,7 @@ protected:
 	int M_MAX_HEALTH;
 
 	int m_attackTimer;
+	bool attackFinished;
 };
 
 #endif // !IPLAYER

@@ -159,6 +159,7 @@
     <ClCompile Include="IPlayer.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="ItemComponent.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="LoadState.h" />
     <ClInclude Include="Mage.h" />
     <ClInclude Include="ManaComponent.h" />
     <ClInclude Include="Map.h" />

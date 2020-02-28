@@ -46,7 +46,7 @@ void PlayState::update()
 		m_miniMapList = m_rs->m_miniMapList;
 		//Calls All the games Collisions
 		collisions();
-
+		m_playerBot->update();
 
 		camera->x = m_player->getPosition().x + 50 - camera->w / 2;
 		camera->y = m_player->getPosition().y + 50 - camera->h / 2;
@@ -295,8 +295,8 @@ bool PlayState::onEnter()
 
 	m_miniMapList = m_rs->m_miniMapList;
 
-	m_botCollide = false;
-	m_botAttack = false;
+	//m_botCollide = false;
+	//m_botAttack = false;
 
 	return true;
 }
@@ -387,7 +387,7 @@ void PlayState::collisions()
 
 	for (int i = 0; i < 1; i++)
 	{
-		m_bts->run(m_playerBot->getEntity(), myMap->WayPoints);
+		//m_bts->run(m_playerBot->getEntity(), myMap->WayPoints);
 
 		//	m_bts->runPlayer(m_playerBot->getEntity(), m_btEnemy[i]->getEntity());
 

@@ -87,7 +87,6 @@ void PickUp::initialize(RenderSystem* t_rs, std::string type, bool isSmall,
 	m_item->setID(3);
 	t_rs->addEntity(m_item);
 
-	std::cout << "Item Initialize" << std::endl;
 }
 
 //
