@@ -237,7 +237,7 @@ void Mage::Attack(float& m_enemyHealth)
 		if (m_skillCooldown[1] == false)
 		{
 			m_mc->alterMana(-3);
-			m_hc->alterHealth(10);
+			m_hc->alterHealth(1);
 			if (m_animationRect->x >= 1000 && m_animationRect->x <= 1400)
 			{
 				m_skillCooldown[1] = true;

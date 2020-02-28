@@ -53,9 +53,9 @@ void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Ty
 	{
 		for (int i = 0; i < numofParticles; i++)
 		{
-			timeToLive = GenerateRandomNumber(0.1, 0.2);
-			position = disperseInCircle(position + Vector2(50, 0), 100);
-			velocity = Vector2(GenerateRandomNumber(-0.2, 0.2), GenerateRandomNumber(-0.2, 0.2));
+			timeToLive = GenerateRandomNumber(0.3, 4);
+			position = disperseInCircle(position + Vector2(25, 25), 25);
+			velocity = Vector2(GenerateRandomNumber(-1.0,1.0), GenerateRandomNumber(-1.0, 1.0));
 
 			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, size, fileName, position, velocity, m_rs));
 		}

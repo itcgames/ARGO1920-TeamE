@@ -101,6 +101,7 @@ void PlayState::update()
 		{
 			if (message[i]->m_text != nullptr)
 			{
+				m_particleEffects->AddParticles(bloodPos, Type::BLOOD, 1, 10, "Assets/Tiles/path.png");
 				message[i]->update();
 			}
 			else
@@ -109,6 +110,8 @@ void PlayState::update()
 			}
 			std::cout << message.size() << std::endl;
 		}
+		m_particleEffects->update();
+
 
 		if (m_player->getHealth() <= 0)
 		{
@@ -323,6 +326,7 @@ bool PlayState::onEnter()
 		// handle error
 	}
 
+	m_particleEffects = new ParticleSystem("PLAY", m_rs);
 
 	return true;
 }
@@ -445,6 +449,7 @@ void PlayState::collisions()
 					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
 						m_player->m_killCount++;
+						bloodPos = m_miniMapList[i]->getComponent<PositionComponent>(1)->getPosition();
 						data::Instance()->playerScore = m_player->m_killCount;
 						localLevelKillCount++;
 						enemyKilledMessageSort(m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass());
