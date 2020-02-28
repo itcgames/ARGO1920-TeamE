@@ -49,6 +49,7 @@ private:
 	BehaviourTreeSystem* m_bts;
 
 	//Player m_player;
+	std::unique_ptr<IPlayer> m_player;
 	std::unique_ptr<IPlayer> m_playerBot;
 	HUD* m_hud;
 

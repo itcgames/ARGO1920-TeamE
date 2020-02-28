@@ -30,14 +30,16 @@ struct PlayerStatus
 	float m_rotationAngle;
 	bool m_pathfind;
 	bool m_seek;
-	bool m_attack;
 	bool m_collide;
+	bool m_atPoint;
+	bool m_atEnd;
+	int m_currentWayPoint;
 };
 
-class PathFind : public Node
+class MoveTowards : public Node
 {
 public:
-	PathFind(PlayerStatus* status) :
+	MoveTowards(PlayerStatus* status) :
 		m_status(status)
 	{
 
@@ -45,12 +47,54 @@ public:
 
 	virtual bool run() override
 	{
-		if (m_status->m_pathfind == false)
+		if (m_status->m_atPoint == false)
 		{
+			if (m_status->m_position == m_status->m_targetPosition)
+			{
+				m_status->m_atPoint = true;
+			}
+			else
+			{
+				//m_status->atPoint = false;
+				Vector2 movementVector = m_status->m_targetPosition - m_status->m_position;
+				//float distance = sqrt(movementVector.x * movementVector.x + movementVector.y * movementVector.y);
+				//Vector2 normalVect = { movementVector.x / distance,movementVector.y / distance };
+				//m_status->m_position += normalVect * 2;*/
+				if (movementVector.x > 0)
+				{
+					if (m_status->m_position.x != m_status->m_targetPosition.x)
+					{
+						m_status->m_position.x += 5;
+					}
+				}
+				else
+				{
+					if (m_status->m_position.x != m_status->m_targetPosition.x)
+					{
+						m_status->m_position.x -= 5;
+					}
+				}
 
+				if (movementVector.y > 0)
+				{
+					if (m_status->m_position.y != m_status->m_targetPosition.y && m_status->m_position.x == m_status->m_targetPosition.x)
+					{
+						m_status->m_position.y += 5;
+					}
+				}
+				else
+				{
+					if (m_status->m_position.y != m_status->m_targetPosition.y && m_status->m_position.x == m_status->m_targetPosition.x)
+					{
+						m_status->m_position.y -= 5;
+					}
+				}
+
+				std::cout << "Moving Towards" << std::endl;
+			}
 		}
 
-		return m_status->m_pathfind;
+		return m_status->m_atEnd;
 	}
 
 	void findEnemy()
@@ -60,6 +104,7 @@ public:
 
 private:
 	PlayerStatus* m_status;
+
 };
 
 class Seek : public Node
@@ -140,38 +185,67 @@ private:
 	int maxSpeed;
 };
 
-class Attack : public Node
+class GetPickUp : public Node
 {
 public:
-	Attack(PlayerStatus* status) :
+	GetPickUp(PlayerStatus* status) :
 		m_status(status)
 	{
 
 	}
 
+	//runs to targetPosititon which will be a health pickup
 	virtual bool run() override
 	{
-		if (m_status->m_attack == false)
+		if (m_status->m_atPoint == false)
 		{
-			
-			if (m_status->m_position.x + m_status->m_playerWH.x >= m_status->m_targetPosition.x &&
-				m_status->m_targetPosition.x + m_status->m_targetWH.x >= m_status->m_position.x &&
-				m_status->m_position.y + m_status->m_playerWH.y >= m_status->m_targetPosition.y &&
-				m_status->m_targetPosition.y + m_status->m_targetWH.y >= m_status->m_position.y)
+			if (m_status->m_position == m_status->m_targetPosition)
 			{
-				m_status->m_collide = true;
+				m_status->m_atPoint = true;
 			}
 			else
 			{
-				m_status->m_collide = false;
+				Vector2 movementVector = m_status->m_targetPosition - m_status->m_position;
+				if (movementVector.x > 0)
+				{
+					if (m_status->m_position.x != m_status->m_targetPosition.x)
+					{
+						m_status->m_position.x += 5;
+					}
+				}
+				else
+				{
+					if (m_status->m_position.x != m_status->m_targetPosition.x)
+					{
+						m_status->m_position.x -= 5;
+					}
+				}
+
+				if (movementVector.y > 0)
+				{
+					if (m_status->m_position.y != m_status->m_targetPosition.y && m_status->m_position.x == m_status->m_targetPosition.x)
+					{
+						m_status->m_position.y += 5;
+					}
+				}
+				else
+				{
+					if (m_status->m_position.y != m_status->m_targetPosition.y && m_status->m_position.x == m_status->m_targetPosition.x)
+					{
+						m_status->m_position.y -= 5;
+					}
+				}
+
+				std::cout << "Getting PickUp" << std::endl;
 			}
 		}
 
-		return m_status->m_attack;
+		return m_status->m_atPoint;
 	}
 
 private:
 	PlayerStatus* m_status;
+
 };
 
 #endif // !PLAYERBEHAVIOURS_H

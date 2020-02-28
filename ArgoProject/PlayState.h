@@ -100,6 +100,8 @@ private:
 	int EndTimer = 0;
 	int localLevelKillCount = 0;
 
+	ParticleSystem* m_particleEffects;
+	Vector2 bloodPos;
 };
 
 #endif
