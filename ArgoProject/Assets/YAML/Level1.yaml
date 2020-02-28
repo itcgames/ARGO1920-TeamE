@@ -22,10 +22,10 @@ Highscores:
 Player:
   - class: PLAYER_WARRIOR
     gold: 0
-    health: 150
+    health: 200
     killcount: 0
     speed: 6
-    strength: 100
+    strength: 200
 Presets:
   Stats:
     - class: ENEMY_EASY
@@ -48,7 +48,7 @@ Presets:
       strength: 50
     - class: ENEMY_BOSS
       gold: 100000
-      health: 50
+      health: 500
       killcount: 0
       speed: 1
       strength: 100
