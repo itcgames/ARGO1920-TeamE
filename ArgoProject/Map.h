@@ -26,6 +26,7 @@ public:
 	std::vector<std::unique_ptr<Room>> map;
 	std::vector < std::unique_ptr<Tile>> hostMap;
 	std::vector<Tile*> path;
+	std::vector<Vector2> WayPoints;
 
 	int roomsNum = 20;
 	int tileSize = 300;

@@ -13,6 +13,9 @@ PlayState::PlayState(Vector2& t_screenDimensions, GameStateMachine* t_stateMachi
 
 void PlayState::update()
 {
+	Vector2 m_mag = Vector2();
+	float magnitude = 0.0f;
+
 	//See's if the game has been Paused ( If Not )
 	if (m_player->getMenuActive() == false)
 	{
@@ -90,7 +93,7 @@ void PlayState::update()
 
 				m_enemies.back()->setRoom(myMap->map.size() - 1);
 
-				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450,120));
+				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450, 120));
 
 				bossSpawned = true;
 			}
@@ -126,7 +129,100 @@ void PlayState::update()
 		}
 
 		//|| m_player->m_killCount == 1
+		//m_bts->run(m_btEnemy[i]->getEntity(), myMap->WayPoints)
 
+		for (int m = 0; m < m_enemies.size(); m++)
+		{
+			magnitude = m_mag.magnitude(m_playerBot->getPosition(), 
+				m_enemies[m]->getEntity()->getComponent<PositionComponent>(1)->getPosition());
+		}
+
+		if (m_playerBot->getHealth() < 50)
+		{
+			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+			int target = 0;
+			for (int i = 0; i < m_pickUp.size(); i++)
+			{
+				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+				if (temp < dist)
+				{
+					target = i;
+				}
+			}
+			if (m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "Health" &&
+				m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "health")
+			{
+				//target is closest pickup
+				m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity(), myMap->WayPoints);
+			}
+		}
+		else if (m_playerBot->getEntity()->getComponent<ManaComponent>(7)->getMana() < 50)
+		{
+			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+			int target = 0;
+			for (int i = 0; i < m_pickUp.size(); i++)
+			{
+				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+				if (temp < dist)
+				{
+					target = i;
+				}
+			}
+			if (m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "Mana" &&
+				m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "mana")
+			{
+				//target is closest pickup
+				m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity(), myMap->WayPoints);
+				m_playerBot->update();
+			}
+		}
+		else if (m_playerBot->getEntity()->getComponent<StaminaComponent>(9)->getStamina() < 50)
+		{
+			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+			int target = 0;
+			for (int i = 0; i < m_pickUp.size(); i++)
+			{
+				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_pickUp[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+				if (temp < dist)
+				{
+					target = i;
+				}
+			}
+			if (m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "Stamina" &&
+				m_pickUp[target]->getEntity()->getComponent<ItemComponent>(5)->getType() == "stamina")
+			{
+				//target is closest pickup
+				m_bts->runPlayer(m_playerBot->getEntity(), m_pickUp[target]->getEntity(), myMap->WayPoints);
+				m_playerBot->update();
+			}
+		}
+		else
+		{
+			Vector2 pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_enemies[0]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+			float dist = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+			int target = 0;
+			for (int i = 0; i < m_enemies.size(); i++)
+			{
+				pickupdistance = m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition() - m_enemies[i]->getEntity()->getComponent<PositionComponent>(1)->getPosition();
+				float temp = sqrt((pickupdistance.x * pickupdistance.x) + (pickupdistance.y * pickupdistance.y));
+				if (temp < dist)
+				{
+					target = i;
+				}
+			}
+
+			//target is closest pickup
+			m_bts->runPlayer(m_playerBot->getEntity(), m_enemies[target]->getEntity(), myMap->WayPoints);
+			m_playerBot->update();
+			
+		}
+		
 	}
 	else
 	{
@@ -293,6 +389,22 @@ bool PlayState::onEnter()
 	//Play Background Music
 	m_background->play();
 
+	//
+	m_playerBot = FactoryPlayer::createPlayer(FactoryPlayer::PLAYER_MAGE);
+	m_playerBot->init(m_rs, camera, myMap->map[0]->getCenterPos());
+
+	m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->setCollide(false);
+
+	m_bts->initPlayer(m_playerBot->getEntity()->getComponent<PositionComponent>(1)->getPosition(), Vector2(0, 0),
+		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getNormalizeVel(),
+		Vector2(m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->w,
+			m_playerBot->getEntity()->getComponent<SpriteComponent>(2)->getRect()->h),
+		Vector2(0, 0), m_cs,
+		m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getMaxSpeed(),
+		0.0f, true, false);
+
+	//
+
 
 	for (int i = 0; i < 1; i++)
 	{
@@ -374,6 +486,49 @@ void PlayState::collisions()
 	{
 		m_bts->run(m_btEnemy[i]->getEntity());
 	}
+
+	/*for (int i = 0; i < 1; i++)
+	{
+		//m_bts->run(m_playerBot->getEntity(), myMap->WayPoints);
+
+		m_bts->runPlayer(m_playerBot->getEntity(), m_enemies[i]->getEntity());
+
+		if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
+		{
+			if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
+			{
+				//player attacking enemy function
+				float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+
+				if (m_playerBot->m_mc->getMana() > 0)
+				{
+					int oldState = m_playerBot->getFSM()->getCurrentState();
+					m_playerBot->getFSM()->setCurrentState(2);
+					m_playerBot->Attack(temp);
+					m_playerBot->getFSM()->setCurrentState(oldState);
+				}
+
+				m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+
+
+				m_playerBot->setSeek(false);
+				//m_enemies[i]->setSeek(false);
+				m_playerBot->setTargetPosition(m_player->getPosition());
+				m_cs->collisionResponse(m_playerBot->getEntity(), m_enemies[i]->getEntity(), m_playerBot->getSeek());
+			}
+
+			else if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+			{
+				if (m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+				{
+					m_playerBot->m_killCount++;
+				}
+				m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+				m_rs->deleteEntity(m_btEnemy[i]->getEntity());
+				m_cs->deleteEntity(m_btEnemy[i]->getEntity());
+			}
+		}
+	}*/
 
 	for (int i = 0; i < m_miniMapList.size(); i++)
 	{
@@ -474,6 +629,47 @@ void PlayState::collisions()
 					}
 				}
 			}
+
+
+			//
+			m_bts->runPlayer(m_playerBot->getEntity(), m_enemies[i]->getEntity(), myMap->WayPoints);
+
+			if (m_playerBot->getEntity()->getComponent<BehaviourComponent>(3)->getCollide() == true)
+			{
+				if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() > 0)
+				{
+					//player attacking enemy function
+					float temp = m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth();
+
+					if (m_playerBot->m_mc->getMana() > 0)
+					{
+						int oldState = m_playerBot->getFSM()->getCurrentState();
+						m_playerBot->getFSM()->setCurrentState(2);
+						m_playerBot->Attack(temp);
+						m_playerBot->getFSM()->setCurrentState(oldState);
+					}
+
+					m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->setHealth(temp);
+
+
+					m_playerBot->setSeek(false);
+					//m_enemies[i]->setSeek(false);
+					m_playerBot->setTargetPosition(m_player->getPosition());
+					m_cs->collisionResponse(m_playerBot->getEntity(), m_enemies[i]->getEntity(), m_playerBot->getSeek());
+				}
+
+				else if (m_enemies[i]->getEntity()->getComponent<HealthComponent>(5)->getHealth() <= 0)
+				{
+					if (m_enemies[i]->getEntity()->getComponent<ActiveComponent>(6)->getIsActive())
+					{
+						m_playerBot->m_killCount++;
+					}
+					m_playerBot->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_playerBot->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
+					m_rs->deleteEntity(m_btEnemy[i]->getEntity());
+					m_cs->deleteEntity(m_btEnemy[i]->getEntity());
+				}
+			}
+			//
 		}
 
 		if (m_miniMapList[i]->getID() == 3)

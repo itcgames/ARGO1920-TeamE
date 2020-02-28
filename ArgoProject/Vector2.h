@@ -90,6 +90,13 @@ public:
 		}
 	}
 
+	//
+	float magnitude(Vector2 vector, Vector2 vector2)
+	{
+		float length = sqrt( ((vector.x - vector2.x) * (vector.x - vector2.x)) + 
+			                 ((vector.y - vector2.y) * (vector.y - vector2.y)) );
+		return length;
+	}
 
 	float x, y;
 };

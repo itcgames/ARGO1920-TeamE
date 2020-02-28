@@ -72,26 +72,46 @@ public:
 		m_sequence->addChild(m_right);
 	}
 
+	/*struct PlayerStatus
+{
+	Vector2 m_position;
+	Vector2 m_targetPosition;
+	Vector2 m_normalisedVec;
+	Vector2 m_playerWH;
+	Vector2 m_targetWH;
+	CollisionSystem* m_cs;
+	int m_maxSpeed;
+	float m_rotationAngle;
+	bool m_pathfind;
+	bool m_seek;
+	bool m_collide;
+	bool m_atPoint;
+	bool m_atEnd;
+	int m_currentWayPoint;
+};
+*/
 	void initPlayer(Vector2 position, Vector2 targetPosition, Vector2 normalisedVec,
 		Vector2 playerWH, Vector2 targetWH, CollisionSystem* cs, int maxSpeed,  
-		float rotationAngle, bool pathfind, bool seek, bool attack)
+		float rotationAngle, bool pathfind, bool seek)
 	{
 		m_playerStatus = new PlayerStatus{ position, targetPosition, normalisedVec,
-			playerWH, targetWH, cs, maxSpeed, rotationAngle, pathfind, seek, attack };
+			playerWH, targetWH, cs, maxSpeed, rotationAngle, pathfind, seek, false, false, false };
 
 		m_pselector = new Selector();
 		m_psequence = new Sequence();
 		m_proot = new Sequence();
 
+		m_toward = new MoveTowards(m_playerStatus);
 		m_seek = new Seek(m_playerStatus);
-		m_attack = new Attack(m_playerStatus);
+		m_pickup = new GetPickUp(m_playerStatus);
 
 		m_proot->addChild(m_pselector);
 		
 		m_pselector->addChild(m_psequence);
 
+		m_psequence->addChild(m_toward);
 		m_psequence->addChild(m_seek);
-		//m_psequence->addChild(m_attack);
+		m_psequence->addChild(m_pickup);
 	}
 
 	void run(Entity* entity)
@@ -103,7 +123,7 @@ public:
 		entity->getComponent<PositionComponent>(1)->setPosition(m_enemyStatus->m_position);
 	}
 
-	void runPlayer(Entity* a, Entity* b)
+	void runPlayer(Entity* a, Entity* b, std::vector<Vector2> waypoints)
 	{
 		m_playerStatus->m_position = a->getComponent<PositionComponent>(1)->getPosition();
 		m_playerStatus->m_targetPosition = b->getComponent<PositionComponent>(1)->getPosition();
@@ -115,6 +135,24 @@ public:
 		m_playerStatus->m_targetWH.x = b->getComponent<SpriteComponent>(2)->getRect()->w;
 		m_playerStatus->m_targetWH.y = b->getComponent<SpriteComponent>(2)->getRect()->h;
 
+
+		
+		if (m_playerStatus->m_position != waypoints.back())
+		{
+			m_playerStatus->m_position = entity->getComponent<PositionComponent>(1)->getPosition();
+
+			m_playerStatus->m_targetPosition = waypoints[m_playerStatus->currentWaypoint];
+
+			m_proot->run();
+
+			entity->getComponent<PositionComponent>(1)->setPosition(m_playerStatus->m_position);
+
+			if (m_playerStatus->m_position == waypoints[m_playerStatus->currentWaypoint])
+			{
+				m_playerStatus->currentWaypoint++;
+			}
+		}
+		
 
 		m_proot->run();
 
@@ -140,9 +178,9 @@ private:
 	Selector* m_pselector;
 	Sequence* m_psequence;
 	Sequence* m_proot;
-	//PathFind* m_pathfind;
+	MoveTowards* m_toward;
 	Seek* m_seek;
-	Attack* m_attack;
+	GetPickUp* m_pickup;
 };
 
 #endif // !BEHAVIOURTREESYSTEM_H

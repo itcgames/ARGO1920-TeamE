@@ -17,6 +17,11 @@ Map::Map(RenderSystem* t_rs, CollisionSystem* t_cs)
 			map.push_back(std::make_unique<Room>(7, 7, Vector2((rand() % 33 + 4) * tileSize, (rand() % 33 + 5) * tileSize), t_rs, t_cs));
 		}
 	}
+
+	for (int i = 0; i < map.size(); i++)
+	{
+		WayPoints.push_back(map[i]->getCenterPos());
+	}
 }
 
 Map::~Map()
