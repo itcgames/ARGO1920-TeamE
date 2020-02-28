@@ -7,7 +7,7 @@
 class PopUpText
 {
 public:
-	PopUpText(TTF_Font* font, std::string t_text, float xPos, float yPos);
+	PopUpText(TTF_Font* font, std::string t_text, float xPos, float yPos,int t_timeAlive);
 	~PopUpText();
 
 	void update();
@@ -19,7 +19,7 @@ public:
 
 	Text *m_text;
 
-	int timeAlive = 120;
+	int timeAlive = 60;
 };
 
 #endif

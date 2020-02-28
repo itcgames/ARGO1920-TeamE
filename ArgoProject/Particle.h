@@ -11,7 +11,7 @@
 class Particle
 {
 public:
-	Particle(const std::string& currentState, int maxAliveTime, Vector2 pos, Vector2 t_velocity, RenderSystem* t_rs);
+	Particle(const std::string& currentState, int maxAliveTime,int size,std::string fileName, Vector2 pos, Vector2 t_velocity, RenderSystem* t_rs);
 	~Particle();
 
 	void CreateParticle();
@@ -41,7 +41,6 @@ private:
 	float m_angle;
 	int m_speed = 2;
 	Vector2 m_direction;
-	int size = 10;
 
 	//Rectangle
 	SDL_Rect* m_particleRect;

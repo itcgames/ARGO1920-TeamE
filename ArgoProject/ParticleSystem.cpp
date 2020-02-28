@@ -32,7 +32,7 @@ void ParticleSystem::update()
 }
 
 
-void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Type::EXPLOSION, int numofParticles = MAX_PARTICLES)
+void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Type::EXPLOSION, int numofParticles = MAX_PARTICLES, int size = 10, std::string fileName = "Assets/Tiles/tile.png")
 {
 	float timeToLive = 0;
 	Vector2 position = pos;
@@ -45,7 +45,7 @@ void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Ty
 			position = disperseInCircle(position + Vector2(25, 25), 50);
 			velocity = Vector2(GenerateRandomNumber(-4.0, 4.0), GenerateRandomNumber(-4.0, 4.0));
 
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive,size,fileName, position, velocity, m_rs));
 		}
 	}
 
@@ -57,7 +57,7 @@ void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Ty
 			position = disperseInCircle(position + Vector2(50, 0), 100);
 			velocity = Vector2(GenerateRandomNumber(-0.2, 0.2), GenerateRandomNumber(-0.2, 0.2));
 
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, size, fileName, position, velocity, m_rs));
 		}
 	}
 
@@ -69,7 +69,7 @@ void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Ty
 			position = disperseInRect(Vector2(1900, 1990), 1000, 5);
 			velocity = Vector2(GenerateRandomNumber(-0.1, 0.1), GenerateRandomNumber(-0.1, 0.1));
 
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, size, fileName, position, velocity, m_rs));
 		}
 	}
 
@@ -81,7 +81,7 @@ void ParticleSystem::AddParticles(Vector2 pos = Vector2{ 0,0 }, Type typeID = Ty
 			position = disperseInRect(position + Vector2(50, 0), 100, 100);
 			velocity = Vector2(GenerateRandomNumber(-3, 0), GenerateRandomNumber(-0.1, 0.1));
 
-			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, position, velocity, m_rs));
+			m_particles.push_back(std::make_unique<Particle>(m_currentState, timeToLive, size, fileName, position, velocity, m_rs));
 		}
 	}
 }

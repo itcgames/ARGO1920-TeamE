@@ -41,7 +41,7 @@ private:
 	void collisions();
 	void MenuInit();
 	double GenerateRandomNumber(double min, double max);
-
+	void enemyKilledMessageSort(std::string type);
 
 	static const std::string m_playID;
 	RenderSystem* m_rs;
@@ -69,14 +69,6 @@ private:
 	Vector2 m_cameraDimensions;
 
 	GameStateMachine* m_stateMachine;
-
-	//Server m_server{ 8888, true };
-	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	//Client m_client{ "149.153.106.175", 8888 }; // Connect to Aoife
-
-	//Server m_server{ 1111, true };
-	//Client m_client{ data::Instance()->IPADDRESS, 1111 };
-	//Client m_client{ "149.153.106.176", 1111 }; // Connect to Aoife
 
 
 	Audio* m_background;

@@ -162,7 +162,7 @@ void Mage::update()
 
 	if (m_skillCooldown[0])
 	{
-		m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+		m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16,10, "Assets/Tiles/tile.png");
 	}
 
 	setAction();
@@ -216,7 +216,7 @@ void Mage::setAction()
 			if (m_skillCooldown[0] == false && attackFinished == true)
 			{
 				setDamage(1);
-				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16);
+				m_particleEffects->AddParticles(m_pc->getPosition(), Type::EXPLOSION, 16, 10, "Assets/Tiles/tile.png");
 				spriteSheetY = 0;
 
 				m_attackTimer = SDL_GetTicks();

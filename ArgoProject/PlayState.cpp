@@ -90,7 +90,7 @@ void PlayState::update()
 
 				m_enemies.back()->setRoom(myMap->map.size() - 1);
 
-				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450));
+				message.push_back(new PopUpText(Abel, "Skeleton King Has Spawned!!", 500, 450,120));
 
 				bossSpawned = true;
 			}
@@ -345,7 +345,7 @@ void PlayState::cameraSetup()
 
 	level = new SDL_Rect();
 	level->w = 18000;
-	level->h = 12000;
+	level->h = 13000;
 	level->x = 0;
 	level->y = 0;
 
@@ -431,7 +431,9 @@ void PlayState::collisions()
 					if (m_miniMapList[i]->getComponent<ActiveComponent>(6)->getIsActive())
 					{
 						m_player->m_killCount++;
-						message.push_back(new PopUpText(Abel,m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass() + " Killed!", 50, 50 * message.size()));
+						enemyKilledMessageSort(m_miniMapList[i]->getComponent<StatsComponent>(4)->getClass());
+						message.push_back(new PopUpText(Abel, "+ 1", 1400, 1000, 100));
+
 					}
 					m_player->getEntity()->getComponent<StatsComponent>(4)->setKillCount(m_player->getEntity()->getComponent<StatsComponent>(4)->getkillCount() + 1);
 					m_rs->deleteEntity(m_miniMapList[i]);
@@ -519,4 +521,27 @@ double PlayState::GenerateRandomNumber(double min, double max)
 	std::mt19937 mt(m_randDev());
 	std::uniform_real_distribution<double> dist(min, max);
 	return dist(mt);
+}
+
+void PlayState::enemyKilledMessageSort(std::string type)
+{
+	if (type == "ENEMY_EASY")
+	{
+		message.push_back(new PopUpText(Abel, "Lesser Zombie Killed!", 50, 50 * message.size(), 80));
+	}
+
+	if (type == "ENEMY_MEDIUM")
+	{
+		message.push_back(new PopUpText(Abel, "Zombie Killed!", 50, 50 * message.size(), 80));
+	}
+
+	if (type == "ENEMY_HARD")
+	{
+		message.push_back(new PopUpText(Abel, "Elite Zombie Killed!", 50, 50 * message.size(), 80));
+	}
+
+	if (type == "ENEMY_BOSS")
+	{
+		message.push_back(new PopUpText(Abel, "SKELETON KING ELIMINATED", 1500, 1000, 100));
+	}
 }

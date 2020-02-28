@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(const std::string& currentState, int maxAliveTime, Vector2 pos, Vector2 t_velocity = Vector2(0, 0), RenderSystem* t_rs = NULL)
+Particle::Particle(const std::string& currentState, int maxAliveTime, int size, std::string fileName, Vector2 pos, Vector2 t_velocity = Vector2(0, 0), RenderSystem* t_rs = NULL)
 {
 	m_particleRect = new SDL_Rect();
 
@@ -17,7 +17,7 @@ Particle::Particle(const std::string& currentState, int maxAliveTime, Vector2 po
 	m_pos.y = pos.y;
 
 
-	SDL_Surface* surface = IMG_Load("Assets/Tiles/tile.png");
+	SDL_Surface* surface = IMG_Load(fileName.c_str());
 	m_texture = SDL_CreateTextureFromSurface(Render::Instance()->getRenderer(), surface);
 	SDL_FreeSurface(surface);
 
